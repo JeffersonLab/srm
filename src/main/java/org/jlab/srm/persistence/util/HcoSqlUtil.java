@@ -19,7 +19,7 @@ public final class HcoSqlUtil {
 
     static {
         try {
-            source = (DataSource) new InitialContext().lookup("jdbc/hco");
+            source = (DataSource) new InitialContext().lookup("jdbc/srm");
         } catch (NamingException e) {
             throw new ExceptionInInitializerError(e);
         }

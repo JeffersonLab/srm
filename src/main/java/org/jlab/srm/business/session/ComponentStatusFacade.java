@@ -24,7 +24,7 @@ public class ComponentStatusFacade extends AbstractFacade<ComponentStatusRecord>
 
     @EJB
     SystemFacade systemFacade;
-    @PersistenceContext(unitName = "hcoPU")
+    @PersistenceContext(unitName = "srmPU")
     private EntityManager em;
 
     public ComponentStatusFacade() {

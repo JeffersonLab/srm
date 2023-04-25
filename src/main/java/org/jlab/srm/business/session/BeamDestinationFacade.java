@@ -20,7 +20,7 @@ import java.util.List;
 @Stateless
 public class BeamDestinationFacade extends AbstractFacade<BeamDestination> {
 
-    @PersistenceContext(unitName = "hcoPU")
+    @PersistenceContext(unitName = "srmPU")
     private EntityManager em;
 
     public BeamDestinationFacade() {

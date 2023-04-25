@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Stateless
 public class ChecklistHistoryFacade extends AbstractFacade<ChecklistHistory> {
-    @PersistenceContext(unitName = "hcoPU")
+    @PersistenceContext(unitName = "srmPU")
     private EntityManager em;
 
     public ChecklistHistoryFacade() {

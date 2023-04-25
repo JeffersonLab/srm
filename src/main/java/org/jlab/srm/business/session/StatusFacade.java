@@ -16,7 +16,7 @@ import java.util.List;
  */
 @Stateless
 public class StatusFacade extends AbstractFacade<Status> {
-    @PersistenceContext(unitName = "hcoPU")
+    @PersistenceContext(unitName = "srmPU")
     private EntityManager em;
 
     public StatusFacade() {

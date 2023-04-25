@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jboss-web>
     <resource-ref>
-        <res-ref-name>jdbc/hco</res-ref-name>
-        <jndi-name>java:/jdbc/hco</jndi-name>
+        <res-ref-name>jdbc/srm</res-ref-name>
+        <jndi-name>java:/jdbc/srm</jndi-name>
     </resource-ref>
     <resource-ref>
         <res-ref-name>mail/jlab</res-ref-name>

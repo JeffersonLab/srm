@@ -28,7 +28,7 @@ public class ChecklistFacade extends AbstractFacade<Checklist> {
     StaffFacade staffFacade;
     @EJB
     ChecklistHistoryFacade historyFacade;
-    @PersistenceContext(unitName = "hcoPU")
+    @PersistenceContext(unitName = "srmPU")
     private EntityManager em;
 
     public ChecklistFacade() {

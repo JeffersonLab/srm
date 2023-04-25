@@ -33,7 +33,7 @@ public class ComponentTreeFacade {
 
     private static final Logger logger = Logger.getLogger(
             ComponentTreeFacade.class.getName());
-    @Resource(mappedName = "jdbc/hco")
+    @Resource(mappedName = "jdbc/srm")
     DataSource ds;
     @EJB
     CategoryFacade categoryFacade;
@@ -43,7 +43,7 @@ public class ComponentTreeFacade {
     GroupSignoffFacade signoffFacade;
     @EJB
     SystemFacade systemFacade;
-    @PersistenceContext(unitName = "hcoPU")
+    @PersistenceContext(unitName = "srmPU")
     private EntityManager em;
 
     /**

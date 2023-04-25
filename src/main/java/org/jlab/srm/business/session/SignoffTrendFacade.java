@@ -19,7 +19,7 @@ import java.util.List;
 @Stateless
 public class SignoffTrendFacade extends AbstractFacade<GroupSignoffHistory> {
 
-    @PersistenceContext(unitName = "hcoPU")
+    @PersistenceContext(unitName = "srmPU")
     private EntityManager em;
 
     public SignoffTrendFacade() {

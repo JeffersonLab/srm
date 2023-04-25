@@ -28,7 +28,7 @@ public class ApplicationRevisionInfoFacade extends AbstractFacade<ApplicationRev
 
     @EJB
     StaffFacade staffFacade;
-    @PersistenceContext(unitName = "hcoPU")
+    @PersistenceContext(unitName = "srmPU")
     private EntityManager em;
 
     public ApplicationRevisionInfoFacade() {

@@ -33,7 +33,7 @@ public class SignoffActivityFacade extends AbstractFacade<SignoffActivityRecord>
 
     @EJB
     SystemFacade systemFacade;
-    @PersistenceContext(unitName = "hcoPU")
+    @PersistenceContext(unitName = "srmPU")
     private EntityManager em;
 
     public SignoffActivityFacade() {

@@ -28,7 +28,7 @@ public class ResponsibleGroupFacade extends AbstractFacade<ResponsibleGroup> {
 
     @EJB
     WorkgroupFacade workgroupFacade;
-    @PersistenceContext(unitName = "hcoPU")
+    @PersistenceContext(unitName = "srmPU")
     private EntityManager em;
 
     public ResponsibleGroupFacade() {

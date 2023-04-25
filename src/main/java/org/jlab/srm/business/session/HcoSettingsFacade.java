@@ -17,7 +17,7 @@ import java.util.Date;
 @Stateless
 @DeclareRoles("hcoadm")
 public class HcoSettingsFacade extends AbstractFacade<HcoSettings> {
-    @PersistenceContext(unitName = "hcoPU")
+    @PersistenceContext(unitName = "srmPU")
     private EntityManager em;
 
     public HcoSettingsFacade() {

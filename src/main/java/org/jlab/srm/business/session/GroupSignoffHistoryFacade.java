@@ -15,7 +15,7 @@ import javax.persistence.Query;
 @Stateless
 public class GroupSignoffHistoryFacade extends AbstractFacade<GroupSignoffHistory> {
 
-    @PersistenceContext(unitName = "hcoPU")
+    @PersistenceContext(unitName = "srmPU")
     private EntityManager em;
 
     public GroupSignoffHistoryFacade() {

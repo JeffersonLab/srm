@@ -38,7 +38,7 @@ public class GroupResponsibilityFacade extends AbstractFacade<GroupResponsibilit
     StaffFacade staffFacade;
     @EJB
     CategoryFacade categoryFacade;
-    @PersistenceContext(unitName = "hcoPU")
+    @PersistenceContext(unitName = "srmPU")
     private EntityManager em;
 
     public GroupResponsibilityFacade() {

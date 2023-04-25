@@ -30,7 +30,7 @@ public class ComponentBeamDestinationFacade extends AbstractFacade<BeamDestinati
     BeamDestinationFacade destinationFacade;
     @EJB
     CategoryFacade categoryFacade;
-    @PersistenceContext(unitName = "hcoPU")
+    @PersistenceContext(unitName = "srmPU")
     private EntityManager em;
 
     public ComponentBeamDestinationFacade() {

@@ -20,7 +20,7 @@ import java.util.List;
 public class SystemAudFacade extends AbstractFacade<SystemAud> {
     @EJB
     ApplicationRevisionInfoFacade revisionFacade;
-    @PersistenceContext(unitName = "hcoPU")
+    @PersistenceContext(unitName = "srmPU")
     private EntityManager em;
 
     public SystemAudFacade() {

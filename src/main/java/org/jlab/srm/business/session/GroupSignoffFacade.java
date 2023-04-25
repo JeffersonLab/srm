@@ -41,7 +41,7 @@ public class GroupSignoffFacade extends AbstractFacade<GroupSignoff> {
     StaffFacade staffFacade;
     @EJB
     SystemFacade systemFacade;
-    @PersistenceContext(unitName = "hcoPU")
+    @PersistenceContext(unitName = "srmPU")
     private EntityManager em;
 
     public GroupSignoffFacade() {

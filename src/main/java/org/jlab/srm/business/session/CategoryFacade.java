@@ -29,11 +29,11 @@ import java.util.List;
 public class CategoryFacade extends AbstractFacade<Category> {
 
     public static final BigInteger ROOT_CATEGORY_ID = BigInteger.valueOf(0L);
-    @Resource(mappedName = "jdbc/hco")
+    @Resource(mappedName = "jdbc/srm")
     DataSource ds;
     @EJB
     SystemFacade systemFacade;
-    @PersistenceContext(unitName = "hcoPU")
+    @PersistenceContext(unitName = "srmPU")
     private EntityManager em;
 
     public CategoryFacade() {

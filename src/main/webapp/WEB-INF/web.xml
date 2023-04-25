@@ -5,11 +5,11 @@
    http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
     <context-param>
         <param-name>appName</param-name>
-        <param-value>System Readiness (HCO)</param-value>
+        <param-value>System Readiness Manager</param-value>
     </context-param>
     <context-param>
         <param-name>appShortName</param-name>
-        <param-value>SR</param-value>
+        <param-value>SRM</param-value>
     </context-param>
     <context-param>
         <param-name>releaseNumber</param-name>

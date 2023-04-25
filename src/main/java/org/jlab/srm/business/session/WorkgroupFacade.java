@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class WorkgroupFacade extends AbstractFacade<Workgroup> {
-    @PersistenceContext(unitName = "hcoPU")
+    @PersistenceContext(unitName = "srmPU")
     private EntityManager em;
 
     public WorkgroupFacade() {

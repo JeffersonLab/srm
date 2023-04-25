@@ -20,7 +20,7 @@ import java.util.List;
 @Stateless
 public class RegionFacade extends AbstractFacade<Region> {
 
-    @PersistenceContext(unitName = "hcoPU")
+    @PersistenceContext(unitName = "srmPU")
     private EntityManager em;
 
     public RegionFacade() {

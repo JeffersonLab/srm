@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class SavedSignoffTypeFacade extends AbstractFacade<SavedSignoffType> {
-    @PersistenceContext(unitName = "hcoPU")
+    @PersistenceContext(unitName = "srmPU")
     private EntityManager em;
 
     public SavedSignoffTypeFacade() {

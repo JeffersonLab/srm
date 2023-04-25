@@ -30,7 +30,7 @@ public class ComponentSignoffFacade {
     SystemFacade systemFacade;
     @EJB
     StaffFacade staffFacade;
-    @PersistenceContext(unitName = "hcoPU")
+    @PersistenceContext(unitName = "srmPU")
     private EntityManager em;
 
     @SuppressWarnings("unchecked")
