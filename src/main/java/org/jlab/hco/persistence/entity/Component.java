@@ -124,7 +124,7 @@ public class Component implements Serializable {
     }
 
     public void setUnpowered(boolean unpowered) {
-        this.unpoweredStr = unpowered == true ? "Y" : "N";
+        this.unpoweredStr = unpowered ? "Y" : "N";
     }
 
     public boolean isMasked() {
@@ -132,7 +132,7 @@ public class Component implements Serializable {
     }
 
     public void setMasked(boolean masked) {
-        this.maskedStr = masked == true ? "Y" : "N";
+        this.maskedStr = masked ? "Y" : "N";
     }
 
     public Date getMaskExpirationDate() {

@@ -125,7 +125,7 @@ public class ComponentList extends HttpServlet {
         List<BeamDestination> selectedDestinationList = null;
 
         if (selectedDestination != null) {
-            selectedDestinationList = Arrays.asList(selectedDestination);
+            selectedDestinationList = List.of(selectedDestination);
         }
 
         String filters

@@ -1056,11 +1056,7 @@ public class ComponentFacade extends AbstractFacade<Component> {
             throw new UserFriendlyException("component ID array must not be empty");
         }
 
-        boolean masked = false;
-
-        if (reason != null && !reason.trim().isEmpty()) {
-            masked = true;
-        }
+        boolean masked = reason != null && !reason.trim().isEmpty();
 
         for (BigInteger componentId : componentIdArray) {
             if (componentId == null) {

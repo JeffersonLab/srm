@@ -69,7 +69,7 @@ public class GroupResponsibility implements Serializable {
     }
 
     public void setChecklistRequired(boolean checklistRequired) {
-        this.checklistRequiredStr = checklistRequired == true ? "Y" : "N";
+        this.checklistRequiredStr = checklistRequired ? "Y" : "N";
     }
 
     public BigInteger getWeight() {
@@ -117,7 +117,7 @@ public class GroupResponsibility implements Serializable {
     }
 
     public void setPublished(boolean published) {
-        this.publishedStr = published == true ? "Y" : "N";
+        this.publishedStr = published ? "Y" : "N";
     }
 
     public Staff getPublishedBy() {

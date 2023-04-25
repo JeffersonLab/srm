@@ -16,14 +16,14 @@ import java.util.Date;
  */
 public class SignoffStandIn {
 
-    private BigInteger groupSignoffId;
-    private BigInteger componentId;
-    private BigInteger groupId;
-    private Staff modifiedBy;
-    private Date modifiedDate;
-    private SignoffChangeType changeType;
-    private String comments;
-    private Status status;
+    private final BigInteger groupSignoffId;
+    private final BigInteger componentId;
+    private final BigInteger groupId;
+    private final Staff modifiedBy;
+    private final Date modifiedDate;
+    private final SignoffChangeType changeType;
+    private final String comments;
+    private final Status status;
 
     public SignoffStandIn(BigInteger groupSignoffId, BigInteger componentId, BigInteger groupId, Staff modifiedBy, Date modifiedDate, SignoffChangeType changeType, String comments, Status status) {
         this.groupSignoffId = groupSignoffId;

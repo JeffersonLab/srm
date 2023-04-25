@@ -178,6 +178,7 @@ public class GroupSignoffFacade extends AbstractFacade<GroupSignoff> {
                         if (!s.getGroupId().equals(groupId) && !s.getStatusId().equals(
                                 Status.NOT_APPLICABLE.getStatusId())) {
                             atLeastOneNonNa = true;
+                            break;
                         }
                     }
 

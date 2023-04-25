@@ -6,6 +6,7 @@ import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.Objects;
 
 /**
  * @author ryans
@@ -58,9 +59,9 @@ public class ComponentAudPK implements Serializable {
             return false;
         }
         final ComponentAudPK other = (ComponentAudPK) obj;
-        if (this.componentId != other.componentId && (this.componentId == null || !this.componentId.equals(other.componentId))) {
+        if (!Objects.equals(this.componentId, other.componentId)) {
             return false;
         }
-        return this.rev == other.rev || (this.rev != null && this.rev.equals(other.rev));
+        return Objects.equals(this.rev, other.rev);
     }
 }

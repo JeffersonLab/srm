@@ -7,7 +7,7 @@ import java.util.*;
  */
 public class TreeNode<T> implements Iterable<TreeNode<T>> {
     private T data;
-    private LinkedHashSet<TreeNode<T>> children = new LinkedHashSet<TreeNode<T>>();
+    private final LinkedHashSet<TreeNode<T>> children = new LinkedHashSet<TreeNode<T>>();
     private TreeNode<T> parent;
 
     public TreeNode(T data) {

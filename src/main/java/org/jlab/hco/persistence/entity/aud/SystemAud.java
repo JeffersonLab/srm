@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * @author ryans
@@ -84,6 +85,6 @@ public class SystemAud implements Serializable {
             return false;
         }
         final SystemAud other = (SystemAud) obj;
-        return this.systemAudPK == other.systemAudPK || (this.systemAudPK != null && this.systemAudPK.equals(other.systemAudPK));
+        return Objects.equals(this.systemAudPK, other.systemAudPK);
     }
 }

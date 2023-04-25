@@ -6,6 +6,7 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author ryans
@@ -105,6 +106,6 @@ public class Application implements Serializable {
             return false;
         }
         final Application other = (Application) obj;
-        return this.applicationId == other.applicationId || (this.applicationId != null && this.applicationId.equals(other.applicationId));
+        return Objects.equals(this.applicationId, other.applicationId);
     }
 }

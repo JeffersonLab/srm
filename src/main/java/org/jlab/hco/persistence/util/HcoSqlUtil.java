@@ -15,7 +15,7 @@ public final class HcoSqlUtil {
     private static final Logger logger = Logger.getLogger(
             HcoSqlUtil.class.getName());
 
-    private static DataSource source;
+    private static final DataSource source;
 
     static {
         try {

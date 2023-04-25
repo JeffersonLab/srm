@@ -13,6 +13,7 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * @author ryans
@@ -172,6 +173,6 @@ public class ComponentAud implements Serializable {
             return false;
         }
         final ComponentAud other = (ComponentAud) obj;
-        return this.componentAudPK == other.componentAudPK || (this.componentAudPK != null && this.componentAudPK.equals(other.componentAudPK));
+        return Objects.equals(this.componentAudPK, other.componentAudPK);
     }
 }

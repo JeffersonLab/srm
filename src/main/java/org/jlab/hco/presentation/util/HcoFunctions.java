@@ -3,10 +3,7 @@ package org.jlab.hco.presentation.util;
 import org.jlab.hco.persistence.entity.Component;
 import org.jlab.hco.persistence.entity.Staff;
 import org.jlab.hco.persistence.entity.Status;
-import org.jlab.hco.persistence.enumeration.AllChangeType;
-import org.jlab.hco.persistence.enumeration.DataSource;
-import org.jlab.hco.persistence.enumeration.MaskingRequestStatus;
-import org.jlab.hco.persistence.enumeration.SignoffChangeType;
+import org.jlab.hco.persistence.enumeration.*;
 import org.jlab.hco.persistence.model.HcoNodeData;
 
 import java.math.BigInteger;
@@ -14,10 +11,7 @@ import java.net.InetAddress;
 import java.net.URLEncoder;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author ryans
@@ -157,15 +151,13 @@ public final class HcoFunctions {
     public static String getNodeUrl(HcoNodeData data) {
         String url;
 
-        switch (data.getType()) {
-            case COMPONENT:
-                url = "reports/component/detail?componentId=" + data.getId();
-                break;
-            /*case SYSTEM:
+        if (Objects.requireNonNull(data.getType()) == HcoNodeType.COMPONENT) {
+            url = "reports/component/detail?componentId=" + data.getId();
+                /*case SYSTEM:
              url = "system-detail?systemId=" + data.getId();
              break;*/
-            default:
-                url = null;
+        } else {
+            url = null;
         }
         return url;
     }

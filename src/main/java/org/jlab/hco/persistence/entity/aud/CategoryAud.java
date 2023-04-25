@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * @author ryans
@@ -80,6 +81,6 @@ public class CategoryAud implements Serializable {
             return false;
         }
         final CategoryAud other = (CategoryAud) obj;
-        return this.categoryAudPK == other.categoryAudPK || (this.categoryAudPK != null && this.categoryAudPK.equals(other.categoryAudPK));
+        return Objects.equals(this.categoryAudPK, other.categoryAudPK);
     }
 }

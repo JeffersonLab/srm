@@ -6,14 +6,14 @@ import java.math.BigInteger;
  * @author ryans
  */
 public class ActivitySummaryRecord {
-    private BigInteger groupId;
-    private String groupName;
-    private int upgradeReadyCount;
-    private int upgradeCheckedCount;
-    private int downgradeCheckedCount;
-    private int downgradeNotReadyCount;
-    private int cascadeCount;
-    private int commentCount;
+    private final BigInteger groupId;
+    private final String groupName;
+    private final int upgradeReadyCount;
+    private final int upgradeCheckedCount;
+    private final int downgradeCheckedCount;
+    private final int downgradeNotReadyCount;
+    private final int cascadeCount;
+    private final int commentCount;
 
     public ActivitySummaryRecord(BigInteger groupId, String groupName, int upgradeReadyCount, int upgradeCheckedCount, int downgradeCheckedCount, int downgradeNotReadyCount, int cascadeCount, int commentCount) {
         this.groupId = groupId;

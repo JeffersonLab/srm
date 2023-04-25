@@ -6,6 +6,7 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name = "CHECKLIST_HISTORY", schema = "HCO_OWNER")
@@ -116,7 +117,7 @@ public class ChecklistHistory implements Serializable {
             return false;
         }
         final ChecklistHistory other = (ChecklistHistory) obj;
-        return this.checklistHistoryId == other.checklistHistoryId || (this.checklistHistoryId != null && this.checklistHistoryId.equals(other.checklistHistoryId));
+        return Objects.equals(this.checklistHistoryId, other.checklistHistoryId);
     }
 
     @Override

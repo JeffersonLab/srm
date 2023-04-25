@@ -6,6 +6,7 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name = "Checklist", schema = "HCO_OWNER")
@@ -115,7 +116,7 @@ public class Checklist implements Serializable {
             return false;
         }
         final Checklist other = (Checklist) obj;
-        return this.checklistId == other.checklistId || (this.checklistId != null && this.checklistId.equals(other.checklistId));
+        return Objects.equals(this.checklistId, other.checklistId);
     }
 
     @Override

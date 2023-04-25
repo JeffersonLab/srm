@@ -154,7 +154,7 @@ public class SystemFacade extends AbstractFacade<SystemEntity> {
         }
 
         // If searching by component, or by system_id, or for all systems (no filter), or by category, but without recursion
-        if (componentId != null || systemId != null || (componentId == null && systemId == null && categoryIdArray == null) || (categoryIdArray != null && recurse == false)) {
+        if (componentId != null || systemId != null || (componentId == null && systemId == null && categoryIdArray == null) || (categoryIdArray != null && !recurse)) {
 
             // Zero or one (first) category are used if searching by componentId or systemId
             BigInteger categoryId = categoryIdArray == null ? null : categoryIdArray[0];
@@ -191,7 +191,7 @@ public class SystemFacade extends AbstractFacade<SystemEntity> {
         categoryFacade.findAllViaCartesianProduct();
 
         // If searching by component, or by system_id, or for all systems (no filter), or by category, but without recursion
-        if (componentId != null || systemId != null || (componentId == null && systemId == null && categoryId == null) || (categoryId != null && recurse == false)) {
+        if (componentId != null || systemId != null || (componentId == null && systemId == null && categoryId == null) || (categoryId != null && !recurse)) {
             systemList = findByComponentCategoryAndSystem(componentId, categoryId, systemId, applicationId);
         } else {
             // componentId == null && systemId == null && categoryId != null && recurse == true

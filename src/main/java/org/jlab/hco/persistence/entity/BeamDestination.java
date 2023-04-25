@@ -74,7 +74,7 @@ public class BeamDestination implements Serializable {
     }
 
     public void setTarget(boolean target) {
-        this.targetYn = target == true ? "Y" : "N";
+        this.targetYn = target ? "Y" : "N";
     }
 
     public List<Component> getComponentList() {

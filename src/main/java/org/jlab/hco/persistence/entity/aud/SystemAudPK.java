@@ -6,6 +6,7 @@ import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.Objects;
 
 /**
  * @author ryans
@@ -54,9 +55,9 @@ public class SystemAudPK implements Serializable {
             return false;
         }
         final SystemAudPK other = (SystemAudPK) obj;
-        if (this.systemId != other.systemId && (this.systemId == null || !this.systemId.equals(other.systemId))) {
+        if (!Objects.equals(this.systemId, other.systemId)) {
             return false;
         }
-        return this.rev == other.rev || (this.rev != null && this.rev.equals(other.rev));
+        return Objects.equals(this.rev, other.rev);
     }
 }

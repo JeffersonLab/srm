@@ -56,7 +56,7 @@ public final class HcoParamConverter {
         String[] valueStrArray = request.getParameterValues(name);
         List<AllChangeType> valueList = new ArrayList<>();
 
-        if (valueStrArray != null && valueStrArray.length > 0) {
+        if (valueStrArray != null) {
             for (String valueStr : valueStrArray) {
                 if (valueStr != null && !valueStr.isEmpty()) {
                     AllChangeType value = AllChangeType.valueOf(valueStr);

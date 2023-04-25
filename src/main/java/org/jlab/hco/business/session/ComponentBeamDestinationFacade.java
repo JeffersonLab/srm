@@ -70,11 +70,7 @@ public class ComponentBeamDestinationFacade extends AbstractFacade<BeamDestinati
 
         long count = ((Number) q.getSingleResult()).longValue();
 
-        boolean exists = false;
-
-        if (count > 0) {
-            exists = true;
-        }
+        boolean exists = count > 0;
 
         return exists;
     }

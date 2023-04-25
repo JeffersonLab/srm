@@ -9,11 +9,11 @@ import java.math.BigInteger;
  * @author ryans
  */
 public class HcoNodeData {
-    private HcoNodeType type;
-    private BigInteger id;
-    private String name;
-    private Status status;
-    private boolean lazyChildren;
+    private final HcoNodeType type;
+    private final BigInteger id;
+    private final String name;
+    private final Status status;
+    private final boolean lazyChildren;
 
     public HcoNodeData(HcoNodeType type, BigInteger id, String name, Status status, boolean lazyChildren) {
         this.type = type;

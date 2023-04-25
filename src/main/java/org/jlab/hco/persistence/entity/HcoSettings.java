@@ -106,6 +106,6 @@ public class HcoSettings implements Serializable {
     }
 
     public void setAutoEmail(boolean autoEmail) {
-        this.autoEmailYn = autoEmail == true ? "Y" : "N";
+        this.autoEmailYn = autoEmail ? "Y" : "N";
     }
 }

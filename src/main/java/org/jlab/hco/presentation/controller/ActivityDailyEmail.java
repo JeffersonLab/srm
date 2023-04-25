@@ -97,11 +97,7 @@ public class ActivityDailyEmail extends HttpServlet {
             throw new ServletException("Unable to query for recent activity", e);
         }
 
-        boolean hasMoreActivity = false;
-
-        if (totalRecords > activityList.size()) {
-            hasMoreActivity = true;
-        }
+        boolean hasMoreActivity = totalRecords > activityList.size();
 
         String willNotBeSentMessage = null;
 
