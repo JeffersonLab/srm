@@ -1,6 +1,6 @@
 package org.jlab.hco.business.session;
 
-import org.jlab.elog.*;
+import org.jlab.jlog.*;
 import org.jlab.hco.business.util.EntityUtil;
 import org.jlab.hco.business.util.PartitionList;
 import org.jlab.hco.persistence.entity.*;

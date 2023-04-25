@@ -1,29 +1,45 @@
 plugins {
     id 'war'  
 }
+description = 'System Readiness Manager app'
+group 'org.jlab'
+version '4.14.0'
+ext.releaseDate = 'April 24 2023'
+
+tasks.withType(JavaCompile) {
+    options.release = 11
+    options.encoding = 'UTF-8'
+    options.compilerArgs += ["-Xlint:deprecation", "-Xlint:unchecked"]
+}
 repositories {
     mavenCentral()
-    maven {
-        url 'http://build.acc.jlab.org/artifactory/gradle-release'
-    }
 }
 dependencies {
-    compile 'org.jsoup:jsoup:1.11.3',
-            'org.jlab:smoothness-weblib:2.21.1'
-    providedCompile 'javax:javaee-api:7.0',
-        'javax.servlet:jstl:1.2',
-        'org.tuckey:urlrewritefilter:4.0.4',
-        'org.apache.poi:poi:3.12',
-        'org.apache.poi:poi-ooxml:3.12',
-        'org.hibernate:hibernate-core:5.4.2.Final',
-        'org.hibernate:hibernate-envers:3.6.10.Final',
-        'com.oracle:ojdbc:8',
-        'org.jlab:jlog:3.2.0'
-}
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-}
+    // No matter what smoothness weblib MUST be included in WAR (https://github.com/JeffersonLab/smoothness/issues/4)
+    implementation 'org.jlab:smoothness-weblib:4.1.0',
+                   'com.oracle.database.jdbc:ojdbc11:23.2.0.0'
 
+    // Smoothness setup should install these into Wildfly
+    providedCompile 'org.tuckey:urlrewritefilter:4.0.4',
+            'org.jlab:jlog:5.0.0',
+            'org.apache.poi:poi:5.2.3',
+            'org.apache.poi:poi-ooxml:5.2.3'
+
+    // Wildfly 26.1.3.Final provides:
+    providedCompile 'javax:javaee-api:8.0.1',
+            'javax.servlet:jstl:1.2',
+            'org.hibernate:hibernate-core:5.3.28.Final',
+            'org.hibernate:hibernate-envers:5.3.28.Final',
+            'org.jsoup:jsoup:1.14.2'
+}
 war {
     archiveFileName = 'hco.war'
+    filesMatching('WEB-INF/web.xml') {
+        filter {
+            String line -> line.replaceAll("@VERSION@", project.version)
+        }
+        filter {
+            String line -> line.replaceAll("@RELEASE_DATE@", releaseDate)
+        }
+    }
 }

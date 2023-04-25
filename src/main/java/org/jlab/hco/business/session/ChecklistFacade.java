@@ -5,7 +5,7 @@ import org.jlab.hco.persistence.entity.GroupResponsibility;
 import org.jlab.hco.persistence.entity.Staff;
 import org.jlab.smoothness.business.exception.UserFriendlyException;
 import org.jsoup.Jsoup;
-import org.jsoup.safety.Whitelist;
+import org.jsoup.safety.Safelist;
 
 import javax.annotation.security.PermitAll;
 import javax.ejb.EJB;
@@ -64,7 +64,7 @@ public class ChecklistFacade extends AbstractFacade<Checklist> {
 
         Staff staff = staffFacade.findByUsername(username);
 
-        bodyHtml = Jsoup.clean(bodyHtml, Whitelist.basic().addAttributes(":all", "style").addTags("h1", "h2", "h3", "h4", "h5", "h6"));
+        bodyHtml = Jsoup.clean(bodyHtml, Safelist.basic().addAttributes(":all", "style").addTags("h1", "h2", "h3", "h4", "h5", "h6"));
 
         checklist.setBodyHtml(bodyHtml);
 
@@ -104,7 +104,7 @@ public class ChecklistFacade extends AbstractFacade<Checklist> {
 
         Checklist checklist = new Checklist();
 
-        bodyHtml = Jsoup.clean(bodyHtml, Whitelist.basic().addAttributes(":all", "style").addTags("h1", "h2", "h3", "h4", "h5", "h6"));
+        bodyHtml = Jsoup.clean(bodyHtml, Safelist.basic().addAttributes(":all", "style").addTags("h1", "h2", "h3", "h4", "h5", "h6"));
 
         checklist.setBodyHtml(bodyHtml);
 
