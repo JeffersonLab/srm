@@ -1,0 +1,137 @@
+#tip-of-the-day {
+    float: right;
+    background-color: yellow;
+    padding: 0.5em;
+    border-radius: 8px;
+}
+
+#tip-of-the-day .attention {
+    font-weight: bold;
+    color: red;
+}
+
+#tip-of-the-day a {
+    font-weight: bold;
+}
+
+.tree {
+    margin: 1em 0;
+}
+
+a[data-dialog-type=component] > .jstree-icon,
+a[data-dialog-type=group] > .jstree-icon,
+li[data-node-type='SYSTEM'] > a,
+li[data-node-type='CATEGORY'] > a {
+    cursor: default;
+}
+
+/*li[data-node-type='SYSTEM'] > a,*/
+li[data-node-type='COMPONENT'] > a.jstree-anchor,
+li[data-node-type='GROUP'] > a.jstree-anchor {
+    color: blue;
+}
+
+/*li[data-node-type='SYSTEM'] > a:hover,*/
+li[data-node-type='COMPONENT'] > a:hover,
+li[data-node-type='GROUP'] > a:hover {
+    color: red;
+}
+
+.small-icon.CATEGORY {
+    background: url("../img/category.png") 0 0;
+}
+
+.small-icon.SYSTEM {
+    background: url("../img/system.png") 0 0;
+}
+
+.small-icon.COMPONENT {
+    background: url("../img/component.png") 0 0;
+}
+
+.small-icon.GROUP {
+    background: url("../img/group.png") 0 0;
+}
+
+#tree-widget {
+    width: 100%;
+    display: table;
+    /*border-top: 1px solid black;*/
+}
+
+#tree-nodes {
+    display: table-cell;
+    vertical-align: top;
+}
+
+#tree-keys {
+    width: 200px;
+    padding: 0 15px;
+    display: table-cell;
+}
+
+#activity-feed {
+    display: table-cell;
+    vertical-align: top;
+    /*border-left: 1px solid black;*/
+    width: 375px;
+    padding: 0 15px;
+}
+
+.activity-user {
+    font-style: italic;
+}
+
+#activity-feed h3 {
+    text-align: center;
+    margin-top: 0;
+}
+
+.top-row td {
+    border-bottom: 1px dashed black;
+    /*border-top: 1px dashed black;*/
+}
+
+.bottom-row {
+    height: 50px;
+    vertical-align: top;
+    text-align: right;
+    color: #595959;
+    font-size: 0.8em;
+}
+
+.date-header {
+    font-weight: bold;
+}
+
+#more-link {
+    float: right;
+}
+
+#activity-table {
+    width: 100%;
+}
+
+#tree-keys ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#tree-keys fieldset {
+    margin: 1em 0;
+}
+
+#export-menu {
+    width: 135px;
+}
+
+#comment {
+    width: 375px;
+    height: 125px;
+    resize: none;
+}
+
+#updateButton { /*save spinner*/
+    min-height: 1.7em;
+}

@@ -1,0 +1,357 @@
+.cell-liner {
+    border: 2px solid transparent;
+    height: 1em;
+    padding: 0.5em;
+}
+
+.ui-selected .cell-liner {
+    border: 2px dotted blue;
+    background-color: lightblue;
+}
+
+/*tr:nth-child(2n) td.ui-selected .cell-liner {
+    background-color: lightskyblue;
+}*/
+#signoff-table td {
+    text-align: center;
+}
+
+#signoff-table.editable td.selected-group-cell {
+    cursor: pointer;
+}
+
+.halo-holder {
+    position: relative;
+}
+
+#signoff-table th.selected-group-header .halo {
+    border: 4px solid black;
+    position: absolute;
+    bottom: -26.25em;
+    left: -1em;
+    width: 150px;
+    height: 24.5em;
+    padding: 0.5em 0.75em;
+    border-radius: 6px;
+    box-shadow: 0 0 0.5em 0.5em #979797;
+}
+
+#signoff-table th.unselected-group-header .halo {
+    background-color: gray;
+    position: absolute;
+    bottom: -25.75em;
+    left: -0.5em;
+    width: 150px;
+    height: 24em;
+    padding: 0.5em;
+    opacity: 0.25;
+}
+
+#signoff-table th.group-header {
+    vertical-align: top;
+}
+
+.group-header-content {
+    height: 4em;
+}
+
+#nested-table .small-icon,
+.selected-group-cell {
+    position: relative;
+    /*z-index: 10;*/
+}
+
+.ui-datepicker {
+    /*z-index: 11 !important;*/
+}
+
+#filter-flyout-panel {
+    width: 700px;
+}
+
+.small-icon.select-column-icon {
+    display: block;
+    background: url("../img/select-column.png") 0 0;
+    margin: 0.25em auto 0 auto;
+    cursor: pointer;
+}
+
+.small-icon#expand-icon {
+    display: block;
+    background: url("../img/expand.png") 0 0;
+    margin: 0.25em auto 0 auto;
+    cursor: pointer;
+}
+
+.cell-liner {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+}
+
+.signoff-cell {
+    display: table-cell;
+    padding: 0 0.125em;
+    width: 100%;
+}
+
+.cell-liner .signoff-cell:first-child {
+    width: 18px;
+    vertical-align: middle;
+}
+
+.selected-component-list {
+    border: 1px solid gray;
+    height: 10em;
+    min-width: 12em;
+    overflow: auto;
+    padding: 0.1em;
+    margin: 0;
+    list-style-type: none;
+}
+
+div.ui-tooltip {
+    min-width: 400px;
+}
+
+fieldset {
+    margin-top: 1em;
+    position: relative;
+}
+
+.signoff-action-button {
+    margin-top: 1em;
+}
+
+#filter-flyout-panel .signoff-action-button {
+    margin-left: 0.25em;
+}
+
+#filter-flyout-panel #signoff-parameter-panel-buttons input[type=submit] {
+    float: none;
+}
+
+#filter-flyout-panel #signoff-parameter-panel-buttons {
+    float: right;
+}
+
+#table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 1em;
+}
+
+#nested-table {
+    width: 100%;
+    margin: 0;
+}
+
+#nested-table-cell {
+    padding: 0;
+}
+
+#pane-decorator {
+    margin: 3px;
+    box-shadow: 0 -1px 1px #666, /*top external shadow*/ -1px 0 2px #666, /*left external shadow*/ inset 0 1px 1px rgba(255, 255, 255, 0.8), /*top internal highlight*/ inset -1px 0 1px rgba(0, 0, 0, 0.8); /*left internal highlight*/
+    border: 1px solid gray;
+}
+
+#table-scroll-pane {
+    height: 25em;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.group-header,
+#signoff-table td {
+    width: 150px !important;
+    min-width: 150px !important;
+    max-width: 150px !important;
+}
+
+#scrollbar-header {
+    width: 21px;
+    padding: 0.5em;
+}
+
+#nested-table th.cell-buffer {
+    width: 0 !important;
+    min-width: 0 !important;
+    max-width: 0 !important;
+    background-color: lightgray;
+}
+
+#nested-table th.row-header {
+    width: 175px !important;
+    min-width: 175px !important;
+    max-width: 175px !important;
+}
+
+#component-header {
+    width: 179px !important;
+    min-width: 179px !important;
+    max-width: 179px !important;
+}
+
+#signoff-table {
+    table-layout: fixed;
+}
+
+#nested-table,
+#nested-table tr,
+#nested-table th {
+    border-left: 0 none;
+}
+
+#nested-table td {
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+    padding: 0.1em 0.5em;
+}
+
+#nested-table th {
+    border-right: 1px solid white;
+}
+
+#signoff-table {
+    margin-bottom: 0;
+}
+
+#nested-table,
+#nested-table th,
+#nested-table td {
+    border-top: 0 none;
+    border-bottom: 0 none;
+    word-wrap: break-word;
+}
+
+#nested-table th {
+    background-color: inherit;
+}
+
+#start-with-div {
+    float: right;
+}
+
+#table-option-panel,
+#selection-action-panel {
+    display: inline-block;
+    margin-right: 1em;
+}
+
+.expanded-table #table-scroll-pane {
+    height: auto;
+}
+
+.expanded-table .halo {
+    display: none;
+}
+
+
+.flyout-panel {
+    border: 1px solid black;
+    width: 400px;
+    height: 150px;
+    position: absolute;
+    right: -455px;
+    top: -106px;
+    z-index: 2;
+    background-color: white;
+    border-radius: 0.5em;
+    box-shadow: 0.5em 0.5em 0.5em #979797;
+    padding: 16px;
+
+    text-align: left;
+}
+
+#flyouts {
+    display: none;
+}
+
+.flyout-handle {
+    position: relative;
+}
+
+.flyout-panel:after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    border-right: 20px solid white;
+    top: 50%;
+    margin-top: -20px;
+    position: absolute;
+    left: -20px;
+}
+
+.flyout-panel:before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-top: 21px solid transparent;
+    border-bottom: 21px solid transparent;
+    border-right: 21px solid black;
+    top: 50%;
+    margin-top: -21px;
+    position: absolute;
+    left: -21px;
+}
+
+.close-bubble {
+    float: right;
+    min-width: inherit;
+}
+
+.bubble-title {
+    margin-bottom: 1em;
+    font-weight: bold;
+}
+
+.bubble-body {
+    font-weight: normal;
+}
+
+#signoff-options-link {
+    float: right;
+}
+
+.signoff-cell .small-icon {
+    margin-top: 1em;
+}
+
+.signoff-cell .comment-icon {
+    margin: 1em 0;
+}
+
+#comment,
+#request-comment {
+    width: 325px;
+    height: 100px;
+    resize: none;
+}
+
+.ui-button .ui-icon.icon-edit-button,
+.ui-button.ui-state-hover .ui-icon.icon-edit-button {
+    background-image: url(../img/edit.png);
+    width: 16px;
+    height: 16px;
+}
+
+.ui-button .ui-icon.icon-masking-button,
+.ui-button.ui-state-hover .ui-icon.icon-masking-button {
+    background-image: url(../img/masked.png);
+    width: 16px;
+    height: 16px;
+}
+
+.ui-button .ui-icon.icon-unselect-button,
+.ui-button.ui-state-hover .ui-icon.icon-unselect-button {
+    background-image: url(../img/unselect.png);
+    width: 16px;
+    height: 16px;
+}
+
+#updateButton { /*save spinner*/
+    min-height: 1.7em;
+}

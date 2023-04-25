@@ -1,0 +1,29 @@
+plugins {
+    id 'war'  
+}
+repositories {
+    mavenCentral()
+    maven {
+        url 'http://build.acc.jlab.org/artifactory/gradle-release'
+    }
+}
+dependencies {
+    compile 'org.jsoup:jsoup:1.11.3',
+            'org.jlab:smoothness-weblib:2.21.1'
+    providedCompile 'javax:javaee-api:7.0',
+        'javax.servlet:jstl:1.2',
+        'org.tuckey:urlrewritefilter:4.0.4',
+        'org.apache.poi:poi:3.12',
+        'org.apache.poi:poi-ooxml:3.12',
+        'org.hibernate:hibernate-core:5.4.2.Final',
+        'org.hibernate:hibernate-envers:3.6.10.Final',
+        'com.oracle:ojdbc:8',
+        'org.jlab:jlog:3.2.0'
+}
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+war {
+    archiveFileName = 'hco.war'
+}

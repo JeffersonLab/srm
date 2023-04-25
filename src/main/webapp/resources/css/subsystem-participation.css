@@ -1,0 +1,19 @@
+.system-participation-table td,
+.system-participation-table th {
+    padding: 0.5em;
+    text-align: center;
+}
+
+.system-participation-table.editable td {
+    cursor: pointer;
+    outline: 2px dotted blue;
+}
+
+.system-participation-table {
+    font-size: 0.9em;
+}
+
+.system-participation-table th {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}

@@ -1,0 +1,110 @@
+#multi-instructions {
+    margin-bottom: 1em;
+}
+
+#super-table {
+    width: 100%;
+}
+
+.outer-table thead th:first-child {
+    min-width: 215px;
+    width: 215px;
+    max-width: 215px;
+}
+
+.inner-table tbody td:first-child {
+    min-width: 210px;
+    width: 210px;
+    max-width: 210px;
+}
+
+.outer-table thead th:nth-child(2),
+.inner-table tbody td:nth-child(2) {
+    min-width: 110px;
+    width: 110px;
+    max-width: 110px;
+    word-wrap: break-word;
+}
+
+.outer-table thead th:nth-child(3),
+.inner-table tbody td:nth-child(3) {
+    min-width: 115px;
+    width: 115px;
+    max-width: 115px;
+    word-wrap: break-word;
+}
+
+.outer-table thead th:nth-child(4),
+.inner-table tbody td:nth-child(4) {
+    min-width: 375px;
+    width: 375px;
+    max-width: 375px;
+    word-wrap: break-word;
+}
+
+.outer-table thead th:nth-child(5),
+.inner-table tbody td:nth-child(5) {
+    width: 35px;
+    word-wrap: break-word;
+}
+
+.preview-button {
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.dialog textarea {
+    resize: none;
+    width: 100%;
+    height: 60px;
+}
+
+td {
+    cursor: pointer;
+}
+
+#add-dialog .li-value,
+#signoff-name {
+    width: 100%;
+}
+
+#add-dialog fieldset {
+    margin-bottom: 1em;
+}
+
+.li-value-option {
+    display: inline-block;
+    float: right;
+}
+
+#subheader-controls {
+    display: table;
+    width: 100%;
+}
+
+#subheader-cell1 {
+    display: table-cell;
+    vertical-align: bottom;
+}
+
+#subheader-cell2 {
+    display: table-cell;
+    text-align: right;
+}
+
+.sorted-column-label,
+.sort-asc {
+    display: table-cell;
+    padding: 0.25em;
+    width: 100%;
+}
+
+.ajax-button {
+    min-height: 1.8em;
+}
+
+/*This may be a bug with jQuery UI with no good solution: an autocomplete inside a dialog sometimes is hidden behind the dialog*/
+.ui-autocomplete {
+    z-index: 105;
+}

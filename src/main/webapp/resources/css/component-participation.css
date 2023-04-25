@@ -1,0 +1,123 @@
+.component-destination-table td,
+.component-destination-table th {
+    padding: 0.5em;
+    text-align: center;
+}
+
+.component-destination-table.editable td {
+    cursor: pointer;
+    outline: 2px dotted blue;
+}
+
+.component-destination-table button {
+    height: 2.5em;
+    width: 4em;
+    display: block;
+    margin: 0 auto;
+}
+
+.component-destination-table {
+    font-size: 0.9em;
+    table-layout: fixed;
+}
+
+.component-name-box {
+    height: 24px;
+    width: 255px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.destination-name-box {
+    line-height: 22px;
+    height: 44px;
+    overflow: hidden;
+}
+
+.component-header {
+    width: 255px;
+}
+
+.destination-header {
+    width: 130px;
+    height: 3em;
+}
+
+.component-destination-table th {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+
+.horizontal-pagination-buttons {
+    float: right;
+    margin-bottom: 1em;
+}
+
+.component-destination-table {
+    clear: both;
+}
+
+/*.angled-table-wrapper {
+    padding-right: 5em;
+}
+.angled-table-wrapper thead th {
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-bottom: 1px solid black;
+}
+th.rotate-45{
+  height: 80px;
+  width: 40px;
+  min-width: 40px;
+  max-width: 40px;
+  position: relative;
+  vertical-align: bottom;
+  padding: 0;
+  font-size: 12px;
+  line-height: 0.8;
+}
+
+th.rotate-45 > div{
+  position: relative;
+  top: 0px;
+  left: 40px;
+  height: 100%;
+  -ms-transform:skew(-45deg,0deg);
+  -moz-transform:skew(-45deg,0deg);
+  -webkit-transform:skew(-45deg,0deg);
+  -o-transform:skew(-45deg,0deg);
+  transform:skew(-45deg,0deg);
+  overflow: hidden;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-top: 1px solid black;
+}
+
+th.rotate-45 span {
+  -ms-transform:skew(45deg,0deg) rotate(315deg);
+  -moz-transform:skew(45deg,0deg) rotate(315deg);
+  -webkit-transform:skew(45deg,0deg) rotate(315deg);
+  -o-transform:skew(45deg,0deg) rotate(315deg);
+  transform:skew(45deg,0deg) rotate(315deg);
+  position: absolute;
+  bottom: 30px;
+  left: -25px; 
+  display: inline-block;
+  width: 85px; 
+  text-align: left;
+  white-space: nowrap; 
+  text-overflow: ellipsis;
+  overflow: hidden;
+  height: 14px;
+  margin-left: 5px;
+}*/
+
+fieldset > fieldset:first-child {
+    margin-top: 0.5em;
+}
+
+fieldset > fieldset {
+    margin-bottom: 1em;
+}

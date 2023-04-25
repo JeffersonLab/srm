@@ -1,0 +1,41 @@
+#chart-placeholder {
+    height: 700px;
+}
+
+.chart-legend {
+    margin-top: 8px;
+}
+
+#bar-chart-data-table tbody td {
+    text-align: right;
+}
+
+#bar-chart-data-table tbody td:first-child {
+    text-align: left;
+}
+
+#bar-chart-data-table {
+    width: 100%;
+}
+
+.milestone {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background: url(../img/pin-location-blue.png);
+}
+
+.current-goal input {
+    width: 2.5em;
+}
+
+#goal-key-icon {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background: url(../img/pin-location-blue.png);
+}
+
+#chart-placeholder {
+    margin-bottom: 1em;
+}

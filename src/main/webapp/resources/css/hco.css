@@ -1,0 +1,292 @@
+/*#page-header-logo {
+    background: url("../img/logo32x32.png") 0 0;
+}*/
+#page-header-logo {
+    background-image: none;
+    border: 1px solid black;
+    display: inline-block;
+    width: 1.1em;
+    height: 1.1em;
+    font-size: 1.1em;
+    line-height: 1.1em;
+    text-align: center;
+    text-shadow: 0.1em -0.1em 0.3em red,
+    0.1em -0.1em 0.2em orange,
+    0.1em -0.1em 0.1em yellow;
+    box-shadow: 0.05em 0.05em 0.05em #979797;
+    background-color: white;
+}
+
+#page-header-logo:after {
+    content: '✔';
+}
+
+/*Override flyout width*/
+#filter-flyout-panel {
+    width: 655px;
+}
+
+/* Definition Lists */
+dt {
+    display: block;
+    font-weight: bold;
+}
+
+dd {
+    display: block;
+    margin: 1em;
+}
+
+dd ul {
+    margin: 0;
+    padding: 0 1em;
+}
+
+/*Status icons*/
+.icon-cell {
+    text-align: center;
+}
+
+.small-icon {
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    vertical-align: top;
+}
+
+.small-icon.signoff-dialog-icon {
+    background: url("../img/signoff-dialog.png") 0 0;
+}
+
+.small-icon.detail-icon {
+    background: url("../img/details.png") 0 0;
+}
+
+.small-icon.table-report-icon {
+    background: url("../img/table-report.png") 0 0;
+}
+
+.small-icon.comment-icon {
+    background: url("../img/comment.png") 0 0;
+}
+
+.small-icon.ready-icon {
+    background: url("../img/ready.png") 0 0;
+}
+
+.small-icon.checked-icon {
+    background: url("../img/checked.png") 0 0;
+}
+
+.small-icon.not-ready-icon {
+    background: url("../img/not-ready.png") 0 0;
+}
+
+.status-tree .jstree-anchor {
+    position: relative;
+    right: -22px;
+}
+
+.status-tree .jstree-themeicon::before {
+    content: '';
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    vertical-align: top;
+    position: relative;
+    left: -22px;
+    top: 4px;
+}
+
+div.jstree .jstree-clicked,
+div.jstree .jstree-hovered {
+    box-shadow: none;
+    border-radius: 0;
+    background: none;
+}
+
+.jstree > ul > li.jstree-closed > i.jstree-ocl {
+    background-position: -132px -69px;
+}
+
+.jstree > ul > li.jstree-open > i.jstree-ocl {
+    background-position: -164px -69px;
+}
+
+.status-tree .jstree-node[data-status="Not Applicable"] > .jstree-anchor > .jstree-themeicon::before {
+    background: url("../img/na.png") 0 0;
+}
+
+.status-tree .jstree-node[data-status="Checked"] > .jstree-anchor > .jstree-themeicon::before {
+    background: url("../img/checked.png") 0 0;
+}
+
+.status-tree .jstree-node[data-status="Ready"] > .jstree-anchor > .jstree-themeicon::before {
+    background: url("../img/ready.png") 0 0;
+}
+
+.status-tree .jstree-node[data-status="Not Ready"] > .jstree-anchor > .jstree-themeicon::before {
+    background: url("../img/not-ready.png") 0 0;
+}
+
+.status-tree .jstree-node[data-status="Masked (Director)"] > .jstree-anchor > .jstree-themeicon::before {
+    background: url("../img/masked.png") 0 0;
+}
+
+.status-tree .jstree-node[data-status="Masked (Crew Chief)"] > .jstree-anchor > .jstree-themeicon::before {
+    background: url("../img/gasmask.png") 0 0;
+}
+
+.status-tree .jstree-node[data-status="Masked (Administrator)"] > .jstree-anchor > .jstree-themeicon::before {
+    background: url("../img/tragedy.png") 0 0;
+}
+
+.small-icon.tragedy-icon {
+    background: url("../img/tragedy.png") 0 0;
+}
+
+.small-icon.exception-icon {
+    background: url("../img/gasmask.png") 0 0;
+}
+
+.small-icon.masked-icon {
+    background: url("../img/masked.png") 0 0;
+}
+
+.small-icon.notapplicable-icon {
+    background: url("../img/na.png") 0 0;
+}
+
+.single-char-button {
+    min-width: 1em;
+    vertical-align: middle;
+    font-size: 1em;
+}
+
+.ajax-button {
+    vertical-align: top;
+    min-width: 5em;
+}
+
+.dialog-fixed-table {
+    min-width: 690px;
+}
+
+.constrained-large-column {
+    width: 220px;
+}
+
+.constrained-medium-column {
+    width: 110px;
+}
+
+.constrained-small-column {
+    width: 85px;
+}
+
+.constrained-status-column {
+    width: 75px;
+}
+
+.constrained-change-column {
+    width: 100px;
+}
+
+.constrained-x-small-column {
+    width: 65px;
+}
+
+.constrained-xx-small-column {
+    width: 20px;
+}
+
+.constrained-icon-column {
+    width: 16px;
+}
+
+#report-generated-date {
+    float: right;
+    font-style: italic;
+    margin: 0 0 1em 0;
+}
+
+.fullscreen #report-generated-date,
+.print .paginator-button-panel {
+    display: none;
+}
+
+.chart-wrap-backdrop {
+    margin-bottom: 1em;
+}
+
+.date-time-field {
+    font-family: monospace !important;
+}
+
+/*Hide time input labels and internal now button*/
+.ui-datepicker-current,
+.ui_tpicker_time_label,
+.ui_tpicker_time {
+    display: none;
+}
+
+.right-aligned {
+    text-align: right;
+}
+
+.unpowered-symbol {
+    font-weight: bold;
+    font-size: 1.1em;
+    font-style: normal;
+}
+
+.sub-key label {
+    font-weight: bold;
+}
+
+.sub-key > label::after {
+    content: ':';
+}
+
+.sub-table {
+    display: table;
+}
+
+.sub-key,
+.sub-value {
+    display: table-cell;
+    padding: 4px;
+}
+
+.sub-level-symbol {
+    font-size: 1.1em;
+}
+
+#revision-table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+#revision-table th,
+#revision-table td {
+    width: 100px;
+    word-wrap: break-word;
+}
+
+#revision-table th:first-child {
+    text-align: right;
+}
+
+#revision-table thead td,
+#revision-table tfoot td {
+    font-weight: bold;
+    background-color: lightgray;
+}
+
+.fullscreen .chart-footnote {
+    font-size: 18px;
+}
+
+.chart-footnote ul ul {
+    list-style-type: circle;
+}

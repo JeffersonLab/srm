@@ -1,0 +1,42 @@
+.checklist-body,
+body.mce-content-body {
+    font-size: 16px;
+}
+
+.checklist-body ul,
+.mce-content-body ul {
+    list-style: none;
+}
+
+.checklist-body li,
+.mce-content-body li {
+    background: url('/hco/resources/img/checkbox.png') no-repeat left top 2px;
+    padding-left: 24px;
+    line-height: 20px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.dialog-links {
+    white-space: nowrap;
+}
+
+.dialog-links a {
+    float: right;
+}
+
+.fullpage-only {
+    display: none;
+}
+
+.checklist-body h1 {
+    text-shadow: none;
+}
+
+#notification-bar {
+    top: 0;
+}
+
+#notification-bar .breadcrumb {
+    margin-top: 32px;
+}
