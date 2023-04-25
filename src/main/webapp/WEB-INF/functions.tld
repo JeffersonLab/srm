@@ -11,18 +11,13 @@
     <function>
         <name>formatComponent</name>
         <function-class>org.jlab.srm.presentation.util.HcoFunctions</function-class>
-        <function-signature>java.lang.String formatComponent(org.jlab.hco.persistence.entity.Component)
+        <function-signature>java.lang.String formatComponent(org.jlab.srm.persistence.entity.Component)
         </function-signature>
     </function>
     <function>
         <name>formatFakeComponent</name>
         <function-class>org.jlab.srm.presentation.util.HcoFunctions</function-class>
         <function-signature>java.lang.String formatFakeComponent(java.lang.String, boolean)</function-signature>
-    </function>
-    <function>
-        <name>formatStaff</name>
-        <function-class>org.jlab.srm.presentation.util.HcoFunctions</function-class>
-        <function-signature>java.lang.String formatStaff(org.jlab.hco.persistence.entity.Staff)</function-signature>
     </function>
     <function>
         <name>formatFakeStaff</name>
@@ -38,28 +33,28 @@
     <function>
         <name>formatChangeType</name>
         <function-class>org.jlab.srm.presentation.util.HcoFunctions</function-class>
-        <function-signature>java.lang.String formatChangeType(org.jlab.hco.persistence.enumeration.SignoffChangeType)
+        <function-signature>java.lang.String formatChangeType(org.jlab.srm.persistence.enumeration.SignoffChangeType)
         </function-signature>
     </function>
     <function>
         <name>getStatusById</name>
         <function-class>org.jlab.srm.presentation.util.HcoFunctions</function-class>
-        <function-signature>org.jlab.hco.persistence.entity.Status getStatusById(java.lang.Integer)</function-signature>
+        <function-signature>org.jlab.srm.persistence.entity.Status getStatusById(java.lang.Integer)</function-signature>
     </function>
     <function>
         <name>getStatusClass</name>
         <function-class>org.jlab.srm.presentation.util.HcoFunctions</function-class>
-        <function-signature>java.lang.String getStatusClass(org.jlab.hco.persistence.entity.Status)</function-signature>
+        <function-signature>java.lang.String getStatusClass(org.jlab.srm.persistence.entity.Status)</function-signature>
     </function>
     <function>
         <name>getDefaultStatus</name>
         <function-class>org.jlab.srm.presentation.util.HcoFunctions</function-class>
-        <function-signature>org.jlab.hco.persistence.entity.Status getDefaultStatus()</function-signature>
+        <function-signature>org.jlab.srm.persistence.entity.Status getDefaultStatus()</function-signature>
     </function>
     <function>
         <name>getNodeUrl</name>
         <function-class>org.jlab.srm.presentation.util.HcoFunctions</function-class>
-        <function-signature>java.lang.String getNodeUrl(org.jlab.hco.persistence.model.HcoNodeData)</function-signature>
+        <function-signature>java.lang.String getNodeUrl(org.jlab.srm.persistence.model.HcoNodeData)</function-signature>
     </function>
     <function>
         <name>dataSourceList</name>

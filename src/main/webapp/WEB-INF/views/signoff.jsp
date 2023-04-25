@@ -196,7 +196,7 @@
                                                                             <c:otherwise>
                                                                                 <span data-change="${hco:formatChangeType(signoff.changeType)}"
                                                                                       data-comment="${fn:escapeXml(signoff.comments)}"
-                                                                                      data-modified-by="${hco:formatStaff(signoff.modifiedBy)}"
+                                                                                      data-modified-by="${s:formatUsername(signoff.modifiedBy)}"
                                                                                       data-modified-date="${modifiedDate}"
                                                                                       class="small-icon tooltip-icon ${hco:getStatusClass(status)}-icon"></span>
                                                                             </c:otherwise>

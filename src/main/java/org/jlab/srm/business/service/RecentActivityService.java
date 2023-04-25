@@ -39,7 +39,7 @@ public class RecentActivityService {
                 + "count(group_signoff_history_id) as component_count, "
                 + "max(group_signoff_history_id) as first_history_id, "
                 + "max(a.component_id) as first_component_id, "
-                + "trunc(modified_date, 'MI') as modified_date, modified_by, "
+                + "trunc(modified_date, 'MI') as modified_date, modified_username, "
                 + "a.system_id, group_id, comments, change_type, "
                 + "status_id from group_signoff_history a inner join component b on a.component_id = b.component_id ";
 
@@ -51,10 +51,10 @@ public class RecentActivityService {
         sql = sql + where;
 
         sql = sql + "group by "
-                + "trunc(modified_date, 'MI'), modified_by, a.system_id, "
+                + "trunc(modified_date, 'MI'), modified_username, a.system_id, "
                 + "group_id, comments, change_type, status_id) "
                 + "select c.*, r.name as group_name, s.name as systemName, "
-                + "c2.name as componentName, c.modified_username, c.modified_username, c.modified_username, c2.unpowered_yn "
+                + "c2.name as componentName, c2.unpowered_yn "
                 + "from compressed c inner join responsible_group r on c.group_id = r.group_id "
                 + "inner join system s on c.system_id = s.system_id inner join component c2 on "
                 + "c.first_component_id = c2.component_id ";

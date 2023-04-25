@@ -7,8 +7,7 @@
 <%@attribute name="stylesheets" fragment="true" %>
 <%@attribute name="scripts" fragment="true" %>
 <%@attribute name="secondaryNavigation" fragment="true" %>
-<s:tabbed-page title="${title}" category="${category}" keycloakClientIdKey="KEYCLOAK_CLIENT_ID_HCO"
-               resourceLocation="CDN">
+<s:tabbed-page title="${title}" category="${category}">
     <jsp:attribute name="stylesheets">
         <link rel="stylesheet" type="text/css" href="${cdnContextPath}/jquery-plugins/select2/3.5.2/select2.css"/>
         <link rel="stylesheet" type="text/css"
