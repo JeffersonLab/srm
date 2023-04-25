@@ -17,7 +17,7 @@ import java.math.BigInteger;
  */
 @Entity
 @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
-@Table(name = "COMPONENT_STATUS", schema = "HCO_OWNER")
+@Table(name = "COMPONENT_STATUS", schema = "SRM_OWNER")
 public class ComponentStatusRecord implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

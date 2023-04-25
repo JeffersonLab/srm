@@ -13,7 +13,7 @@ import java.util.Date;
  * @author ryans
  */
 @Entity
-@Table(name = "GROUP_SIGNOFF_HISTORY", schema = "HCO_OWNER")
+@Table(name = "GROUP_SIGNOFF_HISTORY", schema = "SRM_OWNER")
 public class GroupSignoffHistory implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

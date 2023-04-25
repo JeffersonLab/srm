@@ -16,7 +16,7 @@ import java.util.List;
  * @author ryans
  */
 @Entity
-@Table(name = "HCO_SETTINGS", schema = "HCO_OWNER")
+@Table(name = "HCO_SETTINGS", schema = "SRM_OWNER")
 public class HcoSettings implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -11,7 +11,7 @@ import java.util.List;
  * @author ryans
  */
 @Entity
-@Table(schema = "HCO_OWNER")
+@Table(schema = "SRM_OWNER")
 public class Region implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

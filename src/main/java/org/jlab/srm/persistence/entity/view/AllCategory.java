@@ -10,7 +10,7 @@ import java.math.BigInteger;
  * @author ryans
  */
 @Entity
-@Table(name = "ALL_CATEGORIES", schema = "HCO_OWNER")
+@Table(name = "ALL_CATEGORIES", schema = "SRM_OWNER")
 public class AllCategory implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

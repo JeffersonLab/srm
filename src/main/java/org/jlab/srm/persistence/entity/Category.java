@@ -15,7 +15,7 @@ import java.util.List;
  */
 @Entity
 @Audited
-@Table(schema = "HCO_OWNER", uniqueConstraints = {
+@Table(schema = "SRM_OWNER", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"NAME"})})
 @NamedQueries({
         @NamedQuery(name = "Category.findRoot", query = "SELECT c FROM Category c WHERE c.categoryId = 0")})

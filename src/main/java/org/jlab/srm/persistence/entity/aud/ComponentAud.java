@@ -19,7 +19,7 @@ import java.util.Objects;
  * @author ryans
  */
 @Entity
-@Table(name = "COMPONENT_AUD", schema = "HCO_OWNER")
+@Table(name = "COMPONENT_AUD", schema = "SRM_OWNER")
 public class ComponentAud implements Serializable {
 
     private static final long serialVersionUID = 1L;

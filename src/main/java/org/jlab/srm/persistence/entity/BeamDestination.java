@@ -11,7 +11,7 @@ import java.util.List;
  * @author ryans
  */
 @Entity
-@Table(name = "BEAM_DESTINATION", schema = "HCO_OWNER", uniqueConstraints = {
+@Table(name = "BEAM_DESTINATION", schema = "SRM_OWNER", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"NAME"})})
 @NamedQueries({
         @NamedQuery(name = "BeamDestination.findAll", query = "SELECT b FROM BeamDestination b")})

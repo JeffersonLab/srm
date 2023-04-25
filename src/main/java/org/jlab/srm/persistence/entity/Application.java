@@ -12,7 +12,7 @@ import java.util.Objects;
  * @author ryans
  */
 @Entity
-@Table(schema = "HCO_OWNER", uniqueConstraints = {
+@Table(schema = "SRM_OWNER", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"NAME"})})
 public class Application implements Serializable {
 

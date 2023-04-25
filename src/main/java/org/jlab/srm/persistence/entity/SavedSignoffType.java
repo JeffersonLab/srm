@@ -10,7 +10,7 @@ import java.math.BigInteger;
  * @author ryans
  */
 @Entity
-@Table(name = "SAVED_SIGNOFF_TYPE", schema = "HCO_OWNER", uniqueConstraints
+@Table(name = "SAVED_SIGNOFF_TYPE", schema = "SRM_OWNER", uniqueConstraints
         = {
         @UniqueConstraint(columnNames = {"NAME"})})
 public class SavedSignoffType implements Serializable {

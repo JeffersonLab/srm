@@ -19,7 +19,7 @@ import java.util.Date;
  */
 @Entity
 @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
-@Table(name = "SIGNOFF_ACTIVITY", schema = "HCO_OWNER")
+@Table(name = "SIGNOFF_ACTIVITY", schema = "SRM_OWNER")
 public class SignoffActivityRecord implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

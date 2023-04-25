@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name = "CHECKLIST_HISTORY", schema = "HCO_OWNER")
+@Table(name = "CHECKLIST_HISTORY", schema = "SRM_OWNER")
 public class ChecklistHistory implements Serializable {
 
     private static final long serialVersionUID = 1L;

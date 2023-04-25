@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "GROUP_RESPONSIBILITY", schema = "HCO_OWNER", uniqueConstraints = {
+@Table(name = "GROUP_RESPONSIBILITY", schema = "SRM_OWNER", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"GROUP_ID", "SYSTEM_ID"})})
 public class GroupResponsibility implements Serializable {
 

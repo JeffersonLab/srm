@@ -14,7 +14,7 @@ import java.util.List;
  * @author ryans
  */
 @Entity
-@Table(schema = "HCO_OWNER", uniqueConstraints = {
+@Table(schema = "SRM_OWNER", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"NAME"})})
 public class Status implements Serializable {
 

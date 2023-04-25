@@ -14,7 +14,7 @@ import java.util.Objects;
  * @author ryans
  */
 @Entity
-@Table(name = "CATEGORY_AUD", schema = "HCO_OWNER")
+@Table(name = "CATEGORY_AUD", schema = "SRM_OWNER")
 public class CategoryAud implements Serializable {
 
     private static final long serialVersionUID = 1L;

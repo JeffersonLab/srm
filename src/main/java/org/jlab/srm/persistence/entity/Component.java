@@ -18,7 +18,7 @@ import java.util.List;
  */
 @Entity
 @Audited
-@Table(schema = "HCO_OWNER", uniqueConstraints = {
+@Table(schema = "SRM_OWNER", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"DATA_SOURCE"})})
 @NamedQueries({
         @NamedQuery(name = "Component.findAll", query = "SELECT c FROM Component c"),

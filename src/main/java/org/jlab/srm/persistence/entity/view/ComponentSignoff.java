@@ -14,7 +14,7 @@ import java.util.Objects;
  */
 @Entity
 @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
-@Table(name = "COMPONENT_SIGNOFF", schema = "HCO_OWNER")
+@Table(name = "COMPONENT_SIGNOFF", schema = "SRM_OWNER")
 @IdClass(ComponentSignoffKey.class)
 public class ComponentSignoff implements Serializable {
     private static final long serialVersionUID = 1L;

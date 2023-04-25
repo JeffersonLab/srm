@@ -13,7 +13,7 @@ import java.math.BigInteger;
  */
 @Entity
 @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
-@Table(name = "READY_TURN", schema = "HCO_OWNER")
+@Table(name = "READY_TURN", schema = "SRM_OWNER")
 public class ReadyTurn implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

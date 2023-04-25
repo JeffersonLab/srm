@@ -19,7 +19,7 @@ import java.util.List;
  */
 @Entity
 @Audited
-@Table(name = "SYSTEM", schema = "HCO_OWNER", uniqueConstraints = {
+@Table(name = "SYSTEM", schema = "SRM_OWNER", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"NAME"})})
 public class SystemEntity implements Serializable, Comparable<SystemEntity> {
 

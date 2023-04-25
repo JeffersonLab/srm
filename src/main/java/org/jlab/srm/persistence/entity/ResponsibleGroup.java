@@ -14,7 +14,7 @@ import java.util.List;
  * @author ryans
  */
 @Entity
-@Table(name = "RESPONSIBLE_GROUP", schema = "HCO_OWNER")
+@Table(name = "RESPONSIBLE_GROUP", schema = "SRM_OWNER")
 public class ResponsibleGroup implements Serializable {
 
     private static final long serialVersionUID = 1L;

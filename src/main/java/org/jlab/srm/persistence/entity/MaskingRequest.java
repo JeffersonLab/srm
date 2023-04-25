@@ -13,7 +13,7 @@ import java.util.Date;
  * @author ryans
  */
 @Entity
-@Table(name = "MASKING_REQUEST", schema = "HCO_OWNER")
+@Table(name = "MASKING_REQUEST", schema = "SRM_OWNER")
 public class MaskingRequest implements Serializable {
 
     private static final long serialVersionUID = 1L;

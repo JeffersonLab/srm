@@ -13,7 +13,7 @@ import java.util.Date;
  * @author ryans
  */
 @Entity
-@Table(name = "GROUP_SIGNOFF", schema = "HCO_OWNER", uniqueConstraints = {
+@Table(name = "GROUP_SIGNOFF", schema = "SRM_OWNER", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"SYSTEM_ID", "GROUP_ID", "COMPONENT_ID"})})
 public class GroupSignoff implements Serializable {
 

@@ -19,7 +19,7 @@ import java.util.List;
  */
 @Entity
 @RevisionEntity(ApplicationRevisionInfoListener.class)
-@Table(name = "APPLICATION_REVISION_INFO", schema = "HCO_OWNER")
+@Table(name = "APPLICATION_REVISION_INFO", schema = "SRM_OWNER")
 public class ApplicationRevisionInfo implements Serializable {
     @Id
     @GeneratedValue
