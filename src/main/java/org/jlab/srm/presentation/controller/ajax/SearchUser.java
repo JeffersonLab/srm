@@ -1,10 +1,9 @@
 package org.jlab.srm.presentation.controller.ajax;
 
-import org.jlab.srm.business.session.StaffFacade;
-import org.jlab.srm.persistence.entity.Staff;
+import org.jlab.smoothness.business.service.UserAuthorizationService;
+import org.jlab.smoothness.persistence.view.User;
 import org.jlab.smoothness.presentation.util.ParamConverter;
 
-import javax.ejb.EJB;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
@@ -27,8 +26,6 @@ public class SearchUser extends HttpServlet {
 
     private static final Logger LOGGER = Logger.getLogger(
             SearchUser.class.getName());
-    @EJB
-    StaffFacade staffFacade;
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -44,19 +41,21 @@ public class SearchUser extends HttpServlet {
             throws ServletException, IOException {
         String errorReason = null;
 
-        List<Staff> staffList = null;
-        Long totalRecords = null;
+        List<User> userList = null;
+        Integer totalRecords = null;
+
+        UserAuthorizationService service = UserAuthorizationService.getInstance();
 
         try {
             String term = request.getParameter("term");
             Integer max = ParamConverter.convertInteger(request, "max");
 
-            staffList = staffFacade.search(term, max);
+            userList = service.getUsersLike(term, 0, max);
 
             if (max != null) {
-                totalRecords = staffFacade.count(term);
+                totalRecords = service.countUsersLike(term);
             } else {
-                totalRecords = Long.valueOf(staffList.size());
+                totalRecords = userList.size();
             }
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Unable to perform user search", e);
@@ -71,15 +70,14 @@ public class SearchUser extends HttpServlet {
 
         if (errorReason == null) {
             JsonArrayBuilder staffJsonArray = Json.createArrayBuilder();
-            if (staffList != null) {
-                for (Staff staff : staffList) {
+            if (userList != null) {
+                for (User user : userList) {
                     JsonObjectBuilder staffJson = Json.createObjectBuilder();
-                    staffJson.add("id", staff.getStaffId());
-                    staffJson.add("label", staff.getUsername()); // username might be null (though we know it can't be if username term search is required)
-                    staffJson.add("value", staff.getUsername());
-                    staffJson.add("username", staff.getUsername());
-                    staffJson.add("first", staff.getFirstname() == null ? "" : staff.getFirstname());
-                    staffJson.add("last", staff.getLastname() == null ? "" : staff.getLastname());
+                    staffJson.add("label", user.getUsername()); // username might be null (though we know it can't be if username term search is required)
+                    staffJson.add("value", user.getUsername());
+                    staffJson.add("username", user.getUsername());
+                    staffJson.add("first", user.getFirstname() == null ? "" : user.getFirstname());
+                    staffJson.add("last", user.getLastname() == null ? "" : user.getLastname());
                     staffJsonArray.add(staffJson);
                 }
             }

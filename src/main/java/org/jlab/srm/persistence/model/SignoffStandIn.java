@@ -1,6 +1,5 @@
 package org.jlab.srm.persistence.model;
 
-import org.jlab.srm.persistence.entity.Staff;
 import org.jlab.srm.persistence.entity.Status;
 import org.jlab.srm.persistence.enumeration.SignoffChangeType;
 
@@ -19,13 +18,13 @@ public class SignoffStandIn {
     private final BigInteger groupSignoffId;
     private final BigInteger componentId;
     private final BigInteger groupId;
-    private final Staff modifiedBy;
+    private final String modifiedBy;
     private final Date modifiedDate;
     private final SignoffChangeType changeType;
     private final String comments;
     private final Status status;
 
-    public SignoffStandIn(BigInteger groupSignoffId, BigInteger componentId, BigInteger groupId, Staff modifiedBy, Date modifiedDate, SignoffChangeType changeType, String comments, Status status) {
+    public SignoffStandIn(BigInteger groupSignoffId, BigInteger componentId, BigInteger groupId, String modifiedBy, Date modifiedDate, SignoffChangeType changeType, String comments, Status status) {
         this.groupSignoffId = groupSignoffId;
         this.componentId = componentId;
         this.groupId = groupId;
@@ -40,7 +39,7 @@ public class SignoffStandIn {
         return groupSignoffId;
     }
 
-    public Staff getModifiedBy() {
+    public String getModifiedBy() {
         return modifiedBy;
     }
 

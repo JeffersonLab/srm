@@ -1,7 +1,6 @@
 package org.jlab.srm.business.session;
 
 import org.jlab.srm.persistence.entity.HcoSettings;
-import org.jlab.srm.persistence.entity.Staff;
 import org.jlab.smoothness.business.exception.UserFriendlyException;
 
 import javax.annotation.Resource;
@@ -19,14 +18,14 @@ import java.util.List;
  * @author ryans
  */
 @Stateless
-public class EmailFacade extends AbstractFacade<Staff> {
+public class EmailFacade extends AbstractFacade<Object> {
     @Resource(name = "mail/jlab")
     private Session mailSession;
     @EJB
     private HcoSettingsFacade settingsFacade;
 
     public EmailFacade() {
-        super(Staff.class);
+        super(Object.class);
     }
 
     @PermitAll

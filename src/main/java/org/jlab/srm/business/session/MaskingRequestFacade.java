@@ -30,8 +30,6 @@ public class MaskingRequestFacade extends AbstractFacade<MaskingRequest> {
     @EJB
     ComponentFacade componentFacade;
     @EJB
-    StaffFacade staffFacade;
-    @EJB
     SystemFacade systemFacade;
     @EJB
     CategoryFacade categoryFacade;
@@ -55,13 +53,6 @@ public class MaskingRequestFacade extends AbstractFacade<MaskingRequest> {
             UserFriendlyException {
 
         String username = checkAuthenticated();
-
-        Staff staff = staffFacade.findByUsername(username);
-
-        if (staff == null) {
-            throw new UserFriendlyException(
-                    "Cannot find staff with username: " + username);
-        }
 
         Date requestDate = new Date();
 
@@ -95,7 +86,7 @@ public class MaskingRequestFacade extends AbstractFacade<MaskingRequest> {
                     request.setRequestReason(reason);
                     request.setMaskExpirationDate(expirationDate);
                     request.setRequestDate(requestDate);
-                    request.setRequestBy(staff);
+                    request.setRequestBy(username);
                     request.setRequestStatus(MaskingRequestStatus.PENDING);
 
                     create(request);
@@ -287,13 +278,6 @@ public class MaskingRequestFacade extends AbstractFacade<MaskingRequest> {
     @PermitAll
     public void denyMaskRequest(BigInteger maskRequestId) throws UserFriendlyException {
         String username = checkAuthenticated();
-
-        Staff staff = staffFacade.findByUsername(username);
-
-        if (staff == null) {
-            throw new UserFriendlyException(
-                    "Cannot find staff with username: " + username);
-        }
 
         if (maskRequestId == null) {
             throw new UserFriendlyException("masking request ID must not be empty");

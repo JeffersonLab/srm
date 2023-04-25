@@ -1,5 +1,7 @@
 package org.jlab.srm.persistence.entity;
 
+import org.jlab.smoothness.persistence.view.User;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -40,9 +42,10 @@ public class ResponsibleGroup implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "group", fetch = FetchType.LAZY)
     private List<GroupResponsibility> groupResponsibilityList;
     @NotNull
-    @JoinColumn(name = "LEADER_WORKGROUP_ID", referencedColumnName = "WORKGROUP_ID", nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Workgroup leaderWorkgroup;
+    @Column(name = "LEADER_WORKGROUP", nullable = false, length = 64)
+    private String leaderWorkgroup;
+    @Transient
+    private List<User> leaders;
 
     public ResponsibleGroup() {
     }
@@ -96,11 +99,11 @@ public class ResponsibleGroup implements Serializable {
         this.groupResponsibilityList = groupResponsibilityList;
     }
 
-    public Workgroup getLeaderWorkgroup() {
+    public String getLeaderWorkgroup() {
         return leaderWorkgroup;
     }
 
-    public void setLeaderWorkgroup(Workgroup leaderWorkgroup) {
+    public void setLeaderWorkgroup(String leaderWorkgroup) {
         this.leaderWorkgroup = leaderWorkgroup;
     }
 
@@ -126,4 +129,11 @@ public class ResponsibleGroup implements Serializable {
         return "org.jlab.hco.persistence.entity.ResponsibleGroup[ groupId=" + groupId + " ]";
     }
 
+    public void setLeaders(List<User> userList) {
+        this.leaders = leaders;
+    }
+
+    public List<User> getLeaders() {
+        return leaders;
+    }
 }

@@ -2,7 +2,6 @@ package org.jlab.srm.presentation.controller.setup.ajax;
 
 import org.jlab.srm.business.session.ResponsibleGroupFacade;
 import org.jlab.smoothness.business.util.ExceptionUtil;
-import org.jlab.smoothness.presentation.util.ParamConverter;
 
 import javax.ejb.EJB;
 import javax.ejb.EJBAccessException;
@@ -15,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.math.BigInteger;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,12 +44,11 @@ public class AddGroup extends HttpServlet {
         String errorReason = null;
 
         try {
-            BigInteger workgroupId = ParamConverter.convertBigInteger(
-                    request, "workgroupId");
+            String leaderWorkgroup = request.getParameter("leaderWorkgroup");
             String name = request.getParameter("name");
             String description = request.getParameter("description");
 
-            groupFacade.add(name, description, workgroupId);
+            groupFacade.add(name, description, leaderWorkgroup);
         } catch (EJBAccessException e) {
             logger.log(Level.WARNING, "Not authorized", e);
             errorReason = "Not authorized";

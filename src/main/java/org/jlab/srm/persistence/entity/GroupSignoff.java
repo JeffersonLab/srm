@@ -25,9 +25,8 @@ public class GroupSignoff implements Serializable {
     @NotNull
     @Column(name = "GROUP_SIGNOFF_ID", nullable = false, precision = 22, scale = 0)
     private BigInteger groupSignoffId;
-    @JoinColumn(name = "MODIFIED_BY", referencedColumnName = "STAFF_ID")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Staff modifiedBy;
+    @Column(name = "MODIFIED_USERNAME", nullable = true, length = 512)
+    private String modifiedBy;
     @Basic(optional = false)
     @NotNull
     @Column(name = "MODIFIED_DATE", nullable = false)
@@ -64,7 +63,7 @@ public class GroupSignoff implements Serializable {
         this.groupSignoffId = groupSignoffId;
     }
 
-    public GroupSignoff(BigInteger groupSignoffId, Staff modifiedBy, Date modifiedDate) {
+    public GroupSignoff(BigInteger groupSignoffId, String modifiedBy, Date modifiedDate) {
         this.groupSignoffId = groupSignoffId;
         this.modifiedBy = modifiedBy;
         this.modifiedDate = modifiedDate;
@@ -86,11 +85,11 @@ public class GroupSignoff implements Serializable {
         this.groupSignoffId = groupSignoffId;
     }
 
-    public Staff getModifiedBy() {
+    public String getModifiedBy() {
         return modifiedBy;
     }
 
-    public void setModifiedBy(Staff modifiedBy) {
+    public void setModifiedBy(String modifiedBy) {
         this.modifiedBy = modifiedBy;
     }
 

@@ -1,6 +1,5 @@
 package org.jlab.srm.persistence.model;
 
-import org.jlab.srm.persistence.entity.Staff;
 import org.jlab.srm.persistence.entity.Status;
 
 import java.math.BigInteger;
@@ -18,7 +17,7 @@ public class SignoffReportRecord {
     private BigInteger componentId;
     private BigInteger groupId;
     private BigInteger systemId;
-    private Staff modifiedBy;
+    private String modifiedBy;
     private Date modifiedDate;
     private String comments;
     private Status status;
@@ -31,7 +30,7 @@ public class SignoffReportRecord {
 
     }
 
-    public SignoffReportRecord(BigInteger componentId, BigInteger groupId, BigInteger systemId, Staff modifiedBy, Date modifiedDate, String comments, Status status, String componentName, String groupName, String systemName) {
+    public SignoffReportRecord(BigInteger componentId, BigInteger groupId, BigInteger systemId, String modifiedBy, Date modifiedDate, String comments, Status status, String componentName, String groupName, String systemName) {
         this.componentId = componentId;
         this.groupId = groupId;
         this.systemId = systemId;
@@ -44,11 +43,11 @@ public class SignoffReportRecord {
         this.systemName = systemName;
     }
 
-    public Staff getModifiedBy() {
+    public String getModifiedBy() {
         return modifiedBy;
     }
 
-    public void setModifiedBy(Staff modifiedBy) {
+    public void setModifiedBy(String modifiedBy) {
         this.modifiedBy = modifiedBy;
     }
 

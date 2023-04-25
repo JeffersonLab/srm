@@ -30,9 +30,8 @@ public class ChecklistHistory implements Serializable {
     @Size(max = 64)
     @Column(length = 64)
     private String author;
-    @JoinColumn(name = "MODIFIED_BY", referencedColumnName = "STAFF_ID")
-    @ManyToOne(optional = false)
-    private Staff modifiedBy;
+    @Column(length = 64)
+    private String modifiedBy;
     @Basic(optional = false)
     @NotNull
     @Column(name = "MODIFIED_DATE", nullable = false)
@@ -53,11 +52,11 @@ public class ChecklistHistory implements Serializable {
         this.bodyHtml = bodyHtml;
     }
 
-    public Staff getModifiedBy() {
+    public String getModifiedBy() {
         return modifiedBy;
     }
 
-    public void setModifiedBy(Staff modifiedBy) {
+    public void setModifiedBy(String modifiedBy) {
         this.modifiedBy = modifiedBy;
     }
 

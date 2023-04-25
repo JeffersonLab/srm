@@ -2,7 +2,6 @@ package org.jlab.srm.business.session;
 
 import org.jlab.srm.persistence.entity.Checklist;
 import org.jlab.srm.persistence.entity.GroupResponsibility;
-import org.jlab.srm.persistence.entity.Staff;
 import org.jlab.smoothness.business.exception.UserFriendlyException;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Safelist;
@@ -24,8 +23,6 @@ public class ChecklistFacade extends AbstractFacade<Checklist> {
 
     @EJB
     GroupResponsibilityFacade responsibilityFacade;
-    @EJB
-    StaffFacade staffFacade;
     @EJB
     ChecklistHistoryFacade historyFacade;
     @PersistenceContext(unitName = "srmPU")
@@ -62,15 +59,13 @@ public class ChecklistFacade extends AbstractFacade<Checklist> {
             checkAdminOrGroupLeader(username, checklist.getGroupResponsibility().getGroup());
         }
 
-        Staff staff = staffFacade.findByUsername(username);
-
         bodyHtml = Jsoup.clean(bodyHtml, Safelist.basic().addAttributes(":all", "style").addTags("h1", "h2", "h3", "h4", "h5", "h6"));
 
         checklist.setBodyHtml(bodyHtml);
 
         checklist.setAuthor(author);
         checklist.setComments(comments);
-        checklist.setModifiedBy(staff);
+        checklist.setModifiedBy(username);
         checklist.setModifiedDate(new Date());
 
         historyFacade.newHistory(checklist);
@@ -96,8 +91,6 @@ public class ChecklistFacade extends AbstractFacade<Checklist> {
             checkAdminOrGroupLeader(username, responsibility.getGroup());
         }
 
-        Staff staff = staffFacade.findByUsername(username);
-
         if (responsibility.getChecklist() != null) {
             throw new UserFriendlyException("Checklist already exists for groupId " + groupId + " and systemId " + systemId);
         }
@@ -111,7 +104,7 @@ public class ChecklistFacade extends AbstractFacade<Checklist> {
         checklist.setGroupResponsibility(responsibility);
         checklist.setAuthor(author);
         checklist.setComments(comments);
-        checklist.setModifiedBy(staff);
+        checklist.setModifiedBy(username);
         checklist.setModifiedDate(new Date());
 
         checklist = createSpecial(checklist);

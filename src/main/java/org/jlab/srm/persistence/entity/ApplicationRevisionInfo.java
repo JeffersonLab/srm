@@ -3,6 +3,7 @@ package org.jlab.srm.persistence.entity;
 import org.hibernate.envers.RevisionEntity;
 import org.hibernate.envers.RevisionNumber;
 import org.hibernate.envers.RevisionTimestamp;
+import org.jlab.smoothness.persistence.view.User;
 import org.jlab.srm.persistence.model.AuditedEntityChange;
 import org.jlab.srm.presentation.util.ApplicationRevisionInfoListener;
 
@@ -40,11 +41,7 @@ public class ApplicationRevisionInfo implements Serializable {
     @Transient
     private List<AuditedEntityChange> changeList;
     @Transient
-    private Staff staff;    
-    /*@OneToMany(mappedBy = "revision", fetch = FetchType.LAZY)
-    private List<EventAud> eventList;
-    @OneToMany(mappedBy = "revision", fetch = FetchType.LAZY)
-    private List<IncidentAud> incidentList; */
+    private User user;
 
     @Override
     public int hashCode() {
@@ -106,11 +103,11 @@ public class ApplicationRevisionInfo implements Serializable {
         this.changeList = changeList;
     }
 
-    public Staff getStaff() {
-        return staff;
+    public User getUser() {
+        return user;
     }
 
-    public void setStaff(Staff staff) {
-        this.staff = staff;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

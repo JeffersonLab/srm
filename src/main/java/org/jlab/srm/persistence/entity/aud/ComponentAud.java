@@ -3,7 +3,6 @@ package org.jlab.srm.persistence.entity.aud;
 import org.hibernate.envers.RevisionType;
 import org.jlab.srm.persistence.entity.ApplicationRevisionInfo;
 import org.jlab.srm.persistence.entity.Region;
-import org.jlab.srm.persistence.entity.Staff;
 import org.jlab.srm.persistence.entity.view.AllSystem;
 import org.jlab.srm.persistence.enumeration.DataSource;
 
@@ -59,9 +58,8 @@ public class ComponentAud implements Serializable {
     @Column(name = "MASKED_DATE", nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
     private Date maskedDate;
-    @JoinColumn(name = "MASKED_BY", referencedColumnName = "STAFF_ID")
-    @ManyToOne(optional = true)
-    private Staff maskedBy;
+    @Column(nullable = true, length = 64)
+    private String maskedBy;
     @Basic(optional = true)
     @Column(name = "MASK_EXPIRATION_DATE", nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
@@ -125,7 +123,7 @@ public class ComponentAud implements Serializable {
         return maskedDate;
     }
 
-    public Staff getMaskedBy() {
+    public String getMaskedBy() {
         return maskedBy;
     }
 

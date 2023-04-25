@@ -54,11 +54,10 @@ public class RecentActivityService {
                 + "trunc(modified_date, 'MI'), modified_by, a.system_id, "
                 + "group_id, comments, change_type, status_id) "
                 + "select c.*, r.name as group_name, s.name as systemName, "
-                + "c2.name as componentName, s2.username, s2.lastname, s2.firstname, c2.unpowered_yn "
+                + "c2.name as componentName, c.modified_username, c.modified_username, c.modified_username, c2.unpowered_yn "
                 + "from compressed c inner join responsible_group r on c.group_id = r.group_id "
                 + "inner join system s on c.system_id = s.system_id inner join component c2 on "
-                + "c.first_component_id = c2.component_id left join staff s2 on "
-                + "c.modified_by = s2.staff_id ";
+                + "c.first_component_id = c2.component_id ";
 
         sql = sql + "order by first_history_id desc ";
 

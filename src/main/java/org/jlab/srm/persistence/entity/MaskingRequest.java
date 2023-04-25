@@ -25,9 +25,8 @@ public class MaskingRequest implements Serializable {
     @Column(name = "MASKING_REQUEST_ID", nullable = false, precision = 22, scale = 0)
     private BigInteger maskingRequestId;
     @NotNull
-    @JoinColumn(name = "REQUEST_BY", referencedColumnName = "STAFF_ID", nullable = false)
-    @ManyToOne(optional = false)
-    private Staff requestBy;
+    @Column(name = "REQUEST_USERNAME", nullable = false, length = 64)
+    private String requestBy;
     @Basic(optional = false)
     @NotNull
     @Column(name = "REQUEST_DATE", nullable = false)
@@ -60,11 +59,11 @@ public class MaskingRequest implements Serializable {
         this.maskingRequestId = maskingRequestId;
     }
 
-    public Staff getRequestBy() {
+    public String getRequestBy() {
         return requestBy;
     }
 
-    public void setRequestBy(Staff requestBy) {
+    public void setRequestBy(String requestBy) {
         this.requestBy = requestBy;
     }
 

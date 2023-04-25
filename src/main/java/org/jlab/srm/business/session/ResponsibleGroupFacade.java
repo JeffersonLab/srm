@@ -1,8 +1,9 @@
 package org.jlab.srm.business.session;
 
+import org.jlab.smoothness.business.service.UserAuthorizationService;
+import org.jlab.smoothness.persistence.view.User;
 import org.jlab.srm.persistence.entity.GroupResponsibility;
 import org.jlab.srm.persistence.entity.ResponsibleGroup;
-import org.jlab.srm.persistence.entity.Workgroup;
 import org.jlab.smoothness.business.exception.UserFriendlyException;
 import org.jlab.smoothness.persistence.util.JPAUtil;
 
@@ -26,8 +27,6 @@ import java.util.List;
 @DeclareRoles("hcoadm")
 public class ResponsibleGroupFacade extends AbstractFacade<ResponsibleGroup> {
 
-    @EJB
-    WorkgroupFacade workgroupFacade;
     @PersistenceContext(unitName = "srmPU")
     private EntityManager em;
 
@@ -45,7 +44,10 @@ public class ResponsibleGroupFacade extends AbstractFacade<ResponsibleGroup> {
         ResponsibleGroup group = find(groupId);
 
         if (group != null) {
-            JPAUtil.initialize(group.getLeaderWorkgroup().getStaffList());
+            UserAuthorizationService userService = UserAuthorizationService.getInstance();
+            List<User> userList = userService.getUsersInRole(group.getLeaderWorkgroup());
+            group.setLeaders(userList);
+
             JPAUtil.initialize(group.getGroupResponsibilityList());
         }
 
@@ -57,7 +59,9 @@ public class ResponsibleGroupFacade extends AbstractFacade<ResponsibleGroup> {
         ResponsibleGroup group = find(groupId);
 
         if (group != null) {
-            JPAUtil.initialize(group.getLeaderWorkgroup().getStaffList());
+            UserAuthorizationService userService = UserAuthorizationService.getInstance();
+            List<User> userList = userService.getUsersInRole(group.getLeaderWorkgroup());
+            group.setLeaders(userList);
         }
 
         return group;
@@ -68,7 +72,9 @@ public class ResponsibleGroupFacade extends AbstractFacade<ResponsibleGroup> {
         List<ResponsibleGroup> groupList = findAll(new OrderDirective("name"));
 
         for (ResponsibleGroup group : groupList) {
-            JPAUtil.initialize(group.getLeaderWorkgroup().getStaffList());
+            UserAuthorizationService userService = UserAuthorizationService.getInstance();
+            List<User> userList = userService.getUsersInRole(group.getLeaderWorkgroup());
+            group.setLeaders(userList);
         }
 
         return groupList;
@@ -116,7 +122,9 @@ public class ResponsibleGroupFacade extends AbstractFacade<ResponsibleGroup> {
         List<ResponsibleGroup> groupList = getEntityManager().createQuery(cq).getResultList();
 
         for (ResponsibleGroup group : groupList) {
-            JPAUtil.initialize(group.getLeaderWorkgroup().getStaffList());
+            UserAuthorizationService userService = UserAuthorizationService.getInstance();
+            List<User> userList = userService.getUsersInRole(group.getLeaderWorkgroup());
+            group.setLeaders(userList);
         }
 
         return groupList;
@@ -137,7 +145,7 @@ public class ResponsibleGroupFacade extends AbstractFacade<ResponsibleGroup> {
     }
 
     @RolesAllowed("hcoadm")
-    public void add(String name, String description, BigInteger workgroupId) throws UserFriendlyException {
+    public void add(String name, String description, String leaderWorkgroup) throws UserFriendlyException {
 
         if (name == null || name.isEmpty()) {
             throw new UserFriendlyException("name must not be empty");
@@ -147,21 +155,15 @@ public class ResponsibleGroupFacade extends AbstractFacade<ResponsibleGroup> {
             throw new UserFriendlyException("description must not be empty");
         }
 
-        if (workgroupId == null) {
-            throw new UserFriendlyException("workgroup ID must not be empty");
-        }
-
-        Workgroup workgroup = workgroupFacade.find(workgroupId);
-
-        if (workgroup == null) {
-            throw new UserFriendlyException("Workgoup with ID " + workgroupId + " not found");
+        if (leaderWorkgroup == null) {
+            throw new UserFriendlyException("leader workgroup must not be empty");
         }
 
         ResponsibleGroup group = new ResponsibleGroup();
 
         group.setName(name);
         group.setDescription(description);
-        group.setLeaderWorkgroup(workgroup);
+        group.setLeaderWorkgroup(leaderWorkgroup);
 
         createSpecial(group);
     }
@@ -172,12 +174,12 @@ public class ResponsibleGroupFacade extends AbstractFacade<ResponsibleGroup> {
      * @param group
      */
     private void createSpecial(ResponsibleGroup group) {
-        Query q = em.createNativeQuery("insert into responsible_group (group_id, name, description, goal_percent, leader_workgroup_id) values (group_id.nextval, ?, ?, ?, ?)");
+        Query q = em.createNativeQuery("insert into responsible_group (group_id, name, description, goal_percent, leader_workgroup) values (group_id.nextval, ?, ?, ?, ?)");
 
         q.setParameter(1, group.getName());
         q.setParameter(2, group.getDescription());
         q.setParameter(3, group.getGoalPercent());
-        q.setParameter(4, group.getLeaderWorkgroup().getWorkgroupId());
+        q.setParameter(4, group.getLeaderWorkgroup());
 
         q.executeUpdate();
     }
@@ -211,7 +213,7 @@ public class ResponsibleGroupFacade extends AbstractFacade<ResponsibleGroup> {
     }
 
     @RolesAllowed("hcoadm")
-    public void edit(BigInteger groupId, String name, String description, BigInteger workgroupId) throws UserFriendlyException {
+    public void edit(BigInteger groupId, String name, String description, String leaderWorkgroup) throws UserFriendlyException {
 
         if (groupId == null) {
             throw new UserFriendlyException("group ID must not be empty");
@@ -231,19 +233,13 @@ public class ResponsibleGroupFacade extends AbstractFacade<ResponsibleGroup> {
             throw new UserFriendlyException("description must not be empty");
         }
 
-        if (workgroupId == null) {
-            throw new UserFriendlyException("workgroup ID must not be empty");
-        }
-
-        Workgroup workgroup = workgroupFacade.find(workgroupId);
-
-        if (workgroup == null) {
-            throw new UserFriendlyException("Workgoup with ID " + workgroupId + " not found");
+        if (leaderWorkgroup == null) {
+            throw new UserFriendlyException("leader workgroup must not be empty");
         }
 
         group.setName(name);
         group.setDescription(description);
-        group.setLeaderWorkgroup(workgroup);
+        group.setLeaderWorkgroup(leaderWorkgroup);
 
         edit(group);
     }

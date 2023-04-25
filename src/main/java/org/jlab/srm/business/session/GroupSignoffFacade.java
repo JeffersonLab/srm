@@ -38,8 +38,6 @@ public class GroupSignoffFacade extends AbstractFacade<GroupSignoff> {
     @EJB
     GroupSignoffHistoryFacade groupSignoffHistoryFacade;
     @EJB
-    StaffFacade staffFacade;
-    @EJB
     SystemFacade systemFacade;
     @PersistenceContext(unitName = "srmPU")
     private EntityManager em;
@@ -129,13 +127,6 @@ public class GroupSignoffFacade extends AbstractFacade<GroupSignoff> {
                  signoff.setSystemId(component.getSystem().getSystemId());*/
         }
 
-        Staff staff = staffFacade.findByUsername(username);
-
-        if (staff == null) {
-            throw new UserFriendlyException(
-                    "Cannot find staff with username: " + username);
-        }
-
         Status before = signoff.getStatus();
 
         if (before == null) {
@@ -216,7 +207,7 @@ public class GroupSignoffFacade extends AbstractFacade<GroupSignoff> {
                     if (cascadeRule.cascade) {
                         groupResponsibilityFacade.cascadeDowngrade(
                                 component.getComponentId(),
-                                responsibility.getWeight(), staff, comment, cascadeRule.readyCascade, cascadeRule.checkedCascade);
+                                responsibility.getWeight(), username, comment, cascadeRule.readyCascade, cascadeRule.checkedCascade);
                     }
                 }
             }
@@ -225,7 +216,7 @@ public class GroupSignoffFacade extends AbstractFacade<GroupSignoff> {
         signoff.setStatus(status);
         signoff.setComments(comment);
         signoff.setModifiedDate(signoffDate);
-        signoff.setModifiedBy(staff);
+        signoff.setModifiedBy(username);
         signoff.setChangeType(type);
 
         if (creatingNew) {
@@ -285,26 +276,14 @@ public class GroupSignoffFacade extends AbstractFacade<GroupSignoff> {
 
         BigInteger signoffId = BigInteger.valueOf(((Number) q1.getSingleResult()).longValue());
 
-        Query q = em.createNativeQuery("insert into group_signoff (group_signoff_id, system_id, group_id, component_id, status_id, modified_by, modified_date, comments, change_type) values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        Query q = em.createNativeQuery("insert into group_signoff (group_signoff_id, system_id, group_id, component_id, status_id, modified_username, modified_date, comments, change_type) values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-        /*System.out.println(signoffId);
-        System.out.println(signoff.getGroupResponsibility().getSystem().getSystemId());
-        System.out.println(signoff.getGroupResponsibility().getGroup().getGroupId());
-        System.out.println(signoff.getComponent().getComponentId());
-        System.out.println(signoff.getStatus().getStatusId());
-        System.out.println(signoff.getModifiedBy().getStaffId());
-        System.out.println(signoff.getModifiedDate());
-        System.out.println(signoff.getComments());
-        System.out.println(signoff.getChangeType().name());*/
-        // signoff.getGroupId() == null !!!!
-        // signoff.getComponentId() == null !!!
-        // what about signoff.getSystemId()????
         q.setParameter(1, signoffId);
         q.setParameter(2, signoff.getGroupResponsibility().getSystem().getSystemId());
         q.setParameter(3, signoff.getGroupResponsibility().getGroup().getGroupId());
         q.setParameter(4, signoff.getComponent().getComponentId());
         q.setParameter(5, signoff.getStatus().getStatusId());
-        q.setParameter(6, signoff.getModifiedBy().getStaffId());
+        q.setParameter(6, signoff.getModifiedBy());
         q.setParameter(7, signoff.getModifiedDate());
         q.setParameter(8, signoff.getComments());
         q.setParameter(9, signoff.getChangeType().name());

@@ -2,9 +2,7 @@ package org.jlab.srm.presentation.controller.setup;
 
 import org.jlab.srm.business.session.AbstractFacade.OrderDirective;
 import org.jlab.srm.business.session.ResponsibleGroupFacade;
-import org.jlab.srm.business.session.WorkgroupFacade;
 import org.jlab.srm.persistence.entity.ResponsibleGroup;
-import org.jlab.srm.persistence.entity.Workgroup;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -23,8 +21,6 @@ public class GroupList extends HttpServlet {
 
     @EJB
     ResponsibleGroupFacade groupFacade;
-    @EJB
-    WorkgroupFacade workgroupFacade;
 
     /**
      * Handles the HTTP
@@ -39,10 +35,8 @@ public class GroupList extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         List<ResponsibleGroup> groupList = groupFacade.findAllWithLeaderList();
-        List<Workgroup> workgroupList = workgroupFacade.findAll(new OrderDirective("name"));
 
         request.setAttribute("groupList", groupList);
-        request.setAttribute("workgroupList", workgroupList);
 
         getServletConfig().getServletContext().getRequestDispatcher(
                 "/WEB-INF/views/setup/group-list.jsp").forward(request, response);

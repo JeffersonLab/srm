@@ -1,7 +1,6 @@
 package org.jlab.srm.business.session;
 
 import org.jlab.srm.persistence.entity.ResponsibleGroup;
-import org.jlab.srm.persistence.entity.Staff;
 import org.jlab.srm.persistence.entity.Status;
 import org.jlab.srm.persistence.entity.SystemEntity;
 import org.jlab.srm.persistence.model.SignoffReportRecord;
@@ -28,8 +27,6 @@ public class ComponentSignoffFacade {
     ResponsibleGroupFacade groupFacade;
     @EJB
     SystemFacade systemFacade;
-    @EJB
-    StaffFacade staffFacade;
     @PersistenceContext(unitName = "srmPU")
     private EntityManager em;
 
@@ -287,7 +284,7 @@ public class ComponentSignoffFacade {
         boolean setNameParameter = false;
 
         String selectFrom
-                = "select a.component_id, a.group_id, a.system_id, a.status_id, b.name as component_name, b.unpowered_yn, c.name as group_name, d.name as system_name, m.modified_date, m.modified_by, m.comments from component_signoff a left outer join group_signoff m on a.component_id = m.component_id and a.system_id = m.system_id and a.group_id = m.group_id, component b, responsible_group c, system d";
+                = "select a.component_id, a.group_id, a.system_id, a.status_id, b.name as component_name, b.unpowered_yn, c.name as group_name, d.name as system_name, m.modified_date, m.modified_username, m.comments from component_signoff a left outer join group_signoff m on a.component_id = m.component_id and a.system_id = m.system_id and a.group_id = m.group_id, component b, responsible_group c, system d";
 
         List<String> whereList = new ArrayList<>();
 
@@ -394,14 +391,8 @@ public class ComponentSignoffFacade {
             String groupName = (String) row[6];
             String systemName = (String) row[7];
             Date modifiedDate = (Date) row[8];
-            Number staffIdNum = (Number) row[9];
+            String username = (String) row[9];
             String comments = (String) row[10];
-
-            Staff staff = null;
-
-            if (staffIdNum != null) {
-                staff = staffFacade.find(BigInteger.valueOf(staffIdNum.longValue()));
-            }
 
             record.setComponentId(BigInteger.valueOf(componentIdNum.longValue()));
             record.setGroupId(BigInteger.valueOf(groupIdNum.longValue()));
@@ -412,7 +403,7 @@ public class ComponentSignoffFacade {
             record.setGroupName(groupName);
             record.setSystemName(systemName);
             record.setModifiedDate(modifiedDate);
-            record.setModifiedBy(staff);
+            record.setModifiedBy(username);
             record.setComments(comments);
 
             records.add(record);

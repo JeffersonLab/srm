@@ -37,9 +37,8 @@ public class GroupSignoffHistory implements Serializable {
     private BigInteger componentId;
     @Column(name = "STATUS_ID")
     private BigInteger statusId;
-    @JoinColumn(name = "MODIFIED_BY", referencedColumnName = "STAFF_ID")
-    @ManyToOne(optional = false)
-    private Staff modifiedBy;
+    @Column(length = 64)
+    private String modifiedBy;
     @Basic(optional = false)
     @NotNull
     @Column(name = "MODIFIED_DATE", nullable = false)
@@ -61,7 +60,7 @@ public class GroupSignoffHistory implements Serializable {
         this.groupSignoffHistoryId = groupSignoffHistoryId;
     }
 
-    public GroupSignoffHistory(BigInteger groupSignoffHistoryId, BigInteger groupId, BigInteger componentId, Staff modifiedBy, Date modifiedDate) {
+    public GroupSignoffHistory(BigInteger groupSignoffHistoryId, BigInteger groupId, BigInteger componentId, String modifiedBy, Date modifiedDate) {
         this.groupSignoffHistoryId = groupSignoffHistoryId;
         this.groupId = groupId;
         this.componentId = componentId;
@@ -109,11 +108,11 @@ public class GroupSignoffHistory implements Serializable {
         this.statusId = statusId;
     }
 
-    public Staff getModifiedBy() {
+    public String getModifiedBy() {
         return modifiedBy;
     }
 
-    public void setModifiedBy(Staff modifiedBy) {
+    public void setModifiedBy(String modifiedBy) {
         this.modifiedBy = modifiedBy;
     }
 

@@ -1,12 +1,11 @@
 package org.jlab.srm.presentation.controller;
 
+import org.jlab.smoothness.presentation.util.Functions;
 import org.jlab.srm.business.session.ChecklistFacade;
 import org.jlab.srm.business.session.ChecklistHistoryFacade;
 import org.jlab.srm.business.session.GroupResponsibilityFacade;
-import org.jlab.srm.business.session.StaffFacade;
 import org.jlab.srm.persistence.entity.Checklist;
 import org.jlab.srm.persistence.entity.GroupResponsibility;
-import org.jlab.srm.persistence.entity.Staff;
 import org.jlab.srm.presentation.util.HcoFunctions;
 import org.jlab.smoothness.business.exception.UserFriendlyException;
 import org.jlab.smoothness.presentation.util.ParamConverter;
@@ -30,8 +29,6 @@ public class ChecklistController extends HttpServlet {
     ChecklistFacade checklistFacade;
     @EJB
     GroupResponsibilityFacade responsibilityFacade;
-    @EJB
-    StaffFacade staffFacade;
     @EJB
     ChecklistHistoryFacade historyFacade;
 
@@ -95,8 +92,7 @@ public class ChecklistController extends HttpServlet {
             checklist.setGroupResponsibility(responsibility);
             String username = request.getRemoteUser();
             if (username != null && !username.isEmpty()) {
-                Staff staff = staffFacade.findByUsername(username);
-                checklist.setAuthor(HcoFunctions.formatStaff(staff));
+                checklist.setAuthor(Functions.formatUsername(username));
             }
         } else { /* View / Edit existing */
             checklist = checklistFacade.find(checklistId);

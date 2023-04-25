@@ -40,8 +40,6 @@ public class ComponentFacade extends AbstractFacade<Component> {
     @EJB
     RegionFacade regionFacade;
     @EJB
-    StaffFacade staffFacade;
-    @EJB
     GroupSignoffHistoryFacade groupSignoffHistoryFacade;
     @EJB
     GroupSignoffFacade groupSignoffFacade;
@@ -633,13 +631,6 @@ public class ComponentFacade extends AbstractFacade<Component> {
                        String maskedReason) throws UserFriendlyException {
         String username = checkAuthenticated();
 
-        Staff staff = staffFacade.findByUsername(username);
-
-        if (staff == null) {
-            throw new UserFriendlyException(
-                    "Cannot find staff with username: " + username);
-        }
-
         if (name == null || name.trim().isEmpty()) {
             throw new UserFriendlyException("Name must not be empty");
         }
@@ -683,7 +674,7 @@ public class ComponentFacade extends AbstractFacade<Component> {
         if (masked) {
             c.setMaskedComment(maskedReason);
             c.setMaskedDate(new Date());
-            c.setMaskedBy(staff);
+            c.setMaskedBy(username);
         }
 
         // We always set Unpowered to 'N' for new components
@@ -691,10 +682,10 @@ public class ComponentFacade extends AbstractFacade<Component> {
 
         create(c);
 
-        setInitialStatus(c, system, staff);
+        setInitialStatus(c, system, username);
     }
 
-    private void setInitialStatus(Component component, SystemEntity system, Staff staff) throws UserFriendlyException {
+    private void setInitialStatus(Component component, SystemEntity system, String username) throws UserFriendlyException {
         BigInteger componentId = component.getComponentId();
         List<GroupResponsibility> responsibilityList = system.getGroupResponsibilityList();
         String comment = "New component added";
@@ -703,7 +694,7 @@ public class ComponentFacade extends AbstractFacade<Component> {
         if (responsibilityList != null) {
             for (GroupResponsibility gr : responsibilityList) {
                 ResponsibleGroup group = gr.getGroup();
-                groupSignoffFacade.updateSignoff(componentId, group.getGroupId(), Status.NOT_READY, comment, new GroupSignoffFacade.SignoffCascadeRule(), new GroupSignoffFacade.SignoffValidateRule(), signoffDate, staff.getUsername());
+                groupSignoffFacade.updateSignoff(componentId, group.getGroupId(), Status.NOT_READY, comment, new GroupSignoffFacade.SignoffCascadeRule(), new GroupSignoffFacade.SignoffValidateRule(), signoffDate, username);
             }
         }
     }
@@ -832,13 +823,6 @@ public class ComponentFacade extends AbstractFacade<Component> {
             UserFriendlyException {
         String username = checkAuthenticated();
 
-        Staff staff = staffFacade.findByUsername(username);
-
-        if (staff == null) {
-            throw new UserFriendlyException(
-                    "Cannot find staff with username: " + username);
-        }
-
         if (componentId == null) {
             throw new UserFriendlyException("component must not be empty");
         }
@@ -870,11 +854,11 @@ public class ComponentFacade extends AbstractFacade<Component> {
 
             component.setMaskedComment(maskedReason);
             component.setMaskedDate(new Date());
-            component.setMaskedBy(staff);
+            component.setMaskedBy(username);
             component.setMaskExpirationDate(expiration);
             component.setMaskTypeId(maskTypeId);
             String comment = "Masked";
-            resetSignoffsToMasked(component, comment, staff, maskTypeId);
+            resetSignoffsToMasked(component, comment, username, maskTypeId);
         } else {
             component.setMaskedComment(null);
             component.setMaskedDate(null);
@@ -888,9 +872,9 @@ public class ComponentFacade extends AbstractFacade<Component> {
             }
 
             if (maskTypeId == 100) {
-                resetSignoffsToNotReady(component, comment, staff);
+                resetSignoffsToNotReady(component, comment, username);
             } else {
-                resetSignoffsToChecked(component, comment, staff);
+                resetSignoffsToChecked(component, comment, username);
             }
 
         }
@@ -969,13 +953,6 @@ public class ComponentFacade extends AbstractFacade<Component> {
                               BigInteger regionId, boolean force) throws UserFriendlyException {
         String username = checkAuthenticated();
 
-        Staff staff = staffFacade.findByUsername(username);
-
-        if (staff == null) {
-            throw new UserFriendlyException(
-                    "Cannot find staff with username: " + username);
-        }
-
         if (componentId == null) {
             throw new UserFriendlyException("Component must not be empty");
         }
@@ -1044,13 +1021,6 @@ public class ComponentFacade extends AbstractFacade<Component> {
             UserFriendlyException {
         String username = checkAuthenticated();
 
-        Staff staff = staffFacade.findByUsername(username);
-
-        if (staff == null) {
-            throw new UserFriendlyException(
-                    "Cannot find staff with username: " + username);
-        }
-
         if (componentIdArray == null || componentIdArray.length == 0) {
             throw new UserFriendlyException("component ID array must not be empty");
         }
@@ -1069,13 +1039,6 @@ public class ComponentFacade extends AbstractFacade<Component> {
     @PermitAll
     public void removeException(BigInteger[] componentIdArray, Status status, String comment) throws UserFriendlyException {
         String username = checkAuthenticated();
-
-        Staff staff = staffFacade.findByUsername(username);
-
-        if (staff == null) {
-            throw new UserFriendlyException(
-                    "Cannot find staff with username: " + username);
-        }
 
         if (componentIdArray == null || componentIdArray.length == 0) {
             throw new UserFriendlyException("component ID array must not be empty");
@@ -1173,13 +1136,6 @@ public class ComponentFacade extends AbstractFacade<Component> {
     public void rename(BigInteger componentId, String name) throws UserFriendlyException {
         String username = checkAuthenticated();
 
-        Staff staff = staffFacade.findByUsername(username);
-
-        if (staff == null) {
-            throw new UserFriendlyException(
-                    "Cannot find staff with username: " + username);
-        }
-
         if (componentId == null) {
             throw new UserFriendlyException("Component must not be empty");
         }
@@ -1208,13 +1164,6 @@ public class ComponentFacade extends AbstractFacade<Component> {
     public void setUnpowered(BigInteger componentId, boolean unpowered) throws UserFriendlyException {
         String username = checkAuthenticated();
 
-        Staff staff = staffFacade.findByUsername(username);
-
-        if (staff == null) {
-            throw new UserFriendlyException(
-                    "Cannot find staff with username: " + username);
-        }
-
         if (componentId == null) {
             throw new UserFriendlyException("Component must not be empty");
         }
@@ -1239,10 +1188,10 @@ public class ComponentFacade extends AbstractFacade<Component> {
         String comment = "Unpowered changed to " + (unpowered ? "Yes" : "No");
 
         //List<GroupResponsibility> responsibilityList = component.getSystem().getGroupResponsibilityList();
-        resetSignoffsToNotReady(component, comment, staff);
+        resetSignoffsToNotReady(component, comment, username);
     }
 
-    private void resetSignoffsToMasked(Component component, String comment, Staff staff, int maskTypeId) {
+    private void resetSignoffsToMasked(Component component, String comment, String username, int maskTypeId) {
         List<GroupSignoff> signoffList = component.getGroupSignoffList();
 
         Date modifiedDate = new Date();
@@ -1251,14 +1200,14 @@ public class ComponentFacade extends AbstractFacade<Component> {
             signoff.setStatus(Status.FROM_ID(BigInteger.valueOf(maskTypeId)));
             signoff.setComments(comment);
             signoff.setModifiedDate(modifiedDate);
-            signoff.setModifiedBy(staff);
+            signoff.setModifiedBy(username);
             signoff.setChangeType(SignoffChangeType.COMMENT);
 
             groupSignoffHistoryFacade.newHistory(signoff);
         }
     }
 
-    private void resetSignoffsToNotReady(Component component, String comment, Staff staff) {
+    private void resetSignoffsToNotReady(Component component, String comment, String username) {
         List<GroupSignoff> signoffList = component.getGroupSignoffList();
 
         Date modifiedDate = new Date();
@@ -1269,14 +1218,14 @@ public class ComponentFacade extends AbstractFacade<Component> {
                 case "Not Ready":
                     signoff.setComments(comment);
                     signoff.setModifiedDate(modifiedDate);
-                    signoff.setModifiedBy(staff);
+                    signoff.setModifiedBy(username);
                     signoff.setChangeType(SignoffChangeType.COMMENT);
                     break;
                 default:
                     signoff.setStatus(Status.NOT_READY);
                     signoff.setComments(comment);
                     signoff.setModifiedDate(modifiedDate);
-                    signoff.setModifiedBy(staff);
+                    signoff.setModifiedBy(username);
                     signoff.setChangeType(SignoffChangeType.DOWNGRADE);
                     break;
             }
@@ -1285,7 +1234,7 @@ public class ComponentFacade extends AbstractFacade<Component> {
         }
     }
 
-    private void resetSignoffsToChecked(Component component, String comment, Staff staff) {
+    private void resetSignoffsToChecked(Component component, String comment, String username) {
         List<GroupSignoff> signoffList = component.getGroupSignoffList();
 
         Date modifiedDate = new Date();
@@ -1297,20 +1246,20 @@ public class ComponentFacade extends AbstractFacade<Component> {
                     signoff.setStatus(Status.CHECKED);
                     signoff.setComments(comment);
                     signoff.setModifiedDate(modifiedDate);
-                    signoff.setModifiedBy(staff);
+                    signoff.setModifiedBy(username);
                     signoff.setChangeType(SignoffChangeType.UPGRADE);
                     break;
                 case "Checked":
                     signoff.setComments(comment);
                     signoff.setModifiedDate(modifiedDate);
-                    signoff.setModifiedBy(staff);
+                    signoff.setModifiedBy(username);
                     signoff.setChangeType(SignoffChangeType.COMMENT);
                     break;
                 default:
                     signoff.setStatus(Status.CHECKED);
                     signoff.setComments(comment);
                     signoff.setModifiedDate(modifiedDate);
-                    signoff.setModifiedBy(staff);
+                    signoff.setModifiedBy(username);
                     signoff.setChangeType(SignoffChangeType.DOWNGRADE);
                     break;
             }
@@ -1319,7 +1268,7 @@ public class ComponentFacade extends AbstractFacade<Component> {
         }
     }
 
-    public void setGroupSignoffToNotReady(Component component, ResponsibleGroup group, String comment, Staff staff) {
+    public void setGroupSignoffToNotReady(Component component, ResponsibleGroup group, String comment, String username) {
         Date modifiedDate = new Date();
 
         List<GroupSignoff> signoffList = component.getGroupSignoffList();
@@ -1330,14 +1279,14 @@ public class ComponentFacade extends AbstractFacade<Component> {
                 case "Not Ready":
                     signoff.setComments(comment);
                     signoff.setModifiedDate(modifiedDate);
-                    signoff.setModifiedBy(staff);
+                    signoff.setModifiedBy(username);
                     signoff.setChangeType(SignoffChangeType.COMMENT);
                     break;
                 default:
                     signoff.setStatus(Status.NOT_READY);
                     signoff.setComments(comment);
                     signoff.setModifiedDate(modifiedDate);
-                    signoff.setModifiedBy(staff);
+                    signoff.setModifiedBy(username);
                     signoff.setChangeType(SignoffChangeType.DOWNGRADE);
                     break;
             }
@@ -1350,13 +1299,6 @@ public class ComponentFacade extends AbstractFacade<Component> {
     public void setSource(BigInteger componentId, DataSource source, BigInteger sourceId)
             throws UserFriendlyException {
         String username = checkAuthenticated();
-
-        Staff staff = staffFacade.findByUsername(username);
-
-        if (staff == null) {
-            throw new UserFriendlyException(
-                    "Cannot find staff with username: " + username);
-        }
 
         if (componentId == null) {
             throw new UserFriendlyException("Component must not be empty");
@@ -1395,13 +1337,6 @@ public class ComponentFacade extends AbstractFacade<Component> {
     public void setSystem(BigInteger componentId, BigInteger systemId) throws UserFriendlyException {
         String username = checkAuthenticated();
 
-        Staff staff = staffFacade.findByUsername(username);
-
-        if (staff == null) {
-            throw new UserFriendlyException(
-                    "Cannot find staff with username: " + username);
-        }
-
         if (componentId == null) {
             throw new UserFriendlyException("Component must not be empty");
         }
@@ -1438,13 +1373,6 @@ public class ComponentFacade extends AbstractFacade<Component> {
     public void setRegion(BigInteger componentId, BigInteger regionId) throws UserFriendlyException {
         String username = checkAuthenticated();
 
-        Staff staff = staffFacade.findByUsername(username);
-
-        if (staff == null) {
-            throw new UserFriendlyException(
-                    "Cannot find staff with username: " + username);
-        }
-
         if (componentId == null) {
             throw new UserFriendlyException("Component must not be empty");
         }
@@ -1480,13 +1408,6 @@ public class ComponentFacade extends AbstractFacade<Component> {
     @PermitAll
     public void setAlias(BigInteger componentId, String alias) throws UserFriendlyException {
         String username = checkAuthenticated();
-
-        Staff staff = staffFacade.findByUsername(username);
-
-        if (staff == null) {
-            throw new UserFriendlyException(
-                    "Cannot find staff with username: " + username);
-        }
 
         if (componentId == null) {
             throw new UserFriendlyException("Component must not be empty");
@@ -1528,8 +1449,6 @@ public class ComponentFacade extends AbstractFacade<Component> {
         List<Component> componentList = q.getResultList();
 
         if (componentList != null) {
-            Staff staff = staffFacade.findByUsername("hcoadm");
-
             for (Component c : componentList) {
                 c.setMasked(false);
                 c.setMaskedComment(null);
@@ -1537,7 +1456,7 @@ public class ComponentFacade extends AbstractFacade<Component> {
                 c.setMaskedBy(null);
                 c.setMaskExpirationDate(null);
                 String comment = "Auto-downgrade due to unmasking by expiration";
-                resetSignoffsToNotReady(c, comment, staff);
+                resetSignoffsToNotReady(c, comment, "hcoadm");
                 LOGGER.log(Level.FINE, "Mask expired for component: {0}", c.getName());
             }
         }

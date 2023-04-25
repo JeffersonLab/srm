@@ -108,7 +108,7 @@ public class ComponentAudFacade extends AbstractFacade<ComponentAud> {
     public void loadStaff(List<ComponentAud> entityList) {
         if (entityList != null) {
             for (ComponentAud entity : entityList) {
-                revisionFacade.loadStaff(entity.getRevision());
+                revisionFacade.loadUsers(entity.getRevision());
             }
         }
     }

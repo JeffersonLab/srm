@@ -48,12 +48,11 @@ public class EditGroup extends HttpServlet {
         try {
             BigInteger groupId = ParamConverter.convertBigInteger(
                     request, "groupId");
-            BigInteger workgroupId = ParamConverter.convertBigInteger(
-                    request, "workgroupId");
+            String leaderWorkgroup = request.getParameter("leaderWorkgroup");
             String name = request.getParameter("name");
             String description = request.getParameter("description");
 
-            groupFacade.edit(groupId, name, description, workgroupId);
+            groupFacade.edit(groupId, name, description, leaderWorkgroup);
         } catch (EJBAccessException e) {
             logger.log(Level.WARNING, "Not authorized", e);
             errorReason = "Not authorized";

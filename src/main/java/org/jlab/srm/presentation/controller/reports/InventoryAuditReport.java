@@ -60,7 +60,7 @@ public class InventoryAuditReport extends HttpServlet {
         List<ApplicationRevisionInfo> transactionList = revisionFacade.filterList(params.getStart(), params.getEnd(), offset, maxPerPage);
         Long totalRecords = revisionFacade.countFilterList(params.getStart(), params.getEnd());
 
-        revisionFacade.loadStaff(transactionList);
+        revisionFacade.loadUsers(transactionList);
 
         Paginator paginator = new Paginator(totalRecords.intValue(), offset, maxPerPage);
 

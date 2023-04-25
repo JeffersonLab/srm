@@ -1,7 +1,6 @@
 package org.jlab.srm.presentation.util;
 
 import org.jlab.srm.persistence.entity.Component;
-import org.jlab.srm.persistence.entity.Staff;
 import org.jlab.srm.persistence.entity.Status;
 import org.jlab.srm.persistence.enumeration.*;
 import org.jlab.srm.persistence.model.HcoNodeData;
@@ -38,21 +37,6 @@ public final class HcoFunctions {
         }
 
         return name;
-    }
-
-    public static String formatStaff(Staff staff) {
-        StringBuilder builder = new StringBuilder();
-
-        if (staff != null) {
-            builder.append(staff.getLastname());
-            builder.append(", ");
-            builder.append(staff.getFirstname());
-            builder.append(" (");
-            builder.append(staff.getUsername());
-            builder.append(")");
-        }
-
-        return builder.toString();
     }
 
     public static String formatFakeStaff(String lastname, String firstname, String username) {

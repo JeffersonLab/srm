@@ -3,7 +3,6 @@ package org.jlab.srm.persistence.entity.view;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.RelationTargetAuditMode;
 import org.jlab.srm.persistence.entity.Component;
-import org.jlab.srm.persistence.entity.Staff;
 import org.jlab.srm.persistence.entity.SystemEntity;
 import org.jlab.srm.persistence.enumeration.SignoffChangeType;
 
@@ -50,10 +49,6 @@ public class SignoffActivityRecord implements Serializable {
     @NotNull
     @Column(name = "REGION_ID", nullable = false)
     private BigInteger regionId;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "MODIFIED_BY", nullable = false, precision = 22, scale = 0)
-    private BigInteger modifiedBy;
     @Basic(optional = false)
     @NotNull
     @Column(name = "MODIFIED_DATE", nullable = false)
@@ -114,9 +109,8 @@ public class SignoffActivityRecord implements Serializable {
     @JoinColumn(name = "COMPONENT_ID", referencedColumnName = "COMPONENT_ID", updatable = false, insertable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Component component;
-    @JoinColumn(name = "MODIFIED_BY", referencedColumnName = "STAFF_ID", updatable = false, insertable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Staff staff;
+    @Column(name = "MODIFIED_USERNAME", nullable = false, length = 256)
+    private String modifiedBy;
 
     public SignoffActivityRecord() {
     }
@@ -125,7 +119,7 @@ public class SignoffActivityRecord implements Serializable {
         this.groupSignoffHistoryId = groupSignoffHistoryId;
     }
 
-    public SignoffActivityRecord(BigInteger groupSignoffHistoryId, BigInteger groupId, BigInteger componentId, BigInteger modifiedBy, Date modifiedDate) {
+    public SignoffActivityRecord(BigInteger groupSignoffHistoryId, BigInteger groupId, BigInteger componentId, String modifiedBy, Date modifiedDate) {
         this.groupSignoffHistoryId = groupSignoffHistoryId;
         this.groupId = groupId;
         this.componentId = componentId;
@@ -177,11 +171,11 @@ public class SignoffActivityRecord implements Serializable {
         this.statusId = statusId;
     }
 
-    public BigInteger getModifiedBy() {
+    public String getModifiedBy() {
         return modifiedBy;
     }
 
-    public void setModifiedBy(BigInteger modifiedBy) {
+    public void setModifiedBy(String modifiedBy) {
         this.modifiedBy = modifiedBy;
     }
 

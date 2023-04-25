@@ -2,7 +2,6 @@ package org.jlab.srm.business.session;
 
 import org.jlab.srm.persistence.entity.BeamDestination;
 import org.jlab.srm.persistence.entity.Component;
-import org.jlab.srm.persistence.entity.Staff;
 import org.jlab.srm.persistence.entity.SystemEntity;
 import org.jlab.srm.persistence.entity.view.SignoffActivityRecord;
 import org.jlab.srm.persistence.enumeration.SignoffChangeType;
@@ -85,8 +84,7 @@ public class SignoffActivityFacade extends AbstractFacade<SignoffActivityRecord>
             filters.add(cb.equal(root.get("groupId"), groupId));
         }
         if (username != null && !username.isEmpty()) {
-            Join<SignoffActivityCompressedRecord, Staff> component = root.join("staff");
-            filters.add(cb.equal(component.get("username"), username));
+            filters.add(cb.equal(root.get("username"), username));
         }
         if (componentName != null && !componentName.isEmpty()) {
             filters.add(cb.like(cb.lower(root.get("firstComponentName")),
@@ -168,8 +166,7 @@ public class SignoffActivityFacade extends AbstractFacade<SignoffActivityRecord>
             filters.add(cb.equal(root.get("groupId"), groupId));
         }
         if (username != null && !username.isEmpty()) {
-            Join<SignoffActivityCompressedRecord, Staff> component = root.join("staff");
-            filters.add(cb.equal(component.get("username"), username));
+            filters.add(cb.equal(root.get("username"), username));
         }
         if (componentName != null && !componentName.isEmpty()) {
             filters.add(cb.like(cb.lower(root.get("firstComponentName")),
@@ -240,8 +237,7 @@ public class SignoffActivityFacade extends AbstractFacade<SignoffActivityRecord>
             filters.add(cb.equal(root.get("groupId"), groupId));
         }
         if (username != null && !username.isEmpty()) {
-            Join<SignoffActivityRecord, Staff> component = root.join("staff");
-            filters.add(cb.equal(component.get("username"), username));
+            filters.add(cb.equal(root.get("username"), username));
         }
         if (componentName != null && !componentName.isEmpty()) {
             filters.add(cb.like(cb.lower(root.get("componentName")),
@@ -311,8 +307,7 @@ public class SignoffActivityFacade extends AbstractFacade<SignoffActivityRecord>
             filters.add(cb.equal(root.get("groupId"), groupId));
         }
         if (username != null && !username.isEmpty()) {
-            Join<SignoffActivityRecord, Staff> component = root.join("staff");
-            filters.add(cb.equal(component.get("username"), username));
+            filters.add(cb.equal(root.get("username"), username));
         }
         if (componentName != null && !componentName.isEmpty()) {
             filters.add(cb.like(cb.lower(root.get("componentName")),

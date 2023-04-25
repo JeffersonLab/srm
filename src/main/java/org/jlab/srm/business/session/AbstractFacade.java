@@ -1,8 +1,9 @@
 package org.jlab.srm.business.session;
 
+import org.jlab.smoothness.business.service.UserAuthorizationService;
+import org.jlab.smoothness.persistence.view.User;
 import org.jlab.srm.persistence.entity.Category;
 import org.jlab.srm.persistence.entity.ResponsibleGroup;
-import org.jlab.srm.persistence.entity.Staff;
 
 import javax.annotation.Resource;
 import javax.annotation.security.DeclareRoles;
@@ -171,9 +172,10 @@ public abstract class AbstractFacade<T> {
         if (isAdmin) {
             isAdminOrLeader = true;
         } else {
-            List<Staff> leaders = group.getLeaderWorkgroup().getStaffList();
+            UserAuthorizationService userService = UserAuthorizationService.getInstance();
+            List<User> userList = userService.getUsersInRole(group.getLeaderWorkgroup());
             boolean isLeader = false;
-            for (Staff leader : leaders) {
+            for (User leader : userList) {
                 if (username.equals(leader.getUsername())) { // leader.getUsername() might be null
                     isLeader = true;
                     break;

@@ -36,9 +36,8 @@ public class GroupResponsibility implements Serializable {
     @Size(min = 1, max = 1)
     @NotNull
     private String publishedStr;
-    @JoinColumn(name = "PUBLISHED_BY", referencedColumnName = "STAFF_ID")
-    @ManyToOne(optional = true)
-    private Staff PublishedBy;
+    @Column(name = "PUBLISHED_USERNAME", nullable = true, length = 512)
+    private String PublishedBy;
     @Basic(optional = true)
     @Column(name = "PUBLISHED_DATE", nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
@@ -120,11 +119,11 @@ public class GroupResponsibility implements Serializable {
         this.publishedStr = published ? "Y" : "N";
     }
 
-    public Staff getPublishedBy() {
+    public String getPublishedBy() {
         return PublishedBy;
     }
 
-    public void setPublishedBy(Staff PublishedBy) {
+    public void setPublishedBy(String PublishedBy) {
         this.PublishedBy = PublishedBy;
     }
 

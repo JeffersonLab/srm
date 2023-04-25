@@ -1,14 +1,14 @@
 package org.jlab.srm.business.session;
 
 import org.hibernate.envers.RevisionType;
+import org.jlab.smoothness.business.service.UserAuthorizationService;
+import org.jlab.smoothness.persistence.view.User;
 import org.jlab.srm.persistence.entity.ApplicationRevisionInfo;
 import org.jlab.srm.persistence.entity.Category;
 import org.jlab.srm.persistence.entity.Component;
-import org.jlab.srm.persistence.entity.Staff;
 import org.jlab.srm.persistence.model.AuditedEntityChange;
 
 import javax.annotation.security.PermitAll;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -26,8 +26,6 @@ import java.util.List;
 @Stateless
 public class ApplicationRevisionInfoFacade extends AbstractFacade<ApplicationRevisionInfo> {
 
-    @EJB
-    StaffFacade staffFacade;
     @PersistenceContext(unitName = "srmPU")
     private EntityManager em;
 
@@ -39,6 +37,8 @@ public class ApplicationRevisionInfoFacade extends AbstractFacade<ApplicationRev
     protected EntityManager getEntityManager() {
         return em;
     }
+
+    private UserAuthorizationService userService = UserAuthorizationService.getInstance();
 
     @PermitAll
     public List<ApplicationRevisionInfo> filterList(Date modifiedStart, Date modifiedEnd, int offset, int max) {
@@ -175,23 +175,23 @@ public class ApplicationRevisionInfoFacade extends AbstractFacade<ApplicationRev
     }
 
     @PermitAll
-    public void loadStaff(List<ApplicationRevisionInfo> revisionList) {
+    public void loadUsers(List<ApplicationRevisionInfo> revisionList) {
         if (revisionList != null) {
             for (ApplicationRevisionInfo revision : revisionList) {
-                loadStaff(revision);
+                loadUsers(revision);
             }
         }
     }
 
     @PermitAll
-    public void loadStaff(ApplicationRevisionInfo revision) {
+    public void loadUsers(ApplicationRevisionInfo revision) {
         if (revision != null) {
             String username = revision.getUsername();
 
             if (username != null) {
-                Staff staff = staffFacade.findByUsername(username);
+                User user = userService.getUserFromUsername(username);
 
-                revision.setStaff(staff);
+                revision.setUser(user);
             }
         }
     }

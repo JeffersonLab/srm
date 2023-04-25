@@ -62,10 +62,9 @@ public class Component implements Serializable {
     @Column(name = "MASKED_DATE", nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
     private Date maskedDate;
-    @JoinColumn(name = "MASKED_BY", referencedColumnName = "STAFF_ID")
-    @ManyToOne(optional = true)
+    @Column(name = "MASKED_USERNAME", nullable = true, length = 64)
     @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
-    private Staff maskedBy;
+    private String maskedBy;
     @Basic(optional = true)
     @Column(name = "MASK_EXPIRATION_DATE", nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
@@ -159,11 +158,11 @@ public class Component implements Serializable {
         this.maskedDate = maskedDate;
     }
 
-    public Staff getMaskedBy() {
+    public String getMaskedBy() {
         return maskedBy;
     }
 
-    public void setMaskedBy(Staff maskedBy) {
+    public void setMaskedBy(String maskedBy) {
         this.maskedBy = maskedBy;
     }
 

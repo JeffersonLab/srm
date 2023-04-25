@@ -1,9 +1,10 @@
 package org.jlab.srm.business.session;
 
+import org.jlab.smoothness.business.service.UserAuthorizationService;
+import org.jlab.smoothness.persistence.view.User;
 import org.jlab.srm.business.session.AbstractFacade.OrderDirective;
 import org.jlab.srm.persistence.entity.HcoSettings;
 import org.jlab.srm.persistence.entity.ResponsibleGroup;
-import org.jlab.srm.persistence.entity.Staff;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -166,9 +167,13 @@ public class ScheduledEmailer {
 
             List<InternetAddress> addresses = new ArrayList<>();
 
-            if (group.getLeaderWorkgroup().getStaffList() != null && !group.getLeaderWorkgroup().getStaffList().isEmpty()) {
-                for (Staff staff : group.getLeaderWorkgroup().getStaffList()) {
-                    addresses.add(new InternetAddress(staff.getUsername() + "@jlab.org"));
+            UserAuthorizationService userService = UserAuthorizationService.getInstance();
+            List<User> userList = userService.getUsersInRole(group.getLeaderWorkgroup());
+            group.setLeaders(userList);
+
+            if (group.getLeaders() != null && !group.getLeaders().isEmpty()) {
+                for (User user : group.getLeaders()) {
+                    addresses.add(new InternetAddress(user.getUsername() + "@jlab.org"));
                 }
                 emailFacade.sendHTMLEmail(addresses.toArray(new InternetAddress[]{}), "HCO - " + group.getName() + " Action Needed", html);
             }
@@ -179,7 +184,11 @@ public class ScheduledEmailer {
     public void sendGroupMail(BigInteger groupId) throws IOException, MessagingException {
         ResponsibleGroup group = groupFacade.find(groupId);
 
-        if (group.getLeaderWorkgroup().getStaffList() == null || group.getLeaderWorkgroup().getStaffList().isEmpty()) {
+        UserAuthorizationService userService = UserAuthorizationService.getInstance();
+        List<User> userList = userService.getUsersInRole(group.getLeaderWorkgroup());
+        group.setLeaders(userList);
+
+        if (group.getLeaders() == null || group.getLeaders().isEmpty()) {
             throw new MessagingException("No group leaders to email");
         }
 

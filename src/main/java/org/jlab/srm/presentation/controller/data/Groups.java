@@ -1,8 +1,9 @@
 package org.jlab.srm.presentation.controller.data;
 
+import org.jlab.smoothness.business.service.UserAuthorizationService;
+import org.jlab.smoothness.persistence.view.User;
 import org.jlab.srm.business.session.ResponsibleGroupFacade;
 import org.jlab.srm.persistence.entity.ResponsibleGroup;
-import org.jlab.srm.persistence.entity.Staff;
 import org.jlab.smoothness.presentation.util.ParamConverter;
 
 import javax.ejb.EJB;
@@ -115,8 +116,10 @@ public class Groups extends HttpServlet {
                         itemJson.add("id", group.getGroupId());
                         itemJson.add("name", group.getName());
                         JsonArrayBuilder emailArray = Json.createArrayBuilder();
-                        if (group.getLeaderWorkgroup().getStaffList() != null) {
-                            for (Staff leader : group.getLeaderWorkgroup().getStaffList()) {
+                        UserAuthorizationService userService = UserAuthorizationService.getInstance();
+                        List<User> userList = userService.getUsersInRole(group.getLeaderWorkgroup());
+                        if (userList != null) {
+                            for (User leader : userList) {
                                 emailArray.add(leader.getUsername() + "@jlab.org");
                             }
                         }

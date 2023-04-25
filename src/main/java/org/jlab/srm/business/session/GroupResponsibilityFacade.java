@@ -35,8 +35,6 @@ public class GroupResponsibilityFacade extends AbstractFacade<GroupResponsibilit
     @EJB
     GroupSignoffHistoryFacade groupSignoffHistoryFacade;
     @EJB
-    StaffFacade staffFacade;
-    @EJB
     CategoryFacade categoryFacade;
     @PersistenceContext(unitName = "srmPU")
     private EntityManager em;
@@ -352,7 +350,7 @@ public class GroupResponsibilityFacade extends AbstractFacade<GroupResponsibilit
         return (status == 1);
     }
 
-    private void doReadyCascade(BigInteger componentId, BigInteger weight, Staff staff,
+    private void doReadyCascade(BigInteger componentId, BigInteger weight, String username,
                                 String comment, BigInteger readyCascade) throws UserFriendlyException {
         /*Select all signoffs which come after this signoff and are Ready, because we need to downgrade them!*/
         TypedQuery<GroupSignoff> q = em.createQuery(
@@ -376,7 +374,7 @@ public class GroupResponsibilityFacade extends AbstractFacade<GroupResponsibilit
                 signoff.setStatus(Status.FROM_ID(readyCascade));
                 signoff.setComments(comment);
                 signoff.setModifiedDate(new Date());
-                signoff.setModifiedBy(staff);
+                signoff.setModifiedBy(username);
                 signoff.setChangeType(SignoffChangeType.CASCADE);
 
                 groupSignoffHistoryFacade.newHistory(signoff);
@@ -384,7 +382,7 @@ public class GroupResponsibilityFacade extends AbstractFacade<GroupResponsibilit
         }
     }
 
-    private void doCheckedCascade(BigInteger componentId, BigInteger weight, Staff staff,
+    private void doCheckedCascade(BigInteger componentId, BigInteger weight, String username,
                                   String comment, BigInteger checkedCascade) throws UserFriendlyException {
         /*Select all signoffs which come after this signoff and are Checked, because we need to downgrade them!*/
         TypedQuery<GroupSignoff> q = em.createQuery(
@@ -408,7 +406,7 @@ public class GroupResponsibilityFacade extends AbstractFacade<GroupResponsibilit
                 signoff.setStatus(Status.FROM_ID(checkedCascade));
                 signoff.setComments(comment);
                 signoff.setModifiedDate(new Date());
-                signoff.setModifiedBy(staff);
+                signoff.setModifiedBy(username);
                 signoff.setChangeType(SignoffChangeType.CASCADE);
 
                 groupSignoffHistoryFacade.newHistory(signoff);
@@ -417,15 +415,15 @@ public class GroupResponsibilityFacade extends AbstractFacade<GroupResponsibilit
     }
 
     @PermitAll
-    public void cascadeDowngrade(BigInteger componentId, BigInteger weight, Staff staff,
+    public void cascadeDowngrade(BigInteger componentId, BigInteger weight, String username,
                                  String comment, BigInteger readyCascade, BigInteger checkedCascade) throws UserFriendlyException {
 
         if (checkedCascade != null) {
-            doCheckedCascade(componentId, weight, staff, comment, checkedCascade);
+            doCheckedCascade(componentId, weight, username, comment, checkedCascade);
         }
 
         if (readyCascade != null) {
-            doReadyCascade(componentId, weight, staff, comment, readyCascade);
+            doReadyCascade(componentId, weight, username, comment, readyCascade);
         }
     }
 
@@ -592,14 +590,8 @@ public class GroupResponsibilityFacade extends AbstractFacade<GroupResponsibilit
             responsibility.setPublishedBy(null);
             responsibility.setPublishedDate(null);
         } else {
-            Staff staff = staffFacade.findByUsername(username);
-
-            if (staff == null) {
-                throw new UserFriendlyException("Cannot find staff with username: " + username);
-            }
-
             responsibility.setPublished(true);
-            responsibility.setPublishedBy(staff);
+            responsibility.setPublishedBy(username);
             responsibility.setPublishedDate(new Date());
         }
 
