@@ -8,7 +8,7 @@
         <link rel="stylesheet" type="text/css"
               href="${cdnContextPath}/jquery-plugins/jstree/3.3.8/themes/classic/style.min.css"/>
         <link rel="stylesheet" type="text/css"
-              href="${pageContext.request.contextPath}/resources/v${initParam.resourceVersionNumber}/css/readiness.css"/>
+              href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/readiness.css"/>
         <style type="text/css">
             .category-list {
                 list-style-image: url("../resources/img/category.png");
@@ -40,7 +40,7 @@
     <jsp:attribute name="scripts">
         <script type="text/javascript" src="${cdnContextPath}/jquery-plugins/jstree/3.3.8/jstree.min.js"></script>
         <script type="text/javascript"
-                src="${pageContext.request.contextPath}/resources/v${initParam.resourceVersionNumber}/js/category-tree.js"></script>
+                src="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/js/category-tree.js"></script>
     </jsp:attribute>
     <jsp:body>
         <section>

@@ -29,7 +29,7 @@
     </jsp:attribute>
     <jsp:attribute name="scripts">           
         <script type="text/javascript"
-                src="${pageContext.request.contextPath}/resources/v${initParam.resourceVersionNumber}/js/masking-request.js"></script>
+                src="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/js/masking-request.js"></script>
     </jsp:attribute>
     <jsp:body>
         <section>

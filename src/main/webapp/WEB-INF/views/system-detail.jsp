@@ -8,10 +8,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>HCO - System ${system.name}</title>
     <link rel="shortcut icon"
-          href="${pageContext.request.contextPath}/resources/v${initParam.resourceVersionNumber}/img/favicon.ico"/>
+          href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/img/favicon.ico"/>
     <link rel="stylesheet" type="text/css" href="${cdnContextPath}/jlab-theme/smoothness/1.6/css/smoothness.min.css"/>
     <link rel="stylesheet" type="text/css"
-          href="${pageContext.request.contextPath}/resources/v${initParam.resourceVersionNumber}/css/hco.css"/>
+          href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/hco.css"/>
 </head>
 <body>
 <div id="page">

@@ -12,19 +12,19 @@
         - ${history.checklist.groupResponsibility.group.name.concat(' ').concat(history.checklist.groupResponsibility.system.name)}
         Checklist</title>
     <link rel="shortcut icon"
-          href="${pageContext.request.contextPath}/resources/v${initParam.resourceVersionNumber}/img/favicon.ico"/>
+          href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/img/favicon.ico"/>
     <link rel="stylesheet" type="text/css"
           href="${cdnContextPath}/jquery-ui/1.10.3/theme/smoothness/jquery-ui.min.css"/>
     <link rel="stylesheet" type="text/css"
-          href="${pageContext.request.contextPath}/resources/v${initParam.resourceVersionNumber}/css/hco.css"/>
+          href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/hco.css"/>
     <link rel="stylesheet" type="text/css" href="${cdnContextPath}/jlab-theme/smoothness/1.6/css/smoothness.min.css"/>
     <link rel="stylesheet" type="text/css" href="${cdnContextPath}/jquery-plugins/select2/3.5.2/select2.css"/>
     <link rel="stylesheet" type="text/css"
           href="${cdnContextPath}/jquery-plugins/timepicker/jquery-ui-timepicker-1.3.1.css"/>
     <link rel="stylesheet" type="text/css"
-          href="${pageContext.request.contextPath}/resources/v${initParam.resourceVersionNumber}/css/checklist.css"/>
+          href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/checklist.css"/>
     <link rel="stylesheet" type="text/css"
-          href="${pageContext.request.contextPath}/resources/v${initParam.resourceVersionNumber}/css/fullpage-checklist.css"/>
+          href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/fullpage-checklist.css"/>
 </head>
 <body>
 <c:if test="${initParam.notification ne null}">
@@ -158,7 +158,7 @@
 <script type="text/javascript" src="${cdnContextPath}/jquery-plugins/timepicker/jquery-ui-timepicker-1.3.1.js"></script>
 <script type="text/javascript" src="${cdnContextPath}/jlab-theme/smoothness/1.6/js/smoothness.min.js"></script>
 <script type="text/javascript"
-        src="${pageContext.request.contextPath}/resources/v${initParam.resourceVersionNumber}/js/hco.js"></script>
+        src="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/js/hco.js"></script>
 <script type="text/javascript">
     jlab.contextPath = '${pageContext.request.contextPath}';
 </script>

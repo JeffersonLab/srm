@@ -9,11 +9,11 @@
 <t:page title="${title}">  
     <jsp:attribute name="stylesheets">
         <link rel="stylesheet" type="text/css"
-              href="${pageContext.request.contextPath}/resources/v${initParam.resourceVersionNumber}/css/signoff.css"/>
+              href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/signoff.css"/>
     </jsp:attribute>
     <jsp:attribute name="scripts">
         <script type="text/javascript"
-                src="${pageContext.request.contextPath}/resources/v${initParam.resourceVersionNumber}/js/signoff.js"></script>
+                src="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/js/signoff.js"></script>
         <c:if test="${param.pop eq 'true' and pageContext.request.userPrincipal ne null}">
             <script type="text/javascript">
                 $(function () {

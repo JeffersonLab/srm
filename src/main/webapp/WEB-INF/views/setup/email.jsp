@@ -72,7 +72,7 @@
     </jsp:attribute>
     <jsp:attribute name="scripts">
         <script type="text/javascript"
-                src="${pageContext.request.contextPath}/resources/v${initParam.resourceVersionNumber}/js/email.js"></script>
+                src="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/js/email.js"></script>
     </jsp:attribute>
     <jsp:body>
         <section>

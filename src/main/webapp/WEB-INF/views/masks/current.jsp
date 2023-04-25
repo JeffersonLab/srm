@@ -9,11 +9,11 @@
 <t:masks-page title="${title}">  
     <jsp:attribute name="stylesheets">
         <link rel="stylesheet" type="text/css"
-              href="${pageContext.request.contextPath}/resources/v${initParam.resourceVersionNumber}/css/current-masks.css"/>
+              href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/current-masks.css"/>
     </jsp:attribute>
     <jsp:attribute name="scripts">         
         <script type="text/javascript"
-                src="${pageContext.request.contextPath}/resources/v${initParam.resourceVersionNumber}/js/current-masks.js"></script>
+                src="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/js/current-masks.js"></script>
     </jsp:attribute>
     <jsp:body>
         <section>

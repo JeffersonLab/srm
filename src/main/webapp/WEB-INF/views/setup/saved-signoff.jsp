@@ -7,11 +7,11 @@
 <t:setup-page title="${title}">  
     <jsp:attribute name="stylesheets">
         <link rel="stylesheet" type="text/css"
-              href="${pageContext.request.contextPath}/resources/v${initParam.resourceVersionNumber}/css/saved-signoffs.css"/>
+              href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/saved-signoffs.css"/>
     </jsp:attribute>
     <jsp:attribute name="scripts">
         <script type="text/javascript"
-                src="${pageContext.request.contextPath}/resources/v${initParam.resourceVersionNumber}/js/saved-signoff.js"></script>
+                src="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/js/saved-signoff.js"></script>
         <c:if test="${param.pop eq 'true'}">
             <script type="text/javascript">
                 $(function () {

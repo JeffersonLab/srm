@@ -7,7 +7,7 @@
 <t:page title="${title}" category="Setup">
     <jsp:attribute name="stylesheets">
         <link rel="stylesheet" type="text/css"
-              href="${pageContext.request.contextPath}/resources/v${initParam.resourceVersionNumber}/css/setup.css"/>
+              href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/setup.css"/>
         <jsp:invoke fragment="stylesheets"/>
     </jsp:attribute>
     <jsp:attribute name="scripts">

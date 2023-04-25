@@ -11,12 +11,12 @@
         <link rel="stylesheet" type="text/css"
               href="${cdnContextPath}/jquery-plugins/jstree/3.3.8/themes/classic/style.min.css"/>
         <link rel="stylesheet" type="text/css"
-              href="${pageContext.request.contextPath}/resources/v${initParam.resourceVersionNumber}/css/readiness.css"/>
+              href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/readiness.css"/>
     </jsp:attribute>
     <jsp:attribute name="scripts">        
         <script type="text/javascript" src="${cdnContextPath}/jquery-plugins/jstree/3.3.8/jstree.min.js"></script>
         <script type="text/javascript"
-                src="${pageContext.request.contextPath}/resources/v${initParam.resourceVersionNumber}/js/readiness.js"></script>
+                src="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/js/readiness.js"></script>
     </jsp:attribute>
     <jsp:body>
         <section>

@@ -14,10 +14,10 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>HCO - Activity Report</title>
-    <link rel="shortcut icon" href="${pathPrefix}/resources/v${initParam.resourceVersionNumber}/img/favicon.ico"/>
+    <link rel="shortcut icon" href="${pathPrefix}/resources/v${initParam.releaseNumber}/img/favicon.ico"/>
     <link rel="stylesheet" type="text/css" href="${cdnContextPath}/jlab-theme/smoothness/1.6/css/smoothness.min.css"/>
     <link rel="stylesheet" type="text/css"
-          href="${pathPrefix}/resources/v${initParam.resourceVersionNumber}/css/hco.css"/>
+          href="${pathPrefix}/resources/v${initParam.releaseNumber}/css/hco.css"/>
     <style type="text/css">
         body {
             background-color: white;

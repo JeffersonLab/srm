@@ -9,7 +9,7 @@
 <t:reports-page title="${title}">  
     <jsp:attribute name="stylesheets">       
         <link rel="stylesheet" type="text/css"
-              href="${pageContext.request.contextPath}/resources/v${initParam.resourceVersionNumber}/css/group-status.css"/>
+              href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/group-status.css"/>
     </jsp:attribute>
     <jsp:attribute name="scripts">        
         <script type="text/javascript" src="${cdnContextPath}/jquery-plugins/flot/0.8.3/jquery.flot.min.js"></script>
@@ -22,7 +22,7 @@
         <script type="text/javascript"
                 src="${pageContext.request.contextPath}/resources/js/jquery.sparkline.min.js"></script>
         <script type="text/javascript"
-                src="${pageContext.request.contextPath}/resources/v${initParam.resourceVersionNumber}/js/group-status.js"></script>
+                src="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/js/group-status.js"></script>
     </jsp:attribute>
     <jsp:body>
         <section>

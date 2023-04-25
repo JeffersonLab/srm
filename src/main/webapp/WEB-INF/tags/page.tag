@@ -14,9 +14,9 @@
         <link rel="stylesheet" type="text/css"
               href="${cdnContextPath}/jquery-plugins/timepicker/jquery-ui-timepicker-1.3.1.css"/>
         <link rel="stylesheet" type="text/css"
-              href="${pageContext.request.contextPath}/resources/v${initParam.resourceVersionNumber}/css/hco.css"/>
+              href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/hco.css"/>
         <link rel="stylesheet" type="text/css"
-              href="${pageContext.request.contextPath}/resources/v${initParam.resourceVersionNumber}/css/checklist.css"/>
+              href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/checklist.css"/>
         <jsp:invoke fragment="stylesheets"/>
     </jsp:attribute>
     <jsp:attribute name="scripts">
@@ -26,7 +26,7 @@
         <script type="text/javascript"
                 src="${cdnContextPath}/jquery-plugins/timepicker/jquery-ui-timepicker-1.3.1.js"></script>
         <script type="text/javascript"
-                src="${pageContext.request.contextPath}/resources/v${initParam.resourceVersionNumber}/js/hco.js"></script>
+                src="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/js/hco.js"></script>
         <jsp:invoke fragment="scripts"/>
     </jsp:attribute>
     <jsp:attribute name="footnote">

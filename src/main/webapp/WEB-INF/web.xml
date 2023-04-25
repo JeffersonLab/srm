@@ -12,10 +12,6 @@
         <param-value>SR</param-value>
     </context-param>
     <context-param>
-        <param-name>resourceVersionNumber</param-name>
-        <param-value>151</param-value>
-    </context-param>
-    <context-param>
         <param-name>releaseNumber</param-name>
         <param-value>@VERSION@</param-value>
     </context-param>

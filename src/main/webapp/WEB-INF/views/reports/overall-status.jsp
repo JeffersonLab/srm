@@ -16,7 +16,7 @@
         <script type="text/javascript"
                 src="${cdnContextPath}/jquery-plugins/flot/0.8.3/jquery.flot.resize.min.js"></script>
         <script type="text/javascript"
-                src="${pageContext.request.contextPath}/resources/v${initParam.resourceVersionNumber}/js/overall-status.js"></script>
+                src="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/js/overall-status.js"></script>
     </jsp:attribute>
     <jsp:body>
         <section>
