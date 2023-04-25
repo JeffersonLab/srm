@@ -3,7 +3,7 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<%@attribute name="node" required="true" type="org.jlab.hco.persistence.model.Node" %>
+<%@attribute name="node" required="true" type="org.jlab.srm.persistence.model.Node" %>
 <%@attribute name="level" required="true" type="java.lang.Integer" %>
 <%@attribute name="parameterName" required="true" type="java.lang.String" %>
 <option value="${node.id}"${param[parameterName] eq node.id ? ' selected="selected"' : ''}><c:forEach begin="1"
