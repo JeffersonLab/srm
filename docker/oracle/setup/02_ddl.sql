@@ -1,5 +1,7 @@
 alter session set container = XEPDB1;
 
+-- SEQUENCES
+
 CREATE SEQUENCE SRM_OWNER.CATEGORY_ID
     INCREMENT BY 1
     START WITH 1
@@ -90,6 +92,8 @@ CREATE SEQUENCE SRM_OWNER.SYSTEM_ID
     NOCYCLE
 	NOCACHE
 	ORDER;
+
+-- TABLES
 
 CREATE TABLE SRM_OWNER.APPLICATION_REVISION_INFO
 (
@@ -280,7 +284,8 @@ CREATE TABLE SRM_OWNER.GROUP_SIGNOFF_HISTORY
     MODIFIED_DATE            DATE NOT NULL ,
     COMMENTS                 VARCHAR2(1024 CHAR) NULL ,
     CHANGE_TYPE              VARCHAR2(24 CHAR) NULL CONSTRAINT GROUP_SIGNOFF_HISTORY_CK1 CHECK (CHANGE_TYPE IN ('UPGRADE', 'DOWNGRADE', 'CASCADE', 'COMMENT')),
-    CONSTRAINT GROUP_SIGNOFF_HISTORY_PK PRIMARY KEY (GROUP_SIGNOFF_HISTORY_ID)
+    CONSTRAINT GROUP_SIGNOFF_HISTORY_PK PRIMARY KEY (GROUP_SIGNOFF_HISTORY_ID),
+    CONSTRAINT GROUP_SIGNOFF_HISTORY_AK1 UNIQUE (GROUP_ID,SYSTEM_ID,COMPONENT_ID,MODIFIED_DATE)
 );
 
 CREATE TABLE SRM_OWNER.CHECKLIST
@@ -408,3 +413,88 @@ CREATE TABLE SRM_OWNER.CATEGORY_AUD
     CONSTRAINT CATEGORY_AUD_PK PRIMARY KEY (CATEGORY_ID,REV),
     CONSTRAINT CATEGORY_AUD_FK1 FOREIGN KEY (REV) REFERENCES SRM_OWNER.APPLICATION_REVISION_INFO (REV)
 );
+
+-- Special Indexes (Performance tweaks)
+
+-- Note: Unique Constraint could work if not for NVL2()
+CREATE UNIQUE INDEX COMPONENT_PERF1 ON SRM_OWNER.COMPONENT (DATA_SOURCE, NVL2(DATA_SOURCE_ID, DATA_SOURCE_ID, COMPONENT_ID));
+
+-- Not Unique, so not a constraint
+CREATE INDEX GROUP_SIGNOFF_IN1 on SRM_OWNER.GROUP_SIGNOFF(COMPONENT_ID, STATUS_ID);
+
+-- Views
+
+--
+-- Creates a view showing the status_id for all the groups that must
+-- signoff on the component.  It accounts for the fact that
+-- an entry in the group_signoff table may be missing by assigning
+-- 100 (Not Ready)
+--
+create view srm_owner.component_signoff as
+select c.system_id, c.component_id, c.group_id, nvl(x.status_id, 100) as status_id
+from
+    srm_owner.group_signoff x,
+    (select c.system_id, c.component_id, g.group_id
+     from srm_owner.component c, srm_owner.group_responsibility g
+     where
+             c.system_id = g.system_id) c
+where
+        c.group_id = x.group_id (+) and
+        c.component_id = x.component_id (+);
+
+--
+-- Creates a view showing the status of components, including those which are masked.
+--
+CREATE VIEW SRM_OWNER.COMPONENT_STATUS ("COMPONENT_ID", "NAME", "WEIGHT", "SYSTEM_ID", "SYSTEM_NAME", "REGION_ID", "REGION_NAME", "UNPOWERED_YN", "STATUS_ID") AS
+select a.component_id, a.name, a.weight, a.system_id, c.name as system_name, a.region_id, d.name as region_name, a.unpowered_yn,
+       case
+           when a.masked = 'Y' then a.mask_type_id
+           else nvl((select max(b.status_id) from srm_owner.component_signoff b where a.component_id = b.component_id), 1)
+           end as status_id
+from srm_owner.component a,
+     srm_owner.system c,
+     srm_owner.region d
+where a.system_id = c.system_id
+  and a.region_id = d.region_id;
+
+-- This is a version with less columns (streamlined)
+CREATE VIEW SRM_OWNER.COMPONENT_STATUS_2 ("COMPONENT_ID", "STATUS_ID") AS
+select a.component_id,
+       case
+           when a.masked = 'Y' then a.mask_type_id
+           else nvl((select max(b.status_id) from srm_owner.component_signoff b where a.component_id = b.component_id), 1)
+           end as status_id
+from srm_owner.component a;
+
+-- See org.jlab.srm.persistence.entity.view.SignoffActivityRecord
+create view signoff_activity as
+select
+    a.group_signoff_history_id,
+    a.modified_date,
+    a.modified_by,
+    a.comments,
+    a.system_id,
+    a.component_id,
+    a.group_id,
+    a.status_id,
+    a.change_type,
+    c.region_id,
+    b.name as system_name,
+    c.name as component_name,
+    c.unpowered_yn,
+    d.name as group_name,
+    e.name as status_name,
+    f.name as region_name,
+    a.modified_username
+from
+    srm_owner.group_signoff_history a,
+    srm_owner.system b,
+    srm_owner.component c,
+    srm_owner.responsible_group d,
+    srm_owner.status e,
+    srm_owner.region f
+where a.system_id = b.system_id
+  and a.component_id = c.component_id
+  and a.group_id = d.group_id
+  and a.status_id = e.status_id
+  and c.region_id = f.region_id;
