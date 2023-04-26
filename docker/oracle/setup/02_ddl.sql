@@ -485,7 +485,7 @@ select a.component_id,
 from srm_owner.component a;
 
 -- See org.jlab.srm.persistence.entity.view.SignoffActivityRecord
-create view signoff_activity as
+create view srm_owner.signoff_activity as
 select
     a.group_signoff_history_id,
     a.modified_date,
@@ -517,7 +517,7 @@ where a.system_id = b.system_id
   and a.status_id = e.status_id
   and c.region_id = f.region_id;
 
-create or replace view activity_summary as
+create or replace view srm_owner.activity_summary as
 select a.group_id, a.name,
        nvl((select signoff_count from srm_owner.tmp_activity_summary where group_id = a.group_id and change_type = 'UPGRADE' and status_id = 1), 0) as Upgrade_Ready_Count,
        nvl((select signoff_count from srm_owner.tmp_activity_summary where group_id = a.group_id and change_type = 'UPGRADE' and status_id = 50), 0) as Upgrade_Checked_Count,
