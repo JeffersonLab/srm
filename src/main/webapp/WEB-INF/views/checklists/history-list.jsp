@@ -48,7 +48,7 @@
                                                 value="${history.modifiedDate}"/></td>
                             <td><c:out value="${history.comments}"/></td>
                             <td><c:out value="${history.author}"/></td>
-                            <td><c:out value="${hco:formatStaff(history.modifiedBy)}"/></td>
+                            <td><c:out value="${s:formatUsername(history.modifiedBy)}"/></td>
                             <td>
                                 <a data-dialog-title="${history.checklist.groupResponsibility.group.name.concat(' ').concat(history.checklist.groupResponsibility.system.name)} Checklist (History)"
                                    class="dialog-ready" data-dialog-type="checklist"

@@ -104,7 +104,7 @@
                                                 <td><fmt:formatDate pattern="${s:getFriendlyDateTimePattern()}"
                                                                     value="${signoffMap[responsibility.group].modifiedDate}"/>
                                                     <div style="margin-top: 1em;"><c:out
-                                                            value="${hco:formatStaff(signoffMap[responsibility.group].modifiedBy)}"/></div>
+                                                            value="${s:formatUsername(signoffMap[responsibility.group].modifiedBy)}"/></div>
                                                 </td>
                                                 <td><c:out value="${signoffMap[responsibility.group].comments}"/></td>
                                             </tr>
@@ -184,7 +184,7 @@
                                 <dd><fmt:formatDate value="${component.maskedDate}"
                                                     pattern="${s:getFriendlyDateTimePattern()}"/></dd>
                                 <dt>Masked By:</dt>
-                                <dd><c:out value="${hco:formatStaff(component.maskedBy)}"/></dd>
+                                <dd><c:out value="${s:formatUsername(component.maskedBy)}"/></dd>
                                 <dt>Masked Type:</dt>
                                 <dd><c:out value="${hco:getStatusById(component.maskTypeId).maskType}"/></dd>
                                 <dt>Masked Reason:</dt>

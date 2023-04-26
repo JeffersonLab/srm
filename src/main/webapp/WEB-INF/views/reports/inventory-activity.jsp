@@ -95,7 +95,7 @@
                                 <td><c:out value="${revision.id}"/></td>
                                 <td><fmt:formatDate value="${revision.revisionDate}" pattern="dd-MMM-yyyy HH:mm"/></td>
                                 <td><c:out
-                                        value="${revision.staff != null ? hco:formatStaff(revision.staff) : revision.username}"/></td>
+                                        value="${revision.user != null ? s:formatUser(revision.user) : revision.username}"/></td>
                                 <td><c:out value="${hco:getHostnameFromIp(revision.address)}"/></td>
                                 <td>
                                     <c:if test="${fn:length(revision.changeList) > 0}">

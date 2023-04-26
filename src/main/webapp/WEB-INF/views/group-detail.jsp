@@ -25,8 +25,8 @@
             <dt>Leaders:</dt>
             <dd>
                 <ul>
-                    <c:forEach var="leader" items="${group.leaderWorkgroup.staffList}">
-                        <li><c:out value="${hco:formatStaff(leader)}"/></li>
+                    <c:forEach var="leader" items="${group.leaderWorkgroup.userList}">
+                        <li><c:out value="${s:formatUser(leader)}"/></li>
                     </c:forEach>
                 </ul>
             </dd>

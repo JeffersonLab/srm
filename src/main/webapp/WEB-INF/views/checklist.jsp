@@ -145,7 +145,7 @@
                                                 Submitted By:
                                             </div>
                                             <div class="li-value">
-                                                <c:out value="${hco:formatStaff(checklist.modifiedBy)}"/>
+                                                <c:out value="${s:formatUsername(checklist.modifiedBy)}"/>
                                             </div>
                                         </li>
                                         <li>

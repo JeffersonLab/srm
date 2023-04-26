@@ -170,7 +170,7 @@
                             <th>Masked By:</th>
                             <c:forEach items="${revisionList}" var="entity">
                                 <td>
-                                    <c:out value="${entity.maskedBy != null ? hco:formatStaff(entity.maskedBy) : ''}"/>
+                                    <c:out value="${entity.maskedBy != null ? s:formatUsername(entity.maskedBy) : ''}"/>
                                 </td>
                             </c:forEach>
                         </tr>

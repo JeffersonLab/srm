@@ -199,7 +199,7 @@
                                 <td><c:out value="${record.requestReason}"/></td>
                                 <td><fmt:formatDate value="${record.maskExpirationDate}"
                                                     pattern="${s:getFriendlyDateTimePattern()}"/></td>
-                                <td><c:out value="${hco:formatStaff(record.requestBy)}"/></td>
+                                <td><c:out value="${s:formatUsername(record.requestBy)}"/></td>
                                 <td><fmt:formatDate value="${record.requestDate}"
                                                     pattern="${s:getFriendlyDateTimePattern()}"/></td>
                             </tr>

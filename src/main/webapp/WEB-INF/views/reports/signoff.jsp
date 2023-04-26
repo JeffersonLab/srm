@@ -220,7 +220,7 @@
                                     </c:if>
                                     <td><fmt:formatDate value="${record.modifiedDate}"
                                                         pattern="${s:getFriendlyDateTimePattern()}"/></td>
-                                    <td><c:out value="${hco:formatStaff(record.modifiedBy)}"/></td>
+                                    <td><c:out value="${s:formatUsername(record.modifiedBy)}"/></td>
                                     <td>
                                         <c:choose>
                                             <c:when test="${param.dialog eq 'true'}">

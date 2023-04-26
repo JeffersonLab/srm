@@ -111,7 +111,7 @@
                                     Submitted By:
                                 </div>
                                 <div class="li-value">
-                                    <c:out value="${hco:formatStaff(history.modifiedBy)}"/>
+                                    <c:out value="${s:formatUsername(history.modifiedBy)}"/>
                                 </div>
                             </li>
                             <li>

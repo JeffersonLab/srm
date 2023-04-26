@@ -77,7 +77,7 @@
                             <th>Modified By:</th>
                             <c:forEach items="${revisionList}" var="entity">
                                 <td>
-                                    <c:out value="${entity.revision.staff != null ? hco:formatStaff(entity.revision.staff) : entity.revision.username}"/>
+                                    <c:out value="${entity.revision.user != null ? s:formatUser(entity.revision.user) : entity.revision.username}"/>
                                 </td>
                             </c:forEach>
                         </tr>

@@ -81,7 +81,7 @@
                                         <td>
                                             <c:out value="${responsibility.published ? 'Yes' : 'No'}"/>
                                             <c:if test="${responsibility.publishedBy ne null}">
-                                                [by <c:out value="${hco:formatStaff(responsibility.publishedBy)}"/>
+                                                [by <c:out value="${s:formatUsername(responsibility.publishedBy)}"/>
                                                 on <fmt:formatDate pattern="${s:getFriendlyDateTimePattern()}"
                                                                    value="${responsibility.publishedDate}"/>]
                                             </c:if>

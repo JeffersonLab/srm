@@ -211,7 +211,7 @@
                                                     </a>
                                                     <br/><br/><c:out value="${component.system.name}"/>
                                                 </td>
-                                                <td><c:out value="${hco:formatStaff(component.maskedBy)}"/>
+                                                <td><c:out value="${s:formatUsername(component.maskedBy)}"/>
                                                     <c:if test="${component.masked}">
                                                         <br/><br/> ${hco:getStatusById(component.maskTypeId).maskType}
                                                     </c:if>
