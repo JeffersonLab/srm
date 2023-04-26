@@ -1,5 +1,5 @@
 # srm [![CI](https://github.com/JeffersonLab/srm/actions/workflows/ci.yml/badge.svg)](https://github.com/JeffersonLab/srm/actions/workflows/ci.yml) [![Docker](https://img.shields.io/docker/v/jeffersonlab/srm?sort=semver&label=DockerHub)](https://hub.docker.com/r/jeffersonlab/srm)
-A [Java EE 8](https://en.wikipedia.org/wiki/Jakarta_EE) web application for managing downtime at Jefferson Lab built with the [Smoothness](https://github.com/JeffersonLab/smoothness) web template.
+A [Java EE 8](https://en.wikipedia.org/wiki/Jakarta_EE) web application for managing system readiness at Jefferson Lab built with the [Smoothness](https://github.com/JeffersonLab/smoothness) web template.
 
 ![Screenshot](https://github.com/JeffersonLab/srm/raw/main/Screenshot.png?raw=true "Screenshot")
 
