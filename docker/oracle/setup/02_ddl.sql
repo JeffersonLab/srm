@@ -407,6 +407,31 @@ CREATE TABLE SRM_OWNER.CATEGORY_AUD
     CONSTRAINT CATEGORY_AUD_FK1 FOREIGN KEY (REV) REFERENCES SRM_OWNER.APPLICATION_REVISION_INFO (REV)
 );
 
+-- Tmp Table
+/**
+ * Obtain a cursor over category ids representing the children of a
+ * particular category based on a set of filter criteria
+ */
+create global temporary table srm_owner.tmp_component_categories (category_id integer) on commit delete rows;
+create global temporary table srm_owner.tmp_activity_summary (GROUP_ID integer, CHANGE_TYPE varchar2(24), STATUS_ID integer, SIGNOFF_COUNT integer) on commit delete rows;
+
+-- Custom Oracle Types
+
+CREATE TYPE SRM_OWNER.CATEGORY_STATUS IS OBJECT (CATEGORY_ID INTEGER, STATUS_ID INTEGER);
+/
+CREATE TYPE SRM_OWNER.CATEGORY_STATUS_TABLE IS TABLE OF SRM_OWNER.CATEGORY_STATUS;
+/
+CREATE TYPE SRM_OWNER.SYSTEM_STATUS IS OBJECT (SYSTEM_ID INTEGER, STATUS_ID INTEGER);
+/
+CREATE TYPE SRM_OWNER.SYSTEM_STATUS_TABLE IS TABLE OF SRM_OWNER.SYSTEM_STATUS;
+/
+CREATE TYPE SRM_OWNER.CATEGORY_CHILD AS OBJECT(CATEGORY_ID INTEGER);
+/
+CREATE TYPE SRM_OWNER.CATEGORY_CHILD_TABLE IS TABLE OF SRM_OWNER.CATEGORY_CHILD;
+/
+CREATE TYPE SRM_OWNER.NUMBER_TAB AS TABLE OF NUMBER;
+/
+
 -- Special Indexes (Performance tweaks)
 
 -- Note: Unique Constraint could work if not for NVL2()
@@ -491,3 +516,216 @@ where a.system_id = b.system_id
   and a.group_id = d.group_id
   and a.status_id = e.status_id
   and c.region_id = f.region_id;
+
+create or replace view activity_summary as
+select a.group_id, a.name,
+       nvl((select signoff_count from srm_owner.tmp_activity_summary where group_id = a.group_id and change_type = 'UPGRADE' and status_id = 1), 0) as Upgrade_Ready_Count,
+       nvl((select signoff_count from srm_owner.tmp_activity_summary where group_id = a.group_id and change_type = 'UPGRADE' and status_id = 50), 0) as Upgrade_Checked_Count,
+       nvl((select signoff_count from srm_owner.tmp_activity_summary where group_id = a.group_id and change_type = 'DOWNGRADE' and status_id = 50), 0) as Downgrade_Checked_Count,
+       nvl((select signoff_count from srm_owner.tmp_activity_summary where group_id = a.group_id and change_type = 'DOWNGRADE' and status_id = 100), 0) as Downgrade_Not_Ready_Count,
+       nvl((select signoff_count from srm_owner.tmp_activity_summary where group_id = a.group_id and change_type = 'CASCADE' and status_id = 50), 0) as Cascade_Count,
+       nvl((select signoff_count from srm_owner.tmp_activity_summary where group_id = a.group_id and change_type = 'COMMENT' and status_id = 1), 0) +
+       nvl((select signoff_count from srm_owner.tmp_activity_summary where group_id = a.group_id and change_type = 'COMMENT' and status_id = 50), 0) +
+       nvl((select signoff_count from srm_owner.tmp_activity_summary where group_id = a.group_id and change_type = 'COMMENT' and status_id = 100), 0) as Comment_Count
+from srm_owner.responsible_group a order by a.name asc;
+
+-- Functions
+
+/*Check all prior signoff statuses to see who is in the hot seat / at bat */
+create or replace function srm_owner.previous_signoff_status(v_component_id in integer, v_weight in integer)
+    return integer
+    is
+    retval integer;
+    cursor c1 is
+        select max(m.status_id) from srm_owner.component_signoff m, srm_owner.group_responsibility n where m.system_id = n.system_id and m.group_id = n.group_id and m.component_id = v_component_id and n.weight < v_weight order by n.weight desc;
+begin
+    OPEN c1;
+    FETCH c1 INTO retval;
+
+    IF c1%notfound THEN
+        retval := 1;
+    END IF;
+
+    IF retval IS NULL THEN
+        retval := 1;
+    END IF;
+
+    CLOSE c1;
+    RETURN retval;
+
+EXCEPTION
+    WHEN OTHERS THEN
+        raise_application_error(-20001,'An error was encountered - '||SQLCODE||' -ERROR- '||SQLERRM);
+end;
+/
+
+create or replace FUNCTION SRM_OWNER.csv_2_nums(
+    p_str IN VARCHAR2)
+    RETURN number_tab
+AS
+    l_str LONG DEFAULT p_str || ',';
+    l_n NUMBER;
+    l_data number_tab := number_tab();
+BEGIN
+    LOOP
+        l_n := instr( l_str, ',' );
+        EXIT
+            WHEN (NVL(l_n,0) = 0);
+        l_data.extend;
+        l_data( l_data.count ) := ltrim(rtrim(SUBSTR(l_str,1,l_n-1)));
+        l_str                  := SUBSTR( l_str, l_n            +1 );
+    END LOOP;
+    RETURN l_data;
+END;
+/
+
+create or replace FUNCTION SRM_OWNER.FILTER_SYSTEM_STATUS (sys_id in INTEGER, dest_id_csv in VARCHAR2, sys_id_csv in VARCHAR2, reg_id in INTEGER, grp_id in INTEGER, stat_id_csv in VARCHAR2)
+    RETURN INTEGER
+    IS
+    retval integer;
+
+    CURSOR c1 IS
+        SELECT MAX(a.status_id)
+        FROM
+            component_status_2 a left join component b on a.component_id = b.component_id
+                                 left outer join component_beam_destination c on b.component_id = c.component_id
+        WHERE b.system_id = sys_id
+          AND b.masked = 'N'
+          AND CASE
+                  WHEN reg_id IS NULL THEN 1
+                  WHEN reg_id IS NOT NULL AND b.region_id = reg_id THEN 1
+                  ELSE 0 END = 1
+          AND CASE
+                  WHEN dest_id_csv IS NULL THEN 1
+                  WHEN dest_id_csv IS NOT NULL AND c.beam_destination_id in (select * from table(csv_2_nums(dest_id_csv))) THEN 1
+                  ELSE 0 END = 1
+          AND CASE
+                  WHEN sys_id_csv IS NULL THEN 1
+                  WHEN sys_id_csv IS NOT NULL AND b.system_id in (select * from table(csv_2_nums(sys_id_csv))) THEN 1
+                  ELSE 0 END = 1
+          AND CASE
+                  WHEN grp_id IS NULL THEN 1
+                  WHEN grp_id IS NOT NULL AND a.component_id in (select component_id from component_signoff z where z.group_id = grp_id) THEN 1
+                  ELSE 0 END = 1
+          AND CASE
+                  WHEN stat_id_csv IS NULL THEN 1
+                  WHEN stat_id_csv IS NOT NULL AND a.status_id in (select * from table(csv_2_nums(stat_id_csv))) THEN 1
+                  ELSE 0 END = 1;
+BEGIN
+    OPEN c1;
+    FETCH c1 INTO retval;
+
+    IF c1%notfound THEN
+        retval := 1;
+    END IF;
+
+    IF retval IS NULL THEN
+        retval := 1;
+    END IF;
+
+    CLOSE c1;
+    RETURN retval;
+
+EXCEPTION
+    WHEN OTHERS THEN
+        raise_application_error(-20001,'An error was encountered - '||SQLCODE||' -ERROR- '||SQLERRM);
+END;
+/
+
+create or replace FUNCTION SRM_OWNER.FILTER_CATEGORY_STATUS (cat_id in INTEGER, dest_id_csv in VARCHAR2, sys_id_csv in VARCHAR2, reg_id in INTEGER, grp_id in INTEGER, stat_id_csv in VARCHAR2)
+    RETURN INTEGER
+    IS
+    retval integer;
+
+    CURSOR c1 IS
+        SELECT MAX(filter_system_status(system_id, dest_id_csv, sys_id_csv, reg_id, grp_id, stat_id_csv)) FROM system WHERE category_id IN
+                                                                                                                            (SELECT category_id FROM category START WITH category_id = cat_id CONNECT BY PRIOR category_id = parent_id);
+BEGIN
+    OPEN c1;
+    FETCH c1 INTO retval;
+
+    IF c1%notfound THEN
+        retval := 1;
+    END IF;
+
+    IF retval IS NULL THEN
+        retval := 1;
+    END IF;
+
+    CLOSE c1;
+    RETURN retval;
+
+EXCEPTION
+    WHEN OTHERS THEN
+        raise_application_error(-20001,'An error was encountered - '||SQLCODE||' -ERROR- '||SQLERRM);
+END;
+/
+
+-- Procedures
+
+--- CHANGE COMPONENT SYSTEM PROCEDURE
+create or replace procedure SRM_OWNER.CHANGE_COMPONENT_SYSTEM (comp_id in integer, new_sys_id in integer) AS
+    old_sys_id integer;
+BEGIN
+    select system_id into old_sys_id from component where component_id = comp_id;
+    update component set system_id = new_sys_id where component_id = comp_id;
+    for newGroup in
+        (select group_id from group_responsibility where system_id = new_sys_id)
+        loop
+            --DBMS_OUTPUT.PUT_LINE('looking at new group: ' || newGroup.group_id);
+            for oldGroup in
+                (select group_id from group_responsibility where system_id = old_sys_id)
+                loop
+                    --DBMS_OUTPUT.PUT_LINE('looking at old group: ' || oldGroup.group_id);
+                    if oldGroup.group_id = newGroup.group_id then
+                        --DBMS_OUTPUT.PUT_LINE('found match');
+                        update group_signoff set system_id = new_sys_id where component_id = comp_id and group_id = newGroup.group_id;
+                        update group_signoff_history set system_id = new_sys_id where component_id = comp_id and group_id = newGroup.group_id;
+                    end if;
+                end loop;
+        end loop;
+    delete from group_signoff where component_id = comp_id and system_id = old_sys_id;
+END;
+/
+
+-- CHANGE COMPONENT POWER PROCEDURE
+create or replace procedure SRM_OWNER.CHANGE_COMPONENT_POWER (comp_id in integer, new_unpowered_yn in char) AS
+    comp_system_id integer;
+    old_status_id integer;
+    new_change_type varchar2(24 char) := 'DOWNGRADE';
+    new_staff_id integer := 233; -- Can't be null so... Ron Lazue!
+    new_comment varchar(1024 char);
+    formatted_yn varchar(3);
+BEGIN
+    select decode(new_unpowered_yn, 'Y', 'Yes', 'No') into formatted_yn from dual;
+    new_comment := 'Unpowered Changed to "' || formatted_yn || '"';
+
+    select system_id into comp_system_id from component where component_id = comp_id;
+
+    update component set unpowered_yn = new_unpowered_yn where component_id = comp_id;
+
+    for resp_group in
+        (select group_id from group_responsibility where system_id = comp_system_id)
+        loop
+            --DBMS_OUTPUT.PUT_LINE('looking at group: ' || resp_group.group_id);
+
+            select status_id into old_status_id from group_signoff where group_id = resp_group.group_id and component_id = comp_id;
+
+            if old_status_id is null or old_status_id = 100 then
+                new_change_type := 'COMMENT';
+            end if;
+
+            if old_status_id is not null then
+                update group_signoff set status_id = 100, comments = new_comment, change_type = new_change_type, modified_date = sysdate, modified_by = new_staff_id where component_id = comp_id and group_id = resp_group.group_id;
+            else
+                insert into group_signoff
+                (group_signoff_id, system_id, group_id, component_id, status_id, modified_by, modified_date, comments, change_type)
+                values(group_signoff_id.nextval, comp_system_id, resp_group.group_id, comp_id, 100, new_staff_id, sysdate, new_comment, new_change_type);
+            end if;
+
+            insert into group_signoff_history
+            (group_signoff_history_id, system_id, group_id, component_id, status_id, modified_by, modified_date, comments, change_type)
+            values(group_signoff_history_id.nextval, comp_system_id, resp_group.group_id, comp_id, 100, new_staff_id, sysdate, new_comment, new_change_type);
+        end loop;
+END;
+/
