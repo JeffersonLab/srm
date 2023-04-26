@@ -14,17 +14,7 @@
     </jsp:attribute>
     <jsp:body>
         <s:help-panel title="${title}">
-            <ul>
-                <li><a href="https://accwiki.acc.jlab.org/pub/SWDocs/HotCheckout/FAQ.pdf">FAQ</a></li>
-                <li><a href="https://accwiki.acc.jlab.org/pub/SWDocs/HotCheckout/HCO_Training_Final.pptx">Training
-                    Slides</a></li>
-                <li><a href="https://accwiki.acc.jlab.org/pub/SWDocs/HotCheckout/LerfGuidance.docx">LERF Guidance</a>
-                </li>
-                <li><a href="https://accwiki.acc.jlab.org/pub/SWDocs/HotCheckout/ScheduleTemplate.pdf">Schedule
-                    Template</a></li>
-                <li><a href="https://accwiki.acc.jlab.org/do/view/SWDocs/HotCheckoutDataAccess">Developer Data
-                    Access</a></li>
-            </ul>
+
         </s:help-panel>
     </jsp:body>
 </t:page>

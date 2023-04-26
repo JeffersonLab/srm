@@ -12,28 +12,16 @@
         <param-value>SRM</param-value>
     </context-param>
     <context-param>
+        <param-name>appSpecificEnvPrefix</param-name>
+        <param-value>SRM</param-value>
+    </context-param>
+    <context-param>
         <param-name>releaseNumber</param-name>
         <param-value>@VERSION@</param-value>
     </context-param>
     <context-param>
         <param-name>releaseDate</param-name>
         <param-value>@RELEASE_DATE@</param-value>
-    </context-param>
-    <context-param>
-        <param-name>contentContact</param-name>
-        <param-value>Kenneth Baggett (baggett), Paul Vasilauskis (vasilaus)</param-value>
-    </context-param>
-    <context-param>
-        <param-name>technicalContact</param-name>
-        <param-value>Theo Larrieu (theo), Ryan Slominski (ryans)</param-value>
-    </context-param>
-    <context-param>
-        <param-name>feedbackFromAddress</param-name>
-        <param-value>hco@jlab.org</param-value>
-    </context-param>
-    <context-param>
-        <param-name>feedbackToAddressCsv</param-name>
-        <param-value>baggett@jlab.org,ryans@jlab.org,vasilaus@jlab.org,theo@jlab.org,garza@jlab.org,frierson@jlab.org,moser@jlab.org</param-value>
     </context-param>
     <filter>
         <filter-name>UrlRewriteFilter</filter-name>
