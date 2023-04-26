@@ -661,7 +661,65 @@ EXCEPTION
 END;
 /
 
+create or replace FUNCTION SRM_OWNER.FILTER_CATEGORY_STATUS_TABLE (cat_id in integer, dest_id_csv in varchar2, sys_id_csv in varchar2, reg_id in integer, grp_id in integer, stat_id_csv in varchar2) RETURN CATEGORY_STATUS_TABLE AS
+    return_table CATEGORY_STATUS_TABLE := CATEGORY_STATUS_TABLE();
+    n integer := 0;
+BEGIN
+    for r in (select category_id from category where parent_id = cat_id)
+        loop
+            return_table.extend;
+            n := n + 1;
+            return_table(n) := CATEGORY_STATUS(r.category_id, filter_category_status(r.category_id, dest_id_csv, sys_id_csv, reg_id, grp_id, stat_id_csv));
+        end loop;
+    RETURN return_table;
+END;
+/
+
+create or replace FUNCTION SRM_OWNER.FILTER_SYSTEM_STATUS_TABLE (dest_id_csv in varchar2, sys_id_csv in varchar2, reg_id in integer, grp_id in integer, stat_id_csv in varchar2) RETURN SYSTEM_STATUS_TABLE AS
+    return_table SYSTEM_STATUS_TABLE := SYSTEM_STATUS_TABLE();
+    n integer := 0;
+BEGIN
+    for r in (select system_id from system)
+        loop
+            return_table.extend;
+            n := n + 1;
+            return_table(n) := SYSTEM_STATUS(r.system_id, filter_system_status(r.system_id, dest_id_csv, sys_id_csv, reg_id, grp_id, stat_id_csv));
+        end loop;
+    RETURN return_table;
+END;
+/
+
 -- Procedures
+
+create or replace PROCEDURE SRM_OWNER.FILTER_CATEGORY_CHILD_TABLE (cat_id in integer, dest_id_csv in varchar2, sys_id_csv in varchar2, reg_id in integer, grp_id in integer, stat_id_csv in varchar2, rtn_cursor out SYS_REFCURSOR) AS
+BEGIN
+    delete from tmp_component_categories;
+    FOR item IN
+        (select distinct b.category_id from component a
+                                                left join component_status_2 e on a.component_id = e.component_id
+                                                left outer join component_beam_destination c on a.component_id = c.component_id,
+                                            system b
+         where a.system_id = b.system_id
+           and a.system_id in (select system_id from system_application where application_id = 1)
+           and (reg_id is null or reg_id = a.region_id)
+           and (dest_id_csv is null or c.beam_destination_id in (select * from table(csv_2_nums(dest_id_csv))))
+           and (sys_id_csv is null or a.system_id in (select * from table(csv_2_nums(sys_id_csv))))
+           and (grp_id is null or
+                a.component_id in (select component_id from component_signoff z where z.group_id = grp_id))
+           and (stat_id_csv is null or
+                e.status_id in (select * from table(csv_2_nums(stat_id_csv)))))
+        LOOP
+            --DBMS_OUTPUT.PUT_LINE('component category: ' || item.category_id);
+            FOR thing IN
+                (select w.category_id from category w start with w.category_id = item.category_id connect by prior w.parent_id = w.category_id)
+                LOOP
+                    --DBMS_OUTPUT.PUT_LINE('category heirarchy: ' || thing.category_id);
+                    insert into tmp_component_categories values(thing.category_id);
+                END LOOP;
+        END LOOP;
+    open rtn_cursor for select distinct category_id from tmp_component_categories intersect select category_id from category where parent_id = cat_id;
+END;
+/
 
 --- CHANGE COMPONENT SYSTEM PROCEDURE
 create or replace procedure SRM_OWNER.CHANGE_COMPONENT_SYSTEM (comp_id in integer, new_sys_id in integer) AS
