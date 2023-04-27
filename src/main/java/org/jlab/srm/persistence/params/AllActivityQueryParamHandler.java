@@ -72,7 +72,7 @@ public final class AllActivityQueryParamHandler implements QueryParamHandler {
         }
 
         if (params.getUsername() != null && !params.getUsername().isEmpty()) {
-            filters.add("username = ?");
+            filters.add("modified_username = ?");
         }
 
         if (params.getComponentName() != null && !params.getComponentName().isEmpty()) {

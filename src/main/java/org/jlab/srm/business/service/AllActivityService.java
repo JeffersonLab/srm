@@ -1,5 +1,7 @@
 package org.jlab.srm.business.service;
 
+import org.jlab.smoothness.business.service.UserAuthorizationService;
+import org.jlab.smoothness.persistence.view.User;
 import org.jlab.srm.business.params.AllActivityParams;
 import org.jlab.srm.persistence.entity.Status;
 import org.jlab.srm.persistence.enumeration.AllChangeType;
@@ -39,11 +41,10 @@ public class AllActivityService {
         String sql = buildSharedSql(handler);
 
         sql = sql + "select c.*, r.name as groupname, s.name as systemname, "
-                + "s2.lastname, s2.firstname, c2.unpowered_yn "
+                + "c2.unpowered_yn "
                 + "from combined c left join responsible_group r on c.group_id = r.group_id "
                 + "left join all_systems s on c.system_id = s.system_id left join all_components c2 on "
-                + "c.component_id = c2.component_id left join staff s2 on "
-                + "c.username = s2.username ";
+                + "c.component_id = c2.component_id ";
 
         sql = sql + "order by modified_date desc, record_id desc ";
 
@@ -52,6 +53,8 @@ public class AllActivityService {
                 + sql + ") z where ROWNUM <= " + (offset + max) + ") where rnum > " + offset;
 
         LOGGER.log(Level.FINEST, "Query: {0}", sql);
+
+        UserAuthorizationService userService = UserAuthorizationService.getInstance();
 
         try {
             con = HcoSqlUtil.getConnection();
@@ -104,13 +107,9 @@ public class AllActivityService {
 
                 String componentName = rs.getString(12);
 
-                //BigInteger modifiedBy = rs.getBigDecimal(5).toBigIntegerExact();
                 String groupName = rs.getString(13);
                 String systemName = rs.getString(14);
-                //String componentName = rs.getString(14);
-                String lastname = rs.getString(15);
-                String firstname = rs.getString(16);
-                String unpoweredStr = rs.getString(17);
+                String unpoweredStr = rs.getString(15);
                 boolean unpowered = "Y".equals(unpoweredStr);
 
                 AllActivityRecord record = new AllActivityRecord();
@@ -129,9 +128,13 @@ public class AllActivityService {
                 record.setGroupName(groupName);
                 record.setSystemName(systemName);
                 record.setComponentName(componentName);
+
                 record.setUsername(username);
-                record.setLastname(lastname);
-                record.setFirstname(firstname);
+
+                User user = userService.getUserFromUsername(username);
+                record.setLastname(user.getLastname());
+                record.setFirstname(user.getFirstname());
+
                 record.setUnpowered(unpowered);
 
                 recordList.add(record);
@@ -150,13 +153,13 @@ public class AllActivityService {
                 + "max(group_signoff_history_id) as first_history_id, "
                 + "max(component_id) as first_component_id, "
                 + "max(region_id) as first_region_id, "
-                + "trunc(modified_date, 'MI') as modified_date, username, "
+                + "trunc(modified_date, 'MI') as modified_date, modified_username as username, "
                 + "system_id, group_id, comments, change_type, "
                 + "status_id from (select group_signoff_history_id, "
-                + "component_id, modified_date, modified_by, group_id, "
+                + "component_id, modified_date, modified_username, group_id, "
                 + "comments, change_type, status_id, component.system_id, "
                 + "region_id, name as component_name from group_signoff_history inner join component "
-                + "using(component_id)) inner join staff on modified_by = staff_id ";
+                + "using(component_id)) ";
         // NOTE: We use select from subselect inner join component in order grab 
         // region_id without creating ambiguous system_id, which would be 
         // harder to deal with in dynamic where clause as it would sometimes need to be qualifed.
@@ -169,7 +172,7 @@ public class AllActivityService {
         sql = sql + where;
 
         sql = sql + "group by "
-                + "trunc(modified_date, 'MI'), username, system_id, "
+                + "trunc(modified_date, 'MI'), modified_username, system_id, "
                 + "group_id, comments, change_type, status_id), "
                 + "combined as ( "
                 + "select * from (select modified_date, change_type, username, record_id, component_id, inventory_activity.system_id, all_components.region_id, remark, null as component_count, null as group_id, null as status_id, name as component_name from inventory_activity left join all_components using(component_id)) "; // We select from (select...) so we can filter by group_id, status_id;  left join component for component name
