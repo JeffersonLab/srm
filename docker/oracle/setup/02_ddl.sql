@@ -529,6 +529,181 @@ select a.group_id, a.name,
        nvl((select signoff_count from srm_owner.tmp_activity_summary where group_id = a.group_id and change_type = 'COMMENT' and status_id = 100), 0) as Comment_Count
 from srm_owner.responsible_group a order by a.name asc;
 
+create or replace view srm_owner.deleted_categories as
+select distinct(category_id), name, parent_id, weight,
+               cast((timestamp '1970-01-01 00:00:00 GMT' +
+                     numtodsinterval(revtstmp/1000, 'SECOND'))
+                   at time zone 'America/New_York' as date) as DELETED_DATE,
+               username, address
+from srm_owner.category_aud inner join srm_owner.application_revision_info using(rev)
+where revtype = 2;
+
+create or replace view srm_owner.deleted_systems as
+select distinct(system_id), name, category_id, weight,
+               cast((timestamp '1970-01-01 00:00:00 GMT' +
+                     numtodsinterval(revtstmp/1000, 'SECOND'))
+                   at time zone 'America/New_York' as date) as DELETED_DATE,
+               username, address
+from srm_owner.system_aud inner join srm_owner.application_revision_info using(rev)
+where revtype = 2;
+
+CREATE OR REPLACE VIEW SRM_OWNER.DELETED_COMPONENTS ("COMPONENT_ID", "NAME", "SYSTEM_ID", "DATA_SOURCE", "DATA_SOURCE_ID", "REGION_ID", "MASKED", "MASKED_COMMENT", "MASKED_DATE", "MASKED_BY", "MASK_EXPIRATION_DATE", "WEIGHT", "ADDED_DATE", "UNPOWERED_YN", "MASK_TYPE_ID", "DELETED_DATE", "USERNAME", "ADDRESS") AS
+select distinct(component_id), name, system_id, data_source, data_source_id, region_id, masked, masked_comment,
+               masked_date, masked_by, mask_expiration_date, weight, added_date, unpowered_yn, mask_type_id,
+               cast((timestamp '1970-01-01 00:00:00 GMT' +
+                     numtodsinterval(revtstmp/1000, 'SECOND'))
+                   at time zone 'America/New_York' as date) as DELETED_DATE,
+               username, address
+from srm_owner.component_aud inner join srm_owner.application_revision_info using(rev)
+where revtype = 2;
+
+
+create or replace view srm_owner.all_categories as
+select distinct(category_id), name, parent_id, weight
+from srm_owner.category_aud inner join srm_owner.application_revision_info using(rev)
+where revtype = 2
+union
+select category_id, name, parent_id, weight from srm_owner.category;
+
+create or replace view srm_owner.all_systems as
+select distinct(system_id), name, category_id, weight
+from srm_owner.system_aud inner join srm_owner.application_revision_info using(rev)
+where revtype = 2
+union
+select system_id, name, category_id, weight from srm_owner.system;
+
+CREATE OR REPLACE FORCE VIEW SRM_OWNER.ALL_COMPONENTS ("COMPONENT_ID", "NAME", "SYSTEM_ID", "DATA_SOURCE", "DATA_SOURCE_ID", "REGION_ID", "MASKED", "MASKED_COMMENT", "MASKED_DATE", "MASKED_BY", "MASK_EXPIRATION_DATE", "WEIGHT", "ADDED_DATE", "UNPOWERED_YN", "MASK_TYPE_ID") AS
+select distinct(component_id), name, system_id, data_source, data_source_id, region_id, masked, masked_comment,
+               masked_date, masked_by, mask_expiration_date, weight, added_date, unpowered_yn, mask_type_id
+from srm_owner.component_aud inner join srm_owner.application_revision_info using(rev)
+where revtype = 2
+union
+select component_id, name, system_id, data_source, data_source_id, region_id, masked, masked_comment, masked_date,
+       masked_by, mask_expiration_date, weight, added_date, unpowered_yn, mask_type_id
+from srm_owner.component;
+
+
+create or replace view srm_owner.previous_component_names as
+select distinct component_id, name from srm_owner.component_aud a where revtype = 1 and name <> (select name from srm_owner.component b where a.component_id = b.component_id)
+union select distinct component_id, name from srm_owner.component_aud where revtype = 0;
+
+CREATE OR REPLACE VIEW SRM_OWNER.INVENTORY_ACTIVITY ("MODIFIED_DATE", "CHANGE_TYPE", "USERNAME", "RECORD_ID", "COMPONENT_ID", "SYSTEM_ID", "REGION_ID", "REMARK") AS
+with component_activity as (
+    select rev, revtstmp, username, component_id, system_id, null as remark, region_id, null as expiration, case revtype when 0 then 'ADD_COMPONENT' else 'DELETE_COMPONENT' end as change_type from srm_owner.application_revision_info inner join srm_owner.component_aud using(rev) where revtype in (0,2)
+    union all
+    select rev, revtstmp, username, component_id, system_id, 'PREVIOUSLY: ' || previous_name as remark, region_id, null as expiration, 'RENAME_COMPONENT' as change_type from
+        (select revtype, rev, revtstmp, username, component_id, system_id, region_id, name, lag(name) over (partition by component_id order by rev) as previous_name from srm_owner.application_revision_info inner join srm_owner.component_aud using(rev))
+    where revtype = 1 and name <> previous_name
+    union all
+    select rev, revtstmp, username, component_id, system_id, 'PREVIOUSLY: ' || (select name from srm_owner.all_systems where system_id = previous_system_id) as remark, region_id, null as expiration, 'COMPONENT_SUBSYSTEM' as change_type from
+        (select revtype, rev, revtstmp, username, component_id, system_id, region_id, lag(system_id) over (partition by component_id order by rev) as previous_system_id from srm_owner.application_revision_info inner join srm_owner.component_aud using(rev))
+    where revtype = 1 and system_id <> previous_system_id
+    union all
+    select rev, revtstmp, username, component_id, system_id, (select name from srm_owner.region where region_id = previous_region_id) || ' --> ' || (select name from srm_owner.region where region_id = mod_reg.region_id) as remark, region_id, null as expiration, 'MODIFY_REGION' as change_type from
+        (select revtype, rev, revtstmp, username, component_id, system_id, region_id, lag(region_id) over (partition by component_id order by rev) as previous_region_id from srm_owner.application_revision_info inner join srm_owner.component_aud using(rev)) mod_reg
+    where revtype = 1 and region_id <> previous_region_id
+    union all
+    select rev, revtstmp, username, component_id, system_id, null as remark, region_id, null as expiration, case unpowered_yn when 'N' then 'POWER' else 'UNPOWER' end as change_type from
+        (select revtype, rev, revtstmp, username, component_id, system_id, region_id, unpowered_yn, lag(unpowered_yn) over (partition by component_id order by rev) as previous_unpowered from srm_owner.application_revision_info inner join srm_owner.component_aud using(rev))
+    where revtype = 1 and unpowered_yn <> previous_unpowered
+    union all
+    select rev, revtstmp, username, component_id, system_id, case data_source when 'INTERNAL' then '' else  'CED ID: ' || data_source_id end as remark, region_id, null as expiration, case data_source when 'INTERNAL' then 'UNLINK' else 'LINK' end as change_type from
+        (select revtype, rev, revtstmp, username, component_id, system_id, region_id, data_source_id, data_source, lag(data_source) over (partition by component_id order by rev) as previous_data_source from srm_owner.application_revision_info inner join srm_owner.component_aud using(rev))
+    where revtype = 1 and data_source <> previous_data_source
+    union all
+    select rev, revtstmp, username, component_id, system_id, masked_comment as remark, region_id, mask_expiration_date as expiration, case masked when 'N' then 'UNMASK' else 'MASK' end as change_type from
+        (select revtype, rev, revtstmp, username, component_id, system_id, region_id, masked_comment, mask_expiration_date, masked, lag(masked) over (partition by component_id order by rev) as previous_masked from srm_owner.application_revision_info inner join srm_owner.component_aud using(rev))
+    where revtype = 1 and masked <> previous_masked
+),
+     category_activity as (
+         select rev, revtstmp, username, category_id, 'CATEGORY: ' || (select name from srm_owner.all_categories where category_id = srm_owner.category_aud.category_id) as remark, case revtype when 0 then 'ADD_CATEGORY' else 'DELETE_CATEGORY' end as change_type from srm_owner.application_revision_info inner join srm_owner.category_aud using(rev) where revtype in (0,2)
+         union all
+         select rev, revtstmp, username, category_id, (select name from srm_owner.all_categories where category_id = previous_parent_id) || ' --> ' || (select name from srm_owner.all_categories where category_id = par_cat.parent_id) as remark, 'REORGANIZE_CATEGORY' as change_type from
+             (select revtype, rev, revtstmp, username, category_id, parent_id, lag(parent_id) over (partition by category_id order by rev) as previous_parent_id from srm_owner.application_revision_info inner join srm_owner.category_aud using(rev)) par_cat
+         where revtype = 1 and parent_id <> previous_parent_id
+         union all
+         select rev, revtstmp, username, category_id, previous_name || ' --> ' || name as remark, 'RENAME_CATEGORY' as change_type from
+             (select revtype, rev, revtstmp, username, category_id, name, lag(name) over (partition by category_id order by rev) as previous_name from srm_owner.application_revision_info inner join srm_owner.category_aud using(rev))
+         where revtype = 1 and name <> previous_name
+     ),
+     system_activity as (
+         select rev, revtstmp, username, category_id, system_id, 'CATEGORY: ' || (select name from srm_owner.all_categories where category_id = system_aud.category_id) as remark, case revtype when 0 then 'ADD_SUBSYSTEM' else 'DELETE_SUBSYSTEM' end as change_type from srm_owner.application_revision_info inner join srm_owner.system_aud using(rev) where revtype in (0,2)
+         union all
+         select rev, revtstmp, username, category_id, system_id, (select name from srm_owner.all_categories where category_id = previous_category_id) || ' --> ' || (select name from srm_owner.all_categories where category_id = cat_sub.category_id) as remark, 'REORGANIZE_SUBSYSTEM' as change_type from
+             (select revtype, rev, revtstmp, username, category_id, system_id, lag(category_id) over (partition by system_id order by rev) as previous_category_id from srm_owner.application_revision_info inner join srm_owner.system_aud using(rev)) cat_sub
+         where revtype = 1 and category_id <> previous_category_id
+         union all
+         select rev, revtstmp, username, category_id, system_id, 'PREVIOUSLY: ' || previous_name as remark, 'RENAME_SUBSYSTEM' as change_type from
+             (select revtype, rev, revtstmp, username, category_id, system_id, name, lag(name) over (partition by system_id order by rev) as previous_name from srm_owner.application_revision_info inner join srm_owner.system_aud using(rev)) re_sub
+         where revtype = 1 and name <> previous_name
+     )
+select cast ((FROM_TZ(cast(trunc(to_date('1970-01-01','YYYY-MM-DD') + (revtstmp / 86400000), 'MI') as timestamp), 'UTC') at time zone 'US/EASTERN') as date) as modified_date, change_type, username, rev as record_id, null as component_id, null as system_id, null as region_id, remark from category_activity
+union all
+select cast ((FROM_TZ(cast(trunc(to_date('1970-01-01','YYYY-MM-DD') + (revtstmp / 86400000), 'MI') as timestamp), 'UTC') at time zone 'US/EASTERN') as date) as modified_date, change_type, username, rev as record_id, null as component_id, system_id, null as region_id, remark from system_activity
+union all
+select cast ((FROM_TZ(cast(trunc(to_date('1970-01-01','YYYY-MM-DD') + (revtstmp / 86400000), 'MI') as timestamp), 'UTC') at time zone 'US/EASTERN') as date) as modified_date, change_type, username, rev as record_id, component_id, system_id, region_id, remark from component_activity;
+
+CREATE OR REPLACE VIEW SRM_OWNER.ALL_ACTIVITY ("MODIFIED_DATE", "CHANGE_TYPE", "USERNAME", "COMPONENT_COUNT", "RECORD_ID", "COMPONENT_ID", "SYSTEM_ID", "GROUP_ID", "REMARK", "STATUS_ID", "GROUPNAME", "SYSTEMNAME", "COMPONENTNAME", "UNPOWERED_YN") AS
+with component_activity as (
+    select rev, revtstmp, username, component_id, system_id, null as remark, null as expiration, case revtype when 0 then 'ADD_COMPONENT' else 'DELETE_COMPONENT' end as change_type from srm_owner.application_revision_info inner join srm_owner.component_aud using(rev) where revtype in (0,2)
+    union all
+    select rev, revtstmp, username, component_id, system_id, previous_name as remark, null as expiration, 'RENAME_COMPONENT' as change_type from
+        (select rev, revtstmp, username, component_id, system_id, name, lag(name) over (partition by component_id order by rev) as previous_name from srm_owner.application_revision_info inner join srm_owner.component_aud using(rev) where revtype = 1)
+    where name <> previous_name
+    union all
+    select rev, revtstmp, username, component_id, system_id, cast(previous_system_id as varchar2(1024 char)) as remark, null as expiration, 'MODIFY_COMPONENT_SUBSYSTEM' as change_type from
+        (select rev, revtstmp, username, component_id, system_id, lag(system_id) over (partition by component_id order by rev) as previous_system_id from srm_owner.application_revision_info inner join srm_owner.component_aud using(rev) where revtype = 1)
+    where system_id <> previous_system_id
+    union all
+    select rev, revtstmp, username, component_id, system_id, cast(previous_region_id as varchar2(1024 char)) as remark, null as expiration, 'MODIFY_REGION' as change_type from
+        (select rev, revtstmp, username, component_id, system_id, region_id, lag(region_id) over (partition by component_id order by rev) as previous_region_id from srm_owner.application_revision_info inner join srm_owner.component_aud using(rev) where revtype = 1)
+    where region_id <> previous_region_id
+    union all
+    select rev, revtstmp, username, component_id, system_id, null as remark, null as expiration, case unpowered_yn when 'N' then 'POWER' else 'UNPOWER' end as change_type from
+        (select rev, revtstmp, username, component_id, system_id, unpowered_yn, lag(unpowered_yn) over (partition by component_id order by rev) as previous_unpowered from srm_owner.application_revision_info inner join srm_owner.component_aud using(rev) where revtype = 1)
+    where unpowered_yn <> previous_unpowered
+    union all
+    select rev, revtstmp, username, component_id, system_id, null as remark, null as expiration, case data_source_id when null then 'UNLINK' else 'LINK' end as change_type from
+        (select rev, revtstmp, username, component_id, system_id, data_source_id, lag(data_source_id) over (partition by component_id order by rev) as previous_data_source_id from srm_owner.application_revision_info inner join srm_owner.component_aud using(rev) where revtype = 1)
+    where data_source_id <> previous_data_source_id
+    union all
+    select rev, revtstmp, username, component_id, system_id, masked_comment as remark, mask_expiration_date as expiration, case masked when 'N' then 'UNMASK' else 'MASK' end as change_type from
+        (select rev, revtstmp, username, component_id, system_id, masked_comment, mask_expiration_date, masked, lag(masked) over (partition by component_id order by rev) as previous_masked from srm_owner.application_revision_info inner join srm_owner.component_aud using(rev) where revtype = 1)
+    where masked <> previous_masked
+),
+     category_activity as (
+         select rev, revtstmp, username, category_id, case revtype when 0 then 'ADD_CATEGORY' when 1 then 'RENAME_REORGANIZE_CATEGORY' else 'DELETE_CATEGORY' end as change_type from srm_owner.application_revision_info inner join srm_owner.category_aud using(rev)
+     ),
+     system_activity as (
+         select rev, revtstmp, username, system_id, case revtype when 0 then 'ADD_SUBSYSTEM' when 1 then 'RENAME_RECATEGORIZE_SUBSYSTEM' else 'DELETE_SUBSYSTEM' end as change_type from srm_owner.application_revision_info inner join srm_owner.system_aud using(rev)
+     ),
+     signoff_activity as (
+         select
+             count(group_signoff_history_id) as component_count,
+             max(group_signoff_history_id) as first_history_id,
+             max(a.component_id) as first_component_id,
+             trunc(modified_date, 'MI') as modified_date, modified_username,
+             a.system_id, group_id, comments, change_type,
+             status_id from srm_owner.group_signoff_history a inner join srm_owner.component b on a.component_id = b.component_id
+         group by
+             trunc(modified_date, 'MI'), modified_username, a.system_id,
+             group_id, comments, change_type, status_id
+     ),
+     combined as (
+         select trunc(to_date('1970-01-01','YYYY-MM-DD') + (revtstmp / 86400000), 'MI') as modified_date, change_type, username, 0 as component_count, rev as record_id, null as component_id, null as system_id, null as group_id, cast(category_id as varchar2(1024 char)) as remark, null as status_id from category_activity
+         union all
+         select trunc(to_date('1970-01-01','YYYY-MM-DD') + (revtstmp / 86400000), 'MI') as modified_date, change_type, username, 0 as component_count, rev as record_id, null as component_id, system_id, null as group_id, null as remark, null as status_id from system_activity
+         union all
+         select trunc(to_date('1970-01-01','YYYY-MM-DD') + (revtstmp / 86400000), 'MI') as modified_date, change_type, username, 1 as component_count, rev as record_id, component_id, system_id, null as group_id, remark, null as status_id from component_activity
+         union all
+         select modified_date, change_type, modified_username, component_count, first_history_id as record_id, first_component_id as component_id, system_id, group_id, comments as remark, status_id from signoff_activity
+     )
+select c."MODIFIED_DATE",c."CHANGE_TYPE",c."USERNAME",c."COMPONENT_COUNT",c."RECORD_ID",c."COMPONENT_ID",c."SYSTEM_ID",c."GROUP_ID",c."REMARK",c."STATUS_ID", r.name as groupname, s.name as systemname,
+       c2.name as componentname, c2.unpowered_yn
+from combined c left join srm_owner.responsible_group r on c.group_id = r.group_id
+                left join srm_owner.system s on c.system_id = s.system_id left join srm_owner.component c2 on
+        c.component_id = c2.component_id order by modified_date desc;
+
 -- Functions
 
 /*Check all prior signoff statuses to see who is in the hot seat / at bat */
