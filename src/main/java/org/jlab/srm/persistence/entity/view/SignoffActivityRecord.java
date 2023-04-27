@@ -84,21 +84,6 @@ public class SignoffActivityRecord implements Serializable {
     private String regionName;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 256)
-    @Column(name = "USERNAME", nullable = false, length = 256)
-    private String username;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 256)
-    @Column(name = "FIRSTNAME", nullable = false, length = 256)
-    private String firstname;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 256)
-    @Column(name = "LASTNAME", nullable = false, length = 256)
-    private String lastname;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "CHANGE_TYPE", nullable = false, length = 24)
     @Enumerated(EnumType.STRING)
     private SignoffChangeType changeType;
@@ -249,30 +234,6 @@ public class SignoffActivityRecord implements Serializable {
 
     public void setRegionName(String regionName) {
         this.regionName = regionName;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
     }
 
     @Override
