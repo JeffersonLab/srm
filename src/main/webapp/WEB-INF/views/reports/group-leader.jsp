@@ -17,7 +17,7 @@
                 <c:forEach items="${groupList}" var="group">
                     <h3><c:out value="${group.name}"/></h3>
                     <c:choose>
-                        <c:when test="${fn:length(group.leaderWorkgroup.staffList) > 0}">
+                        <c:when test="${fn:length(group.leaders) > 0}">
                             <table class="data-table stripped-table">
                                 <thead>
                                 <tr>
@@ -27,7 +27,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach items="${group.leaderWorkgroup.staffList}" var="leader">
+                                <c:forEach items="${group.leaders}" var="leader">
                                     <tr>
                                         <td><c:out value="${leader.lastname}"/></td>
                                         <td><c:out value="${leader.firstname}"/></td>
