@@ -85,7 +85,7 @@
                                     <div class="li-value">
                                         <div class="sub-table">
                                             <div class="sub-key">
-                                                <label for="system-select">Subsystem</label>
+                                                <label for="system-select">System</label>
                                             </div>
                                             <div class="sub-value">
                                                 <select id="system-select" name="systemId">
@@ -170,7 +170,7 @@
                 </c:if>
             </div>
             <button id="expand-all-button" data-count="${componentCount}"
-                    title="${componentCount <= 100 ? 'Expand all categories/systems and subsystems' : 'Filter to no more than 100 components first...'}" ${componentCount <= 100 ? '' : 'disabled="disabled"'}>
+                    title="${componentCount <= 100 ? 'Expand all categories and systems' : 'Filter to no more than 100 components first...'}" ${componentCount <= 100 ? '' : 'disabled="disabled"'}>
                 Expand All
             </button>
             <button id="collapse-all-button">Collapse All</button>
@@ -274,7 +274,7 @@
                                     <span class="small-icon SYSTEM"></span>
                                 </div>
                                 <div class="li-value">
-                                    Subsystem
+                                    System
                                 </div>
                             </li>
                             <li>
@@ -407,7 +407,7 @@
                     <button id="ops-pr-ok-button" type="button">OK</button>
                 </div>
             </div>
-            <form id="excel-form" method="get" action="${pageContext.request.contextPath}/categories-subsystems.xlsx">
+            <form id="excel-form" method="get" action="${pageContext.request.contextPath}/categories-systems.xlsx">
                 <button id="excel" type="submit" style="display: none;">Excel</button>
             </form>
         </section>

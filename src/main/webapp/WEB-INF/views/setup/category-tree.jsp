@@ -60,7 +60,7 @@
             <h2><c:out value="${title}"/></h2>
             <div>
                 <fieldset id="modify-category-fieldset">
-                    <legend>Category/System</legend>
+                    <legend>Category</legend>
                     <button type="button" id="open-add-category-dialog-button">Add...</button>
                     <button type="button" id="open-edit-category-dialog-button">Edit...</button>
                     <button type="button" id="open-remove-category-dialog-button">Remove...</button>
@@ -69,7 +69,7 @@
                     </c:if>
                 </fieldset>
                 <fieldset>
-                    <legend>Subsystem</legend>
+                    <legend>System</legend>
                     <button type="button" id="open-add-system-dialog-button">Add...</button>
                     <button type="button" id="open-edit-system-dialog-button">Edit...</button>
                     <button type="button" id="open-remove-system-dialog-button">Remove...</button>
@@ -93,7 +93,7 @@
                                     <span class="small-icon CATEGORY"></span>
                                 </div>
                                 <div class="li-value">
-                                    Category/System
+                                    Category
                                 </div>
                             </li>
                             <li>
@@ -101,7 +101,7 @@
                                     <span class="small-icon SYSTEM"></span>
                                 </div>
                                 <div class="li-value">
-                                    Subsystem
+                                    System
                                 </div>
                             </li>
                         </ul>
@@ -129,7 +129,7 @@
                             </li>
                             <li id="system-node-select">
                                 <div class="li-key">
-                                    <label for="system">Subsystem</label>
+                                    <label for="system">System</label>
                                 </div>
                                 <div class="li-value">
                                     <select id="system" name="system">

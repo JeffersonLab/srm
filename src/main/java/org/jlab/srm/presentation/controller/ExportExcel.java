@@ -13,7 +13,7 @@ import java.io.IOException;
 /**
  * @author ryans
  */
-@WebServlet(name = "ExportExcel", urlPatterns = {"/categories-subsystems.xlsx"})
+@WebServlet(name = "ExportExcel", urlPatterns = {"/categories-systems.xlsx"})
 public class ExportExcel extends HttpServlet {
 
     @EJB

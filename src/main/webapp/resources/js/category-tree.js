@@ -57,7 +57,7 @@ jlab.hco.addCategory = function () {
 
     });
 
-    request.error(function (xhr, textStatus) {
+    request.fail(function (xhr, textStatus) {
         window.console && console.log('Unable to add category: Text Status: ' + textStatus + ', Ready State: ' + xhr.readyState + ', HTTP Status Code: ' + xhr.status);
         alert('Unable to add category; server did not handle request');
     });
@@ -121,7 +121,7 @@ jlab.hco.editCategory = function () {
 
     });
 
-    request.error(function (xhr, textStatus) {
+    request.fail(function (xhr, textStatus) {
         window.console && console.log('Unable to edit category: Text Status: ' + textStatus + ', Ready State: ' + xhr.readyState + ', HTTP Status Code: ' + xhr.status);
         alert('Unable to edit category; server did not handle request');
     });
@@ -149,7 +149,7 @@ jlab.hco.removeCategory = function () {
         return;
     }
 
-    if (!confirm('Are you sure? All subsystems and components belonging to this category will be removed as well.')) {
+    if (!confirm('Are you sure? All systems and components belonging to this category will be removed as well.')) {
         return;
     }
 
@@ -180,7 +180,7 @@ jlab.hco.removeCategory = function () {
 
     });
 
-    request.error(function (xhr, textStatus) {
+    request.fail(function (xhr, textStatus) {
         window.console && console.log('Unable to remove category: Text Status: ' + textStatus + ', Ready State: ' + xhr.readyState + ', HTTP Status Code: ' + xhr.status);
         alert('Unable to remove category; server did not handle request');
     });
@@ -227,7 +227,7 @@ jlab.hco.addSystem = function () {
 
     request.done(function (data) {
         if ($(".status", data).html() !== "Success") {
-            alert('Unable to add subsystem: ' + $(".reason", data).html());
+            alert('Unable to add system: ' + $(".reason", data).html());
         } else {
             /* Success */
             leaveSpinning = true;
@@ -236,9 +236,9 @@ jlab.hco.addSystem = function () {
 
     });
 
-    request.error(function (xhr, textStatus) {
-        window.console && console.log('Unable to add subsystem: Text Status: ' + textStatus + ', Ready State: ' + xhr.readyState + ', HTTP Status Code: ' + xhr.status);
-        alert('Unable to add subsystem; server did not handle request');
+    request.fail(function (xhr, textStatus) {
+        window.console && console.log('Unable to add system: Text Status: ' + textStatus + ', Ready State: ' + xhr.readyState + ', HTTP Status Code: ' + xhr.status);
+        alert('Unable to add system; server did not handle request');
     });
 
     request.always(function () {
@@ -291,7 +291,7 @@ jlab.hco.editSystem = function () {
 
     request.done(function (data) {
         if ($(".status", data).html() !== "Success") {
-            alert('Unable to edit subsystem: ' + $(".reason", data).html());
+            alert('Unable to edit system: ' + $(".reason", data).html());
         } else {
             /* Success */
             leaveSpinning = true;
@@ -300,9 +300,9 @@ jlab.hco.editSystem = function () {
 
     });
 
-    request.error(function (xhr, textStatus) {
-        window.console && console.log('Unable to edit subsystem: Text Status: ' + textStatus + ', Ready State: ' + xhr.readyState + ', HTTP Status Code: ' + xhr.status);
-        alert('Unable to edit subsystem; server did not handle request');
+    request.fail(function (xhr, textStatus) {
+        window.console && console.log('Unable to edit system: Text Status: ' + textStatus + ', Ready State: ' + xhr.readyState + ', HTTP Status Code: ' + xhr.status);
+        alert('Unable to edit system; server did not handle request');
     });
 
     request.always(function () {
@@ -350,7 +350,7 @@ jlab.hco.removeSystem = function () {
 
     request.done(function (data) {
         if ($(".status", data).html() !== "Success") {
-            alert('Unable to remove subsystem: ' + $(".reason", data).html());
+            alert('Unable to remove system: ' + $(".reason", data).html());
         } else {
             /* Success */
             leaveSpinning = true;
@@ -359,9 +359,9 @@ jlab.hco.removeSystem = function () {
 
     });
 
-    request.error(function (xhr, textStatus) {
-        window.console && console.log('Unable to remove subsystem: Text Status: ' + textStatus + ', Ready State: ' + xhr.readyState + ', HTTP Status Code: ' + xhr.status);
-        alert('Unable to remove subsystem; server did not handle request');
+    request.fail(function (xhr, textStatus) {
+        window.console && console.log('Unable to remove system: Text Status: ' + textStatus + ', Ready State: ' + xhr.readyState + ', HTTP Status Code: ' + xhr.status);
+        alert('Unable to remove system; server did not handle request');
     });
 
     request.always(function () {
@@ -414,7 +414,7 @@ jlab.hco.renameRoot = function () {
 
     });
 
-    request.error(function (xhr, textStatus) {
+    request.fail(function (xhr, textStatus) {
         window.console && console.log('Unable to rename root: Text Status: ' + textStatus + ', Ready State: ' + xhr.readyState + ', HTTP Status Code: ' + xhr.status);
         alert('Unable to rename root; server did not handle request');
     });
@@ -435,17 +435,17 @@ jlab.hco.clearAndOpenNodeDialog = function () {
 
 $(document).on("click", "#SaveButton", function () {
     var title = $("#node-dialog").dialog("option", "title");
-    if (title === 'Add Subsystem') {
+    if (title === 'Add System') {
         jlab.hco.addSystem();
     } else if (title === 'Add Category') {
         jlab.hco.addCategory();
     } else if (title === 'Remove Category') {
         jlab.hco.removeCategory();
-    } else if (title === 'Remove Subsystem') {
+    } else if (title === 'Remove System') {
         jlab.hco.removeSystem();
     } else if (title === 'Edit Category') {
         jlab.hco.editCategory();
-    } else if (title === 'Edit Subsystem') {
+    } else if (title === 'Edit System') {
         jlab.hco.editSystem();
     }
 });
@@ -476,14 +476,14 @@ $(document).on("click", "#open-remove-category-dialog-button", function () {
 });
 
 $(document).on("click", "#open-add-system-dialog-button", function () {
-    $("#node-dialog").dialog("option", "title", "Add Subsystem");
+    $("#node-dialog").dialog("option", "title", "Add System");
     $("#select-node-fieldset").hide();
     $("#new-value-fieldset").show();
     jlab.hco.clearAndOpenNodeDialog();
 });
 
 $(document).on("click", "#open-edit-system-dialog-button", function () {
-    $("#node-dialog").dialog("option", "title", "Edit Subsystem");
+    $("#node-dialog").dialog("option", "title", "Edit System");
     $("#select-node-fieldset").show();
     $("#category-node-select").hide();
     $("#system-node-select").show();
@@ -492,7 +492,7 @@ $(document).on("click", "#open-edit-system-dialog-button", function () {
 });
 
 $(document).on("click", "#open-remove-system-dialog-button", function () {
-    $("#node-dialog").dialog("option", "title", "Remove Subsystem");
+    $("#node-dialog").dialog("option", "title", "Remove System");
     $("#select-node-fieldset").show();
     $("#category-node-select").hide();
     $("#system-node-select").show();
