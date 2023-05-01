@@ -1,7 +1,7 @@
 var jlab = jlab || {};
-jlab.hco = jlab.hco || {};
+jlab.srm = jlab.srm || {};
 
-jlab.hco.initDialog = function () {
+jlab.srm.initDialog = function () {
     $(".dialog").dialog({
         autoOpen: false,
         width: 640,
@@ -57,7 +57,7 @@ jlab.hco.initDialog = function () {
         resizable: false
     });
 };
-jlab.hco.validateAddComponentForm = function () {
+jlab.srm.validateAddComponentForm = function () {
     if ($("#new-component-name").val() === '') {
         alert('Please specify a name');
         return false;
@@ -77,7 +77,7 @@ jlab.hco.validateAddComponentForm = function () {
 
     return true;
 };
-jlab.hco.validateBulkAddComponentForm = function () {
+jlab.srm.validateBulkAddComponentForm = function () {
     if ($("#bulk-component-name").val() === '') {
         alert('Please specify a name');
         return false;
@@ -93,22 +93,22 @@ jlab.hco.validateBulkAddComponentForm = function () {
 
     return true;
 };
-jlab.hco.validateUnpoweredComponentForm = function () {
+jlab.srm.validateUnpoweredComponentForm = function () {
     return true;
 };
-jlab.hco.validateSourceComponentForm = function () {
+jlab.srm.validateSourceComponentForm = function () {
     return true;
 };
-jlab.hco.validateRenameComponentForm = function () {
+jlab.srm.validateRenameComponentForm = function () {
     return true;
 };
-jlab.hco.validateSystemComponentForm = function () {
+jlab.srm.validateSystemComponentForm = function () {
     return true;
 };
-jlab.hco.validateRegionComponentForm = function () {
+jlab.srm.validateRegionComponentForm = function () {
     return true;
 };
-jlab.hco.validateEditComponentForm = function () {
+jlab.srm.validateEditComponentForm = function () {
     if ($("#edit-system-select").val() === '') {
         alert('Please specify a system');
         return false;
@@ -124,7 +124,7 @@ jlab.hco.validateEditComponentForm = function () {
 
     return true;
 };
-jlab.hco.validateMaskComponentForm = function () {
+jlab.srm.validateMaskComponentForm = function () {
     if ($("#mask-component-masked").is(":checked") && $("#mask-component-masked-reason").val() === '') {
         alert('Please provide a reason for masking this component');
         return false;
@@ -137,8 +137,8 @@ jlab.hco.validateMaskComponentForm = function () {
 
     return true;
 };
-jlab.hco.maskComponent = function () {
-    if (!jlab.hco.validateMaskComponentForm()) {
+jlab.srm.maskComponent = function () {
+    if (!jlab.srm.validateMaskComponentForm()) {
         return;
     }
 
@@ -157,8 +157,8 @@ jlab.hco.maskComponent = function () {
 
     jlab.doAjaxJsonPostRequest(url, data, $dialog, true);
 };
-jlab.hco.editComponent = function () {
-    if (!jlab.hco.validateEditComponentForm()) {
+jlab.srm.editComponent = function () {
+    if (!jlab.srm.validateEditComponentForm()) {
         return;
     }
 
@@ -216,7 +216,7 @@ jlab.hco.editComponent = function () {
         }
     });
 };
-jlab.hco.deleteRow = function () {
+jlab.srm.deleteRow = function () {
     var $selectedRow = $("#component-table tbody tr.selected-row");
 
     if ($selectedRow.length < 1) {
@@ -277,7 +277,7 @@ jlab.hco.deleteRow = function () {
         }
     });
 };
-jlab.hco.openMaskDialog = function () {
+jlab.srm.openMaskDialog = function () {
     var $selectedRow = $("#component-table tbody tr.selected-row");
 
     if ($selectedRow.length < 1) {
@@ -325,7 +325,7 @@ $(document).on("click", "#show-bulk-add-dialog-button", function () {
     $("#bulk-add-dialog").dialog("open");
 });
 $(document).on("click", "#add-button", function () {
-    if (!jlab.hco.validateAddComponentForm()) {
+    if (!jlab.srm.validateAddComponentForm()) {
         return;
     }
 
@@ -340,7 +340,7 @@ $(document).on("click", "#add-button", function () {
     jlab.doAjaxJsonPostRequest(url, data, $dialog, true);
 });
 $(document).on("click", "#bulk-add-button", function () {
-    if (!jlab.hco.validateBulkAddComponentForm()) {
+    if (!jlab.srm.validateBulkAddComponentForm()) {
         return;
     }
 
@@ -354,10 +354,10 @@ $(document).on("click", "#bulk-add-button", function () {
     jlab.doAjaxJsonPostRequest(url, data, $dialog, true);
 });
 $(document).on("click", "#mask-button", function () {
-    jlab.hco.maskComponent();
+    jlab.srm.maskComponent();
 });
 $(document).on("click", "#unpowered-button", function () {
-    if (!jlab.hco.validateUnpoweredComponentForm()) {
+    if (!jlab.srm.validateUnpoweredComponentForm()) {
         return;
     }
 
@@ -370,7 +370,7 @@ $(document).on("click", "#unpowered-button", function () {
     jlab.doAjaxJsonPostRequest(url, data, $dialog, true);
 });
 $(document).on("click", "#source-button", function () {
-    if (!jlab.hco.validateSourceComponentForm()) {
+    if (!jlab.srm.validateSourceComponentForm()) {
         return;
     }
 
@@ -384,7 +384,7 @@ $(document).on("click", "#source-button", function () {
     jlab.doAjaxJsonPostRequest(url, data, $dialog, true);
 });
 $(document).on("click", "#rename-button", function () {
-    if (!jlab.hco.validateRenameComponentForm()) {
+    if (!jlab.srm.validateRenameComponentForm()) {
         return;
     }
 
@@ -397,7 +397,7 @@ $(document).on("click", "#rename-button", function () {
     jlab.doAjaxJsonPostRequest(url, data, $dialog, true);
 });
 $(document).on("click", "#system-button", function () {
-    if (!jlab.hco.validateSystemComponentForm()) {
+    if (!jlab.srm.validateSystemComponentForm()) {
         return;
     }
 
@@ -410,7 +410,7 @@ $(document).on("click", "#system-button", function () {
     jlab.doAjaxJsonPostRequest(url, data, $dialog, true);
 });
 $(document).on("click", "#region-button", function () {
-    if (!jlab.hco.validateRegionComponentForm()) {
+    if (!jlab.srm.validateRegionComponentForm()) {
         return;
     }
 
@@ -432,10 +432,10 @@ $(document).on("click", "#edit-alias-button", function () {
     jlab.doAjaxJsonPostRequest(url, data, $dialog, true);
 });
 $(document).on("click", "#edit-button", function () {
-    jlab.hco.editComponent();
+    jlab.srm.editComponent();
 });
 $(document).on("click", "#open-mask-component-button", function () {
-    jlab.hco.openMaskDialog();
+    jlab.srm.openMaskDialog();
 });
 $(document).on("click", "#open-unpowered-component-button", function () {
     var $selectedRow = $("#component-table tbody tr.selected-row");
@@ -557,7 +557,7 @@ $(document).on("click", "#show-region-dialog-button", function () {
     $("#region-dialog").dialog("open");
 });
 $(document).on("click", "#delete-component-button", function () {
-    jlab.hco.deleteRow();
+    jlab.srm.deleteRow();
 });
 $(document).on("click", ".default-clear-panel", function () {
     $("#destination-select").val('');
@@ -573,15 +573,15 @@ $(document).on("click", ".default-clear-panel", function () {
 });
 $(document).on("change", "#category-select", function () {
     var categoryId = $(this).val();
-    jlab.hco.filterSystemListByCategory(categoryId, "#system-select", "");
+    jlab.srm.filterSystemListByCategory(categoryId, "#system-select", "");
 });
 $(document).on("change", "#new-component-category-select", function () {
     var categoryId = $(this).val();
-    jlab.hco.filterSystemListByCategory(categoryId, "#new-component-system-select", "");
+    jlab.srm.filterSystemListByCategory(categoryId, "#new-component-system-select", "");
 });
 $(document).on("change", "#bulk-component-category-select", function () {
     var categoryId = $(this).val();
-    jlab.hco.filterSystemListByCategory(categoryId, "#bulk-component-system-select", "");
+    jlab.srm.filterSystemListByCategory(categoryId, "#bulk-component-system-select", "");
 });
 $(document).on("click", ".close-bubble", function () {
     $(".flyout-handle").hide(); /*We don't remove because of weird FF behavior on form*/
@@ -595,5 +595,5 @@ $(document).on("click", ".flyout-link", function () {
     return false;
 });
 $(function () {
-    jlab.hco.initDialog();
+    jlab.srm.initDialog();
 });

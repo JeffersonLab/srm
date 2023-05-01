@@ -20,15 +20,15 @@
                     var $th = $(".select-column-icon").closest("th");
                     var index = $th.index() + 1; //rowspan hides first column
                     var count = index + 1; //nth-child starts counting at 1, not 0
-                    jlab.hco.selectColumn($("#signoff-table"), count);
-                    jlab.hco.updateSignoffCount();
+                    jlab.srm.selectColumn($("#signoff-table"), count);
+                    jlab.srm.updateSignoffCount();
                     $("#open-edit-dialog-button").click();
                 });
             </script>
         </c:if>
         <c:if test="${param.systemFirst eq 'Y'}">
             <script type="text/javascript">
-                jlab.hco.systemFirst = true;
+                jlab.srm.systemFirst = true;
             </script>            
         </c:if>            
     </jsp:attribute>

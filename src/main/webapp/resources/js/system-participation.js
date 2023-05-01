@@ -1,23 +1,23 @@
 var jlab = jlab || {};
-jlab.hco = jlab.hco || {};
+jlab.srm = jlab.srm || {};
 
-jlab.hco.check = function ($td) {
+jlab.srm.check = function ($td) {
     $td.html("\u2714");
 };
 
-jlab.hco.uncheck = function ($td) {
+jlab.srm.uncheck = function ($td) {
     $td.empty();
 };
 
-jlab.hco.restore = function ($td, checked) {
+jlab.srm.restore = function ($td, checked) {
     if (checked) {
-        jlab.hco.check($td);
+        jlab.srm.check($td);
     } else {
-        jlab.hco.uncheck($td);
+        jlab.srm.uncheck($td);
     }
 };
 
-jlab.hco.toggle = function () {
+jlab.srm.toggle = function () {
     if (jlab.isRequest()) {
         window.console && console.log("Ajax already in progress");
         return;
@@ -47,20 +47,20 @@ jlab.hco.toggle = function () {
 
     request.done(function (data) {
         if ($(".status", data).html() !== "Success") {
-            jlab.hco.restore($td, checked);
+            jlab.srm.restore($td, checked);
             alert('Unable to toggle: ' + $(".reason", data).html());
         } else {
             if (checked) {
-                jlab.hco.uncheck($td);
+                jlab.srm.uncheck($td);
             } else {
-                jlab.hco.check($td);
+                jlab.srm.check($td);
             }
         }
 
     });
 
     request.fail(function (xhr, textStatus) {
-        jlab.hco.restore($td, checked);
+        jlab.srm.restore($td, checked);
         window.console && console.log('Unable to toggle: Text Status: ' + textStatus + ', Ready State: ' + xhr.readyState + ', HTTP Status Code: ' + xhr.status);
         alert('Unable to toggle');
     });
@@ -71,5 +71,5 @@ jlab.hco.toggle = function () {
 };
 
 $(document).on("click", ".system-participation-table.editable td", function () {
-    jlab.hco.toggle.call(this);
+    jlab.srm.toggle.call(this);
 });

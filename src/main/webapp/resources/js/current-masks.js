@@ -1,7 +1,7 @@
 var jlab = jlab || {};
-jlab.hco = jlab.hco || {};
+jlab.srm = jlab.srm || {};
 
-jlab.hco.initDialog = function () {
+jlab.srm.initDialog = function () {
     $(".dialog").dialog({
         autoOpen: false,
         width: 700,
@@ -10,7 +10,7 @@ jlab.hco.initDialog = function () {
         resizable: false
     });
 };
-jlab.hco.editComponentException = function () {
+jlab.srm.editComponentException = function () {
     if (jlab.isRequest()) {
         window.console && console.log("Ajax already in progress");
         return;
@@ -66,7 +66,7 @@ jlab.hco.editComponentException = function () {
         }
     });
 };
-jlab.hco.removeComponentException = function () {
+jlab.srm.removeComponentException = function () {
     if (jlab.isRequest()) {
         window.console && console.log("Ajax already in progress");
         return;
@@ -122,7 +122,7 @@ jlab.hco.removeComponentException = function () {
         }
     });
 };
-jlab.hco.openExceptionDialog = function () {
+jlab.srm.openExceptionDialog = function () {
     var componentNameArray = [],
         componentIdArray = [],
         componentReasonArray = [];
@@ -176,7 +176,7 @@ jlab.hco.openExceptionDialog = function () {
 
     $("#exception-dialog").dialog("open");
 };
-jlab.hco.openRemoveExceptionDialog = function () {
+jlab.srm.openRemoveExceptionDialog = function () {
     var componentNameArray = [],
         componentIdArray = [];
 
@@ -210,16 +210,16 @@ jlab.hco.openRemoveExceptionDialog = function () {
     $("#remove-exception-dialog").dialog("open");
 };
 $(document).on("click", "#mask-button", function () {
-    jlab.hco.editComponentException();
+    jlab.srm.editComponentException();
 });
 $(document).on("click", "#unmask-button", function () {
-    jlab.hco.removeComponentException();
+    jlab.srm.removeComponentException();
 });
 $(document).on("click", "#open-edit-exception-button", function () {
-    jlab.hco.openExceptionDialog();
+    jlab.srm.openExceptionDialog();
 });
 $(document).on("click", "#open-remove-exception-button", function () {
-    jlab.hco.openRemoveExceptionDialog();
+    jlab.srm.openRemoveExceptionDialog();
 });
 $(document).on("click", ".default-clear-panel", function () {
     $("#destination-select").select2("val", "");
@@ -252,15 +252,15 @@ $(document).on("click", "#candidate-link", function () {
 });
 $(document).on("change", "#category-select", function () {
     var categoryId = $(this).val();
-    jlab.hco.filterSystemListByCategory(categoryId, "#system-select", "");
+    jlab.srm.filterSystemListByCategory(categoryId, "#system-select", "");
 });
 $(document).on("change", "#new-component-category-select", function () {
     var categoryId = $(this).val();
-    jlab.hco.filterSystemListByCategory(categoryId, "#new-component-system-select", "");
+    jlab.srm.filterSystemListByCategory(categoryId, "#new-component-system-select", "");
 });
 
 $(function () {
-    jlab.hco.initDialog();
+    jlab.srm.initDialog();
 
     $("#destination-select").select2({
         width: 390

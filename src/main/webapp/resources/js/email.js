@@ -1,7 +1,7 @@
 var jlab = jlab || {};
-jlab.hco = jlab.hco || {};
+jlab.srm = jlab.srm || {};
 
-jlab.hco.ondemand = function (type) {
+jlab.srm.ondemand = function (type) {
     if (jlab.isRequest()) {
         window.console && console.log("Ajax already in progress");
         return;
@@ -45,18 +45,18 @@ jlab.hco.ondemand = function (type) {
 $(document).on("click", ".on-demand-button", function () {
     var name = $(this).closest("tr").find("td:nth-child(1)").text();
     if (confirm('Are you sure you want to send email to group ' + name + '?')) {
-        jlab.hco.ondemand.call(this, 'group');
+        jlab.srm.ondemand.call(this, 'group');
     }
 });
 
 $(document).on("click", "#send-all-button", function () {
     if (confirm('Are you sure you want to send email to all groups?')) {
-        jlab.hco.ondemand.call(this, 'all');
+        jlab.srm.ondemand.call(this, 'all');
     }
 });
 
 $(document).on("click", "#activity-report-on-demand-button", function () {
     if (confirm('Are you sure you want to send activity email?')) {
-        jlab.hco.activity.call(this, 'activity');
+        jlab.srm.activity.call(this, 'activity');
     }
 });

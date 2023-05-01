@@ -24,7 +24,7 @@
             });
             $(document).on("change", "#category-select", function () {
                 var categoryId = $(this).val();
-                jlab.hco.filterSystemListByCategory(categoryId);
+                jlab.srm.filterSystemListByCategory(categoryId);
             });
             $(function () {
                 $("#destination-select").select2({

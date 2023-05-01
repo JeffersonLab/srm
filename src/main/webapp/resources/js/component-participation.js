@@ -1,23 +1,23 @@
 var jlab = jlab || {};
-jlab.hco = jlab.hco || {};
+jlab.srm = jlab.srm || {};
 
-jlab.hco.check = function ($td) {
+jlab.srm.check = function ($td) {
     $td.html("\u2714");
 };
 
-jlab.hco.uncheck = function ($td) {
+jlab.srm.uncheck = function ($td) {
     $td.empty();
 };
 
-jlab.hco.restore = function ($td, checked) {
+jlab.srm.restore = function ($td, checked) {
     if (checked) {
-        jlab.hco.check($td);
+        jlab.srm.check($td);
     } else {
-        jlab.hco.uncheck($td);
+        jlab.srm.uncheck($td);
     }
 };
 
-jlab.hco.toggle = function () {
+jlab.srm.toggle = function () {
     if (jlab.isRequest()) {
         window.console && console.log("Ajax already in progress");
         return;
@@ -47,20 +47,20 @@ jlab.hco.toggle = function () {
 
     request.done(function (data) {
         if ($(".status", data).html() !== "Success") {
-            jlab.hco.restore($td, checked);
+            jlab.srm.restore($td, checked);
             alert('Unable to toggle: ' + $(".reason", data).html());
         } else {
             if (checked) {
-                jlab.hco.uncheck($td);
+                jlab.srm.uncheck($td);
             } else {
-                jlab.hco.check($td);
+                jlab.srm.check($td);
             }
         }
 
     });
 
     request.fail(function (xhr, textStatus) {
-        jlab.hco.restore($td, checked);
+        jlab.srm.restore($td, checked);
         window.console && console.log('Unable to toggle: Text Status: ' + textStatus + ', Ready State: ' + xhr.readyState + ', HTTP Status Code: ' + xhr.status);
         alert('Unable to toggle');
     });
@@ -70,7 +70,7 @@ jlab.hco.toggle = function () {
     });
 };
 
-jlab.hco.batchCheck = function () {
+jlab.srm.batchCheck = function () {
     if (jlab.isRequest()) {
         window.console && console.log("Ajax already in progress");
         return;
@@ -117,7 +117,7 @@ jlab.hco.batchCheck = function () {
     });
 };
 
-jlab.hco.batchUncheck = function () {
+jlab.srm.batchUncheck = function () {
     if (jlab.isRequest()) {
         window.console && console.log("Ajax already in progress");
         return;
@@ -148,7 +148,7 @@ jlab.hco.batchUncheck = function () {
             alert('Unable to uncheck all: ' + $(".reason", data).html());
         } else {
             $tr.find("td").each(function () {
-                jlab.hco.uncheck($(this));
+                jlab.srm.uncheck($(this));
             });
         }
     });
@@ -164,7 +164,7 @@ jlab.hco.batchUncheck = function () {
     });
 };
 
-jlab.hco.copy = function () {
+jlab.srm.copy = function () {
 
     if (jlab.isRequest()) {
         window.console && console.log("Ajax already in progress");
@@ -224,7 +224,7 @@ jlab.hco.copy = function () {
     });
 };
 
-jlab.hco.deleteRow = function () {
+jlab.srm.deleteRow = function () {
     if (jlab.isRequest()) {
         window.console && console.log("Ajax already in progress");
         return;
@@ -270,13 +270,13 @@ jlab.hco.deleteRow = function () {
     }
 };
 
-jlab.hco.addComponent = function () {
+jlab.srm.addComponent = function () {
     var $form = $("#add-component-form");
     $form.append($('<input type="hidden" name="systemId"/>').attr("value", $("#system-select option:selected").val()));
     $form.submit();
 };
 
-jlab.hco.paginator = function (offsetParam, maxPerPageParam, totalRecordsParam) {
+jlab.srm.paginator = function (offsetParam, maxPerPageParam, totalRecordsParam) {
     var offset = offsetParam,
         maxPerPage = maxPerPageParam,
         totalRecords = totalRecordsParam;
@@ -385,13 +385,13 @@ jlab.hco.paginator = function (offsetParam, maxPerPageParam, totalRecordsParam) 
     };
 
     this.updateButtonState = function () {
-        if (jlab.hco.horizontalPaginator.isNext()) {
+        if (jlab.srm.horizontalPaginator.isNext()) {
             $("#horizontal-next-button").removeAttr("disabled");
         } else {
             $("#horizontal-next-button").attr("disabled", "disabled");
         }
 
-        if (jlab.hco.horizontalPaginator.isPrevious()) {
+        if (jlab.srm.horizontalPaginator.isPrevious()) {
             $("#horizontal-previous-button").removeAttr("disabled");
         } else {
             $("#horizontal-previous-button").attr("disabled", "disabled");
@@ -400,19 +400,19 @@ jlab.hco.paginator = function (offsetParam, maxPerPageParam, totalRecordsParam) 
 };
 
 $(document).on("click", "#horizontal-next-button", function () {
-    jlab.hco.horizontalPaginator.next();
+    jlab.srm.horizontalPaginator.next();
 
-    jlab.hco.horizontalPaginator.updateButtonState();
+    jlab.srm.horizontalPaginator.updateButtonState();
 });
 
 $(document).on("click", "#horizontal-previous-button", function () {
-    jlab.hco.horizontalPaginator.previous();
+    jlab.srm.horizontalPaginator.previous();
 
-    jlab.hco.horizontalPaginator.updateButtonState();
+    jlab.srm.horizontalPaginator.updateButtonState();
 });
 
 $(document).on("click", ".component-destination-table.editable td", function () {
-    jlab.hco.toggle.call(this);
+    jlab.srm.toggle.call(this);
 });
 
 $(document).on("change", "#category-select", function () {
@@ -420,23 +420,23 @@ $(document).on("change", "#category-select", function () {
 });
 
 $(document).on("click", ".check-all", function () {
-    jlab.hco.batchCheck.call(this);
+    jlab.srm.batchCheck.call(this);
 });
 
 $(document).on("click", ".check-none", function () {
-    jlab.hco.batchUncheck.call(this);
+    jlab.srm.batchUncheck.call(this);
 });
 
 $(document).on("click", ".paste-button", function () {
-    jlab.hco.copy.call(this);
+    jlab.srm.copy.call(this);
 });
 
 $(document).on("click", ".delete-button", function () {
-    jlab.hco.deleteRow.call(this);
+    jlab.srm.deleteRow.call(this);
 });
 
 $(document).on("click", ".add-button", function () {
-    jlab.hco.addComponent();
+    jlab.srm.addComponent();
 });
 
 $(document).on("change", "#vertical-record-max-selector", function () {
@@ -454,7 +454,7 @@ $(document).on("click", ".default-clear-panel", function () {
 });
 $(document).on("change", "#category-select", function () {
     var categoryId = $(this).val();
-    jlab.hco.filterSystemListByCategory(categoryId, "#system-select", "");
+    jlab.srm.filterSystemListByCategory(categoryId, "#system-select", "");
 });
 $(function () {
     $("#col-destination-select").select2({
@@ -465,9 +465,9 @@ $(function () {
         maxPerPage = 5,
         totalRecords = $(".component-destination-table thead th").length - 1;
 
-    jlab.hco.horizontalPaginator = new jlab.hco.paginator(offset, maxPerPage, totalRecords);
+    jlab.srm.horizontalPaginator = new jlab.srm.paginator(offset, maxPerPage, totalRecords);
 
-    jlab.hco.horizontalPaginator.updateDisplay();
+    jlab.srm.horizontalPaginator.updateDisplay();
 
-    jlab.hco.horizontalPaginator.updateButtonState();
+    jlab.srm.horizontalPaginator.updateButtonState();
 });

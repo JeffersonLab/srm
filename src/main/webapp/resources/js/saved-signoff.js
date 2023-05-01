@@ -1,7 +1,7 @@
 var jlab = jlab || {};
-jlab.hco = jlab.hco || {};
+jlab.srm = jlab.srm || {};
 
-jlab.hco.deleteRows = function () {
+jlab.srm.deleteRows = function () {
     var $selectedRows = $("#super-table tbody tr.selected-row");
 
     if ($selectedRows.length < 1) {
@@ -56,19 +56,19 @@ jlab.hco.deleteRows = function () {
     });
 };
 
-jlab.hco.selectRow = function () {
+jlab.srm.selectRow = function () {
     $(this).addClass("ui-selected").siblings().removeClass("ui-selected");
     $("#open-preview-dialog-button").removeAttr("disabled");
     $("#delete-row-button").removeAttr("disabled");
 };
 
-jlab.hco.resetSelection = function () {
+jlab.srm.resetSelection = function () {
     $("#super-table tbody tr").removeClass("ui-selected");
     $("#open-preview-dialog-button").attr("disabled", "disabled");
     $("#delete-row-button").attr("disabled", "disabled");
 };
 
-jlab.hco.initDialogs = function () {
+jlab.srm.initDialogs = function () {
     $("#add-dialog").dialog({
         autoOpen: false,
         width: 750,
@@ -87,16 +87,16 @@ jlab.hco.initDialogs = function () {
     });
 };
 
-jlab.hco.setUndoSortState = function () {
-    jlab.hco.tableCloneForUndo = $("#super-table").clone(false);
+jlab.srm.setUndoSortState = function () {
+    jlab.srm.tableCloneForUndo = $("#super-table").clone(false);
 };
 
-jlab.hco.undoSort = function () {
+jlab.srm.undoSort = function () {
     $("#super-table").replaceWith(hco.table.tableCloneForUndo);
-    jlab.hco.initSortAndSelect();
+    jlab.srm.initSortAndSelect();
 };
 
-jlab.hco.saveSortOrder = function (event, ui) {
+jlab.srm.saveSortOrder = function (event, ui) {
 
     var idArray = [];
 
@@ -129,13 +129,13 @@ jlab.hco.saveSortOrder = function (event, ui) {
     request.done(function (data) {
         if ($(".status", data).html() !== "Success") {
             alert('Unable to order downgrades: ' + $(".reason", data).html());
-            jlab.hco.undoSort();
+            jlab.srm.undoSort();
         } else {
             /* Success */
             /*hco.table.renumber();*/
 
             /* update undo cache for next time */
-            jlab.hco.setUndoSortState();
+            jlab.srm.setUndoSortState();
         }
 
     });
@@ -143,7 +143,7 @@ jlab.hco.saveSortOrder = function (event, ui) {
     request.fail(function (xhr, textStatus) {
         window.console && console.log('Unable to order downgrade: Text Status: ' + textStatus + ', Ready State: ' + xhr.readyState + ', HTTP Status Code: ' + xhr.status);
         alert('Unable to order downgrade; server did not handle request');
-        jlab.hco.undoSort();
+        jlab.srm.undoSort();
     });
 
     request.always(function () {
@@ -151,10 +151,10 @@ jlab.hco.saveSortOrder = function (event, ui) {
     });
 };
 
-jlab.hco.initSortAndSelect = function () {
+jlab.srm.initSortAndSelect = function () {
     $("#super-table tbody").sortable({
         handle: ".drag-handle",
-        update: jlab.hco.saveSortOrder
+        update: jlab.srm.saveSortOrder
     });
 
     $("#super-table tbody tr").each(function () {
@@ -163,10 +163,10 @@ jlab.hco.initSortAndSelect = function () {
         });
     });
 
-    jlab.hco.setUndoSortState();
+    jlab.srm.setUndoSortState();
 };
 
-jlab.hco.resetAddForm = function () {
+jlab.srm.resetAddForm = function () {
     $("#add-type-select").val(2); /*for now default to One Month+*/
     $("#signoff-name").val("");
     $("#signoff-status-select").val("");
@@ -184,7 +184,7 @@ jlab.hco.resetAddForm = function () {
     $("#downgrade-only-checkbox").trigger("change");
 };
 
-jlab.hco.validateAddForm = function () {
+jlab.srm.validateAddForm = function () {
     if ($("#add-type-select").val() === '') {
         alert('Please provide a signoff type');
         return false;
@@ -209,7 +209,7 @@ jlab.hco.validateAddForm = function () {
     return true;
 };
 
-jlab.hco.validateEditForm = function () {
+jlab.srm.validateEditForm = function () {
     if ($("#update-checklist-required-select").val() === '') {
         alert('Please select a checklist required value');
         return false;
@@ -218,7 +218,7 @@ jlab.hco.validateEditForm = function () {
     return true;
 };
 
-jlab.hco.resizeTable = function () {
+jlab.srm.resizeTable = function () {
     $("#super-table tbody tr").each(function () {
         $(this).children().each(function () {
             $(this).width('auto');
@@ -232,25 +232,25 @@ jlab.hco.resizeTable = function () {
     });
 };
 
-jlab.hco.updateRow = function (groupResponsibilityId, checklistRequired) {
+jlab.srm.updateRow = function (groupResponsibilityId, checklistRequired) {
     /*Note: this method actually updates the row to the actual table AND the cached clone version used for sort order undo too!*/
 
     var $row = $("#super-table tbody tr[data-group-responsibility-id=" + groupResponsibilityId + "]");
 
     $row.find("td:nth-child(4)").text(checklistRequired);
 
-    jlab.hco.resizeTable();
+    jlab.srm.resizeTable();
 };
 
-jlab.hco.addRow = function (savedSignoffId, signoffName, signoffStatusName, comments, systemId, systemName, groupId, groupName, regionId, regionName, filterStatusId, filterStatusName, componentName) {
+jlab.srm.addRow = function (savedSignoffId, signoffName, signoffStatusName, comments, systemId, systemName, groupId, groupName, regionId, regionName, filterStatusId, filterStatusName, componentName) {
     /*Note: this method actually adds the row to the actual table AND the cached clone version used for sort order undo too!*/
 
     var $row = ("<tr data-saved-signoff-id=\"" + savedSignoffId + "\"><td>" + signoffName + "</td><td>" + signoffStatusName + "</td><td>" + comments + "</td><td data-system-id=\"" + systemId + "\">" + systemName + "</td><td data-group-id=\"" + groupId + "\">" + groupName + "</td><td data-region-id=\"" + regionId + "\">" + regionName + "</td><td data-status-id=\"" + filterStatusId + "\">" + filterStatusName + "</td><td>" + componentName + "</td></tr>");
     $("#super-table tbody").append($row);
 };
 
-jlab.hco.doEditAction = function () {
-    if (!jlab.hco.validateEditForm()) {
+jlab.srm.doEditAction = function () {
+    if (!jlab.srm.validateEditForm()) {
         return;
     }
 
@@ -281,7 +281,7 @@ jlab.hco.doEditAction = function () {
         if ($(".status", data).html() !== "Success") {
             alert('Unable to edit downgrade: ' + $(".reason", data).html());
         } else {
-            jlab.hco.updateRow(groupResponsibilityId, checklistRequiredName);
+            jlab.srm.updateRow(groupResponsibilityId, checklistRequiredName);
             $("#edit-dialog").dialog("close");
         }
 
@@ -297,8 +297,8 @@ jlab.hco.doEditAction = function () {
     });
 };
 
-jlab.hco.doAddAction = function () {
-    if (!jlab.hco.validateAddForm()) {
+jlab.srm.doAddAction = function () {
+    if (!jlab.srm.validateAddForm()) {
         return;
     }
 
@@ -368,7 +368,7 @@ jlab.hco.doAddAction = function () {
     });
 };
 
-jlab.hco.openEditDialog = function () {
+jlab.srm.openEditDialog = function () {
     var $selectedRow = $("#super-table tbody tr.ui-selected");
 
     if ($selectedRow.length < 1) {
@@ -384,7 +384,7 @@ jlab.hco.openEditDialog = function () {
     $("#edit-dialog").dialog("open");
 };
 
-jlab.hco.filterSystemList = function (groupId) {
+jlab.srm.filterSystemList = function (groupId) {
     if (jlab.isRequest()) {
         window.console && console.log("Ajax already in progress");
         return;
@@ -430,7 +430,7 @@ jlab.hco.filterSystemList = function (groupId) {
     });
 };
 
-jlab.hco.doAutofill = function () {
+jlab.srm.doAutofill = function () {
     var typeName = $("#add-type-select option:selected").text(),
         groupName = $("#add-group-select option:selected").text(),
         systemName = $("#add-system-select option:selected").text(),
@@ -455,7 +455,7 @@ jlab.hco.doAutofill = function () {
     $commentsInput.val(typeName);
 };
 
-jlab.hco.doSignoffMultiple = function() {
+jlab.srm.doSignoffMultiple = function() {
     var $selectedRows = $("#super-table tbody tr.selected-row");
 
     if ($selectedRows.length < 1) {
@@ -508,7 +508,7 @@ jlab.hco.doSignoffMultiple = function() {
 };
 
 $(document).on("click", "#remove-row-button", function () {
-    jlab.hco.deleteRows();
+    jlab.srm.deleteRows();
 });
 
 $(document).on("click", ".preview-button", function () {
@@ -531,31 +531,31 @@ $(document).on("click", ".preview-button", function () {
 });
 
 $(document).on("click", "#open-add-dialog-button", function () {
-    jlab.hco.resetAddForm();
+    jlab.srm.resetAddForm();
     $("#add-dialog").dialog("open");
 });
 
 $(document).on("click", "#open-edit-dialog-button", function () {
-    jlab.hco.openEditDialog();
+    jlab.srm.openEditDialog();
 });
 
 $(document).on("click", "#add-button", function () {
-    jlab.hco.doAddAction();
+    jlab.srm.doAddAction();
 });
 
 $(document).on("click", "#edit-button", function () {
-    jlab.hco.doEditAction();
+    jlab.srm.doEditAction();
 });
 
 $(document).on("click", "#signoff-button", function () {
     if (confirm('Are you sure you want to signoff all selected?')) {
-        jlab.hco.doSignoffMultiple();
+        jlab.srm.doSignoffMultiple();
     }
 });
 
 $(document).on("change", "#add-group-select", function () {
     var groupId = $(this).val();
-    jlab.hco.filterSystemList(groupId);
+    jlab.srm.filterSystemList(groupId);
 });
 
 $(document).on("change", "#signoff-status-select", function () {
@@ -608,7 +608,7 @@ $(document).on("change", "#autofill-checkbox", function () {
     if (autofill) {
         $("#comments").attr("disabled", "disabled");
         $("#signoff-name").attr("disabled", "disabled");
-        jlab.hco.doAutofill();
+        jlab.srm.doAutofill();
     } else {
         $("#comments").removeAttr("disabled");
         $("#signoff-name").removeAttr("disabled");
@@ -621,7 +621,7 @@ $(document).on("change", "#add-type-select", function () {
     var autofill = $("#autofill-checkbox").is(":checked");
 
     if (autofill) {
-        jlab.hco.doAutofill();
+        jlab.srm.doAutofill();
     }
 });
 
@@ -629,7 +629,7 @@ $(document).on("change", "#add-group-select", function () {
     var autofill = $("#autofill-checkbox").is(":checked");
 
     if (autofill) {
-        jlab.hco.doAutofill();
+        jlab.srm.doAutofill();
     }
 });
 
@@ -637,7 +637,7 @@ $(document).on("change", "#add-system-select", function () {
     var autofill = $("#autofill-checkbox").is(":checked");
 
     if (autofill) {
-        jlab.hco.doAutofill();
+        jlab.srm.doAutofill();
     }
 });
 
@@ -659,6 +659,6 @@ $(document).on("click", "#select-all-button", function () {
 });
 
 $(function () {
-    jlab.hco.initSortAndSelect();
-    jlab.hco.initDialogs();
+    jlab.srm.initSortAndSelect();
+    jlab.srm.initDialogs();
 });

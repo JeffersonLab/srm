@@ -1,7 +1,7 @@
 var jlab = jlab || {};
-jlab.hco = jlab.hco || {};
+jlab.srm = jlab.srm || {};
 
-jlab.hco.initTrees = function () {
+jlab.srm.initTrees = function () {
 
     var mydata = {
         categoryId: $("#category-select option:selected").val(),
@@ -70,7 +70,7 @@ jlab.hco.initTrees = function () {
     });
 };
 
-jlab.hco.initDialogs = function () {
+jlab.srm.initDialogs = function () {
     $("#group-dialog").dialog({
         autoOpen: false,
         modal: true,
@@ -91,12 +91,12 @@ jlab.hco.initDialogs = function () {
     });
 };
 
-jlab.hco.init = function () {
-    jlab.hco.initTrees();
-    jlab.hco.initDialogs();
+jlab.srm.init = function () {
+    jlab.srm.initTrees();
+    jlab.srm.initDialogs();
 };
 
-jlab.hco.handleGroupNodeClick = function () {
+jlab.srm.handleGroupNodeClick = function () {
     if ($("#username-container").length < 1) {
         document.location.href = $("#auth").find("a").attr("href");
         return;
@@ -109,7 +109,7 @@ jlab.hco.handleGroupNodeClick = function () {
     $("#group-dialog").dialog("open");
 };
 
-jlab.hco.validateUpdateForm = function () {
+jlab.srm.validateUpdateForm = function () {
     if ($("#update-status-select").val() === '') {
         alert('Please select a status');
         return false;
@@ -118,14 +118,14 @@ jlab.hco.validateUpdateForm = function () {
     return true;
 };
 
-jlab.hco.updateSignoff = function () {
+jlab.srm.updateSignoff = function () {
 
     if (jlab.isRequest()) {
         window.console && console.log("Ajax already in progress");
         return;
     }
 
-    if (!jlab.hco.validateUpdateForm()) {
+    if (!jlab.srm.validateUpdateForm()) {
         return;
     }
 
@@ -210,11 +210,11 @@ jlab.hco.updateSignoff = function () {
 };
 
 $(document).on("click", "#updateButton", function () {
-    jlab.hco.updateSignoff();
+    jlab.srm.updateSignoff();
 });
 
 $(document).on("click", '.jstree-node[data-node-type="GROUP"] > a', function () {
-    jlab.hco.handleGroupNodeClick.call(this);
+    jlab.srm.handleGroupNodeClick.call(this);
 
     return false; /*In jQuery this prevents default and stops propagation*/
 });
@@ -269,7 +269,7 @@ $(document).on("click", "#collapse-all-button", function () {
 
 $(document).on("change", "#category-select", function () {
     var categoryId = $(this).val();
-    jlab.hco.filterSystemListByCategory(categoryId);
+    jlab.srm.filterSystemListByCategory(categoryId);
 });
 
 $(".tree").on("state_ready.jstree", function (e, data) {
@@ -279,7 +279,7 @@ $(".tree").on("state_ready.jstree", function (e, data) {
 });
 
 $(function () {
-    jlab.hco.init();
+    jlab.srm.init();
 });
 
 $(document).on("click", "#system-excel-menu-item", function () {

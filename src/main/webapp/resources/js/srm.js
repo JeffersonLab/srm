@@ -1,7 +1,7 @@
 var jlab = jlab || {};
-jlab.hco = jlab.hco || {};
+jlab.srm = jlab.srm || {};
 
-jlab.hco.filterSystemListByCategory = function (categoryId, systemSelectSelector, applicationId, keephidden, multiselect) {
+jlab.srm.filterSystemListByCategory = function (categoryId, systemSelectSelector, applicationId, keephidden, multiselect) {
     if (jlab.isRequest()) {
         window.console && console.log("Ajax already in progress");
         return;

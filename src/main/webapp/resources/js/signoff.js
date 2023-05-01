@@ -1,7 +1,7 @@
 var jlab = jlab || {};
-jlab.hco = jlab.hco || {};
+jlab.srm = jlab.srm || {};
 
-jlab.hco.updateSignoffCount = function () {
+jlab.srm.updateSignoffCount = function () {
     var numSelected = $("#signoff-table").find(".ui-selected").length;
     $("#selected-count").text(numSelected);
     if (numSelected === 0) {
@@ -23,24 +23,24 @@ jlab.hco.updateSignoffCount = function () {
     }
 };
 
-jlab.hco.unselect = function () {
+jlab.srm.unselect = function () {
     $("#signoff-table .ui-selected").removeClass("ui-selected");
-    jlab.hco.updateSignoffCount();
+    jlab.srm.updateSignoffCount();
 };
 
-jlab.hco.ctrlSelectColumn = function (table, column) {
+jlab.srm.ctrlSelectColumn = function (table, column) {
     $(table).find("tbody tr").each(function () {
         var td = $(this).find("td:nth-child(" + column + ")");
         td.addClass("ui-selected");
     });
 };
 
-jlab.hco.selectColumn = function (table, column) {
+jlab.srm.selectColumn = function (table, column) {
     $(".ui-selected", table).removeClass("ui-selected");
-    jlab.hco.ctrlSelectColumn(table, column);
+    jlab.srm.ctrlSelectColumn(table, column);
 };
 
-jlab.hco.validateUpdateForm = function () {
+jlab.srm.validateUpdateForm = function () {
     if (Number($("#selected-count").text()) < 1) {
         alert('Please select at least one signoff');
         return false;
@@ -54,7 +54,7 @@ jlab.hco.validateUpdateForm = function () {
     return true;
 };
 
-jlab.hco.validateRequestMaskingForm = function () {
+jlab.srm.validateRequestMaskingForm = function () {
     if (Number($("#selected-count").text()) < 1) {
         alert('Please select at least one component');
         return false;
@@ -73,14 +73,14 @@ jlab.hco.validateRequestMaskingForm = function () {
     return true;
 };
 
-jlab.hco.updateSignoffGrid = function () {
+jlab.srm.updateSignoffGrid = function () {
 
     if (jlab.isRequest()) {
         window.console && console.log("Ajax already in progress");
         return;
     }
 
-    if (!jlab.hco.validateUpdateForm()) {
+    if (!jlab.srm.validateUpdateForm()) {
         return;
     }
 
@@ -176,14 +176,14 @@ jlab.hco.updateSignoffGrid = function () {
     });
 };
 
-jlab.hco.requestMasking = function () {
+jlab.srm.requestMasking = function () {
 
     if (jlab.isRequest()) {
         window.console && console.log("Ajax already in progress");
         return;
     }
 
-    if (!jlab.hco.validateRequestMaskingForm()) {
+    if (!jlab.srm.validateRequestMaskingForm()) {
         return;
     }
 
@@ -248,7 +248,7 @@ jlab.hco.requestMasking = function () {
 };
 
 
-jlab.hco.filterSystemListByGroup = function (groupId) {
+jlab.srm.filterSystemListByGroup = function (groupId) {
     if (jlab.isRequest()) {
         window.console && console.log("Ajax already in progress");
         return;
@@ -292,7 +292,7 @@ jlab.hco.filterSystemListByGroup = function (groupId) {
     });
 };
 
-jlab.hco.filterGroupList = function (systemId) {
+jlab.srm.filterGroupList = function (systemId) {
     if (jlab.isRequest()) {
         window.console && console.log("Ajax already in progress");
         return;
@@ -341,7 +341,7 @@ jlab.hco.filterGroupList = function (systemId) {
     });
 };
 
-jlab.hco.initDialogs = function () {
+jlab.srm.initDialogs = function () {
     $("#signoff-dialog").dialog({
         autoOpen: false,
         width: 550,
@@ -378,7 +378,7 @@ jlab.hco.initDialogs = function () {
     });
 };
 
-jlab.hco.checkForDuplicates = function (a) {
+jlab.srm.checkForDuplicates = function (a) {
     a.sort();
 
     var last = a[0],
@@ -394,7 +394,7 @@ jlab.hco.checkForDuplicates = function (a) {
     return dups;
 };
 
-jlab.hco.prepareEditDialog = function () {
+jlab.srm.prepareEditDialog = function () {
     var componentName = null,
         groupName = null,
         count = null,
@@ -414,14 +414,14 @@ jlab.hco.prepareEditDialog = function () {
         groupNameArray.push(groupName);
     });
 
-    var dups = jlab.hco.checkForDuplicates(componentNameArray);
+    var dups = jlab.srm.checkForDuplicates(componentNameArray);
 
     if (dups > 0) {
         alert('Please signoff only one group at a time');
         return;
     }
 
-    dups = jlab.hco.checkForDuplicates(groupNameArray);
+    dups = jlab.srm.checkForDuplicates(groupNameArray);
 
     if (dups !== groupNameArray.length - 1) {
         alert('Please signoff only one group at a time');
@@ -447,11 +447,11 @@ $(document).on("click", "#ops-pr-ok-button", function () {
     $("#ops-pr-dialog").dialog("close");
 });
 $(document).on("click", "#updateButton", function () {
-    jlab.hco.updateSignoffGrid();
+    jlab.srm.updateSignoffGrid();
 });
 
 $(document).on("click", "#request-mask-button", function () {
-    jlab.hco.requestMasking();
+    jlab.srm.requestMasking();
 });
 
 $(document).on("click", "#signoff-table thead th .select-column-icon", function (e) {
@@ -461,51 +461,51 @@ $(document).on("click", "#signoff-table thead th .select-column-icon", function 
     var ctrlPressed = e.ctrlKey;
 
     if (ctrlPressed) {
-        jlab.hco.ctrlSelectColumn($("#signoff-table"), count);
+        jlab.srm.ctrlSelectColumn($("#signoff-table"), count);
     } else {
-        jlab.hco.selectColumn($("#signoff-table"), count);
+        jlab.srm.selectColumn($("#signoff-table"), count);
     }
 
-    jlab.hco.updateSignoffCount();
+    jlab.srm.updateSignoffCount();
 
     return false;
 });
 
 $(document).on("click", "#unselect-button", function () {
-    jlab.hco.unselect();
+    jlab.srm.unselect();
 });
 
 $(document).on("change", "#system-select", function () {
-    if (jlab.hco.systemFirst === true) {
+    if (jlab.srm.systemFirst === true) {
         var systemId = $(this).val();
-        jlab.hco.filterGroupList(systemId);
+        jlab.srm.filterGroupList(systemId);
     }
 });
 
 $(document).on("change", "#category-select", function () {
-    if (jlab.hco.systemFirst === true) {
+    if (jlab.srm.systemFirst === true) {
         var categoryId = $(this).val();
-        jlab.hco.filterSystemListByCategory(categoryId);
+        jlab.srm.filterSystemListByCategory(categoryId);
     }
 });
 
 $(document).on("change", "#group-select", function () {
-    if (jlab.hco.systemFirst !== true) {
+    if (jlab.srm.systemFirst !== true) {
         var groupId = $(this).val();
-        jlab.hco.filterSystemListByGroup(groupId);
+        jlab.srm.filterSystemListByGroup(groupId);
     }
 });
 
 $(document).on("click", "#open-request-dialog-button", function () {
     $("#request-dialog form")[0].reset();
 
-    jlab.hco.prepareEditDialog();
+    jlab.srm.prepareEditDialog();
 
     $("#request-dialog").dialog("open");
 });
 
 $(document).on("click", "#open-edit-dialog-button", function () {
-    jlab.hco.prepareEditDialog();
+    jlab.srm.prepareEditDialog();
 
     $("#signoff-dialog").dialog("open");
 });
@@ -570,13 +570,13 @@ $(document).on("click", "#exclude-na-link", function () {
     return false;
 });
 $(function () {
-    jlab.hco.initDialogs();
+    jlab.srm.initDialogs();
 
     $("#signoff-table.editable #nested-table tbody").selectable({
         filter: "td.selected-group-cell",
         cancel: "a, .select-column-icon",
         stop: function () {
-            jlab.hco.updateSignoffCount();
+            jlab.srm.updateSignoffCount();
         }
     });
 

@@ -2,7 +2,7 @@ var jlab = jlab || {};
 
 $(document).on("change", "#category-select", function () {
     var categoryId = $(this).val();
-    jlab.hco.filterSystemListByCategory(categoryId);
+    jlab.srm.filterSystemListByCategory(categoryId);
 });
 
 $(document).on("click", ".default-clear-panel", function () {
@@ -14,7 +14,7 @@ $(document).on("click", ".default-clear-panel", function () {
     return false;
 });
 
-jlab.hco.doBarChart = function () {
+jlab.srm.doBarChart = function () {
     var d1 = [];
     var d2 = [];
     var d3 = [];
@@ -93,7 +93,7 @@ jlab.hco.doBarChart = function () {
 $(function () {
 
     if ($("#chart-placeholder").length > 0) {
-        jlab.hco.doBarChart();
+        jlab.srm.doBarChart();
     }
 
     $(".date-field").datepicker({

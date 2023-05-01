@@ -1,11 +1,11 @@
 var jlab = jlab || {};
-jlab.hco = jlab.hco || {};
+jlab.srm = jlab.srm || {};
 
 jlab.editableRowTable.entity = 'Group';
 jlab.editableRowTable.dialog.width = 550;
 jlab.editableRowTable.dialog.height = 400;
 
-jlab.hco.deleteRow = function () {
+jlab.srm.deleteRow = function () {
     var $selectedRow = $(".editable-row-table tbody tr.selected-row");
 
     if ($selectedRow.length < 1) {
@@ -30,7 +30,7 @@ jlab.hco.deleteRow = function () {
 
     jlab.doAjaxJsonPostRequest(url, data, $dialog, true);
 };
-jlab.hco.initDialogs = function () {
+jlab.srm.initDialogs = function () {
     $("#add-dialog").dialog({
         autoOpen: false,
         width: 640,
@@ -45,7 +45,7 @@ jlab.hco.initDialogs = function () {
     });
 };
 
-jlab.hco.validateRowForm = function () {
+jlab.srm.validateRowForm = function () {
     if ($("#row-name").val() === '') {
         alert('Please select a name');
         return false;
@@ -62,8 +62,8 @@ jlab.hco.validateRowForm = function () {
     return true;
 };
 
-jlab.hco.edit = function () {
-    if (!jlab.hco.validateRowForm()) {
+jlab.srm.edit = function () {
+    if (!jlab.srm.validateRowForm()) {
         return;
     }
 
@@ -78,8 +78,8 @@ jlab.hco.edit = function () {
     jlab.doAjaxJsonPostRequest(url, data, $dialog, true);
 };
 
-jlab.hco.add = function () {
-    if (!jlab.hco.validateRowForm()) {
+jlab.srm.add = function () {
+    if (!jlab.srm.validateRowForm()) {
         return;
     }
 
@@ -93,7 +93,7 @@ jlab.hco.add = function () {
     jlab.doAjaxJsonPostRequest(url, data, $dialog, true);
 };
 $(document).on("click", "#remove-row-button", function () {
-    jlab.hco.deleteRow();
+    jlab.srm.deleteRow();
 });
 
 $(document).on("click", "#open-edit-row-dialog-button", function () {
@@ -114,13 +114,13 @@ $(document).on("click", "#open-edit-row-dialog-button", function () {
 });
 
 $(document).on("table-row-add", function () {
-    jlab.hco.add();
+    jlab.srm.add();
 });
 
 $(document).on("table-row-edit", function () {
-    jlab.hco.edit();
+    jlab.srm.edit();
 });
 
 $(function () {
-    jlab.hco.initDialogs();
+    jlab.srm.initDialogs();
 });

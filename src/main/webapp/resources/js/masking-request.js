@@ -1,7 +1,7 @@
 jlab = jlab || {};
-jlab.hco = jlab.hco || {};
+jlab.srm = jlab.srm || {};
 
-jlab.hco.denyMasking = function () {
+jlab.srm.denyMasking = function () {
 
     var $selectedRow = $("#request-table tbody tr.selected-row"),
         requestId = $selectedRow.attr("data-request-id"),
@@ -21,7 +21,7 @@ jlab.hco.denyMasking = function () {
     });
 };
 
-jlab.hco.acceptMasking = function () {
+jlab.srm.acceptMasking = function () {
     var $selectedRow = $("#request-table tbody tr.selected-row"),
         requestId = $selectedRow.attr("data-request-id"),
         reason = $("#mask-request-reason").val(),
@@ -66,7 +66,7 @@ $(document).on("click", ".default-reset-panel", function () {
 
 $(document).on("change", "#category-select", function () {
     var categoryId = $(this).val();
-    jlab.hco.filterSystemListByCategory(categoryId);
+    jlab.srm.filterSystemListByCategory(categoryId);
 });
 
 $(document).on("click", "#open-approval-dialog-button", function () {
@@ -85,7 +85,7 @@ $(document).on("click", "#open-approval-dialog-button", function () {
 });
 
 $(document).on("click", "#approve-save-button", function () {
-    jlab.hco.acceptMasking();
+    jlab.srm.acceptMasking();
 });
 
 $(document).on("click", "#deny-button", function () {
@@ -93,7 +93,7 @@ $(document).on("click", "#deny-button", function () {
         component = $selectedRow.find("td:nth-child(2)").text();
 
     if (confirm('Are you sure you want to deny masking ' + component + "?")) {
-        jlab.hco.denyMasking();
+        jlab.srm.denyMasking();
     }
 });
 

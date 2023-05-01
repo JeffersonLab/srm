@@ -1,7 +1,7 @@
 var jlab = jlab || {};
-jlab.hco = jlab.hco || {};
+jlab.srm = jlab.srm || {};
 
-jlab.hco.validateNodeForm = function () {
+jlab.srm.validateNodeForm = function () {
     if ($("#category-parent").val() === '') {
         alert('Please select a parent category');
         return false;
@@ -15,14 +15,14 @@ jlab.hco.validateNodeForm = function () {
     return true;
 };
 
-jlab.hco.addCategory = function () {
+jlab.srm.addCategory = function () {
 
     if (jlab.isRequest()) {
         window.console && console.log("Ajax already in progress");
         return;
     }
 
-    if (!jlab.hco.validateNodeForm()) {
+    if (!jlab.srm.validateNodeForm()) {
         return;
     }
 
@@ -71,14 +71,14 @@ jlab.hco.addCategory = function () {
     });
 };
 
-jlab.hco.editCategory = function () {
+jlab.srm.editCategory = function () {
 
     if (jlab.isRequest()) {
         window.console && console.log("Ajax already in progress");
         return;
     }
 
-    if (!jlab.hco.validateNodeForm()) {
+    if (!jlab.srm.validateNodeForm()) {
         return;
     }
 
@@ -135,7 +135,7 @@ jlab.hco.editCategory = function () {
     });
 };
 
-jlab.hco.removeCategory = function () {
+jlab.srm.removeCategory = function () {
 
     if (jlab.isRequest()) {
         window.console && console.log("Ajax already in progress");
@@ -194,14 +194,14 @@ jlab.hco.removeCategory = function () {
     });
 };
 
-jlab.hco.addSystem = function () {
+jlab.srm.addSystem = function () {
 
     if (jlab.isRequest()) {
         window.console && console.log("Ajax already in progress");
         return;
     }
 
-    if (!jlab.hco.validateNodeForm()) {
+    if (!jlab.srm.validateNodeForm()) {
         return;
     }
 
@@ -250,14 +250,14 @@ jlab.hco.addSystem = function () {
     });
 };
 
-jlab.hco.editSystem = function () {
+jlab.srm.editSystem = function () {
 
     if (jlab.isRequest()) {
         window.console && console.log("Ajax already in progress");
         return;
     }
 
-    if (!jlab.hco.validateNodeForm()) {
+    if (!jlab.srm.validateNodeForm()) {
         return;
     }
 
@@ -314,7 +314,7 @@ jlab.hco.editSystem = function () {
     });
 };
 
-jlab.hco.removeSystem = function () {
+jlab.srm.removeSystem = function () {
 
     if (jlab.isRequest()) {
         window.console && console.log("Ajax already in progress");
@@ -373,7 +373,7 @@ jlab.hco.removeSystem = function () {
     });
 };
 
-jlab.hco.renameRoot = function () {
+jlab.srm.renameRoot = function () {
 
     if (jlab.isRequest()) {
         window.console && console.log("Ajax already in progress");
@@ -428,7 +428,7 @@ jlab.hco.renameRoot = function () {
     });
 };
 
-jlab.hco.clearAndOpenNodeDialog = function () {
+jlab.srm.clearAndOpenNodeDialog = function () {
     $("#node-dialog form").get(0).reset();
     $("#node-dialog").dialog("open");
 };
@@ -436,17 +436,17 @@ jlab.hco.clearAndOpenNodeDialog = function () {
 $(document).on("click", "#SaveButton", function () {
     var title = $("#node-dialog").dialog("option", "title");
     if (title === 'Add System') {
-        jlab.hco.addSystem();
+        jlab.srm.addSystem();
     } else if (title === 'Add Category') {
-        jlab.hco.addCategory();
+        jlab.srm.addCategory();
     } else if (title === 'Remove Category') {
-        jlab.hco.removeCategory();
+        jlab.srm.removeCategory();
     } else if (title === 'Remove System') {
-        jlab.hco.removeSystem();
+        jlab.srm.removeSystem();
     } else if (title === 'Edit Category') {
-        jlab.hco.editCategory();
+        jlab.srm.editCategory();
     } else if (title === 'Edit System') {
-        jlab.hco.editSystem();
+        jlab.srm.editSystem();
     }
 });
 
@@ -454,7 +454,7 @@ $(document).on("click", "#open-add-category-dialog-button", function () {
     $("#node-dialog").dialog("option", "title", "Add Category");
     $("#select-node-fieldset").hide();
     $("#new-value-fieldset").show();
-    jlab.hco.clearAndOpenNodeDialog();
+    jlab.srm.clearAndOpenNodeDialog();
 });
 
 $(document).on("click", "#open-edit-category-dialog-button", function () {
@@ -463,7 +463,7 @@ $(document).on("click", "#open-edit-category-dialog-button", function () {
     $("#category-node-select").show();
     $("#system-node-select").hide();
     $("#new-value-fieldset").show();
-    jlab.hco.clearAndOpenNodeDialog();
+    jlab.srm.clearAndOpenNodeDialog();
 });
 
 $(document).on("click", "#open-remove-category-dialog-button", function () {
@@ -472,14 +472,14 @@ $(document).on("click", "#open-remove-category-dialog-button", function () {
     $("#category-node-select").show();
     $("#system-node-select").hide();
     $("#new-value-fieldset").hide();
-    jlab.hco.clearAndOpenNodeDialog();
+    jlab.srm.clearAndOpenNodeDialog();
 });
 
 $(document).on("click", "#open-add-system-dialog-button", function () {
     $("#node-dialog").dialog("option", "title", "Add System");
     $("#select-node-fieldset").hide();
     $("#new-value-fieldset").show();
-    jlab.hco.clearAndOpenNodeDialog();
+    jlab.srm.clearAndOpenNodeDialog();
 });
 
 $(document).on("click", "#open-edit-system-dialog-button", function () {
@@ -488,7 +488,7 @@ $(document).on("click", "#open-edit-system-dialog-button", function () {
     $("#category-node-select").hide();
     $("#system-node-select").show();
     $("#new-value-fieldset").show();
-    jlab.hco.clearAndOpenNodeDialog();
+    jlab.srm.clearAndOpenNodeDialog();
 });
 
 $(document).on("click", "#open-remove-system-dialog-button", function () {
@@ -497,7 +497,7 @@ $(document).on("click", "#open-remove-system-dialog-button", function () {
     $("#category-node-select").hide();
     $("#system-node-select").show();
     $("#new-value-fieldset").hide();
-    jlab.hco.clearAndOpenNodeDialog();
+    jlab.srm.clearAndOpenNodeDialog();
 });
 
 $(document).on("change", "#category", function () {
@@ -529,7 +529,7 @@ $(document).on("click", "#open-edit-root-dialog-button", function () {
 });
 
 $(document).on("click", "#root-save-button", function () {
-    jlab.hco.renameRoot();
+    jlab.srm.renameRoot();
 });
 
 $(function () {

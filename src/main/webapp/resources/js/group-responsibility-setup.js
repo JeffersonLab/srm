@@ -1,11 +1,11 @@
 var jlab = jlab || {};
-jlab.hco = jlab.hco || {};
+jlab.srm = jlab.srm || {};
 
 jlab.editableRowTable.entity = 'Responsibility';
 jlab.editableRowTable.dialog.width = 550;
 jlab.editableRowTable.dialog.height = 400;
 
-jlab.hco.deleteRow = function () {
+jlab.srm.deleteRow = function () {
     var $selectedRow = $("#responsibility-table tbody tr.selected-row");
 
     if ($selectedRow.length < 1) {
@@ -42,9 +42,9 @@ jlab.hco.deleteRow = function () {
         } else {
             /* Success */
             $selectedRow.remove();
-            jlab.hco.renumber();
-            jlab.hco.setUndoSortState();
-            jlab.hco.resizeTable();
+            jlab.srm.renumber();
+            jlab.srm.setUndoSortState();
+            jlab.srm.resizeTable();
             $("#unselect-all-button").click();
         }
 
@@ -60,7 +60,7 @@ jlab.hco.deleteRow = function () {
     });
 };
 
-jlab.hco.initDialogs = function () {
+jlab.srm.initDialogs = function () {
     $("#create-responsibility-dialog").dialog({
         autoOpen: false,
         width: 640,
@@ -75,7 +75,7 @@ jlab.hco.initDialogs = function () {
     });
 };
 
-jlab.hco.renumber = function () {
+jlab.srm.renumber = function () {
     $("#responsibility-table tbody tr").each(function () {
         var index = $(this).index() + 1;
 
@@ -83,16 +83,16 @@ jlab.hco.renumber = function () {
     });
 };
 
-jlab.hco.setUndoSortState = function () {
-    jlab.hco.tableCloneForUndo = $("#responsibility-table").clone(false);
+jlab.srm.setUndoSortState = function () {
+    jlab.srm.tableCloneForUndo = $("#responsibility-table").clone(false);
 };
 
-jlab.hco.undoSort = function () {
-    $("#responsibility-table").replaceWith(jlab.hco.tableCloneForUndo);
-    jlab.hco.initSortAndSelect();
+jlab.srm.undoSort = function () {
+    $("#responsibility-table").replaceWith(jlab.srm.tableCloneForUndo);
+    jlab.srm.initSortAndSelect();
 };
 
-jlab.hco.saveSortOrder = function (event, ui) {
+jlab.srm.saveSortOrder = function (event, ui) {
 
     var idArray = [];
 
@@ -125,13 +125,13 @@ jlab.hco.saveSortOrder = function (event, ui) {
     request.done(function (data) {
         if ($(".status", data).html() !== "Success") {
             alert('Unable to order group responsibility: ' + $(".reason", data).html());
-            jlab.hco.undoSort();
+            jlab.srm.undoSort();
         } else {
             /* Success */
-            jlab.hco.renumber();
+            jlab.srm.renumber();
 
             /* update undo cache for next time */
-            jlab.hco.setUndoSortState();
+            jlab.srm.setUndoSortState();
         }
 
     });
@@ -139,7 +139,7 @@ jlab.hco.saveSortOrder = function (event, ui) {
     request.fail(function (xhr, textStatus) {
         window.console && console.log('Unable to order group responsibility: Text Status: ' + textStatus + ', Ready State: ' + xhr.readyState + ', HTTP Status Code: ' + xhr.status);
         alert('Unable to order group responsibility; server did not handle request');
-        jlab.hco.undoSort();
+        jlab.srm.undoSort();
     });
 
     request.always(function () {
@@ -147,10 +147,10 @@ jlab.hco.saveSortOrder = function (event, ui) {
     });
 };
 
-jlab.hco.initSortAndSelect = function () {
+jlab.srm.initSortAndSelect = function () {
     $("#responsibility-table tbody").sortable({
         handle: ".drag-handle",
-        update: jlab.hco.saveSortOrder
+        update: jlab.srm.saveSortOrder
     });
 
     $("#responsibility-table tbody tr").each(function () {
@@ -159,10 +159,10 @@ jlab.hco.initSortAndSelect = function () {
         });
     });
 
-    jlab.hco.setUndoSortState();
+    jlab.srm.setUndoSortState();
 };
 
-jlab.hco.validateCreateResponsibilityForm = function () {
+jlab.srm.validateCreateResponsibilityForm = function () {
     if ($("#group-select").val() === '') {
         alert('Please select a group');
         return false;
@@ -175,7 +175,7 @@ jlab.hco.validateCreateResponsibilityForm = function () {
     return true;
 };
 
-jlab.hco.resizeTable = function () {
+jlab.srm.resizeTable = function () {
     $("#responsibility-table tbody tr").each(function () {
         $(this).children().each(function () {
             $(this).width('auto');
@@ -189,25 +189,25 @@ jlab.hco.resizeTable = function () {
     });
 };
 
-jlab.hco.updateRow = function (groupResponsibilityId, checklistRequired) {
+jlab.srm.updateRow = function (groupResponsibilityId, checklistRequired) {
     /*Note: this method actually updates the row to the actual table AND the cached clone version used for sort order undo too!*/
 
     var $row = $("#responsibility-table tbody tr[data-group-responsibility-id=" + groupResponsibilityId + "]");
 
     $row.find("td:nth-child(4)").text(checklistRequired);
 
-    jlab.hco.resizeTable();
+    jlab.srm.resizeTable();
 };
 
-jlab.hco.addRow = function (groupResponsibilityId, groupName, checklistRequired, order) {
+jlab.srm.addRow = function (groupResponsibilityId, groupName, checklistRequired, order) {
     /*Note: this method actually adds the row to the actual table AND the cached clone version used for sort order undo too!*/
 
     var $row = ("<tr data-group-responsibility-id=\"" + groupResponsibilityId + "\"><td class=\"drag-handle\"><span class=\"ui-icon ui-icon-carat-2-n-s\"></span></td><td>" + order + "</td><td>" + groupName + "</td><td>" + checklistRequired + "</td></tr>");
     $("#responsibility-table tbody").append($row);
 };
 
-jlab.hco.updateResponsibility = function () {
-    if (!jlab.hco.validateCreateResponsibilityForm()) {
+jlab.srm.updateResponsibility = function () {
+    if (!jlab.srm.validateCreateResponsibilityForm()) {
         return;
     }
 
@@ -225,14 +225,14 @@ jlab.hco.updateResponsibility = function () {
             var errorMsg = json.error || "Unknown Error";
             alert('Unable to update group responsibility: ' + errorMsg);
         } else {
-            jlab.hco.updateRow(groupResponsibilityId, checklistRequiredName);
+            jlab.srm.updateRow(groupResponsibilityId, checklistRequiredName);
         }
 
     });
 };
 
-jlab.hco.createResponsibility = function () {
-    if (!jlab.hco.validateCreateResponsibilityForm()) {
+jlab.srm.createResponsibility = function () {
+    if (!jlab.srm.validateCreateResponsibilityForm()) {
         return;
     }
 
@@ -254,13 +254,13 @@ jlab.hco.createResponsibility = function () {
             alert('Unable to create new group responsibility: ' + errorMsg);
         } else {
             var groupResponsibilityId = json.id;
-            jlab.hco.addRow(groupResponsibilityId, groupName, checklistRequiredName, order); /*Also updates undo cache; no need to reorder since appends to end*/
-            jlab.hco.resizeTable(); /*Also sets width of new cells for drag and drop*/
+            jlab.srm.addRow(groupResponsibilityId, groupName, checklistRequiredName, order); /*Also updates undo cache; no need to reorder since appends to end*/
+            jlab.srm.resizeTable(); /*Also sets width of new cells for drag and drop*/
         }
     });
 };
 
-jlab.hco.openUpdateDialog = function () {
+jlab.srm.openUpdateDialog = function () {
     var $selectedRow = $("#responsibility-table tbody tr.selected-row");
 
     if ($selectedRow.length < 1) {
@@ -280,7 +280,7 @@ jlab.hco.openUpdateDialog = function () {
 };
 
 $(document).on("click", "#remove-row-button", function () {
-    jlab.hco.deleteRow();
+    jlab.srm.deleteRow();
 });
 
 $(document).on("click", "#open-add-row-dialog-button", function () {
@@ -292,15 +292,15 @@ $(document).on("click", "#open-add-row-dialog-button", function () {
 });
 
 $(document).on("click", "#open-edit-row-dialog-button", function () {
-    jlab.hco.openUpdateDialog();
+    jlab.srm.openUpdateDialog();
 });
 
 $(document).on("table-row-add", function () {
-    jlab.hco.createResponsibility();
+    jlab.srm.createResponsibility();
 });
 
 $(document).on("table-row-edit", function () {
-    jlab.hco.updateResponsibility();
+    jlab.srm.updateResponsibility();
 });
 $(document).on("click", ".default-clear-panel", function () {
     $("#category-select").val('').trigger('change');
@@ -309,9 +309,9 @@ $(document).on("click", ".default-clear-panel", function () {
 });
 $(document).on("change", "#category-select", function () {
     var categoryId = $(this).val();
-    jlab.hco.filterSystemListByCategory(categoryId, "#system-select", "");
+    jlab.srm.filterSystemListByCategory(categoryId, "#system-select", "");
 });
 $(function () {
-    jlab.hco.initSortAndSelect();
-    jlab.hco.initDialogs();
+    jlab.srm.initSortAndSelect();
+    jlab.srm.initDialogs();
 });

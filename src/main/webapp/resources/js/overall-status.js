@@ -35,7 +35,7 @@ jlab.addPieTooltips = function () {
 
 $(document).on("change", "#category-select", function () {
     var categoryId = $(this).val();
-    jlab.hco.filterSystemListByCategory(categoryId);
+    jlab.srm.filterSystemListByCategory(categoryId);
 });
 
 $(document).on("click", ".default-clear-panel", function () {

@@ -1,6 +1,6 @@
 var jlab = jlab || {};
-jlab.hco = jlab.hco || {};
-jlab.hco.bulkSignoff = function (systemsArray, statusId, comment) {
+jlab.srm = jlab.srm || {};
+jlab.srm.bulkSignoff = function (systemsArray, statusId, comment) {
     $("#filter-form").hide();
     $("#required-span").text("");
 
@@ -16,9 +16,9 @@ jlab.hco.bulkSignoff = function (systemsArray, statusId, comment) {
 
     var rows = $div.find("tbody tr").toArray();
 
-    jlab.hco.bulkRequest(rows, statusId, comment);
+    jlab.srm.bulkRequest(rows, statusId, comment);
 };
-jlab.hco.bulkRequest = function (rows, statusId, comment) {
+jlab.srm.bulkRequest = function (rows, statusId, comment) {
     if (rows.length > 0) {
         var $tr = $(rows.shift()),
             $td1 = $tr.find("td:first-child"),
@@ -41,14 +41,14 @@ jlab.hco.bulkRequest = function (rows, statusId, comment) {
         });
 
         promise.always(function () {
-            jlab.hco.bulkRequest(rows, statusId, comment);
+            jlab.srm.bulkRequest(rows, statusId, comment);
         });
     }
 };
 $(document).on("change", "#category-select", function () {
     var categoryId = $(this).val();
     $("#system-select").select2("val", "");
-    jlab.hco.filterSystemListByCategory(categoryId, "#system-select", "", true, true);
+    jlab.srm.filterSystemListByCategory(categoryId, "#system-select", "", true, true);
     $("system-select").select2("destroy").select2({
         width: 450
     });
@@ -98,7 +98,7 @@ $(document).on("click", "#submit-button", function () {
     var go = confirm('Are you sure?');
 
     if (go) {
-        jlab.hco.bulkSignoff(systemsArray, statusId, comment);
+        jlab.srm.bulkSignoff(systemsArray, statusId, comment);
     }
 
     return false;
