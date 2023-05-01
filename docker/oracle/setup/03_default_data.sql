@@ -3,10 +3,10 @@ alter session set container = XEPDB1;
 -- Special characters such as the ampersand will result in prompt without this directive.
 SET DEFINE OFF;
 
-insert into SRM_OWNER.HCO_SETTINGS (HCO_SETTINGS_ID, GOAL_DATE, AUTO_EMAIL_YN, FEEDBACK_EMAIL_CSV, MASK_REQUEST_EMAIL_CSV, ACTIVITY_EMAIL_CSV) values (1, DATE '2013-11-22', 'N', null, 'tester@example.com', 'tester@example.com');
+insert into SRM_OWNER.SETTINGS (SETTINGS_ID, GOAL_DATE, AUTO_EMAIL_YN, MASK_REQUEST_EMAIL_CSV, ACTIVITY_EMAIL_CSV) values (1, DATE '2013-11-22', 'N', 'tester@example.com', 'tester@example.com');
 
 -- Populate Application
-insert into SRM_OWNER.APPLICATION (APPLICATION_ID, NAME) values (1, 'Hot Checkout');
+insert into SRM_OWNER.APPLICATION (APPLICATION_ID, NAME) values (1, 'Readiness');
 insert into SRM_OWNER.APPLICATION (APPLICATION_ID, NAME) values (2, 'Downtime');
 insert into SRM_OWNER.APPLICATION (APPLICATION_ID, NAME) values (3, 'Problem Report');
 insert into SRM_OWNER.APPLICATION (APPLICATION_ID, NAME) values (4, 'ePAS');

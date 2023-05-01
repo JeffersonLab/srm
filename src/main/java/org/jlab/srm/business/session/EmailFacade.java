@@ -1,6 +1,6 @@
 package org.jlab.srm.business.session;
 
-import org.jlab.srm.persistence.entity.HcoSettings;
+import org.jlab.srm.persistence.entity.Settings;
 import org.jlab.smoothness.business.exception.UserFriendlyException;
 
 import javax.annotation.Resource;
@@ -22,7 +22,7 @@ public class EmailFacade extends AbstractFacade<Object> {
     @Resource(name = "mail/jlab")
     private Session mailSession;
     @EJB
-    private HcoSettingsFacade settingsFacade;
+    private SettingsFacade settingsFacade;
 
     public EmailFacade() {
         super(Object.class);
@@ -65,37 +65,6 @@ public class EmailFacade extends AbstractFacade<Object> {
         tr.close();
     }
 
-    @PermitAll
-    public void sendFeedbackEmail(String subject, String body) throws UserFriendlyException {
-        String username = checkAuthenticated();
-
-        try {
-            Address fromAddress = new InternetAddress(username + "@jlab.org");
-
-            if (subject == null || subject.isEmpty()) {
-                throw new UserFriendlyException("subject must not be empty");
-            }
-
-            if (body == null || body.isEmpty()) {
-                throw new UserFriendlyException("message must not be empty");
-            }
-
-            subject = "HCO Feedback: " + subject;
-            HcoSettings settings = settingsFacade.findSettings();
-            List<Address> toAddresses = settings.getFeedbackEmailAddresses();
-
-            if (toAddresses == null || toAddresses.isEmpty()) {
-                throw new UserFriendlyException("No recipients configured.  Please contact your HCO admin");
-            }
-
-            sendPlainTextEmail(fromAddress, toAddresses.toArray(new Address[]{}), subject, body);
-        } catch (AddressException e) {
-            throw new UserFriendlyException("Invalid address", e);
-        } catch (MessagingException e) {
-            throw new UserFriendlyException("Unable to send email", e);
-        }
-    }
-
     @Override
     protected EntityManager getEntityManager() {
         return null;
@@ -117,7 +86,7 @@ public class EmailFacade extends AbstractFacade<Object> {
             }
 
             subject = "HCO Mask Request: " + subject;
-            HcoSettings settings = settingsFacade.findSettings();
+            Settings settings = settingsFacade.findSettings();
             List<Address> toAddresses = settings.getMaskRequestEmailAddresses();
 
             if (toAddresses == null || toAddresses.isEmpty()) {

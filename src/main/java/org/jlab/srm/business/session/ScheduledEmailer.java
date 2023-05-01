@@ -3,7 +3,7 @@ package org.jlab.srm.business.session;
 import org.jlab.smoothness.business.service.UserAuthorizationService;
 import org.jlab.smoothness.persistence.view.User;
 import org.jlab.srm.business.session.AbstractFacade.OrderDirective;
-import org.jlab.srm.persistence.entity.HcoSettings;
+import org.jlab.srm.persistence.entity.Settings;
 import org.jlab.srm.persistence.entity.ResponsibleGroup;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -38,7 +38,7 @@ public class ScheduledEmailer {
     @EJB
     EmailFacade emailFacade;
     @EJB
-    HcoSettingsFacade settingsFacade;
+    SettingsFacade settingsFacade;
     @Resource
     private TimerService timerService;
     private Timer timer;
@@ -134,7 +134,7 @@ public class ScheduledEmailer {
 
             String html = doc.outerHtml();
 
-            HcoSettings settings = settingsFacade.findSettings();
+            Settings settings = settingsFacade.findSettings();
 
             List<Address> addresses = settings.getActivityEmailAddresses();
 

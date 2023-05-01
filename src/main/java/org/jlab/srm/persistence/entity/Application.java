@@ -18,7 +18,7 @@ public class Application implements Serializable {
 
     /* We cache all possible values for ease of use and performance */
     @Transient
-    public static final Application CHECKOUT = new Application(BigInteger.valueOf(1L), "Hot Checkout");
+    public static final Application READINESS = new Application(BigInteger.valueOf(1L), "Readiness");
     @Transient
     public static final Application DOWNTIME = new Application(BigInteger.valueOf(2L), "Downtime");
     @Transient
@@ -52,7 +52,7 @@ public class Application implements Serializable {
         Application status;
         switch (id.intValue()) {
             case 1:
-                status = Application.CHECKOUT;
+                status = Application.READINESS;
                 break;
             case 2:
                 status = Application.DOWNTIME;

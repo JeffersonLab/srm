@@ -16,15 +16,15 @@ import java.util.List;
  * @author ryans
  */
 @Entity
-@Table(name = "HCO_SETTINGS", schema = "SRM_OWNER")
-public class HcoSettings implements Serializable {
+@Table(name = "SETTINGS", schema = "SRM_OWNER")
+public class Settings implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "HCO_SETTINGS_ID", nullable = false, precision = 22, scale = 0)
-    private BigInteger hcoSettingsId;
+    @Column(name = "SETTINGS_ID", nullable = false, precision = 22, scale = 0)
+    private BigInteger settingsId;
     @Column(name = "AUTO_EMAIL_YN")
     @Size(min = 1, max = 1)
     @NotNull
@@ -34,28 +34,11 @@ public class HcoSettings implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date goalDate;
     @Basic(optional = true)
-    @Column(name = "FEEDBACK_EMAIL_CSV", nullable = true)
-    private String feedbackEmailCsv;
-    @Basic(optional = true)
     @Column(name = "MASK_REQUEST_EMAIL_CSV", nullable = true)
     private String maskRequestEmailCsv;
     @Basic(optional = true)
     @Column(name = "ACTIVITY_EMAIL_CSV", nullable = true)
     private String activityEmailCsv;
-
-    public List<Address> getFeedbackEmailAddresses() throws AddressException {
-        List<Address> addressList = new ArrayList<>();
-
-        if (feedbackEmailCsv != null && !feedbackEmailCsv.isEmpty()) {
-            String[] tokens = feedbackEmailCsv.split(",");
-
-            for (String token : tokens) {
-                addressList.add(new InternetAddress(token.trim()));
-            }
-        }
-
-        return addressList;
-    }
 
     public List<Address> getMaskRequestEmailAddresses() throws AddressException {
         List<Address> addressList = new ArrayList<>();
@@ -85,12 +68,12 @@ public class HcoSettings implements Serializable {
         return addressList;
     }
 
-    public BigInteger getHcoSettingsId() {
-        return hcoSettingsId;
+    public BigInteger getSettingsId() {
+        return settingsId;
     }
 
-    public void setHcoSettingsId(BigInteger hcoSettingsId) {
-        this.hcoSettingsId = hcoSettingsId;
+    public void setSettingsId(BigInteger settingsId) {
+        this.settingsId = settingsId;
     }
 
     public Date getGoalDate() {

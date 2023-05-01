@@ -169,7 +169,7 @@
             </c:url>
             See <a href="${pathPrefix}${url}">full report</a>.
             <c:if test="${param.email eq 'Y'}">
-                <a style="float: right;" href="${pathPrefix}/readiness">Hot Checkout Home</a>
+                <a style="float: right;" href="${pathPrefix}/readiness">Readiness Home</a>
             </c:if>
         </p>
     </c:if>

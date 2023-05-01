@@ -44,7 +44,7 @@ public class GroupStatus extends HttpServlet {
     @EJB
     ComponentFacade componentFacade;
     @EJB
-    HcoSettingsFacade settingsFacade;
+    SettingsFacade settingsFacade;
     @EJB
     CategoryFacade categoryFacade;
 
@@ -122,7 +122,7 @@ public class GroupStatus extends HttpServlet {
 
         List<Map.Entry<String, Object>> footnoteList = FilterSelectionMessage.getOverallStatusFootnoteList(selectedDestinationList, selectedCategory, selectedSystem, selectedRegion, null);
 
-        HcoSettings settings = settingsFacade.findSettings();
+        Settings settings = settingsFacade.findSettings();
 
         Date goalDate = settings.getGoalDate();
 

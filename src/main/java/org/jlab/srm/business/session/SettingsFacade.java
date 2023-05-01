@@ -1,6 +1,6 @@
 package org.jlab.srm.business.session;
 
-import org.jlab.srm.persistence.entity.HcoSettings;
+import org.jlab.srm.persistence.entity.Settings;
 
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.PermitAll;
@@ -16,12 +16,12 @@ import java.util.Date;
  */
 @Stateless
 @DeclareRoles("srm-admin")
-public class HcoSettingsFacade extends AbstractFacade<HcoSettings> {
+public class SettingsFacade extends AbstractFacade<Settings> {
     @PersistenceContext(unitName = "srmPU")
     private EntityManager em;
 
-    public HcoSettingsFacade() {
-        super(HcoSettings.class);
+    public SettingsFacade() {
+        super(Settings.class);
     }
 
     @Override
@@ -30,20 +30,20 @@ public class HcoSettingsFacade extends AbstractFacade<HcoSettings> {
     }
 
     @PermitAll
-    public HcoSettings findSettings() {
+    public Settings findSettings() {
         return find(BigInteger.ONE);
     }
 
     @RolesAllowed("srm-admin")
     public void updateGoalDate(Date goalDate) {
-        HcoSettings settings = findSettings();
+        Settings settings = findSettings();
 
         settings.setGoalDate(goalDate);
     }
 
     @RolesAllowed("srm-admin")
     public void setAutoEmail(boolean autoEmail) {
-        HcoSettings settings = findSettings();
+        Settings settings = findSettings();
 
         settings.setAutoEmail(autoEmail);
     }
