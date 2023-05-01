@@ -47,6 +47,6 @@ public class DailyScheduledMaskExpire {
     @Timeout
     private void handleTimeout(Timer timer) {
         LOGGER.log(Level.FINEST, "handleTimeout: Checking for expired masks...");
-        componentFacade.expireMasks(); // AuditContext is null so hcoadm username will be used
+        componentFacade.expireMasks(); // AuditContext is null so srm-admin username will be used
     }
 }

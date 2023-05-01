@@ -22,7 +22,7 @@ import java.util.*;
  * @author ryans
  */
 @Stateless
-@DeclareRoles({"hcoadm", "halead", "hblead", "hclead", "hdlead", "lerfadm", "cryoadm"})
+@DeclareRoles({"srm-admin", "halead", "hblead", "hclead", "hdlead", "lerfadm", "cryoadm"})
 public class SystemFacade extends AbstractFacade<SystemEntity> {
 
     @EJB

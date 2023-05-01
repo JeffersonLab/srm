@@ -63,7 +63,7 @@
                         &quot;${fn:escapeXml(selectedSystem.name)}&quot;
                     </div>
                 </c:when>
-                <c:when test="${not pageContext.request.isUserInRole('hcoadm') and groupResponsibilityForSelected.checklistRequired and not groupResponsibilityForSelected.published}">
+                <c:when test="${not pageContext.request.isUserInRole('srm-admin') and groupResponsibilityForSelected.checklistRequired and not groupResponsibilityForSelected.published}">
                     <div class="message-box">A checklist for Group &quot;${fn:escapeXml(selectedGroup.name)}&quot; and
                         Subsystem &quot;${fn:escapeXml(selectedSystem.name)}&quot; must be published before signoffs can
                         be made

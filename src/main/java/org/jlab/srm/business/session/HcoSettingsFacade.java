@@ -15,7 +15,7 @@ import java.util.Date;
  * @author ryans
  */
 @Stateless
-@DeclareRoles("hcoadm")
+@DeclareRoles("srm-admin")
 public class HcoSettingsFacade extends AbstractFacade<HcoSettings> {
     @PersistenceContext(unitName = "srmPU")
     private EntityManager em;
@@ -34,14 +34,14 @@ public class HcoSettingsFacade extends AbstractFacade<HcoSettings> {
         return find(BigInteger.ONE);
     }
 
-    @RolesAllowed("hcoadm")
+    @RolesAllowed("srm-admin")
     public void updateGoalDate(Date goalDate) {
         HcoSettings settings = findSettings();
 
         settings.setGoalDate(goalDate);
     }
 
-    @RolesAllowed("hcoadm")
+    @RolesAllowed("srm-admin")
     public void setAutoEmail(boolean autoEmail) {
         HcoSettings settings = findSettings();
 

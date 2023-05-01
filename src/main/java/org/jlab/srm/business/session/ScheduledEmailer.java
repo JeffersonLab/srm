@@ -27,7 +27,7 @@ import java.util.logging.Logger;
  * @author ryans
  */
 @Singleton
-@DeclareRoles({"hcoadm"})
+@DeclareRoles({"srm-admin"})
 @Startup
 public class ScheduledEmailer {
 
@@ -57,12 +57,12 @@ public class ScheduledEmailer {
         }
     }
 
-    @RolesAllowed("hcoadm")
+    @RolesAllowed("srm-admin")
     public boolean isEnabled() {
         return timer != null;
     }
 
-    @RolesAllowed("hcoadm")
+    @RolesAllowed("srm-admin")
     public void setEnabled(Boolean enabled) {
 
         settingsFacade.setAutoEmail(enabled);
@@ -121,7 +121,7 @@ public class ScheduledEmailer {
         }
     }
 
-    @RolesAllowed("hcoadm")
+    @RolesAllowed("srm-admin")
     public void sendActivityEmails() throws IOException, MessagingException {
         String url = "http://localhost:8080/hco/activity-daily-email?email=Y";
 
@@ -144,7 +144,7 @@ public class ScheduledEmailer {
         }
     }
 
-    @RolesAllowed("hcoadm")
+    @RolesAllowed("srm-admin")
     public void sendGroupActionNeededEmails() throws IOException, MessagingException {
         List<ResponsibleGroup> groupList = groupFacade.findAll(new OrderDirective("name"));
 
@@ -180,7 +180,7 @@ public class ScheduledEmailer {
         }
     }
 
-    @RolesAllowed("hcoadm")
+    @RolesAllowed("srm-admin")
     public void sendGroupMail(BigInteger groupId) throws IOException, MessagingException {
         ResponsibleGroup group = groupFacade.find(groupId);
 

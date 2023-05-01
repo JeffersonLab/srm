@@ -32,7 +32,7 @@ public class BeamDestinationFacade extends AbstractFacade<BeamDestination> {
         return em;
     }
 
-    @RolesAllowed("hcoadm")
+    @RolesAllowed("srm-admin")
     public void setTarget(BigInteger[] targetArray) {
         Query q = em.createQuery("update BeamDestination a set a.targetYn = 'N'");
         q.executeUpdate();

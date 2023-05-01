@@ -31,7 +31,7 @@
                             </li>
                             <li${'/setup/bulk-signoff' eq currentPath ? ' class="current-secondary"' : ''}><a
                                     href="${pageContext.request.contextPath}/setup/bulk-signoff">Bulk Signoff</a></li>
-                            <c:if test="${pageContext.request.isUserInRole('hcoadm')}">
+                            <c:if test="${pageContext.request.isUserInRole('srm-admin')}">
                                 <li${'/setup/region-list' eq currentPath ? ' class="current-secondary"' : ''}><a
                                         href="${pageContext.request.contextPath}/setup/region-list">Region List</a></li>
                                 <li${'/setup/group-list' eq currentPath ? ' class="current-secondary"' : ''}><a

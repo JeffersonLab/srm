@@ -22,7 +22,7 @@ import java.util.List;
  * @author ryans
  */
 @Stateless
-@DeclareRoles({"hcoadm"})
+@DeclareRoles({"srm-admin"})
 public class SavedSignoffFacade extends AbstractFacade<SavedSignoff> {
 
     @EJB
@@ -52,7 +52,7 @@ public class SavedSignoffFacade extends AbstractFacade<SavedSignoff> {
         return em;
     }
 
-    @RolesAllowed("hcoadm")
+    @RolesAllowed("srm-admin")
     public void delete(BigInteger[] savedSignoffIdArray) throws UserFriendlyException {
         if (savedSignoffIdArray == null || savedSignoffIdArray.length == 0) {
             throw new UserFriendlyException("Saved Signoff IDs cannot be empty.");
@@ -85,7 +85,7 @@ public class SavedSignoffFacade extends AbstractFacade<SavedSignoff> {
         q.executeUpdate();
     }
 
-    @RolesAllowed("hcoadm")
+    @RolesAllowed("srm-admin")
     public BigInteger add(BigInteger typeId, String signoffName, BigInteger signoffStatusId,
                           String comments, BigInteger systemId, BigInteger groupId,
                           BigInteger regionId, BigInteger filterStatusId, String componentName) throws
@@ -315,7 +315,7 @@ public class SavedSignoffFacade extends AbstractFacade<SavedSignoff> {
         return q.getSingleResult();
     }
 
-    @RolesAllowed("hcoadm")
+    @RolesAllowed("srm-admin")
     public void multipleSignoffs(BigInteger[] savedSignoffIdArray, Date maxLastModified) throws UserFriendlyException {
         if(savedSignoffIdArray == null || savedSignoffIdArray.length == 0) {
             throw new UserFriendlyException("Saved Signoff IDs cannot be empty.");

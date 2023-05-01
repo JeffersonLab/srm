@@ -72,7 +72,7 @@
             <url-pattern>/setup/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
-            <role-name>hcoadm</role-name>
+            <role-name>srm-admin</role-name>
             <role-name>halead</role-name>
             <role-name>hblead</role-name>
             <role-name>hclead</role-name>
@@ -85,7 +85,7 @@
         <auth-method>OIDC</auth-method>
     </login-config>
     <security-role>
-        <role-name>hcoadm</role-name>
+        <role-name>srm-admin</role-name>
     </security-role>
     <security-role>
         <role-name>halead</role-name>

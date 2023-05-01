@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * @author ryans
  */
-@DeclareRoles({"hcoadm", "cc"})
+@DeclareRoles({"srm-admin", "cc"})
 public abstract class AbstractFacade<T> {
 
     @Resource
@@ -159,7 +159,7 @@ public abstract class AbstractFacade<T> {
 
     @PermitAll
     public boolean isAdminOrCrewChief() {
-        boolean isAdmin = context.isCallerInRole("hcoadm");
+        boolean isAdmin = context.isCallerInRole("srm-admin");
         boolean isCrewChief = context.isCallerInRole("cc");
 
         return isAdmin || isCrewChief;
@@ -168,7 +168,7 @@ public abstract class AbstractFacade<T> {
     protected boolean isAdminOrGroupLeader(String username, ResponsibleGroup group) {
         boolean isAdminOrLeader = false;
 
-        boolean isAdmin = context.isCallerInRole("hcoadm");
+        boolean isAdmin = context.isCallerInRole("srm-admin");
         if (isAdmin) {
             isAdminOrLeader = true;
         } else {
@@ -218,7 +218,7 @@ public abstract class AbstractFacade<T> {
     protected boolean isAdminOrBranchAdmin(String username, Category branchRoot) {
         boolean isAdminOrBranchAdmin = false;
 
-        boolean isAdmin = context.isCallerInRole("hcoadm");
+        boolean isAdmin = context.isCallerInRole("srm-admin");
         if (isAdmin) {
             isAdminOrBranchAdmin = true;
         } else {

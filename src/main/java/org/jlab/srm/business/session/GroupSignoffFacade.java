@@ -106,7 +106,7 @@ public class GroupSignoffFacade extends AbstractFacade<GroupSignoff> {
 
         if (validateRule.requiredChecklistPublished) {
             if (responsibility.isChecklistRequired() && !responsibility.isPublished()
-                    && !context.isCallerInRole("hcoadm")) {
+                    && !context.isCallerInRole("srm-admin")) {
                 throw new UserFriendlyException(
                         "The system checklist must be published before signoffs can be made");
             }

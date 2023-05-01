@@ -51,7 +51,7 @@
                     <button type="button" id="open-add-category-dialog-button">Add...</button>
                     <button type="button" id="open-edit-category-dialog-button">Edit...</button>
                     <button type="button" id="open-remove-category-dialog-button">Remove...</button>
-                    <c:if test="${pageContext.request.isUserInRole('hcoadm')}">
+                    <c:if test="${pageContext.request.isUserInRole('srm-admin')}">
                         <button type="button" id="open-edit-root-dialog-button">Root...</button>
                     </c:if>
                 </fieldset>

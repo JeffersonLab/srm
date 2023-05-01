@@ -17,7 +17,7 @@ import java.util.List;
  * @author ryans
  */
 @Stateless
-@DeclareRoles({"hcoadm", "halead", "hblead", "hclead", "hdlead", "lerfadm", "cryoadm"})
+@DeclareRoles({"srm-admin", "halead", "hblead", "hclead", "hdlead", "lerfadm", "cryoadm"})
 public class ApplicationFacade extends AbstractFacade<Application> {
 
     @EJB

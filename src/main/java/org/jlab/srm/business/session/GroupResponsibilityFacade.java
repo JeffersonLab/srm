@@ -23,7 +23,7 @@ import java.util.*;
  * @author ryans
  */
 @Stateless
-@DeclareRoles({"hcoadm", "halead", "hblead", "hclead", "hdlead", "lerfadm", "cryoadm"})
+@DeclareRoles({"srm-admin", "halead", "hblead", "hclead", "hdlead", "lerfadm", "cryoadm"})
 public class GroupResponsibilityFacade extends AbstractFacade<GroupResponsibility> {
 
     @EJB

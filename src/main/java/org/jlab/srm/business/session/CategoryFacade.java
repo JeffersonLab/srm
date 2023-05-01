@@ -25,7 +25,7 @@ import java.util.List;
  * @author ryans
  */
 @Stateless
-@DeclareRoles({"hcoadm", "halead", "hblead", "hclead", "hdlead", "lerfadm", "cryoadm"})
+@DeclareRoles({"srm-admin", "halead", "hblead", "hclead", "hdlead", "lerfadm", "cryoadm"})
 public class CategoryFacade extends AbstractFacade<Category> {
 
     public static final BigInteger ROOT_CATEGORY_ID = BigInteger.valueOf(0L);
@@ -294,7 +294,7 @@ public class CategoryFacade extends AbstractFacade<Category> {
         c.setName(name);
     }
 
-    @RolesAllowed("hcoadm")
+    @RolesAllowed("srm-admin")
     public void renameRoot(String name) throws UserFriendlyException {
         if (name == null || name.trim().isEmpty()) {
             throw new UserFriendlyException("name must not be null");

@@ -164,7 +164,7 @@
             <div class="message-box"><c:out value="${selectionMessage}"/></div>
             <div class="chart-wrap-backdrop">
                 <c:if test="${fn:length(recordList) > 0}">
-                    <c:if test="${pageContext.request.isUserInRole('hcoadm')}">
+                    <c:if test="${pageContext.request.isUserInRole('srm-admin')}">
                         <s:editable-row-table-controls excludeAdd="${true}" excludeEdit="${true}"
                                                        excludeDelete="${true}">
                             <button id="open-approval-dialog-button" class="selected-row-action" disabled="disabled">
@@ -174,7 +174,7 @@
                         </s:editable-row-table-controls>
                     </c:if>
                     <table id="request-table"
-                           class="data-table stripped-table constrained-table chart-data-table${pageContext.request.isUserInRole('hcoadm') ? ' uniselect-table editable-row-table' : ''}">
+                           class="data-table stripped-table constrained-table chart-data-table${pageContext.request.isUserInRole('srm-admin') ? ' uniselect-table editable-row-table' : ''}">
                         <thead>
                         <tr>
                             <th class="constrained-medium-column">Response</th>

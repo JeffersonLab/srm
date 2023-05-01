@@ -24,7 +24,7 @@ import java.util.List;
  * @author ryans
  */
 @Stateless
-@DeclareRoles("hcoadm")
+@DeclareRoles("srm-admin")
 public class ResponsibleGroupFacade extends AbstractFacade<ResponsibleGroup> {
 
     @PersistenceContext(unitName = "srmPU")
@@ -80,7 +80,7 @@ public class ResponsibleGroupFacade extends AbstractFacade<ResponsibleGroup> {
         return groupList;
     }
 
-    @RolesAllowed("hcoadm")
+    @RolesAllowed("srm-admin")
     public void updateGoals(List<BigInteger> groupIdList, List<Integer> percentList) {
         if (groupIdList != null) {
             for (int i = 0; i < groupIdList.size(); i++) {
@@ -144,7 +144,7 @@ public class ResponsibleGroupFacade extends AbstractFacade<ResponsibleGroup> {
         return q.getResultList();
     }
 
-    @RolesAllowed("hcoadm")
+    @RolesAllowed("srm-admin")
     public void add(String name, String description, String leaderWorkgroup) throws UserFriendlyException {
 
         if (name == null || name.isEmpty()) {
@@ -184,7 +184,7 @@ public class ResponsibleGroupFacade extends AbstractFacade<ResponsibleGroup> {
         q.executeUpdate();
     }
 
-    @RolesAllowed("hcoadm")
+    @RolesAllowed("srm-admin")
     public void delete(BigInteger groupId) throws UserFriendlyException {
         if (groupId == null) {
             throw new UserFriendlyException("Group ID must not be empty");
@@ -212,7 +212,7 @@ public class ResponsibleGroupFacade extends AbstractFacade<ResponsibleGroup> {
         q.executeUpdate();
     }
 
-    @RolesAllowed("hcoadm")
+    @RolesAllowed("srm-admin")
     public void edit(BigInteger groupId, String name, String description, String leaderWorkgroup) throws UserFriendlyException {
 
         if (groupId == null) {

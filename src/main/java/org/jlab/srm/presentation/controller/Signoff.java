@@ -162,7 +162,7 @@ public class Signoff extends HttpServlet {
                 }
             }
 
-            if (!request.isUserInRole("hcoadm") && groupResponsibilityForSelected != null
+            if (!request.isUserInRole("srm-admin") && groupResponsibilityForSelected != null
                     && groupResponsibilityForSelected.isChecklistRequired()
                     && !groupResponsibilityForSelected.isPublished()) {
                 // Don't grab the list of components since it will be a waste, but set to non-null to avoid presentation thinking user didn't select criteria

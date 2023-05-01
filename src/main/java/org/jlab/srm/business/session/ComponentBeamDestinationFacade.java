@@ -21,7 +21,7 @@ import java.util.List;
  * @author ryans
  */
 @Stateless
-@DeclareRoles({"hcoadm", "halead", "hblead", "hclead", "hdlead", "lerfadm", "cryoadm"})
+@DeclareRoles({"srm-admin", "halead", "hblead", "hclead", "hdlead", "lerfadm", "cryoadm"})
 public class ComponentBeamDestinationFacade extends AbstractFacade<BeamDestination> {
 
     @EJB
@@ -93,20 +93,20 @@ public class ComponentBeamDestinationFacade extends AbstractFacade<BeamDestinati
         q.executeUpdate();
     }
 
-    @RolesAllowed("hcoadm")
+    @RolesAllowed("srm-admin")
     public void checkAll(BigInteger componentId) {
         Component component = componentFacade.find(componentId);
         List<BeamDestination> destinations = destinationFacade.findAll();
         component.setBeamDestinationList(destinations);
     }
 
-    @RolesAllowed("hcoadm")
+    @RolesAllowed("srm-admin")
     public void uncheckAll(BigInteger componentId) {
         Component component = componentFacade.find(componentId);
         component.setBeamDestinationList(new ArrayList<BeamDestination>());
     }
 
-    @RolesAllowed("hcoadm")
+    @RolesAllowed("srm-admin")
     public void copy(BigInteger fromComponentId, BigInteger toComponentId) {
         Component fromComponent = componentFacade.find(fromComponentId);
         Component toComponent = componentFacade.find(toComponentId);

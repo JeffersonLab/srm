@@ -198,7 +198,7 @@
 <input type="hidden" name="qualified" value=""/>
 <div id="signoff-parameter-panel-buttons">
     <input class="signoff-action-button" type="submit" value="Apply"/>
-    <c:if test="${pageContext.request.isUserInRole('hcoadm')}">
+    <c:if test="${pageContext.request.isUserInRole('srm-admin')}">
         <input id="save-signoff-button" class="signoff-action-button" type="button" value="Save Named Signoff"/>
     </c:if>
 </div>

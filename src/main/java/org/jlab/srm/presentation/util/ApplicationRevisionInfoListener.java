@@ -18,9 +18,9 @@ public class ApplicationRevisionInfoListener implements RevisionListener {
         String ip = null;
         String username = null;
 
-        if (context == null || "hcoadm".equals(context.getExtra("effectiveRole"))) {
+        if (context == null || "srm-admin".equals(context.getExtra("effectiveRole"))) {
             ip = "localhost";
-            username = "hcoadm";
+            username = "srm-admin";
         } else {
             ip = context.getIp();
             username = context.getUsername();

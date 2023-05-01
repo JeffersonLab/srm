@@ -80,7 +80,7 @@ public class Readiness extends HttpServlet {
 
         // Just to ensure people won't see expired masks
         AuditContext ctx = AuditContext.getCurrentInstance();
-        ctx.putExtra("effectiveRole", "hcoadm");
+        ctx.putExtra("effectiveRole", "srm-admin");
         try {
             componentFacade.expireMasks();
         } finally {

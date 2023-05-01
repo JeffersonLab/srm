@@ -27,7 +27,7 @@ import java.util.logging.Logger;
  * @author ryans
  */
 @Stateless
-@DeclareRoles({"hcoadm", "halead", "hblead", "hclead", "hdlead", "lerfadm", "cryoadm"})
+@DeclareRoles({"srm-admin", "halead", "hblead", "hclead", "hdlead", "lerfadm", "cryoadm"})
 public class ComponentFacade extends AbstractFacade<Component> {
 
     private static final Logger LOGGER = Logger.getLogger(ComponentFacade.class.getName());
@@ -1456,7 +1456,7 @@ public class ComponentFacade extends AbstractFacade<Component> {
                 c.setMaskedBy(null);
                 c.setMaskExpirationDate(null);
                 String comment = "Auto-downgrade due to unmasking by expiration";
-                resetSignoffsToNotReady(c, comment, "hcoadm");
+                resetSignoffsToNotReady(c, comment, "srm-admin");
                 LOGGER.log(Level.FINE, "Mask expired for component: {0}", c.getName());
             }
         }
