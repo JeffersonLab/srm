@@ -104,6 +104,6 @@ public class BeamDestination implements Serializable {
 
     @Override
     public String toString() {
-        return "org.jlab.hco.persistence.entity.BeamDestination[ beamDestinationId=" + beamDestinationId + " ]";
+        return ".org.jlab.srm.persistence.entityBeamDestination[ beamDestinationId=" + beamDestinationId + " ]";
     }
 }

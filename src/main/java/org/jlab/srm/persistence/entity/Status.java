@@ -190,6 +190,6 @@ public class Status implements Serializable {
 
     @Override
     public String toString() {
-        return "org.jlab.hco.persistence.entity.Status[ statusId=" + statusId + " ]";
+        return "org.jlab.srm.persistence.entity.Status[ statusId=" + statusId + " ]";
     }
 }

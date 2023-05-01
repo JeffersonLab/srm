@@ -3,7 +3,7 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
-<%@taglib prefix="hco" uri="http://jlab.org/srm/functions" %>
+<%@taglib prefix="srm" uri="http://jlab.org/srm/functions" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <c:set var="title" value="Component -  Detail: ${component.name}"/>
 <t:reports-page title="${title}">
@@ -74,7 +74,7 @@
                                                 <td class="right-aligned"><c:out value="${responsibility.weight}"/></td>
                                                 <td>
                                                     <div style="margin-bottom: 1em;">
-                                                        <span class="small-icon ${hco:getStatusClass(signoffMap[responsibility.group].status)}-icon"
+                                                        <span class="small-icon ${srm:getStatusClass(signoffMap[responsibility.group].status)}-icon"
                                                               title="${signoffMap[responsibility.group].status.name}"></span>
                                                         <c:out value="${responsibility.group.name}"/>
                                                     </div>
@@ -186,7 +186,7 @@
                                 <dt>Masked By:</dt>
                                 <dd><c:out value="${s:formatUsername(component.maskedBy)}"/></dd>
                                 <dt>Masked Type:</dt>
-                                <dd><c:out value="${hco:getStatusById(component.maskTypeId).maskType}"/></dd>
+                                <dd><c:out value="${srm:getStatusById(component.maskTypeId).maskType}"/></dd>
                                 <dt>Masked Reason:</dt>
                                 <dd><c:out value="${component.maskedComment}"/></dd>
                                 <dt>Mask Expiration Date:</dt>
@@ -200,7 +200,7 @@
                                 </c:when>
                                 <c:otherwise>
                                     <dd><a target="_blank"
-                                           href="http://${component.dataSource.hostname}/elem/${hco:truncateAndUrlEncodeCedName(component.name)}"><c:out
+                                           href="http://${component.dataSource.hostname}/elem/${srm:truncateAndUrlEncodeCedName(component.name)}"><c:out
                                             value="${component.dataSource}"/></a></dd>
                                 </c:otherwise>
                             </c:choose>

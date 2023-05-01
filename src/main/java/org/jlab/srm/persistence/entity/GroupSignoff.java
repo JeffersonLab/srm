@@ -160,6 +160,6 @@ public class GroupSignoff implements Serializable {
 
     @Override
     public String toString() {
-        return "org.jlab.hco.persistence.entity.GroupSignoff[ groupSignoffId=" + groupSignoffId + " ]";
+        return "org.jlab.srm.persistence.entity.GroupSignoff[ groupSignoffId=" + groupSignoffId + " ]";
     }
 }

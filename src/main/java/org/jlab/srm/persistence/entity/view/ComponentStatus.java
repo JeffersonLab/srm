@@ -64,7 +64,7 @@ public class ComponentStatus implements Serializable {
 
     @Override
     public String toString() {
-        return "org.jlab.hco.persistence.entity.ComponentStatus[ componentId=" + componentId + " ]";
+        return "org.jlab.srm.persistence.entity.ComponentStatus[ componentId=" + componentId + " ]";
     }
 
 }

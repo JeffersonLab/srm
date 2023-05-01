@@ -124,7 +124,7 @@ public class Category implements Serializable, Comparable<Category>, Node {
 
     @Override
     public String toString() {
-        return "org.jlab.hco.persistence.entity.Category[ categoryId=" + categoryId + " ]";
+        return "org.jlab.srm.persistence.entity.Category[ categoryId=" + categoryId + " ]";
     }
 
     @Override

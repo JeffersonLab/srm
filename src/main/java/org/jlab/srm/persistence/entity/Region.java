@@ -102,7 +102,7 @@ public class Region implements Serializable {
 
     @Override
     public String toString() {
-        return "org.jlab.hco.persistence.entity.Region[ regionId=" + regionId + " ]";
+        return "org.jlab.srm.persistence.entity.Region[ regionId=" + regionId + " ]";
     }
 
 }

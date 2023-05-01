@@ -255,7 +255,7 @@ public class SignoffActivityRecord implements Serializable {
 
     @Override
     public String toString() {
-        return "org.jlab.hco.persistence.entity.SignoffActivity[ groupSignoffHistoryId=" + groupSignoffHistoryId + " ]";
+        return "org.jlab.srm.persistence.entity.SignoffActivity[ groupSignoffHistoryId=" + groupSignoffHistoryId + " ]";
     }
 
 }

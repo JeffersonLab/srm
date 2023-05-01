@@ -272,7 +272,7 @@ public class Component implements Serializable {
 
     @Override
     public String toString() {
-        return "org.jlab.hco.persistence.entity.Component[ componentId=" + componentId + " ]";
+        return "org.jlab.srm.persistence.entity.Component[ componentId=" + componentId + " ]";
     }
 
 }

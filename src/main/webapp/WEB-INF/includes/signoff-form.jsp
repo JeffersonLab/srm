@@ -2,7 +2,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
-<%@taglib prefix="hco" uri="http://jlab.org/srm/functions" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <c:choose>
     <c:when test="${param.systemFirst eq 'Y'}">

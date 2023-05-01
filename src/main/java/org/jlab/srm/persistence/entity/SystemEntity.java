@@ -137,7 +137,7 @@ public class SystemEntity implements Serializable, Comparable<SystemEntity> {
 
     @Override
     public String toString() {
-        return "org.jlab.hco.persistence.entity.SystemEntity[ systemId=" + systemId + " ]";
+        return "org.jlab.srm.persistence.entity.SystemEntity[ systemId=" + systemId + " ]";
     }
 
     @Override

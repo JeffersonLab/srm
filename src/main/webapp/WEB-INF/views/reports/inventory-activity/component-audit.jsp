@@ -4,7 +4,7 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<%@taglib prefix="hco" uri="http://jlab.org/srm/functions" %>
+<%@taglib prefix="srm" uri="http://jlab.org/srm/functions" %>
 <c:set var="title" value="Component Activity"/>
 <t:reports-page title="${title}">  
     <jsp:attribute name="stylesheets"> 
@@ -94,7 +94,7 @@
                             <th>Computer:</th>
                             <c:forEach items="${revisionList}" var="entity">
                                 <td>
-                                    <c:out value="${hco:getHostnameFromIp(entity.revision.address)}"/>
+                                    <c:out value="${srm:getHostnameFromIp(entity.revision.address)}"/>
                                 </td>
                             </c:forEach>
                         </tr>
@@ -161,7 +161,7 @@
                             <c:forEach items="${revisionList}" var="entity">
                                 <td>
                                     <c:if test="${!empty entity.maskTypeId}">
-                                        <c:out value="${hco:getStatusById(entity.maskTypeId).maskType}"/>
+                                        <c:out value="${srm:getStatusById(entity.maskTypeId).maskType}"/>
                                     </c:if>
                                 </td>
                             </c:forEach>

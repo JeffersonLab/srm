@@ -190,7 +190,7 @@ public class SignoffActivityCompressedRecord implements Serializable {
 
     @Override
     public String toString() {
-        return "org.jlab.hco.persistence.entity.SignoffActivity[ groupSignoffHistoryId=" + firstHistoryId + " ]";
+        return "org.jlab.srm.persistence.entity.SignoffActivity[ groupSignoffHistoryId=" + firstHistoryId + " ]";
     }
 
 }

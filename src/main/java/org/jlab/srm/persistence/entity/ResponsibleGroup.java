@@ -126,7 +126,7 @@ public class ResponsibleGroup implements Serializable {
 
     @Override
     public String toString() {
-        return "org.jlab.hco.persistence.entity.ResponsibleGroup[ groupId=" + groupId + " ]";
+        return "org.jlab.srm.persistence.entity.ResponsibleGroup[ groupId=" + groupId + " ]";
     }
 
     public void setLeaders(List<User> userList) {

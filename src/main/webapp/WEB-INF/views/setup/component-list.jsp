@@ -3,7 +3,7 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
-<%@taglib prefix="hco" uri="http://jlab.org/srm/functions" %>
+<%@taglib prefix="srm" uri="http://jlab.org/srm/functions" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <c:set var="title" value="Component List"/>
 <t:setup-page title="${title}">  
@@ -246,7 +246,7 @@
                                     <div class="li-value">
                                         <select id="source-select" name="source">
                                             <option value="">&nbsp;</option>
-                                            <c:forEach items="${hco:dataSourceList()}" var="source">
+                                            <c:forEach items="${srm:dataSourceList()}" var="source">
                                                 <option value="${source}"${param.source eq source ? ' selected="selected"' : ''}>
                                                     <c:out value="${source}"/></option>
                                             </c:forEach>
@@ -367,11 +367,11 @@
                                                 data-alias="${component.nameAlias}">
                                                 <td>
                                                     <a title="Component Information" class="dialog-ready"
-                                                       data-dialog-title="Component Information: ${fn:escapeXml(hco:formatComponent(component))}"
+                                                       data-dialog-title="Component Information: ${fn:escapeXml(srm:formatComponent(component))}"
                                                        href="${pageContext.request.contextPath}/reports/component/detail?componentId=${component.componentId}">
                                                         <span class="component-name"
                                                               data-raw-name="${component.name}"><c:out
-                                                                value="${hco:formatComponent(component)}"/></span>
+                                                                value="${srm:formatComponent(component)}"/></span>
                                                     </a></td>
                                                 <td><c:out value="${component.system.name}"/> / <c:out
                                                         value="${component.region.name}"/></td>
@@ -794,7 +794,7 @@
                         <button class="close-bubble">X</button>
                         <div class="bubble-title">Note</div>
                         <div class="bubble-body">
-                            This list may contain some components which do not participate in HCO. Some components only
+                            This list may contain some components which do not participate in Readiness. Some components only
                             participate in Downtime or Problem Reporting (or none, during staging).
                         </div>
                     </div>

@@ -128,7 +128,7 @@ public class MaskingRequest implements Serializable {
 
     @Override
     public String toString() {
-        return "org.jlab.hco.persistence.entity.MaskingRequest[ maskingRequestId=" + maskingRequestId +
+        return "org.jlab.srm.persistence.entity.MaskingRequest[ maskingRequestId=" + maskingRequestId +
                 " ]";
     }
 

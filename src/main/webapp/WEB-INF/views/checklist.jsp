@@ -3,13 +3,12 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
-<%@taglib prefix="hco" uri="http://jlab.org/srm/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>HCO
-        - ${checklist.groupResponsibility.group.name.concat(' ').concat(checklist.groupResponsibility.system.name)}
+    <title><c:out value="${initParam.appShortName}"/> -
+        ${checklist.groupResponsibility.group.name.concat(' ').concat(checklist.groupResponsibility.system.name)}
         Checklist</title>
     <link rel="shortcut icon"
           href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/img/favicon.ico"/>
@@ -35,7 +34,7 @@
         <div class="nav-links">
             <ul class="breadcrumb">
                 <li>
-                    <a href="${pageContext.request.contextPath}/readiness">HCO</a>
+                    <a href="${pageContext.request.contextPath}/readiness"><c:out value="${initParam.appShortName}"/></a>
                 </li>
                 <li>
                     <a href="${pageContext.request.contextPath}/checklists">Checklists</a>

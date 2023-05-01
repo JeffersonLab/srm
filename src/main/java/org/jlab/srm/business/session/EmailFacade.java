@@ -32,7 +32,7 @@ public class EmailFacade extends AbstractFacade<Object> {
     public void sendHTMLEmail(Address[] toAddresses, String subject, String html) throws MessagingException {
         MimeMessage message = new MimeMessage(mailSession);
 
-        message.setFrom(new InternetAddress("hco@jlab.org"));
+        message.setFrom(new InternetAddress("srm@jlab.org"));
 
         message.setRecipients(Message.RecipientType.TO, toAddresses);
         message.setSubject(subject);

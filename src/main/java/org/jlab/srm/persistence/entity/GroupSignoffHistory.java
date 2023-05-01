@@ -159,7 +159,7 @@ public class GroupSignoffHistory implements Serializable {
 
     @Override
     public String toString() {
-        return "org.jlab.hco.persistence.entity.GroupSignoffHistory[ groupSignoffHistoryId=" + groupSignoffHistoryId + " ]";
+        return "org.jlab.srm.persistence.entity.GroupSignoffHistory[ groupSignoffHistoryId=" + groupSignoffHistoryId + " ]";
     }
 
 }

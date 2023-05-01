@@ -3,7 +3,7 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
-<%@taglib prefix="hco" uri="http://jlab.org/srm/functions" %>
+<%@taglib prefix="srm" uri="http://jlab.org/srm/functions" %>
 <fmt:setLocale value="en_US" scope="session"/>
 <c:set var="pathPrefix" value="${pageContext.request.contextPath}"/>
 <c:if test="${param.email eq 'Y'}">
@@ -13,7 +13,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>HCO - Activity Report</title>
+    <title>SRM - Activity Report</title>
     <link rel="shortcut icon" href="${pathPrefix}/resources/v${initParam.releaseNumber}/img/favicon.ico"/>
     <link rel="stylesheet" type="text/css" href="${cdnContextPath}/jlab-theme/smoothness/1.6/css/smoothness.min.css"/>
     <link rel="stylesheet" type="text/css"
@@ -82,7 +82,7 @@
     </style>
 </head>
 <body>
-<h2 style="margin-left: 16px;">HCO - Activity Report</h2>
+<h2 style="margin-left: 16px;">SRM - Activity Report</h2>
 <div style="margin-left: 16px;" id="email-content" class="content-section dialog-content">
     <h3>New Outstanding Signoffs</h3>
     <h4>${fn:escapeXml(dateRange)}</h4>
@@ -108,7 +108,7 @@
                             <c:out value="${formattedModifiedDate}"/>
                         </div>
                         <div class="cell-subfield"><c:out
-                                value="${hco:formatFakeStaff(activity.lastname, activity.firstname, activity.username)}"/></div>
+                                value="${srm:formatFakeStaff(activity.lastname, activity.firstname, activity.username)}"/></div>
                     </td>
                     <td>
                         <div class="cell-header">
@@ -130,7 +130,7 @@
                     </td>
                     <td>
                         <div class="cell-header">
-                            <c:out value="${hco:formatFakeComponent(activity.componentName, activity.unpowered)}"/>
+                            <c:out value="${srm:formatFakeComponent(activity.componentName, activity.unpowered)}"/>
                         </div>
                         <c:if test="${activity.systemName ne null}">
                             <div class="cell-subfield">

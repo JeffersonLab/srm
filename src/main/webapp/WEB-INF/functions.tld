@@ -6,7 +6,7 @@
         version="2.1">
     <display-name>Custom Functions</display-name>
     <tlib-version>2.1</tlib-version>
-    <short-name>hco</short-name>
+    <short-name>srm</short-name>
     <uri>http://jlab.org/srm/functions</uri>
     <function>
         <name>formatComponent</name>

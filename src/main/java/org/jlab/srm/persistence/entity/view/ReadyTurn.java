@@ -64,7 +64,7 @@ public class ReadyTurn implements Serializable {
 
     @Override
     public String toString() {
-        return "org.jlab.hco.persistence.entity.ReadyTurn[ componentId=" + componentId + " ]";
+        return "org.jlab.srm.persistence.entity.ReadyTurn[ componentId=" + componentId + " ]";
     }
 
 }

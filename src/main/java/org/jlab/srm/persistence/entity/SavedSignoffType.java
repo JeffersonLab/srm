@@ -83,7 +83,7 @@ public class SavedSignoffType implements Serializable {
 
     @Override
     public String toString() {
-        return "org.jlab.hco.persistence.entity.SavedSignoffType[ savedSignoffTypeId=" + savedSignoffTypeId + " ]";
+        return "org.jlab.srm.persistence.entity.SavedSignoffType[ savedSignoffTypeId=" + savedSignoffTypeId + " ]";
     }
 
 }

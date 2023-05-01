@@ -154,6 +154,6 @@ public class GroupResponsibility implements Serializable {
 
     @Override
     public String toString() {
-        return "org.jlab.hco.persistence.entity.GroupResponsibility[ groupResponsibilityId=" + groupResponsibilityId + " ]";
+        return "org.jlab.srm.persistence.entity.GroupResponsibility[ groupResponsibilityId=" + groupResponsibilityId + " ]";
     }
 }

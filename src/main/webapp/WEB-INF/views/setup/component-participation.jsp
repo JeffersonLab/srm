@@ -3,7 +3,7 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
-<%@taglib prefix="hco" uri="http://jlab.org/srm/functions" %>
+<%@taglib prefix="srm" uri="http://jlab.org/srm/functions" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <c:set var="title" value="Component Beam Destination Participation"/>
 <t:setup-page title="${title}">  
@@ -147,10 +147,10 @@
                             <tr data-component-id="${component.componentId}">
                                 <th style="display: none;">
                                     <div class="component-name-box">
-                                        <a title="${fn:escapeXml(hco:formatComponent(component))}" class="dialog-ready"
-                                           data-dialog-title="Component Information: ${fn:escapeXml(hco:formatComponent(component))}"
+                                        <a title="${fn:escapeXml(srm:formatComponent(component))}" class="dialog-ready"
+                                           data-dialog-title="Component Information: ${fn:escapeXml(srm:formatComponent(component))}"
                                            href="${pageContext.request.contextPath}/reports/component/detail?componentId=${component.componentId}">
-                                            <c:out value="${hco:formatComponent(component)}"/>
+                                            <c:out value="${srm:formatComponent(component)}"/>
                                         </a>
                                     </div>
                                 </th>

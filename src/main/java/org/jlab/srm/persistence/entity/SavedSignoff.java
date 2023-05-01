@@ -178,7 +178,7 @@ public class SavedSignoff implements Serializable {
 
     @Override
     public String toString() {
-        return "org.jlab.hco.persistence.entity.SavedDowngrade[ savedDowngradeId=" + savedSignoffId + " ]";
+        return "org.jlab.srm.persistence.entity.SavedDowngrade[ savedDowngradeId=" + savedSignoffId + " ]";
     }
 
 }
