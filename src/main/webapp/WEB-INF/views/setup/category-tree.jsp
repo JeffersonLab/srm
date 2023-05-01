@@ -5,8 +5,14 @@
 <c:set var="title" value="Category/System Tree"/>
 <t:setup-page title="${title}">  
     <jsp:attribute name="stylesheets">
-        <link rel="stylesheet" type="text/css"
-              href="${cdnContextPath}/jquery-plugins/jstree/3.3.8/themes/classic/style.min.css"/>
+        <c:choose>
+            <c:when test="${'CDN' eq resourceLocation}">
+                <link rel="stylesheet" type="text/css" href="${cdnContextPath}/jquery-plugins/jstree/3.3.8/themes/classic/style.min.css"/>
+            </c:when>
+            <c:otherwise><!-- LOCAL -->
+                <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/jstree/3.3.8/themes/classic/style.min.css"/>
+            </c:otherwise>
+        </c:choose>
         <link rel="stylesheet" type="text/css"
               href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/readiness.css"/>
         <style type="text/css">
@@ -38,7 +44,14 @@
         </style>          
     </jsp:attribute>
     <jsp:attribute name="scripts">
-        <script type="text/javascript" src="${cdnContextPath}/jquery-plugins/jstree/3.3.8/jstree.min.js"></script>
+        <c:choose>
+            <c:when test="${'CDN' eq resourceLocation}">
+                <script src="${cdnContextPath}/jquery-plugins/jstree/3.3.8/jstree.min.js"></script>
+            </c:when>
+            <c:otherwise><!-- LOCAL -->
+                <script src="${pageContext.request.contextPath}/resources/jstree/3.3.8/jstree.min.js"></script>
+            </c:otherwise>
+        </c:choose>
         <script type="text/javascript"
                 src="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/js/category-tree.js"></script>
     </jsp:attribute>
