@@ -58,9 +58,6 @@ public class Checklists extends HttpServlet {
 
 
                 String username = request.getRemoteUser();
-                if (username != null && !username.isEmpty()) {
-                    username = username.split(":")[2];
-                }
 
                 adminOrLeader = groupResponsibilityFacade.isAdminOrGroupLeader(username, selectedGroup.getGroupId());
             }
