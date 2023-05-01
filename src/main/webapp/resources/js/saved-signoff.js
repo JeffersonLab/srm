@@ -132,7 +132,6 @@ jlab.srm.saveSortOrder = function (event, ui) {
             jlab.srm.undoSort();
         } else {
             /* Success */
-            /*hco.table.renumber();*/
 
             /* update undo cache for next time */
             jlab.srm.setUndoSortState();
