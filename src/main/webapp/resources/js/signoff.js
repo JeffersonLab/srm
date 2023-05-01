@@ -521,7 +521,7 @@ $(document).on("click", "#save-signoff-button", function () {
         regionId = $("#region-select").val(),
         statusId = $("#status-select").val(),
         component = $("#component").val();
-    window.open('/hco/setup/saved-signoff?systemId=' + systemId + '&groupId=' + groupId + '&regionId=' + regionId + '&statusId=' + statusId + '&component=' + encodeURIComponent(component) + '&pop=true');
+    window.open('/srm/setup/saved-signoff?systemId=' + systemId + '&groupId=' + groupId + '&regionId=' + regionId + '&statusId=' + statusId + '&component=' + encodeURIComponent(component) + '&pop=true');
 });
 
 $(document).on("change", "#show-comments-checkbox", function () {

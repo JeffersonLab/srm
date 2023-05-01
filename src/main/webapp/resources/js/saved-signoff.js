@@ -247,8 +247,6 @@ jlab.hco.addRow = function (savedSignoffId, signoffName, signoffStatusName, comm
 
     var $row = ("<tr data-saved-signoff-id=\"" + savedSignoffId + "\"><td>" + signoffName + "</td><td>" + signoffStatusName + "</td><td>" + comments + "</td><td data-system-id=\"" + systemId + "\">" + systemName + "</td><td data-group-id=\"" + groupId + "\">" + groupName + "</td><td data-region-id=\"" + regionId + "\">" + regionName + "</td><td data-status-id=\"" + filterStatusId + "\">" + filterStatusName + "</td><td>" + componentName + "</td></tr>");
     $("#super-table tbody").append($row);
-
-    //hco.table.initSortAndSelect(); /*must set width of cells for drag and drop*/
 };
 
 jlab.hco.doEditAction = function () {
@@ -529,7 +527,7 @@ $(document).on("click", ".preview-button", function () {
         comments = $selectedRow.find("td:nth-child(4)").text(),
         maxModified = $("#max-modified").val();
 
-    window.open('/hco/signoff?groupId=' + groupId + '&systemId=' + systemId + '&regionId=' + regionId + '&statusId=' + filterStatusId + '&component=' + encodeURIComponent(componentName) + '&comments=' + encodeURIComponent(comments) + '&signoffStatus=' + encodeURIComponent(status) + '&maxLastModified=' + encodeURIComponent(maxModified) + '&pop=true&qualified=');
+    window.open('/srm/signoff?groupId=' + groupId + '&systemId=' + systemId + '&regionId=' + regionId + '&statusId=' + filterStatusId + '&component=' + encodeURIComponent(componentName) + '&comments=' + encodeURIComponent(comments) + '&signoffStatus=' + encodeURIComponent(status) + '&maxLastModified=' + encodeURIComponent(maxModified) + '&pop=true&qualified=');
 });
 
 $(document).on("click", "#open-add-dialog-button", function () {

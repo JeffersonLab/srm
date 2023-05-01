@@ -3,11 +3,11 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
-<%@taglib prefix="hco" uri="http://jlab.org/hco/functions" %>
+<%@taglib prefix="hco" uri="http://jlab.org/srm/functions" %>
 <fmt:setLocale value="en_US" scope="session"/>
 <c:set var="pathPrefix" value="${pageContext.request.contextPath}"/>
 <c:if test="${param.email eq 'Y'}">
-    <c:set var="pathPrefix" value="https://accweb.acc.jlab.org/hco"/>
+    <c:set var="pathPrefix" value="https://ace.jlab.org/srm"/>
 </c:if>
 <!DOCTYPE html>
 <html>
@@ -17,7 +17,7 @@
     <link rel="shortcut icon" href="${pathPrefix}/resources/v${initParam.releaseNumber}/img/favicon.ico"/>
     <link rel="stylesheet" type="text/css" href="${cdnContextPath}/jlab-theme/smoothness/1.6/css/smoothness.min.css"/>
     <link rel="stylesheet" type="text/css"
-          href="${pathPrefix}/resources/v${initParam.releaseNumber}/css/hco.css"/>
+          href="${pathPrefix}/resources/v${initParam.releaseNumber}/css/srm.css"/>
     <style type="text/css">
         body {
             background-color: white;

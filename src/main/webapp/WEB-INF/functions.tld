@@ -7,7 +7,7 @@
     <display-name>Custom Functions</display-name>
     <tlib-version>2.1</tlib-version>
     <short-name>hco</short-name>
-    <uri>http://jlab.org/hco/functions</uri>
+    <uri>http://jlab.org/srm/functions</uri>
     <function>
         <name>formatComponent</name>
         <function-class>org.jlab.srm.presentation.util.HcoFunctions</function-class>

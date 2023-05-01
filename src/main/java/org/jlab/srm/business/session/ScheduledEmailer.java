@@ -123,7 +123,7 @@ public class ScheduledEmailer {
 
     @RolesAllowed("srm-admin")
     public void sendActivityEmails() throws IOException, MessagingException {
-        String url = "http://localhost:8080/hco/activity-daily-email?email=Y";
+        String url = "http://localhost:8080/srm/activity-daily-email?email=Y";
 
         Document doc = Jsoup.connect(url).get();
 
@@ -154,7 +154,7 @@ public class ScheduledEmailer {
     }
 
     private void sendGroupMail(ResponsibleGroup group) throws IOException, MessagingException {
-        String url = "http://localhost:8080/hco/group-daily-email?email=Y&groupId=" + group.getGroupId();
+        String url = "http://localhost:8080/srm/group-daily-email?email=Y&groupId=" + group.getGroupId();
 
         Document doc = Jsoup.connect(url).get();
 

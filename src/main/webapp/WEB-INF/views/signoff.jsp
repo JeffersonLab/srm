@@ -3,7 +3,7 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
-<%@taglib prefix="hco" uri="http://jlab.org/hco/functions" %>
+<%@taglib prefix="hco" uri="http://jlab.org/srm/functions" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <c:set var="title" value="Signoff"/>
 <t:page title="${title}">  
@@ -367,8 +367,8 @@
                         <div class="bubble-body">
                             <span>Try:</span>
                             <ul id="all-systems-link-list">
-                                <li><a href="/hco/readiness">Readiness</a> - Hierarchical Roll-up</li>
-                                <li><a href="/hco/reports/signoff">Signoff Report</a> - Tabular Summary</li>
+                                <li><a href="/srm/readiness">Readiness</a> - Hierarchical Roll-up</li>
+                                <li><a href="/srm/reports/signoff">Signoff Report</a> - Tabular Summary</li>
                             </ul>
                         </div>
                     </div>

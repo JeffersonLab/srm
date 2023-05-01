@@ -97,11 +97,7 @@ public class MaskingRequestFacade extends AbstractFacade<MaskingRequest> {
                 }
             }
 
-            String proxyServerName = System.getenv("PROXY_HOSTNAME");
-            // If null or empty set to sensible (production) default
-            if (proxyServerName == null || proxyServerName.trim().isEmpty()) {
-                proxyServerName = "accweb.acc.jlab.org";
-            }
+            String proxyServer = System.getenv("FRONTEND_SERVER_URL");
 
             String subject = componentNameList.get(0);
 
@@ -109,8 +105,8 @@ public class MaskingRequestFacade extends AbstractFacade<MaskingRequest> {
                 subject = subject + ", " + componentNameList.get(i);
             }
 
-            String body = reason + "\n\n\nhttps://" + proxyServerName
-                    + "/hco/masks/requests?status=PENDING&qualified=";
+            String body = reason + "\n\n\n" + proxyServer
+                    + "/srm/masks/requests?status=PENDING&qualified=";
             emailFacade.sendMaskRequestEmail(subject, body);
 
         } else {

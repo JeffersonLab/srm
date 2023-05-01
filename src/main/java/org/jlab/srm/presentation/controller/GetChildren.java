@@ -1,10 +1,10 @@
 package org.jlab.srm.presentation.controller;
 
+import org.jlab.smoothness.presentation.util.ParamConverter;
 import org.jlab.srm.business.session.ComponentTreeFacade;
 import org.jlab.srm.persistence.enumeration.HcoNodeType;
 import org.jlab.srm.persistence.model.HcoNodeData;
 import org.jlab.srm.persistence.model.TreeNode;
-import org.jlab.smoothness.presentation.util.ParamConverter;
 
 import javax.ejb.EJB;
 import javax.json.Json;
@@ -60,8 +60,6 @@ public class GetChildren extends HttpServlet {
             }
         }
 
-        /*HcoNodeType type = HcoParamConverter.convertHcoNodeType(request, "nodeType");
-         BigInteger nodeId = HcoParamConverter.convertBigInteger(request, "nodeId");*/
         BigInteger[] destinationIdArray = ParamConverter.convertBigIntegerArray(request, "destinationId");
         BigInteger categoryId = ParamConverter.convertBigInteger(request, "categoryId");
         BigInteger systemId = ParamConverter.convertBigInteger(request, "systemId");
@@ -83,65 +81,52 @@ public class GetChildren extends HttpServlet {
             children.add(treeFacade.findRoot(destinationIdArray, categoryId, systemId, regionId, groupId, statusIdArray));
         }
 
-        boolean doJson = true;
+        response.setContentType("application/json");
 
-        if (doJson) {
+        PrintWriter pw = response.getWriter();
 
-            response.setContentType("application/json");
+        JsonArrayBuilder json = Json.createArrayBuilder();
 
-            PrintWriter pw = response.getWriter();
+        if (children != null) {
+            for (TreeNode<HcoNodeData> node : children) {
+                JsonObjectBuilder nodeJson = Json.createObjectBuilder();
+                String nodeIdStr = "node-" + node.getData().getType().name() + "-"
+                        + node.getData().getId();
 
-            JsonArrayBuilder json = Json.createArrayBuilder();
-
-            if (children != null) {
-                for (TreeNode<HcoNodeData> node : children) {
-                    JsonObjectBuilder nodeJson = Json.createObjectBuilder();
-                    String nodeIdStr = "node-" + node.getData().getType().name() + "-"
-                            + node.getData().getId();
-
-                    /*Group nodes are NOT unique without this extra bit - parent component ID*/
-                    if (node.getData().getType().equals(HcoNodeType.GROUP)) {
-                        nodeIdStr = nodeIdStr + "-" + nodeId;
-                    }
-
-                    nodeJson.add("id", nodeIdStr);
-                    nodeJson.add("text", node.getData().getName());
-                    nodeJson.add("type", node.getData().getType().name());
-                    nodeJson.add("children", node.getData().isLazyChildren());
-
-                    if (rootNode) {
-                        JsonObjectBuilder stateJson = Json.createObjectBuilder();
-                        stateJson.add("opened", true);
-                        nodeJson.add("state", stateJson);
-                    }
-
-
-                    JsonObjectBuilder attrJson = Json.createObjectBuilder();
-                    attrJson.add("data-node-id", node.getData().getId());
-                    attrJson.add("data-node-type", node.getData().getType().name());
-                    attrJson.add("data-status", node.getData().getStatus().getName());
-                    nodeJson.add("li_attr", attrJson);
-                    json.add(nodeJson);
+                /*Group nodes are NOT unique without this extra bit - parent component ID*/
+                if (node.getData().getType().equals(HcoNodeType.GROUP)) {
+                    nodeIdStr = nodeIdStr + "-" + nodeId;
                 }
-            }
 
-            pw.write(json.build().toString());
+                nodeJson.add("id", nodeIdStr);
+                nodeJson.add("text", node.getData().getName());
+                nodeJson.add("type", node.getData().getType().name());
+                nodeJson.add("children", node.getData().isLazyChildren());
 
-            pw.flush();
-
-            boolean error = pw.checkError();
-
-            if (error) {
-                logger.log(Level.SEVERE, "PrintWriter Error");
-            }
-        } else {
-            if (children != null) {
-                for (TreeNode<HcoNodeData> child : children) {
-                    request.setAttribute("node", child);
-                    getServletConfig().getServletContext().getRequestDispatcher(
-                            "/WEB-INF/templates/hco-node.jsp").include(request, response);
+                if (rootNode) {
+                    JsonObjectBuilder stateJson = Json.createObjectBuilder();
+                    stateJson.add("opened", true);
+                    nodeJson.add("state", stateJson);
                 }
+
+
+                JsonObjectBuilder attrJson = Json.createObjectBuilder();
+                attrJson.add("data-node-id", node.getData().getId());
+                attrJson.add("data-node-type", node.getData().getType().name());
+                attrJson.add("data-status", node.getData().getStatus().getName());
+                nodeJson.add("li_attr", attrJson);
+                json.add(nodeJson);
             }
+        }
+
+        pw.write(json.build().toString());
+
+        pw.flush();
+
+        boolean error = pw.checkError();
+
+        if (error) {
+            logger.log(Level.SEVERE, "PrintWriter Error");
         }
     }
 }

@@ -4,7 +4,7 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<%@taglib prefix="hco" uri="http://jlab.org/hco/functions" %>
+<%@taglib prefix="hco" uri="http://jlab.org/srm/functions" %>
 <c:set var="title" value="Readiness"/>
 <t:page title="${title}">  
     <jsp:attribute name="stylesheets">

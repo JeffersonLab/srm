@@ -11,7 +11,7 @@
           href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/img/favicon.ico"/>
     <link rel="stylesheet" type="text/css" href="${cdnContextPath}/jlab-theme/smoothness/1.6/css/smoothness.min.css"/>
     <link rel="stylesheet" type="text/css"
-          href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/hco.css"/>
+          href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/srm.css"/>
 </head>
 <body>
 <div id="page">

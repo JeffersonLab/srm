@@ -204,8 +204,6 @@ jlab.hco.addRow = function (groupResponsibilityId, groupName, checklistRequired,
 
     var $row = ("<tr data-group-responsibility-id=\"" + groupResponsibilityId + "\"><td class=\"drag-handle\"><span class=\"ui-icon ui-icon-carat-2-n-s\"></span></td><td>" + order + "</td><td>" + groupName + "</td><td>" + checklistRequired + "</td></tr>");
     $("#responsibility-table tbody").append($row);
-
-    //hco.responsibilities.initSortAndSelect(); /*must set width of cells for drag and drop*/
 };
 
 jlab.hco.updateResponsibility = function () {

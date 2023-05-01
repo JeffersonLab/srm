@@ -3,7 +3,7 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
-<%@taglib prefix="hco" uri="http://jlab.org/hco/functions" %>
+<%@taglib prefix="hco" uri="http://jlab.org/srm/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +16,7 @@
     <link rel="stylesheet" type="text/css"
           href="${cdnContextPath}/jquery-ui/1.10.3/theme/smoothness/jquery-ui.min.css"/>
     <link rel="stylesheet" type="text/css"
-          href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/hco.css"/>
+          href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/srm.css"/>
     <link rel="stylesheet" type="text/css" href="${cdnContextPath}/jlab-theme/smoothness/1.6/css/smoothness.min.css"/>
     <link rel="stylesheet" type="text/css" href="${cdnContextPath}/jquery-plugins/select2/3.5.2/select2.css"/>
     <link rel="stylesheet" type="text/css"
@@ -158,7 +158,7 @@
 <script type="text/javascript" src="${cdnContextPath}/jquery-plugins/timepicker/jquery-ui-timepicker-1.3.1.js"></script>
 <script type="text/javascript" src="${cdnContextPath}/jlab-theme/smoothness/1.6/js/smoothness.min.js"></script>
 <script type="text/javascript"
-        src="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/js/hco.js"></script>
+        src="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/js/srm.js"></script>
 <script type="text/javascript">
     jlab.contextPath = '${pageContext.request.contextPath}';
 </script>

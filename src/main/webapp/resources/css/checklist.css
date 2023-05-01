@@ -10,7 +10,7 @@ body.mce-content-body {
 
 .checklist-body li,
 .mce-content-body li {
-    background: url('/hco/resources/img/checkbox.png') no-repeat left top 2px;
+    background: url('/srm/resources/img/checkbox.png') no-repeat left top 2px;
     padding-left: 24px;
     line-height: 20px;
     margin-top: 4px;
