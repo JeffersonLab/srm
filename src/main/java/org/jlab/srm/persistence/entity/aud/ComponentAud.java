@@ -1,5 +1,7 @@
 package org.jlab.srm.persistence.entity.aud;
 
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.RelationTargetAuditMode;
 import org.hibernate.envers.RevisionType;
 import org.jlab.srm.persistence.entity.ApplicationRevisionInfo;
 import org.jlab.srm.persistence.entity.Region;
@@ -58,7 +60,7 @@ public class ComponentAud implements Serializable {
     @Column(name = "MASKED_DATE", nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
     private Date maskedDate;
-    @Column(nullable = true, length = 64)
+    @Column(name = "MASKED_USERNAME", nullable = true, length = 64)
     private String maskedBy;
     @Basic(optional = true)
     @Column(name = "MASK_EXPIRATION_DATE", nullable = true)

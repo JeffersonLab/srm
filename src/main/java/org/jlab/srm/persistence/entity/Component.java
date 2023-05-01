@@ -63,7 +63,6 @@ public class Component implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date maskedDate;
     @Column(name = "MASKED_USERNAME", nullable = true, length = 64)
-    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     private String maskedBy;
     @Basic(optional = true)
     @Column(name = "MASK_EXPIRATION_DATE", nullable = true)
