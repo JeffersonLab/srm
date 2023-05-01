@@ -101,7 +101,7 @@ jlab.srm.batchCheck = function () {
             alert('Unable to check all: ' + $(".reason", data).html());
         } else {
             $tr.find("td").each(function () {
-                hco.grid.check($(this));
+                jlab.srm.grid.check($(this));
             });
         }
     });

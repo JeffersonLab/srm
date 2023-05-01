@@ -3,7 +3,7 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
-<%@taglib prefix="hco" uri="http://jlab.org/srm/functions" %>
+<%@taglib prefix="srm" uri="http://jlab.org/srm/functions" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <c:set var="title" value="All Activity"/>
 <t:reports-page title="${title}">  
@@ -294,7 +294,7 @@
                                     <div class="li-value" style="visibility: hidden;">
                                         <select id="change-select" multiple="multiple" name="change"
                                                 style="min-height: 34px;">
-                                            <c:forEach items="${hco:allChangeTypeList()}" var="change">
+                                            <c:forEach items="${srm:allChangeTypeList()}" var="change">
                                                 <option value="${change}"${s:inArray(paramValues.change, change.name()) ? ' selected="selected"' : ''}>
                                                     <c:out value="${change}"/></option>
                                             </c:forEach>
@@ -338,7 +338,7 @@
                                             <c:out value="${formattedModifiedDate}"/>
                                         </div>
                                         <div class="cell-subfield"><c:out
-                                                value="${hco:formatFakeStaff(activity.lastname, activity.firstname, activity.username)}"/></div>
+                                                value="${srm:formatFakeStaff(activity.lastname, activity.firstname, activity.username)}"/></div>
                                         <div class="cell-subfield">
                                             <c:if test="${activity.componentCount > 1}">
 
@@ -376,7 +376,7 @@
                                     </td>
                                     <td>
                                         <div class="cell-header">
-                                            <c:out value="${hco:formatFakeComponent(activity.componentName, activity.unpowered)}"/>
+                                            <c:out value="${srm:formatFakeComponent(activity.componentName, activity.unpowered)}"/>
                                         </div>
                                         <c:if test="${activity.systemName ne null}">
                                             <div class="cell-subfield">

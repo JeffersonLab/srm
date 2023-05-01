@@ -1,7 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@taglib prefix="hco" uri="http://jlab.org/srm/functions" %>
+<%@taglib prefix="srm" uri="http://jlab.org/srm/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,9 +63,9 @@
             <ul>
                 <c:forEach var="component" items="${system.componentList}">
                     <li><a title="Component Information" class="dialog-ready"
-                           data-dialog-title="Component Information: ${fn:escapeXml(hco:formatComponent(component))}"
+                           data-dialog-title="Component Information: ${fn:escapeXml(srm:formatComponent(component))}"
                            href="${pageContext.request.contextPath}/reports/component/detail?componentId=${component.componentId}"><c:out
-                            value="${hco:formatComponent(component)}"/></a></li>
+                            value="${srm:formatComponent(component)}"/></a></li>
                 </c:forEach>
             </ul>
         </dd>

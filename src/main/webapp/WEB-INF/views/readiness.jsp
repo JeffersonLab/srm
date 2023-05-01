@@ -4,7 +4,7 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<%@taglib prefix="hco" uri="http://jlab.org/srm/functions" %>
+<%@taglib prefix="srm" uri="http://jlab.org/srm/functions" %>
 <c:set var="title" value="Readiness"/>
 <t:page title="${title}">  
     <jsp:attribute name="stylesheets">
@@ -312,10 +312,10 @@
                                             - <span class="activity-user"
                                                     title="${signoff.lastname}, ${signoff.firstname} (${signoff.username})"><c:out
                                                 value="${signoff.username}"/></span>
-                                            - <c:out value="${hco:formatChangeType(signoff.changeType)}"/> - <c:out
+                                            - <c:out value="${srm:formatChangeType(signoff.changeType)}"/> - <c:out
                                                 value="${signoff.systemName}"/>
                                             - <c:out
-                                                value="${hco:formatFakeComponent(signoff.firstComponentName, signoff.firstUnpowered)}"/>
+                                                value="${srm:formatFakeComponent(signoff.firstComponentName, signoff.firstUnpowered)}"/>
                                             <c:if test="${signoff.componentCount > 1}">
                                                 + ${signoff.componentCount - 1} more
                                             </c:if>

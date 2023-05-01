@@ -3,7 +3,7 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
-<%@taglib prefix="hco" uri="http://jlab.org/srm/functions" %>
+<%@taglib prefix="srm" uri="http://jlab.org/srm/functions" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <c:set var="title" value="Current Masks"/>
 <t:masks-page title="${title}">  
@@ -207,13 +207,13 @@
                                                        href="${pageContext.request.contextPath}/reports/component/detail?componentId=${component.componentId}">
                                                         <span class="component-name"
                                                               data-raw-name="${component.name}"><c:out
-                                                                value="${hco:formatComponent(component)}"/></span>
+                                                                value="${srm:formatComponent(component)}"/></span>
                                                     </a>
                                                     <br/><br/><c:out value="${component.system.name}"/>
                                                 </td>
                                                 <td><c:out value="${s:formatUsername(component.maskedBy)}"/>
                                                     <c:if test="${component.masked}">
-                                                        <br/><br/> ${hco:getStatusById(component.maskTypeId).maskType}
+                                                        <br/><br/> ${srm:getStatusById(component.maskTypeId).maskType}
                                                     </c:if>
                                                 </td>
                                                 <td class="masked-reason"><c:out

@@ -92,7 +92,7 @@ jlab.srm.setUndoSortState = function () {
 };
 
 jlab.srm.undoSort = function () {
-    $("#super-table").replaceWith(hco.table.tableCloneForUndo);
+    $("#super-table").replaceWith(jlab.srm.table.tableCloneForUndo);
     jlab.srm.initSortAndSelect();
 };
 

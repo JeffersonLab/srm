@@ -3,7 +3,7 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
-<%@taglib prefix="hco" uri="http://jlab.org/srm/functions" %>
+<%@taglib prefix="srm" uri="http://jlab.org/srm/functions" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <c:set var="title" value="Mask Requests"/>
 <t:masks-page title="${title}">  
@@ -145,7 +145,7 @@
                                     <div class="li-value">
                                         <select name="status" id="status">
                                             <option value="">&nbsp;</option>
-                                            <c:forEach items="${hco:requestStatusList()}" var="record">
+                                            <c:forEach items="${srm:requestStatusList()}" var="record">
                                                 <option value="${record.name()}"${param.status eq record.name() ? ' selected="selected"' : ''}>
                                                     <c:out value="${record.name()}"/></option>
                                             </c:forEach>
@@ -192,9 +192,9 @@
                             <tr data-request-id="${record.maskingRequestId}">
                                 <td><c:out value="${record.requestStatus}"/></td>
                                 <td><a title="Component Information" class="dialog-ready"
-                                       data-dialog-title="Component Information: ${fn:escapeXml(hco:formatComponent(record.component))}"
+                                       data-dialog-title="Component Information: ${fn:escapeXml(srm:formatComponent(record.component))}"
                                        href="${pageContext.request.contextPath}/reports/component/detail?componentId=${record.component.componentId}"><c:out
-                                        value="${hco:formatComponent(record.component)}"/></a></td>
+                                        value="${srm:formatComponent(record.component)}"/></a></td>
                                 <td><c:out value="${record.component.system.name}"/></td>
                                 <td><c:out value="${record.requestReason}"/></td>
                                 <td><fmt:formatDate value="${record.maskExpirationDate}"

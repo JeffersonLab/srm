@@ -3,7 +3,7 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
-<%@taglib prefix="hco" uri="http://jlab.org/srm/functions" %>
+<%@taglib prefix="srm" uri="http://jlab.org/srm/functions" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <c:set var="title" value="Signoff"/>
 <t:page title="${title}">  
@@ -151,9 +151,9 @@
                                                                     </c:when>
                                                                 </c:choose>
                                                                 <a title="Component Information" class="dialog-ready"
-                                                                   data-dialog-title="Component Information: ${fn:escapeXml(hco:formatComponent(component))}"
+                                                                   data-dialog-title="Component Information: ${fn:escapeXml(srm:formatComponent(component))}"
                                                                    href="reports/component/detail?componentId=${component.componentId}">
-                                                                    <c:out value="${hco:formatComponent(component)}"/>
+                                                                    <c:out value="${srm:formatComponent(component)}"/>
                                                                 </a>
                                                             </th>
                                                             <c:forEach items="${selectedSystem.groupResponsibilityList}"
@@ -161,7 +161,7 @@
                                                                 <c:set var="signoff"
                                                                        value="${signoffMap[component.componentId.toString().concat(';').concat(responsibility.group.groupId.toString())]}"/>
                                                                 <c:set var="status"
-                                                                       value="${signoff.status ne null ? signoff.status : hco:getDefaultStatus()}"/>
+                                                                       value="${signoff.status ne null ? signoff.status : srm:getDefaultStatus()}"/>
                                                                 <fmt:formatDate pattern="${s:getFriendlyDateTimePattern()}"
                                                                                 value="${signoff.modifiedDate}"
                                                                                 var="modifiedDate"/>
@@ -183,9 +183,9 @@
                                                                                         <c:param name="dialog"
                                                                                                  value="true"/>
                                                                                     </c:url>
-                                                                                    <span class="small-icon ${hco:getStatusClass(status)}-icon"></span>
+                                                                                    <span class="small-icon ${srm:getStatusClass(status)}-icon"></span>
                                                                                     <a href="${fn:escapeXml(url)}"
-                                                                                       data-dialog-title="${fn:escapeXml(hco:formatComponent(component))}: ${responsibility.group.name} Signoff History"
+                                                                                       data-dialog-title="${fn:escapeXml(srm:formatComponent(component))}: ${responsibility.group.name} Signoff History"
                                                                                        title="Click for signoff history"
                                                                                        class="small-icon dialog-ready comment-icon"></a>
                                                                                 </div>
@@ -194,11 +194,11 @@
                                                                                 </div>
                                                                             </c:when>
                                                                             <c:otherwise>
-                                                                                <span data-change="${hco:formatChangeType(signoff.changeType)}"
+                                                                                <span data-change="${srm:formatChangeType(signoff.changeType)}"
                                                                                       data-comment="${fn:escapeXml(signoff.comments)}"
                                                                                       data-modified-by="${s:formatUsername(signoff.modifiedBy)}"
                                                                                       data-modified-date="${modifiedDate}"
-                                                                                      class="small-icon tooltip-icon ${hco:getStatusClass(status)}-icon"></span>
+                                                                                      class="small-icon tooltip-icon ${srm:getStatusClass(status)}-icon"></span>
                                                                             </c:otherwise>
                                                                         </c:choose>
                                                                     </div>

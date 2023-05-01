@@ -2,7 +2,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@taglib prefix="hco" uri="http://jlab.org/srm/functions" %>
+<%@taglib prefix="srm" uri="http://jlab.org/srm/functions" %>
 <%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <c:set var="title" value="Candidate Masks"/>
@@ -195,11 +195,11 @@
                                                 data-source="${component.dataSource}">
                                                 <td>
                                                     <a title="Component Information" class="dialog-ready"
-                                                       data-dialog-title="Component Information: ${fn:escapeXml(hco:formatComponent(component))}"
+                                                       data-dialog-title="Component Information: ${fn:escapeXml(srm:formatComponent(component))}"
                                                        href="${pageContext.request.contextPath}/reports/component/detail?componentId=${component.componentId}">
                                                         <span class="component-name"
                                                               data-raw-name="${component.name}"><c:out
-                                                                value="${hco:formatComponent(component)}"/></span>
+                                                                value="${srm:formatComponent(component)}"/></span>
                                                     </a>
                                                 </td>
                                                 <td>

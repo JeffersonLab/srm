@@ -3,7 +3,7 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
-<%@taglib prefix="hco" uri="http://jlab.org/srm/functions" %>
+<%@taglib prefix="srm" uri="http://jlab.org/srm/functions" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <c:set var="title" value="Signoff Activity"/>
 <t:reports-page title="${title}">  
@@ -194,9 +194,9 @@
                                     <div class="li-value">
                                         <select id="change-select" name="change">
                                             <option value="">&nbsp;</option>
-                                            <c:forEach items="${hco:changeTypeList()}" var="change">
+                                            <c:forEach items="${srm:changeTypeList()}" var="change">
                                                 <option value="${change}"${param.change eq change ? ' selected="selected"' : ''}>
-                                                    <c:out value="${hco:formatChangeType(change)}"/></option>
+                                                    <c:out value="${srm:formatChangeType(change)}"/></option>
                                             </c:forEach>
                                         </select>
                                     </div>
@@ -236,13 +236,13 @@
                                                         value="${activity.modifiedDate}"/></td>
                                     <td><c:out
                                             value="${activity.lastname}, ${activity.firstname} (${activity.username})"/></td>
-                                    <td><c:out value="${hco:formatChangeType(activity.changeType)}"/>; <c:out
+                                    <td><c:out value="${srm:formatChangeType(activity.changeType)}"/>; <c:out
                                             value="${activity.statusName}"/></td>
                                     <c:if test="${param.dialog ne 'true'}">
                                         <td><a title="Component Information" class="dialog-ready"
-                                               data-dialog-title="Component Information: ${fn:escapeXml(hco:formatFakeComponent(activity.componentName, activity.unpowered))}"
+                                               data-dialog-title="Component Information: ${fn:escapeXml(srm:formatFakeComponent(activity.componentName, activity.unpowered))}"
                                                href="${pageContext.request.contextPath}/reports/component/detail?componentId=${activity.componentId}"><c:out
-                                                value="${hco:formatFakeComponent(activity.componentName, activity.unpowered)}"/></a>
+                                                value="${srm:formatFakeComponent(activity.componentName, activity.unpowered)}"/></a>
                                         </td>
                                         <td><c:out value="${activity.groupName}"/></td>
                                     </c:if>

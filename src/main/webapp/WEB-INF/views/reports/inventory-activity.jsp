@@ -3,7 +3,7 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
-<%@taglib prefix="hco" uri="http://jlab.org/srm/functions" %>
+<%@taglib prefix="srm" uri="http://jlab.org/srm/functions" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <c:set var="title" value="Inventory Activity"/>
 <t:reports-page title="${title}">  
@@ -96,7 +96,7 @@
                                 <td><fmt:formatDate value="${revision.revisionDate}" pattern="dd-MMM-yyyy HH:mm"/></td>
                                 <td><c:out
                                         value="${revision.user != null ? s:formatUser(revision.user) : revision.username}"/></td>
-                                <td><c:out value="${hco:getHostnameFromIp(revision.address)}"/></td>
+                                <td><c:out value="${srm:getHostnameFromIp(revision.address)}"/></td>
                                 <td>
                                     <c:if test="${fn:length(revision.changeList) > 0}">
                                         <ul class="table-cell-list">
