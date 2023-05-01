@@ -201,7 +201,7 @@ jlab.hco.editComponent = function () {
 
     });
 
-    request.error(function (xhr, textStatus) {
+    request.fail(function (xhr, textStatus) {
         window.console && console.log('Unable to edit component: Text Status: ' + textStatus + ', Ready State: ' + xhr.readyState + ', HTTP Status Code: ' + xhr.status);
         alert('Unable to edit component; server did not handle request');
     });
@@ -255,7 +255,7 @@ jlab.hco.deleteRow = function () {
         }
     });
 
-    request.error(function (xhr, textStatus) {
+    request.fail(function (xhr, textStatus) {
         //window.console && console.log('Text Status: ' + textStatus + ', Ready State: ' + xhr.readyState + ', HTTP Status Code: ' + xhr.status);
         var json;
 

@@ -16,7 +16,7 @@ jlab.hco.denyMasking = function () {
 
     var promise = jlab.doAjaxJsonPostRequest(url, data, $dialog, true);
 
-    promise.error(function () {
+    promise.fail(function () {
         $("#deny-button").text("Reject");
     });
 };
@@ -37,7 +37,7 @@ jlab.hco.acceptMasking = function () {
 
     var promise = jlab.doAjaxJsonPostRequest(url, data, $dialog, true);
 
-    promise.error(function () {
+    promise.fail(function () {
         $("#approve-save-button").text("Save");
     });
 };

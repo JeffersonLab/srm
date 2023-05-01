@@ -59,7 +59,7 @@ jlab.hco.toggle = function () {
 
     });
 
-    request.error(function (xhr, textStatus) {
+    request.fail(function (xhr, textStatus) {
         jlab.hco.restore($td, checked);
         window.console && console.log('Unable to toggle: Text Status: ' + textStatus + ', Ready State: ' + xhr.readyState + ', HTTP Status Code: ' + xhr.status);
         alert('Unable to toggle');
@@ -106,7 +106,7 @@ jlab.hco.batchCheck = function () {
         }
     });
 
-    request.error(function (xhr, textStatus) {
+    request.fail(function (xhr, textStatus) {
         window.console && console.log('Unable to check all: Text Status: ' + textStatus + ', Ready State: ' + xhr.readyState + ', HTTP Status Code: ' + xhr.status);
         alert('Unable to check all');
     });
@@ -153,7 +153,7 @@ jlab.hco.batchUncheck = function () {
         }
     });
 
-    request.error(function (xhr, textStatus) {
+    request.fail(function (xhr, textStatus) {
         window.console && console.log('Unable to uncheck all: Text Status: ' + textStatus + ', Ready State: ' + xhr.readyState + ', HTTP Status Code: ' + xhr.status);
         alert('Unable to uncheck all');
     });
@@ -213,7 +213,7 @@ jlab.hco.copy = function () {
         }
     });
 
-    request.error(function (xhr, textStatus) {
+    request.fail(function (xhr, textStatus) {
         window.console && console.log('Unable to copy: Text Status: ' + textStatus + ', Ready State: ' + xhr.readyState + ', HTTP Status Code: ' + xhr.status);
         alert('Unable to copy');
     });
@@ -258,7 +258,7 @@ jlab.hco.deleteRow = function () {
             }
         });
 
-        request.error(function (xhr, textStatus) {
+        request.fail(function (xhr, textStatus) {
             window.console && console.log('Unable to delete: Text Status: ' + textStatus + ', Ready State: ' + xhr.readyState + ', HTTP Status Code: ' + xhr.status);
             alert('Unable to delete');
         });

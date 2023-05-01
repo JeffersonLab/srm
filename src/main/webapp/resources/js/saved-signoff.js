@@ -46,7 +46,7 @@ jlab.hco.deleteRows = function () {
 
     });
 
-    request.error(function (xhr, textStatus) {
+    request.fail(function (xhr, textStatus) {
         window.console && console.log('Unable to remove saved signoff: Text Status: ' + textStatus + ', Ready State: ' + xhr.readyState + ', HTTP Status Code: ' + xhr.status);
         alert('Unable to remove saved signoff; server did not handle request');
     });
@@ -140,7 +140,7 @@ jlab.hco.saveSortOrder = function (event, ui) {
 
     });
 
-    request.error(function (xhr, textStatus) {
+    request.fail(function (xhr, textStatus) {
         window.console && console.log('Unable to order downgrade: Text Status: ' + textStatus + ', Ready State: ' + xhr.readyState + ', HTTP Status Code: ' + xhr.status);
         alert('Unable to order downgrade; server did not handle request');
         jlab.hco.undoSort();
@@ -289,7 +289,7 @@ jlab.hco.doEditAction = function () {
 
     });
 
-    request.error(function (xhr, textStatus) {
+    request.fail(function (xhr, textStatus) {
         window.console && console.log('Unable to edit downgrade: Text Status: ' + textStatus + ', Ready State: ' + xhr.readyState + ', HTTP Status Code: ' + xhr.status);
         alert('Unable to edit downgrade; server did not handle request');
     });
@@ -356,7 +356,7 @@ jlab.hco.doAddAction = function () {
 
     });
 
-    request.error(function (xhr, textStatus) {
+    request.fail(function (xhr, textStatus) {
         window.console && console.log('Unable to add saved signoff: Text Status: ' + textStatus + ', Ready State: ' + xhr.readyState + ', HTTP Status Code: ' + xhr.status);
         alert('Unable to add saved signoff; server did not handle request');
     });
@@ -422,7 +422,7 @@ jlab.hco.filterSystemList = function (groupId) {
 
     });
 
-    request.error(function (xhr, textStatus) {
+    request.fail(function (xhr, textStatus) {
         window.console && console.log('Unable to filter system list: Text Status: ' + textStatus + ', Ready State: ' + xhr.readyState + ', HTTP Status Code: ' + xhr.status);
         alert('Unable to filter system list; server did not handle request');
     });
@@ -499,7 +499,7 @@ jlab.hco.doSignoffMultiple = function() {
 
     });
 
-    request.error(function (xhr, textStatus) {
+    request.fail(function (xhr, textStatus) {
         window.console && console.log('Unable to signoff saved: Text Status: ' + textStatus + ', Ready State: ' + xhr.readyState + ', HTTP Status Code: ' + xhr.status);
         alert('Unable to remove saved signoff; server did not handle request');
     });

@@ -45,7 +45,7 @@ jlab.hco.filterSystemListByCategory = function (categoryId, systemSelectSelector
 
     });
 
-    request.error(function (xhr, textStatus) {
+    request.fail(function (xhr, textStatus) {
         window.console && console.log('Unable to filter system list: Text Status: ' + textStatus + ', Ready State: ' + xhr.readyState + ', HTTP Status Code: ' + xhr.status);
         alert('Unable to filter system list; server did not handle request');
     });

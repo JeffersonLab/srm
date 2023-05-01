@@ -50,7 +50,7 @@ jlab.hco.deleteRow = function () {
 
     });
 
-    request.error(function (xhr, textStatus) {
+    request.fail(function (xhr, textStatus) {
         window.console && console.log('Unable to delete group responsibility: Text Status: ' + textStatus + ', Ready State: ' + xhr.readyState + ', HTTP Status Code: ' + xhr.status);
         alert('Unable to delete group responsibility; server did not handle request');
     });
@@ -136,7 +136,7 @@ jlab.hco.saveSortOrder = function (event, ui) {
 
     });
 
-    request.error(function (xhr, textStatus) {
+    request.fail(function (xhr, textStatus) {
         window.console && console.log('Unable to order group responsibility: Text Status: ' + textStatus + ', Ready State: ' + xhr.readyState + ', HTTP Status Code: ' + xhr.status);
         alert('Unable to order group responsibility; server did not handle request');
         jlab.hco.undoSort();

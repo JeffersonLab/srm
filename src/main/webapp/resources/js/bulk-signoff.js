@@ -36,7 +36,7 @@ jlab.hco.bulkRequest = function (rows, statusId, comment) {
             $td2.text('Done');
         });
 
-        promise.error(function () {
+        promise.fail(function () {
             $td2.text('Failed');
         });
 
