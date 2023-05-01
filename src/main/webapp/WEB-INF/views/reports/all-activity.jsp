@@ -183,7 +183,7 @@
                                     <div class="li-value">
                                         <div class="sub-table">
                                             <div class="sub-key">
-                                                <label for="system-select">Subsystem</label>
+                                                <label for="system-select">System</label>
                                             </div>
                                             <div class="sub-value">
                                                 <select id="system-select" name="systemId">
@@ -380,7 +380,7 @@
                                         </div>
                                         <c:if test="${activity.systemName ne null}">
                                             <div class="cell-subfield">
-                                                <div class="cell-sublabel">Subsystem:</div>
+                                                <div class="cell-sublabel">System:</div>
                                                 <c:out value="${activity.systemName}"/>
                                             </div>
                                         </c:if>

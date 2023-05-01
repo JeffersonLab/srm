@@ -36,7 +36,7 @@
                             </div>
                             <input type="submit" style="margin-top: 1em;" value="Apply"/>
                         </form>                        
-                        <div class="message-box">Select a subsystem to continue</div>
+                        <div class="message-box">Select a System to continue</div>
                     </c:when>                                
                     <c:otherwise>
                         <s:filter-flyout-widget requiredMessage="true" clearButton="true">
@@ -83,7 +83,7 @@
                         <ul class="key-value-list">
                             <li>
                                 <div class="li-key">
-                                    Subsystem:
+                                    System:
                                 </div>
                                 <div class="li-value">
                                     <span class="system-placeholder"></span>

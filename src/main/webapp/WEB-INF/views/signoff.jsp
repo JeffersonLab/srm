@@ -26,9 +26,9 @@
                 });
             </script>
         </c:if>
-        <c:if test="${param.subsystemFirst eq 'Y'}">
+        <c:if test="${param.systemFirst eq 'Y'}">
             <script type="text/javascript">
-                jlab.hco.subsystemFirst = true;
+                jlab.hco.systemFirst = true;
             </script>            
         </c:if>            
     </jsp:attribute>
@@ -36,7 +36,7 @@
         <section>
             <form id="filter-form" method="get" action="signoff">
                 <div id="start-with-div"><input id="start-with-checkbox" name="systemFirst" class="change-submit"
-                                                value="Y"${param.subsystemFirst eq 'Y' ? ' checked="checked"' : ''}
+                                                value="Y"${param.systemFirst eq 'Y' ? ' checked="checked"' : ''}
                                                 type="checkbox"/><label for="start-with-checkbox">Start with
                     Category/System</label></div>
                 <c:choose>
@@ -56,16 +56,16 @@
             </form>
             <c:choose>
                 <c:when test="${componentList eq null}">
-                    <div class="message-box">Select a group and subsystem to continue</div>
+                    <div class="message-box">Select a group and system to continue</div>
                 </c:when>
                 <c:when test="${fn:length(selectedSystem.groupResponsibilityList) == 0}">
-                    <div class="message-box">No group responsibilities found in Subsystem
+                    <div class="message-box">No group responsibilities found in system
                         &quot;${fn:escapeXml(selectedSystem.name)}&quot;
                     </div>
                 </c:when>
                 <c:when test="${not pageContext.request.isUserInRole('srm-admin') and groupResponsibilityForSelected.checklistRequired and not groupResponsibilityForSelected.published}">
                     <div class="message-box">A checklist for Group &quot;${fn:escapeXml(selectedGroup.name)}&quot; and
-                        Subsystem &quot;${fn:escapeXml(selectedSystem.name)}&quot; must be published before signoffs can
+                        System &quot;${fn:escapeXml(selectedSystem.name)}&quot; must be published before signoffs can
                         be made
                     </div>
                 </c:when>
@@ -363,7 +363,7 @@
                 <div class="all-systems-flyout">
                     <div class="flyout-panel">
                         <button class="close-bubble">X</button>
-                        <div class="bubble-title">Looking for all Subsystems at once?</div>
+                        <div class="bubble-title">Looking for all Systems at once?</div>
                         <div class="bubble-body">
                             <span>Try:</span>
                             <ul id="all-systems-link-list">

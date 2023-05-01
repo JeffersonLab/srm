@@ -44,7 +44,7 @@
             <h2 id="page-header-title"><c:out value="${title}"/></h2>
             <c:choose>
                 <c:when test="${systemList eq null}">
-                    <div class="message-box">No Subsystems found</div>
+                    <div class="message-box">No Systems found</div>
                 </c:when>
                 <c:otherwise>
                     <div class="message-box">
@@ -53,7 +53,7 @@
                                 Category &quot;<c:out value="${selectedCategory.name}"/>&quot;
                             </c:when>
                             <c:otherwise>
-                                All Subsystems
+                                All Systems
                             </c:otherwise>
                         </c:choose>
                         {${fn:length(systemList)}}
@@ -64,7 +64,7 @@
                 <table class="data-table stripped-table fixed-table system-participation-table editable">
                     <thead>
                     <tr>
-                        <th rowspan="2" class="system-header">Subsystem</th>
+                        <th rowspan="2" class="system-header">System</th>
                         <th colspan="${fn:length(applicationList)}">Application</th>
                     </tr>
                     <tr>

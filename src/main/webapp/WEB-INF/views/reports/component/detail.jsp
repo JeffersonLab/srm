@@ -155,7 +155,7 @@
                                     <br/>
                                 </c:forEach>
                             </dd>
-                            <dt>Subsystem:</dt>
+                            <dt>System:</dt>
                             <dd><a title="System Information" class="dialog-ready"
                                    data-dialog-title="System Information: ${fn:escapeXml(component.system.name)}"
                                    href="${pageContext.request.contextPath}/system-detail?systemId=${component.system.systemId}"><c:out

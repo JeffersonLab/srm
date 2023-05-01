@@ -71,7 +71,7 @@
                 <li>
                     <a href="${pageContext.request.contextPath}/reports/inventory-activity/component-audit">Component</a>&nbsp;
                 </li>
-                <li><a href="${pageContext.request.contextPath}/reports/inventory-activity/system-audit">Subsystem</a>&nbsp;
+                <li><a href="${pageContext.request.contextPath}/reports/inventory-activity/system-audit">System</a>&nbsp;
                 </li>
                 <li><a href="${pageContext.request.contextPath}/reports/inventory-activity/category-audit">Category</a>&nbsp;
                 </li>

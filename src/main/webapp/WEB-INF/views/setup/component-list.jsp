@@ -197,7 +197,7 @@
                                     <div class="li-value">
                                         <div class="sub-table">
                                             <div class="sub-key">
-                                                <label for="system-select">Subsystem</label>
+                                                <label for="system-select">System</label>
                                             </div>
                                             <div class="sub-value">
                                                 <select id="system-select" name="systemId">
@@ -323,7 +323,7 @@
                         disabled="disabled">(Un)power
                 </button>
                 <button type="button" class="selected-row-action" id="show-system-dialog-button" disabled="disabled">
-                    Edit Subsystem
+                    Edit System
                 </button>
                 <button type="button" class="selected-row-action" id="show-region-dialog-button" disabled="disabled">
                     Edit Region
@@ -340,7 +340,7 @@
                     <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Subsystem / Region</th>
+                        <th>System / Region</th>
                         <th>Source</th>
                         <th>Masked Date / Expiration Date</th>
                         <th>Masked Reason</th>
@@ -431,7 +431,7 @@
                             <div class="li-value">
                                 <div class="sub-table">
                                     <div class="sub-key">
-                                        <label for="new-component-system-select">Subsystem</label>
+                                        <label for="new-component-system-select">System</label>
                                     </div>
                                     <div class="sub-value">
                                         <select id="new-component-system-select" name="newSystemId">
@@ -515,7 +515,7 @@
                             <div class="li-value">
                                 <div class="sub-table">
                                     <div class="sub-key">
-                                        <label for="bulk-component-system-select">Subsystem</label>
+                                        <label for="bulk-component-system-select">System</label>
                                     </div>
                                     <div class="sub-value">
                                         <select id="bulk-component-system-select" name="newSystemId">
@@ -716,7 +716,7 @@
                         </li>
                         <li>
                             <div class="li-key">
-                                <label for="system-component-system">Subsystem</label>
+                                <label for="system-component-system">System</label>
                             </div>
                             <div class="li-value">
                                 <select id="system-component-system" name="systemId">

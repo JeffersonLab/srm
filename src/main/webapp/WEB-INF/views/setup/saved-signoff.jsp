@@ -48,7 +48,7 @@
                             </li>
                             <li>
                                 <div class="li-key">
-                                    <label for="system-select">Subsystem</label>
+                                    <label for="system-select">System</label>
                                 </div>
                                 <div class="li-value">
                                     <select id="system-select" name="systemId">
@@ -243,7 +243,7 @@
                             </li>
                             <li>
                                 <div class="li-key">
-                                    <label class="required-field" for="add-system-select">Subsystem</label>
+                                    <label class="required-field" for="add-system-select">System</label>
                                 </div>
                                 <div class="li-value">
                                     <select id="add-system-select" name="addSystemId">

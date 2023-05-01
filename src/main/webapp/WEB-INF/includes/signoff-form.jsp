@@ -5,7 +5,7 @@
 <%@taglib prefix="hco" uri="http://jlab.org/hco/functions" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <c:choose>
-    <c:when test="${param.subsystemFirst eq 'Y'}">
+    <c:when test="${param.systemFirst eq 'Y'}">
         <fieldset>
             <legend>Step 1:</legend>
             <ul class="key-value-list">
@@ -29,7 +29,7 @@
                     <div class="li-value">
                         <div class="sub-table">
                             <div class="sub-key">
-                                <label class="required-field" for="system-select">Subsystem</label>
+                                <label class="required-field" for="system-select">System</label>
                             </div>
                             <div class="sub-value">
                                 <select id="system-select" name="systemId">
@@ -91,7 +91,7 @@
             <ul class="key-value-list">
                 <li>
                     <div class="li-key">
-                        <label class="required-field" for="system-select">Subsystem</label>
+                        <label class="required-field" for="system-select">System</label>
                     </div>
                     <div class="li-value">
                         <select id="system-select" name="systemId">

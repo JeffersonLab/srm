@@ -61,7 +61,7 @@
                                     <div class="li-value">
                                         <div class="sub-table">
                                             <div class="sub-key">
-                                                <label for="system-select">Subsystem</label>
+                                                <label for="system-select">System</label>
                                             </div>
                                             <div class="sub-value">
                                                 <select id="system-select" name="systemId">
@@ -176,7 +176,7 @@
                     <thead>
                     <tr>
                         <th>Component</th>
-                        <th>Subsystem</th>
+                        <th>System</th>
                         <th>Region</th>
                         <th class="scrollbar-header"><span class="expand-icon" title="Expand Table"></span></th>
                     </tr>

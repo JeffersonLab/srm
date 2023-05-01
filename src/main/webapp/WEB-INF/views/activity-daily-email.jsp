@@ -134,7 +134,7 @@
                         </div>
                         <c:if test="${activity.systemName ne null}">
                             <div class="cell-subfield">
-                                <div class="cell-sublabel">Subsystem:</div>
+                                <div class="cell-sublabel">System:</div>
                                 <c:out value="${activity.systemName}"/>
                             </div>
                         </c:if>

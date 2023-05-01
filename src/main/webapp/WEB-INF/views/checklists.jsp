@@ -67,7 +67,7 @@
                             <table class="data-table stripped-table">
                                 <thead>
                                 <tr>
-                                    <th>Subsystem</th>
+                                    <th>System</th>
                                     <th>Checklist Required</th>
                                     <th>Published</th>
                                     <th>Checklist</th>

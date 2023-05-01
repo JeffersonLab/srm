@@ -61,7 +61,7 @@
                                     <div class="li-value">
                                         <div class="sub-table">
                                             <div class="sub-key">
-                                                <label for="system-select">Subsystem</label>
+                                                <label for="system-select">System</label>
                                             </div>
                                             <div class="sub-value">
                                                 <select id="system-select" name="systemId">
@@ -177,7 +177,7 @@
                     <tr>
                         <th>Masked Date</th>
                         <th>Mask Expiration Date</th>
-                        <th>Component / Subsystem</th>
+                        <th>Component / System</th>
                         <th>Masked By / Mask Type</th>
                         <th>Reason</th>
                         <th class="scrollbar-header"><span class="expand-icon" title="Expand Table"></span></th>

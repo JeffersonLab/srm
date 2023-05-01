@@ -78,7 +78,7 @@ public class EditComponent extends HttpServlet {
                 } else if (dbException.getErrorCode() == 2290 && "23000".equals(dbException.getSQLState()) && dbException.getMessage().contains("COMPONENT_CK4")) {
                     errorReason = "Component name cannot contain an asterisk because we use the asterisk to denote unpowered components";
                 } /*else if (dbException.getErrorCode() == 2292 && "23000".equals(dbException.getSQLState()) && dbException.getMessage().contains("GROUP_SIGNOFF_FK1")) { 
-                    errorReason = "Cannot move component to a new subsystem because the component has signoffs.  Select the force option if a loss of signoffs / signoff history is acceptable.";
+                    errorReason = "Cannot move component to a new system because the component has signoffs.  Select the force option if a loss of signoffs / signoff history is acceptable.";
                 }*/ else {
                     errorReason = "Database exception";
                 }

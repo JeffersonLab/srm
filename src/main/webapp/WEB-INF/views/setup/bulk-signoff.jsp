@@ -59,7 +59,7 @@
                                 <div class="li-value" style="visibility: hidden; height: 210px;">
                                     <div class="sub-table">
                                         <div class="sub-key">
-                                            <label class="required-field" for="system-select">Subsystem</label>
+                                            <label class="required-field" for="system-select">System</label>
                                             <div class="default-selection-panel">(<a id="select-all-link"
                                                                                      href="#">All</a> | <a
                                                     id="select-none-link" href="#">None</a>)

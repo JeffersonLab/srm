@@ -24,7 +24,7 @@
                                     href="${pageContext.request.contextPath}/setup/component-participation">Component
                                 Part.</a></li>
                             <li${'/setup/system-participation' eq currentPath ? ' class="current-secondary"' : ''}><a
-                                    href="${pageContext.request.contextPath}/setup/system-participation">Subsystem
+                                    href="${pageContext.request.contextPath}/setup/system-participation">System
                                 Part.</a></li>
                             <li${'/setup/group-responsibility' eq currentPath ? ' class="current-secondary"' : ''}><a
                                     href="${pageContext.request.contextPath}/setup/group-responsibility">Group Resp.</a>

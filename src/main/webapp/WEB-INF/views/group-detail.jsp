@@ -36,7 +36,7 @@
                     <table class="data-table stripped-table">
                         <thead>
                         <tr>
-                            <th>Subsystem</th>
+                            <th>System</th>
                             <th>Order</th>
                             <th>Checklist</th>
                         </tr>

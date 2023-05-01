@@ -40,13 +40,13 @@
                     <input id="filter-form-submit-button" type="submit" value="Apply"/>
                 </form>
             </s:filter-flyout-widget>
-            <h2 id="page-header-title">Inventory Activity: Subsystem <c:out value="${param.systemId}"/></h2>
+            <h2 id="page-header-title">Inventory Activity: System <c:out value="${param.systemId}"/></h2>
             <ul class="bracket-horizontal-nav">
                 <li><a href="${pageContext.request.contextPath}/reports/inventory-activity">Transactions</a>&nbsp;</li>
                 <li>
                     <a href="${pageContext.request.contextPath}/reports/inventory-activity/component-audit">Component</a>&nbsp;
                 </li>
-                <li>Subsystem&nbsp;</li>
+                <li>System&nbsp;</li>
                 <li><a href="${pageContext.request.contextPath}/reports/inventory-activity/category-audit">Category</a>&nbsp;
                 </li>
             </ul>

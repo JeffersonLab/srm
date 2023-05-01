@@ -476,21 +476,21 @@ $(document).on("click", "#unselect-button", function () {
 });
 
 $(document).on("change", "#system-select", function () {
-    if (jlab.hco.subsystemFirst === true) {
+    if (jlab.hco.systemFirst === true) {
         var systemId = $(this).val();
         jlab.hco.filterGroupList(systemId);
     }
 });
 
 $(document).on("change", "#category-select", function () {
-    if (jlab.hco.subsystemFirst === true) {
+    if (jlab.hco.systemFirst === true) {
         var categoryId = $(this).val();
         jlab.hco.filterSystemListByCategory(categoryId);
     }
 });
 
 $(document).on("change", "#group-select", function () {
-    if (jlab.hco.subsystemFirst !== true) {
+    if (jlab.hco.systemFirst !== true) {
         var groupId = $(this).val();
         jlab.hco.filterSystemListByGroup(groupId);
     }

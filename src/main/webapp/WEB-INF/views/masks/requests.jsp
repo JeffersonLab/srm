@@ -87,7 +87,7 @@
                                     <div class="li-value">
                                         <div class="sub-table">
                                             <div class="sub-key">
-                                                <label for="system-select">Subsystem</label>
+                                                <label for="system-select">System</label>
                                             </div>
                                             <div class="sub-value">
                                                 <select id="system-select" name="systemId">
@@ -179,7 +179,7 @@
                         <tr>
                             <th class="constrained-medium-column">Response</th>
                             <th class="constrained-medium-column">Component</th>
-                            <th class="constrained-medium-column">Subsystem</th>
+                            <th class="constrained-medium-column">System</th>
                             <th>Reason</th>
                             <th class="constrained-medium-column">Mask Expiration Date</th>
                             <th class="constrained-medium-column">Requested By</th>

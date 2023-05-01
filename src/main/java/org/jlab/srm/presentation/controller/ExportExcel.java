@@ -34,6 +34,6 @@ public class ExportExcel extends HttpServlet {
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         response.setHeader("content-disposition", "attachment;filename=\"categories-systems.xlsx\"");
 
-        excelFacade.exportCategoriesAndSubsystems(response.getOutputStream());
+        excelFacade.exportCategoriesAndSystems(response.getOutputStream());
     }
 }

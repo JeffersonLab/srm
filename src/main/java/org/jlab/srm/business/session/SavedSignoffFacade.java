@@ -246,13 +246,6 @@ public class SavedSignoffFacade extends AbstractFacade<SavedSignoff> {
     }
 
     @PermitAll
-    public List<SavedSignoff> findAllOrderBySubsystemAndGroup() {
-        TypedQuery<SavedSignoff> query = em.createQuery("select a from SavedSignoff a order by a.system.name asc, a.group.name asc, a.savedSignoffId asc", SavedSignoff.class);
-
-        return query.getResultList();
-    }
-
-    @PermitAll
     public List<SavedSignoff> filterList(BigInteger typeId, BigInteger systemId, BigInteger groupId, int offset, int maxPerPage) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<SavedSignoff> cq = cb.createQuery(SavedSignoff.class);

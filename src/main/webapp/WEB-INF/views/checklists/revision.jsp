@@ -87,7 +87,7 @@
                             </li>
                             <li>
                                 <div class="li-key">
-                                    Subsystem:
+                                    System:
                                 </div>
                                 <div class="li-value">
                                     <span class="fullpage-only"><c:out

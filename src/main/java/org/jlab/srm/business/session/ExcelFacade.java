@@ -24,7 +24,7 @@ public class ExcelFacade {
     private Sheet sheet = null;
     private int rownum = 0;
 
-    public void exportCategoriesAndSubsystems(OutputStream out) throws IOException {
+    public void exportCategoriesAndSystems(OutputStream out) throws IOException {
         Workbook wb = new XSSFWorkbook();
         sheet = wb.createSheet("Categories and systems");
 

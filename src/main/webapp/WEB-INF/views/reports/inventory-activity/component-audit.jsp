@@ -45,7 +45,7 @@
             <ul class="bracket-horizontal-nav">
                 <li><a href="${pageContext.request.contextPath}/reports/inventory-activity">Transactions</a>&nbsp;</li>
                 <li>Component&nbsp;</li>
-                <li><a href="${pageContext.request.contextPath}/reports/inventory-activity/system-audit">Subsystem</a>&nbsp;
+                <li><a href="${pageContext.request.contextPath}/reports/inventory-activity/system-audit">System</a>&nbsp;
                 </li>
                 <li><a href="${pageContext.request.contextPath}/reports/inventory-activity/category-audit">Category</a>&nbsp;
                 </li>
@@ -125,7 +125,7 @@
                             </c:forEach>
                         </tr>
                         <tr>
-                            <th>Subsystem:</th>
+                            <th>System:</th>
                             <c:forEach items="${revisionList}" var="entity">
                                 <td>
                                     <c:out value="${entity.system.name}"/>
