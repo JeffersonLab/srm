@@ -22,7 +22,7 @@ import java.util.List;
  * @author ryans
  */
 @WebServlet(name = "SystemParticipation",
-        urlPatterns = {"/setup/subsystem-participation"})
+        urlPatterns = {"/setup/system-participation"})
 public class SystemParticipation extends HttpServlet {
 
     @EJB
@@ -66,7 +66,7 @@ public class SystemParticipation extends HttpServlet {
         request.setAttribute("applicationList", applicationList);
 
         getServletConfig().getServletContext().getRequestDispatcher(
-                "/WEB-INF/views/setup/subsystem-participation.jsp").forward(
+                "/WEB-INF/views/setup/system-participation.jsp").forward(
                 request, response);
     }
 }

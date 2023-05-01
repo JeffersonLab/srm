@@ -35,7 +35,7 @@
     <jsp:body>
         <section>
             <form id="filter-form" method="get" action="signoff">
-                <div id="start-with-div"><input id="start-with-checkbox" name="subsystemFirst" class="change-submit"
+                <div id="start-with-div"><input id="start-with-checkbox" name="systemFirst" class="change-submit"
                                                 value="Y"${param.subsystemFirst eq 'Y' ? ' checked="checked"' : ''}
                                                 type="checkbox"/><label for="start-with-checkbox">Start with
                     Category/System</label></div>
@@ -360,7 +360,7 @@
                 </div>
             </div>
             <div id="flyouts">
-                <div class="all-subsystems-flyout">
+                <div class="all-systems-flyout">
                     <div class="flyout-panel">
                         <button class="close-bubble">X</button>
                         <div class="bubble-title">Looking for all Subsystems at once?</div>

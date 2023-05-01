@@ -246,7 +246,7 @@ public class SignoffReportUrlParamHandler implements UrlParamHandler<SignoffRepo
         }
 
         if (system != null) {
-            filters.add("Subsystem \"" + system.getName() + "\"");
+            filters.add("System \"" + system.getName() + "\"");
         }
 
         if (region != null) {

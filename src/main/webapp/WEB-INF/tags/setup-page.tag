@@ -23,8 +23,8 @@
                             <li${'/setup/component-participation' eq currentPath ? ' class="current-secondary"' : ''}><a
                                     href="${pageContext.request.contextPath}/setup/component-participation">Component
                                 Part.</a></li>
-                            <li${'/setup/subsystem-participation' eq currentPath ? ' class="current-secondary"' : ''}><a
-                                    href="${pageContext.request.contextPath}/setup/subsystem-participation">Subsystem
+                            <li${'/setup/system-participation' eq currentPath ? ' class="current-secondary"' : ''}><a
+                                    href="${pageContext.request.contextPath}/setup/system-participation">Subsystem
                                 Part.</a></li>
                             <li${'/setup/group-responsibility' eq currentPath ? ' class="current-secondary"' : ''}><a
                                     href="${pageContext.request.contextPath}/setup/group-responsibility">Group Resp.</a>

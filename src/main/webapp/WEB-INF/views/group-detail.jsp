@@ -44,8 +44,8 @@
                         <tbody>
                         <c:forEach var="responsibility" items="${group.groupResponsibilityList}">
                             <tr>
-                                <td><a title="Subsystem Information" class="dialog-ready"
-                                       data-dialog-title="Subsystem Information: ${fn:escapeXml(responsibility.system.name)}"
+                                <td><a title="System Information" class="dialog-ready"
+                                       data-dialog-title="System Information: ${fn:escapeXml(responsibility.system.name)}"
                                        href="${pageContext.request.contextPath}/system-detail?systemId=${responsibility.system.systemId}"><c:out
                                         value="${responsibility.system.name}"/></a></td>
                                 <td class="right-aligned"><c:out value="${responsibility.weight}"/></td>

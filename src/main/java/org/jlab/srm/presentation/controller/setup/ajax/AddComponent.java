@@ -76,7 +76,7 @@ public class AddComponent extends HttpServlet {
                 System.out.println("Message: " + dbException.getMessage());*/
 
                 if (dbException.getErrorCode() == 1 && "23000".equals(dbException.getSQLState()) && dbException.getMessage().contains("COMPONENT_AK1")) {
-                    errorReason = "There is already a component in this subsystem with that name";
+                    errorReason = "There is already a component in this system with that name";
                 } else if (dbException.getErrorCode() == 2290 && "23000".equals(dbException.getSQLState()) && dbException.getMessage().contains("COMPONENT_CK4")) {
                     errorReason = "Component name cannot contain an asterisk because we use the asterisk to denote unpowered components";
                 } else {

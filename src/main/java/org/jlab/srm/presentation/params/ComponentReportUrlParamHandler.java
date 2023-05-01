@@ -232,7 +232,7 @@ public class ComponentReportUrlParamHandler implements UrlParamHandler<Component
         }
 
         if (system != null) {
-            filters.add("Subsystem \"" + system.getName() + "\"");
+            filters.add("System \"" + system.getName() + "\"");
         }
 
         if (region != null) {

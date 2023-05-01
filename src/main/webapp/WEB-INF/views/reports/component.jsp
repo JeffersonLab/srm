@@ -200,7 +200,7 @@
                                     <c:url var="url" value="../signoff">
                                         <c:param name="systemId" value="${component.systemId}"/>
                                         <c:param name="componentName" value="${component.name}"/>
-                                        <c:param name="subsystemFirst" value="Y"/>
+                                        <c:param name="systemFirst" value="Y"/>
                                         <c:param name="qualified" value=""/>
                                     </c:url>
                                     <a href="${fn:escapeXml(url)}"><c:out value="${component.statusName}"/></a>

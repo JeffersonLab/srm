@@ -26,7 +26,7 @@ public class ExcelFacade {
 
     public void exportCategoriesAndSubsystems(OutputStream out) throws IOException {
         Workbook wb = new XSSFWorkbook();
-        sheet = wb.createSheet("Categories and Subsystems");
+        sheet = wb.createSheet("Categories and systems");
 
         Category root = categoryFacade.findRootWithChildren();
 

@@ -53,13 +53,13 @@ public class AddSystem extends HttpServlet {
             logger.log(Level.WARNING, "Not authorized", e);
             errorReason = "Not authorized";
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "Unable to add subsystem", e);
+            logger.log(Level.SEVERE, "Unable to add system", e);
             Throwable rootCause = ExceptionUtil.getRootCause(e);
             if (rootCause instanceof SQLException) {
                 SQLException dbException = (SQLException) rootCause;
 
                 if (dbException.getErrorCode() == 1 && "23000".equals(dbException.getSQLState())) {
-                    errorReason = "There is already a subsystem with that name";
+                    errorReason = "There is already a system with that name";
                 } else {
                     errorReason = "Database exception";
                 }

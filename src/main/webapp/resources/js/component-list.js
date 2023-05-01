@@ -110,7 +110,7 @@ jlab.hco.validateRegionComponentForm = function () {
 };
 jlab.hco.validateEditComponentForm = function () {
     if ($("#edit-system-select").val() === '') {
-        alert('Please specify a subsystem');
+        alert('Please specify a system');
         return false;
     }
     if ($("#edit-component-name").val() === '') {

@@ -170,7 +170,7 @@
                     <c:param name="change" value="DOWNGRADE"/>
                     <c:param name="change" value="CASCADE"/>
                     <c:param name="change" value="COMMENT"/>
-                    <c:param name="change" value="COMPONENT_SUBSYSTEM"/>
+                    <c:param name="change" value="COMPONENT_SYSTEM"/>
                     <c:param name="qualified" value=""/>
                 </c:url>
                 Not all results shown. See <a href="${pathPrefix}${url}">full report</a>.

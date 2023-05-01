@@ -5,7 +5,7 @@
 <%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib prefix="hco" uri="http://jlab.org/hco/functions" %>
-<c:set var="title" value="Subsystem Activity"/>
+<c:set var="title" value="System Activity"/>
 <t:reports-page title="${title}">  
     <jsp:attribute name="stylesheets"> 
     </jsp:attribute>

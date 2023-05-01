@@ -39,7 +39,7 @@
                                             <c:out value="${system.name}"/></option>
                                     </c:forEach>
                                 </select>
-                                <a href="#" class="flyout-link" data-flyout-type="all-subsystems-flyout">All</a>
+                                <a href="#" class="flyout-link" data-flyout-type="all-systems-flyout">All</a>
                             </div>
                         </div>
                     </div>
@@ -101,7 +101,7 @@
                                     <c:out value="${system.name}"/></option>
                             </c:forEach>
                         </select>
-                        <a href="#" class="flyout-link" data-flyout-type="all-subsystems-flyout">All</a>
+                        <a href="#" class="flyout-link" data-flyout-type="all-systems-flyout">All</a>
                     </div>
                 </li>
             </ul>

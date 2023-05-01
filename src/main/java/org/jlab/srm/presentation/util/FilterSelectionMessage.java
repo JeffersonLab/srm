@@ -51,7 +51,7 @@ public final class FilterSelectionMessage {
         }
 
         if (selectedSystem != null) {
-            Map.Entry<String, Object> entry = new AbstractMap.SimpleEntry<>("Subsystem", selectedSystem.getName());
+            Map.Entry<String, Object> entry = new AbstractMap.SimpleEntry<>("System", selectedSystem.getName());
 
             footnoteList.add(entry);
         }
@@ -94,7 +94,7 @@ public final class FilterSelectionMessage {
         }
 
         if (system != null) {
-            filters.add("Subsystem \"" + system.getName() + "\"");
+            filters.add("System \"" + system.getName() + "\"");
         }
 
         if (region != null) {
@@ -160,7 +160,7 @@ public final class FilterSelectionMessage {
         }
 
         if (system != null) {
-            filters.add("Subsystem \"" + system.getName() + "\"");
+            filters.add("System \"" + system.getName() + "\"");
         }
 
         if (group != null) {
@@ -206,7 +206,7 @@ public final class FilterSelectionMessage {
         }
 
         if (system != null) {
-            filters.add("Subsystem \"" + system.getName() + "\"");
+            filters.add("System \"" + system.getName() + "\"");
         }
 
         if (region != null) {
@@ -274,7 +274,7 @@ public final class FilterSelectionMessage {
         }
 
         if (system != null) {
-            filters.add("Subsystem \"" + system.getName() + "\"");
+            filters.add("System \"" + system.getName() + "\"");
         }
 
         if (destinationList != null && !destinationList.isEmpty()) {

@@ -207,7 +207,7 @@ public class GroupResponsibilityReportUrlParamHandler implements
         }
 
         if (system != null) {
-            filters.add("Subsystem \"" + system.getName() + "\"");
+            filters.add("System \"" + system.getName() + "\"");
         }
 
         if (group != null) {

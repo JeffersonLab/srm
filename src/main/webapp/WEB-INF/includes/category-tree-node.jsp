@@ -16,9 +16,9 @@
     <c:if test="${(fn:length(parent.systemList) > 0)}">
         <ul class="system-list">
             <c:forEach var="child" items="${parent.systemList}">
-                <li data-node-type="SYSTEM" data-jstree='{"type":"SYSTEM"}'><a title="Subsystem Information"
+                <li data-node-type="SYSTEM" data-jstree='{"type":"SYSTEM"}'><a title="System Information"
                                                                                class="dialog-ready"
-                                                                               data-dialog-title="Subsystem Information: ${fn:escapeXml(child.name)}"
+                                                                               data-dialog-title="System Information: ${fn:escapeXml(child.name)}"
                                                                                href="${pageContext.request.contextPath}/system-detail?systemId=${child.systemId}"><c:out
                         value="${child.name}"/></a></li>
             </c:forEach>

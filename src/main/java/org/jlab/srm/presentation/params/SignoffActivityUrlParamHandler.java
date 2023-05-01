@@ -311,7 +311,7 @@ public class SignoffActivityUrlParamHandler implements UrlParamHandler<SignoffAc
         }
 
         if (system != null) {
-            filters.add("Subsystem \"" + system.getName() + "\"");
+            filters.add("System \"" + system.getName() + "\"");
         }
 
         if (region != null) {

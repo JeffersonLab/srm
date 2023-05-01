@@ -74,7 +74,7 @@ public class EditComponent extends HttpServlet {
                 System.out.println("Message: " + dbException.getMessage());*/
 
                 if (dbException.getErrorCode() == 1 && "23000".equals(dbException.getSQLState()) && dbException.getMessage().contains("COMPONENT_AK1")) {
-                    errorReason = "There is already a component in this subsystem with that name";
+                    errorReason = "There is already a component in this system with that name";
                 } else if (dbException.getErrorCode() == 2290 && "23000".equals(dbException.getSQLState()) && dbException.getMessage().contains("COMPONENT_CK4")) {
                     errorReason = "Component name cannot contain an asterisk because we use the asterisk to denote unpowered components";
                 } /*else if (dbException.getErrorCode() == 2292 && "23000".equals(dbException.getSQLState()) && dbException.getMessage().contains("GROUP_SIGNOFF_FK1")) { 
@@ -86,7 +86,7 @@ public class EditComponent extends HttpServlet {
                 XAException txException = (XAException) rootCause;
 
                 if (txException.getMessage().contains("GROUP_SIGNOFF_FK1")) {
-                    errorReason = "Cannot reassign component to a new subsystem because the component has signoffs.  Select the force option if a loss of signoffs / signoff history is acceptable.";
+                    errorReason = "Cannot reassign component to a new system because the component has signoffs.  Select the force option if a loss of signoffs / signoff history is acceptable.";
                 } else {
                     errorReason = "Unable to complete database transaction";
                 }

@@ -4,7 +4,7 @@ jlab.hco.bulkSignoff = function (systemsArray, statusId, comment) {
     $("#filter-form").hide();
     $("#required-span").text("");
 
-    var $table = $('<table class="data-table"><thead><tr><th>Subsystem</th><th>Progress</th></tr></thead><tbody></tbody></table>'),
+    var $table = $('<table class="data-table"><thead><tr><th>System</th><th>Progress</th></tr></thead><tbody></tbody></table>'),
         $div = $("#bulk-div");
 
     $div.append($table);
@@ -81,7 +81,7 @@ $(document).on("click", "#submit-button", function () {
     });
 
     if (systemsArray.length === 0) {
-        alert('Please select at least one subsystem');
+        alert('Please select at least one system');
         return false;
     }
 

@@ -941,7 +941,7 @@ public class ComponentFacade extends AbstractFacade<Component> {
 
             // Finally, notify any groups with new responsibility by logging initial NOT_READY signoffs
             for (ResponsibleGroup g : groupsToNotify) {
-                String comment = "New group responsibility assignment due to component subsystem change";
+                String comment = "New group responsibility assignment due to component system change";
 
                 groupResponsibilityFacade.setInitialComponentSignoffs(component, g, comment, username);
             }
@@ -968,13 +968,13 @@ public class ComponentFacade extends AbstractFacade<Component> {
         }
 
         if (systemId == null) {
-            throw new UserFriendlyException("Subsystem must not be empty");
+            throw new UserFriendlyException("System must not be empty");
         }
 
         SystemEntity system = systemFacade.find(systemId);
 
         if (system == null) {
-            throw new UserFriendlyException("Subsystem with ID: " + systemId + " not found");
+            throw new UserFriendlyException("System with ID: " + systemId + " not found");
         }
 
         if (regionId == null) {
@@ -1348,13 +1348,13 @@ public class ComponentFacade extends AbstractFacade<Component> {
         }
 
         if (systemId == null) {
-            throw new UserFriendlyException("Subsystem must not be empty");
+            throw new UserFriendlyException("System must not be empty");
         }
 
         SystemEntity system = systemFacade.find(systemId);
 
         if (system == null) {
-            throw new UserFriendlyException("Subsystem with ID: " + systemId + " not found");
+            throw new UserFriendlyException("System with ID: " + systemId + " not found");
         }
 
         /*First see if user is an admin over current system*/

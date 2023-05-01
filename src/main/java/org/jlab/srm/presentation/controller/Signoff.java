@@ -87,10 +87,10 @@ public class Signoff extends HttpServlet {
 
         try {
             systemFirst
-                    = ParamUtil.convertAndValidateYNBoolean(request, "subsystemFirst",
+                    = ParamUtil.convertAndValidateYNBoolean(request, "systemFirst",
                     false);
         } catch (Exception e) {
-            throw new ServletException("Unable to parse boolean (subsystemFirst)");
+            throw new ServletException("Unable to parse boolean (systemFirst)");
         }
 
         List<BeamDestination> destinationList = destinationFacade.findAll(
@@ -198,7 +198,7 @@ public class Signoff extends HttpServlet {
                 selectedRegionList = regionFacade.findMultiple(params.getRegionIdArray());
         }
 
-        String selectionMessage = "Select a group and subsystem to continue";
+        String selectionMessage = "Select a group and system to continue";
 
         if (componentList != null) {
             DecimalFormat formatter = new DecimalFormat("###,###");

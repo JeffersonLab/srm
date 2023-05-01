@@ -126,8 +126,8 @@
                                             <div class="li-value">
                                                 <span class="fullpage-only"><c:out
                                                         value="${checklist.groupResponsibility.system.name}"/></span>
-                                                <a title="Subsystem Information" class="dialog-ready dialog-only"
-                                                   data-dialog-title="Subsystem Information: ${fn:escapeXml(checklist.groupResponsibility.system.name)}"
+                                                <a title="System Information" class="dialog-ready dialog-only"
+                                                   data-dialog-title="System Information: ${fn:escapeXml(checklist.groupResponsibility.system.name)}"
                                                    href="${pageContext.request.contextPath}/system-detail?systemId=${checklist.groupResponsibility.system.systemId}"><c:out
                                                         value="${checklist.groupResponsibility.system.name}"/></a>
                                             </div>

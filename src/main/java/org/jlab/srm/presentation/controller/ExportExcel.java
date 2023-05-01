@@ -32,7 +32,7 @@ public class ExportExcel extends HttpServlet {
             throws ServletException, IOException {
 
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        response.setHeader("content-disposition", "attachment;filename=\"categories-subsystems.xlsx\"");
+        response.setHeader("content-disposition", "attachment;filename=\"categories-systems.xlsx\"");
 
         excelFacade.exportCategoriesAndSubsystems(response.getOutputStream());
     }

@@ -323,7 +323,7 @@ public class SystemFacade extends AbstractFacade<SystemEntity> {
         SystemEntity s = find(systemId);
 
         if (s == null) {
-            throw new UserFriendlyException("Could not find subsystem with ID: " + systemId);
+            throw new UserFriendlyException("Could not find system with ID: " + systemId);
         }
 
         s.setCategory(parent);

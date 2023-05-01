@@ -3,21 +3,21 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<c:set var="title" value="Subsystem Application Participation"/>
+<c:set var="title" value="System Application Participation"/>
 <t:setup-page title="${title}">  
     <jsp:attribute name="stylesheets">
         <link rel="stylesheet" type="text/css"
-              href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/subsystem-participation.css"/>
+              href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/system-participation.css"/>
     </jsp:attribute>
     <jsp:attribute name="scripts">              
         <script type="text/javascript"
-                src="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/js/subsystem-participation.js"></script>
+                src="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/js/system-participation.js"></script>
     </jsp:attribute>
     <jsp:body>
         <section>
             <s:filter-flyout-widget>
                 <form id="filter-form" method="get"
-                      action="${pageContext.request.contextPath}/setup/subsystem-participation">
+                      action="${pageContext.request.contextPath}/setup/system-participation">
                     <fieldset>
                         <legend>Filter</legend>
                         <ul class="key-value-list">
@@ -77,7 +77,7 @@
                     <c:forEach items="${systemList}" var="system">
                         <tr data-system-id="${system.systemId}">
                             <th><a title="System Information" class="dialog-ready"
-                                   data-dialog-title="Subsystem Information: ${fn:escapeXml(system.name)}"
+                                   data-dialog-title="System Information: ${fn:escapeXml(system.name)}"
                                    href="${pageContext.request.contextPath}/system-detail?systemId=${system.systemId}"><c:out
                                     value="${system.name}"/></a></th>
                             <c:forEach items="${applicationList}" var="application">
