@@ -1,7 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@taglib prefix="hco" uri="http://jlab.org/hco/functions" %>
+<%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,7 +25,7 @@
             <dt>Leaders:</dt>
             <dd>
                 <ul>
-                    <c:forEach var="leader" items="${group.leaderWorkgroup.userList}">
+                    <c:forEach var="leader" items="${group.leaders}">
                         <li><c:out value="${s:formatUser(leader)}"/></li>
                     </c:forEach>
                 </ul>

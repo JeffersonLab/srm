@@ -25,13 +25,13 @@
                 </thead>
                 <tbody>
                 <c:forEach items="${groupList}" var="group">
-                    <tr data-group-id="${group.groupId}" data-workgroup-id="${group.leaderWorkgroup.workgroupId}">
+                    <tr data-group-id="${group.groupId}" data-workgroup="${group.leaderWorkgroup}">
                         <td><a title="Group Information" class="dialog-ready"
                                data-dialog-title="Group Information: ${fn:escapeXml(group.name)}"
                                href="${pageContext.request.contextPath}/group-detail?groupId=${group.groupId}"><c:out
                                 value="${group.name}"/></a></td>
                         <td><c:out value="${group.description}"/></td>
-                        <td><c:out value="${group.leaderWorkgroup.name}"/></td>
+                        <td><c:out value="${group.leaderWorkgroup}"/></td>
                     </tr>
                 </c:forEach>
                 </tbody>
