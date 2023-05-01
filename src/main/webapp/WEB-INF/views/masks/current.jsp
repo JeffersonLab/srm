@@ -203,7 +203,7 @@
                                                 </td>
                                                 <td>
                                                     <a title="Component Information" class="dialog-ready"
-                                                       data-dialog-title="Component Information: ${fn:escapeXml(hco:formatComponent(component))}"
+                                                       data-dialog-title="Component Information: ${fn:escapeXml(srm:formatComponent(component))}"
                                                        href="${pageContext.request.contextPath}/reports/component/detail?componentId=${component.componentId}">
                                                         <span class="component-name"
                                                               data-raw-name="${component.name}"><c:out
