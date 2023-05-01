@@ -266,7 +266,7 @@
                                     <span class="small-icon CATEGORY"></span>
                                 </div>
                                 <div class="li-value">
-                                    Category/System
+                                    Category
                                 </div>
                             </li>
                             <li>
