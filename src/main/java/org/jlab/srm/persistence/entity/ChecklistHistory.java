@@ -30,7 +30,7 @@ public class ChecklistHistory implements Serializable {
     @Size(max = 64)
     @Column(length = 64)
     private String author;
-    @Column(length = 64)
+    @Column(name = "MODIFIED_USERNAME", length = 64)
     private String modifiedBy;
     @Basic(optional = false)
     @NotNull
