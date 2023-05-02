@@ -79,7 +79,7 @@
                                         <td><c:out value="${responsibility.checklistRequired ? 'Yes' : 'No'}"/></td>
                                         <td>
                                             <c:out value="${responsibility.published ? 'Yes' : 'No'}"/>
-                                            <c:if test="${responsibility.publishedBy ne null}">
+                                            <c:if test="${responsibility.published and responsibility.publishedBy ne null}">
                                                 [by <c:out value="${s:formatUsername(responsibility.publishedBy)}"/>
                                                 on <fmt:formatDate pattern="${s:getFriendlyDateTimePattern()}"
                                                                    value="${responsibility.publishedDate}"/>]

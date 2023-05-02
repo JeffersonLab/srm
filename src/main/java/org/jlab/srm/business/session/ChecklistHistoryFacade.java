@@ -51,7 +51,7 @@ public class ChecklistHistoryFacade extends AbstractFacade<ChecklistHistory> {
      */
     @PermitAll
     public void createSpecial(ChecklistHistory checklist) {
-        Query q = em.createNativeQuery("insert into checklist_history (checklist_history_id, checklist_id, body_html, author, modified_date, modified_by, comments) values (checklist_history_id.nextval, ?, ?, ?, ?, ?, ?)");
+        Query q = em.createNativeQuery("insert into checklist_history (checklist_history_id, checklist_id, body_html, author, modified_date, modified_username, comments) values (checklist_history_id.nextval, ?, ?, ?, ?, ?, ?)");
 
         q.setParameter(1, checklist.getChecklist().getChecklistId());
         q.setParameter(2, checklist.getBodyHtml());

@@ -128,7 +128,7 @@ public class ChecklistFacade extends AbstractFacade<Checklist> {
 
         BigInteger checklistId = BigInteger.valueOf(((Number) q1.getSingleResult()).longValue());
 
-        Query q = em.createNativeQuery("insert into checklist (checklist_id, body_html, author, modified_date, modified_by, comments) values (?, ?, ?, ?, ?, ?)");
+        Query q = em.createNativeQuery("insert into checklist (checklist_id, body_html, author, modified_date, modified_username, comments) values (?, ?, ?, ?, ?, ?)");
 
         q.setParameter(1, checklistId);
         q.setParameter(2, checklist.getBodyHtml());
