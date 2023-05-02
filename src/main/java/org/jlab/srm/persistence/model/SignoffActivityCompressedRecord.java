@@ -15,15 +15,12 @@ public class SignoffActivityCompressedRecord implements Serializable {
     private BigInteger systemId;
     private BigInteger groupId;
     private BigInteger statusId;
-    private BigInteger modifiedBy;
+    private String modifiedBy;
     private Date modifiedDate;
     private String comments;
     private String systemName;
     private String groupName;
     private String statusName;
-    private String username;
-    private String firstname;
-    private String lastname;
     private SignoffChangeType changeType;
 
 
@@ -75,11 +72,11 @@ public class SignoffActivityCompressedRecord implements Serializable {
         this.statusId = statusId;
     }
 
-    public BigInteger getModifiedBy() {
+    public String getModifiedBy() {
         return modifiedBy;
     }
 
-    public void setModifiedBy(BigInteger modifiedBy) {
+    public void setModifiedBy(String modifiedBy) {
         this.modifiedBy = modifiedBy;
     }
 
@@ -137,30 +134,6 @@ public class SignoffActivityCompressedRecord implements Serializable {
 
     public void setStatusName(String statusName) {
         this.statusName = statusName;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
     }
 
     public BigInteger getComponentCount() {

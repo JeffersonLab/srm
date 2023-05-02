@@ -235,7 +235,7 @@
                                     <td><fmt:formatDate pattern="${s:getFriendlyDateTimePattern()}"
                                                         value="${activity.modifiedDate}"/></td>
                                     <td><c:out
-                                            value="${activity.lastname}, ${activity.firstname} (${activity.username})"/></td>
+                                            value="${s:formatUsername(activity.modifiedBy)}"/></td>
                                     <td><c:out value="${srm:formatChangeType(activity.changeType)}"/>; <c:out
                                             value="${activity.statusName}"/></td>
                                     <c:if test="${param.dialog ne 'true'}">

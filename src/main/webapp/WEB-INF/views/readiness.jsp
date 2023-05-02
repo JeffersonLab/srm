@@ -310,8 +310,8 @@
                                             <span class="date-header" title="${fn:escapeXml(fullDate)}"><fmt:formatDate
                                                     pattern="dd MMM HH:mm" value="${signoff.modifiedDate}"/></span>
                                             - <span class="activity-user"
-                                                    title="${signoff.lastname}, ${signoff.firstname} (${signoff.username})"><c:out
-                                                value="${signoff.username}"/></span>
+                                                    title="${s:formatUsername(signoff.modifiedBy)}"><c:out
+                                                value="${signoff.modifiedBy}"/></span>
                                             - <c:out value="${srm:formatChangeType(signoff.changeType)}"/> - <c:out
                                                 value="${signoff.systemName}"/>
                                             - <c:out

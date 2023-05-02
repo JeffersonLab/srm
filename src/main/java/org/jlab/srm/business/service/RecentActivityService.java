@@ -81,7 +81,7 @@ public class RecentActivityService {
                 BigInteger firstHistoryId = rs.getBigDecimal(2).toBigIntegerExact();
                 BigInteger firstComponentId = rs.getBigDecimal(3).toBigIntegerExact();
                 Date modifiedDate = rs.getDate(4);
-                BigInteger modifiedBy = rs.getBigDecimal(5).toBigIntegerExact();
+                String modifiedBy = rs.getString(5);
                 BigInteger systemId = rs.getBigDecimal(6).toBigIntegerExact();
                 BigInteger groupId = rs.getBigDecimal(7).toBigIntegerExact();
                 String comments = rs.getString(8);
@@ -92,10 +92,7 @@ public class RecentActivityService {
                 String groupName = rs.getString(11);
                 String systemName = rs.getString(12);
                 String componentName = rs.getString(13);
-                String username = rs.getString(14);
-                String lastname = rs.getString(15);
-                String firstname = rs.getString(16);
-                String unpoweredStr = rs.getString(17);
+                String unpoweredStr = rs.getString(14);
                 boolean unpowered = "Y".equals(unpoweredStr);
 
                 SignoffActivityCompressedRecord record = new SignoffActivityCompressedRecord();
@@ -114,9 +111,6 @@ public class RecentActivityService {
                 record.setGroupName(groupName);
                 record.setSystemName(systemName);
                 record.setFirstComponentName(componentName);
-                record.setUsername(username);
-                record.setLastname(lastname);
-                record.setFirstname(firstname);
                 record.setFirstUnpowered(unpowered);
 
                 recordList.add(record);

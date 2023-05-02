@@ -52,7 +52,7 @@ public class GroupSignoffHistoryFacade extends AbstractFacade<GroupSignoffHistor
     @Override
     @PermitAll
     public void create(GroupSignoffHistory history) {
-        Query q = em.createNativeQuery("insert into group_signoff_history (group_signoff_history_id, system_id, group_id, component_id, status_id, modified_by, modified_date, comments, change_type) values (group_signoff_history_id.nextval, ?, ?, ?, ?, ?, ?, ?, ?)");
+        Query q = em.createNativeQuery("insert into group_signoff_history (group_signoff_history_id, system_id, group_id, component_id, status_id, modified_username, modified_date, comments, change_type) values (group_signoff_history_id.nextval, ?, ?, ?, ?, ?, ?, ?, ?)");
 
         q.setParameter(1, history.getSystemId());
         q.setParameter(2, history.getGroupId());
