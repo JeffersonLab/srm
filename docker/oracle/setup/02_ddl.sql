@@ -479,7 +479,7 @@ create view srm_owner.signoff_activity as
 select
     a.group_signoff_history_id,
     a.modified_date,
-    a.modified_by,
+    a.modified_username,
     a.comments,
     a.system_id,
     a.component_id,
@@ -492,8 +492,7 @@ select
     c.unpowered_yn,
     d.name as group_name,
     e.name as status_name,
-    f.name as region_name,
-    a.modified_username
+    f.name as region_name
 from
     srm_owner.group_signoff_history a,
     srm_owner.system b,
@@ -537,9 +536,9 @@ select distinct(system_id), name, category_id, weight,
 from srm_owner.system_aud inner join srm_owner.application_revision_info using(rev)
 where revtype = 2;
 
-CREATE OR REPLACE VIEW SRM_OWNER.DELETED_COMPONENTS ("COMPONENT_ID", "NAME", "SYSTEM_ID", "DATA_SOURCE", "DATA_SOURCE_ID", "REGION_ID", "MASKED", "MASKED_COMMENT", "MASKED_DATE", "MASKED_BY", "MASK_EXPIRATION_DATE", "WEIGHT", "ADDED_DATE", "UNPOWERED_YN", "MASK_TYPE_ID", "DELETED_DATE", "USERNAME", "ADDRESS") AS
+CREATE OR REPLACE VIEW SRM_OWNER.DELETED_COMPONENTS ("COMPONENT_ID", "NAME", "SYSTEM_ID", "DATA_SOURCE", "DATA_SOURCE_ID", "REGION_ID", "MASKED", "MASKED_COMMENT", "MASKED_DATE", "MASKED_USERNAME", "MASK_EXPIRATION_DATE", "WEIGHT", "ADDED_DATE", "UNPOWERED_YN", "MASK_TYPE_ID", "DELETED_DATE", "USERNAME", "ADDRESS") AS
 select distinct(component_id), name, system_id, data_source, data_source_id, region_id, masked, masked_comment,
-               masked_date, masked_by, mask_expiration_date, weight, added_date, unpowered_yn, mask_type_id,
+               masked_date, masked_username, mask_expiration_date, weight, added_date, unpowered_yn, mask_type_id,
                cast((timestamp '1970-01-01 00:00:00 GMT' +
                      numtodsinterval(revtstmp/1000, 'SECOND'))
                    at time zone 'America/New_York' as date) as DELETED_DATE,
@@ -562,14 +561,14 @@ where revtype = 2
 union
 select system_id, name, category_id, weight from srm_owner.system;
 
-CREATE OR REPLACE FORCE VIEW SRM_OWNER.ALL_COMPONENTS ("COMPONENT_ID", "NAME", "SYSTEM_ID", "DATA_SOURCE", "DATA_SOURCE_ID", "REGION_ID", "MASKED", "MASKED_COMMENT", "MASKED_DATE", "MASKED_BY", "MASK_EXPIRATION_DATE", "WEIGHT", "ADDED_DATE", "UNPOWERED_YN", "MASK_TYPE_ID") AS
+CREATE OR REPLACE FORCE VIEW SRM_OWNER.ALL_COMPONENTS ("COMPONENT_ID", "NAME", "SYSTEM_ID", "DATA_SOURCE", "DATA_SOURCE_ID", "REGION_ID", "MASKED", "MASKED_COMMENT", "MASKED_DATE", "MASKED_USERNAME", "MASK_EXPIRATION_DATE", "WEIGHT", "ADDED_DATE", "UNPOWERED_YN", "MASK_TYPE_ID") AS
 select distinct(component_id), name, system_id, data_source, data_source_id, region_id, masked, masked_comment,
-               masked_date, masked_by, mask_expiration_date, weight, added_date, unpowered_yn, mask_type_id
+               masked_date, masked_username, mask_expiration_date, weight, added_date, unpowered_yn, mask_type_id
 from srm_owner.component_aud inner join srm_owner.application_revision_info using(rev)
 where revtype = 2
 union
 select component_id, name, system_id, data_source, data_source_id, region_id, masked, masked_comment, masked_date,
-       masked_by, mask_expiration_date, weight, added_date, unpowered_yn, mask_type_id
+       masked_username, mask_expiration_date, weight, added_date, unpowered_yn, mask_type_id
 from srm_owner.component;
 
 
@@ -916,7 +915,7 @@ create or replace procedure SRM_OWNER.CHANGE_COMPONENT_POWER (comp_id in integer
     comp_system_id integer;
     old_status_id integer;
     new_change_type varchar2(24 char) := 'DOWNGRADE';
-    new_staff_id integer := 233; -- Can't be null so... Ron Lazue!
+    new_username varchar2(64 char) := 'hco-admin';
     new_comment varchar(1024 char);
     formatted_yn varchar(3);
 BEGIN
@@ -939,16 +938,16 @@ BEGIN
             end if;
 
             if old_status_id is not null then
-                update group_signoff set status_id = 100, comments = new_comment, change_type = new_change_type, modified_date = sysdate, modified_by = new_staff_id where component_id = comp_id and group_id = resp_group.group_id;
+                update group_signoff set status_id = 100, comments = new_comment, change_type = new_change_type, modified_date = sysdate, modified_username = new_username where component_id = comp_id and group_id = resp_group.group_id;
             else
                 insert into group_signoff
-                (group_signoff_id, system_id, group_id, component_id, status_id, modified_by, modified_date, comments, change_type)
-                values(group_signoff_id.nextval, comp_system_id, resp_group.group_id, comp_id, 100, new_staff_id, sysdate, new_comment, new_change_type);
+                (group_signoff_id, system_id, group_id, component_id, status_id, modified_username, modified_date, comments, change_type)
+                values(group_signoff_id.nextval, comp_system_id, resp_group.group_id, comp_id, 100, new_username, sysdate, new_comment, new_change_type);
             end if;
 
             insert into group_signoff_history
-            (group_signoff_history_id, system_id, group_id, component_id, status_id, modified_by, modified_date, comments, change_type)
-            values(group_signoff_history_id.nextval, comp_system_id, resp_group.group_id, comp_id, 100, new_staff_id, sysdate, new_comment, new_change_type);
+            (group_signoff_history_id, system_id, group_id, component_id, status_id, modified_username, modified_date, comments, change_type)
+            values(group_signoff_history_id.nextval, comp_system_id, resp_group.group_id, comp_id, 100, new_username, sysdate, new_comment, new_change_type);
         end loop;
 END;
 /
