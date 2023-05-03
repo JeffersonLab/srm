@@ -674,7 +674,7 @@ CREATE SEQUENCE SRM_OWNER.SYSTEM_ID
 	NOCACHE
 	ORDER;
 
--- Populate System - Application map
+-- Populate System - Application Participation
 insert into SRM_OWNER.SYSTEM_APPLICATION (APPLICATION_ID, SYSTEM_ID) values (1, 35);
 insert into SRM_OWNER.SYSTEM_APPLICATION (APPLICATION_ID, SYSTEM_ID) values (1, 36);
 insert into SRM_OWNER.SYSTEM_APPLICATION (APPLICATION_ID, SYSTEM_ID) values (1, 37);
