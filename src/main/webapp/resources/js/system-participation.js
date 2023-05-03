@@ -33,7 +33,7 @@ jlab.srm.toggle = function () {
 
     $td.html("<span class=\"button-indicator\"></span>");
 
-    window.console && console.log("systemId: " + systemId + ", applicationId: " + applicationId);
+    //window.console && console.log("systemId: " + systemId + ", applicationId: " + applicationId);
 
     var request = jQuery.ajax({
         url: jlab.contextPath + "/setup/ajax/toggle-system-participation",

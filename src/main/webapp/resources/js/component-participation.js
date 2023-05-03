@@ -33,7 +33,7 @@ jlab.srm.toggle = function () {
 
     $td.html("<span class=\"button-indicator\"></span>");
 
-    window.console && console.log("componentId: " + componentId + ", destinationId: " + destinationId);
+    //window.console && console.log("componentId: " + componentId + ", destinationId: " + destinationId);
 
     var request = jQuery.ajax({
         url: jlab.contextPath + "/setup/ajax/toggle-component-destination",
