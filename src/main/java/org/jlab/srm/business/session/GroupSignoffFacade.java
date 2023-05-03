@@ -467,15 +467,9 @@ public class GroupSignoffFacade extends AbstractFacade<GroupSignoff> {
 
         Properties config = Library.getConfiguration();
 
-        String logbookHostname = System.getenv("LOGBOOK_HOSTNAME");
+        String logbookServer = System.getenv("LOGBOOK_SERVER_URL");
 
-        if (logbookHostname == null || logbookHostname.isEmpty()) {
-            logbookHostname = "logbooktest.acc.jlab.org";
-            LOGGER.log(Level.WARNING,
-                    "Environment variable 'LOGBOOK_HOSTNAME' not found, using default logbooktest.acc.jlab.org");
-        }
-
-        config.setProperty("SUBMIT_URL", "https://" + logbookHostname + "/incoming");
+        config.setProperty("SUBMIT_URL", logbookServer + "/incoming");
 
         long logId;
 
