@@ -148,7 +148,7 @@ public class AllActivityService {
     }
 
     private String buildSharedSql(AllActivityQueryParamHandler handler) {
-        String sql = "with signoff_activity as (select "
+        String sql = "with activity_subquery as (select "
                 + "count(group_signoff_history_id) as component_count, "
                 + "max(group_signoff_history_id) as first_history_id, "
                 + "max(component_id) as first_component_id, "
@@ -180,7 +180,7 @@ public class AllActivityService {
         sql = sql + where;
 
         sql = sql + "union all "
-                + "select modified_date, change_type, modified_username, first_history_id as record_id, first_component_id as component_id, signoff_activity.system_id, first_region_id as region_id, comments as remark, component_count, group_id, status_id, name as component_name from signoff_activity left join all_components on all_components.component_id = signoff_activity.first_component_id " // left join component to get name
+                + "select modified_date, change_type, modified_username, first_history_id as record_id, first_component_id as component_id, activity_subquery.system_id, first_region_id as region_id, comments as remark, component_count, group_id, status_id, name as component_name from activity_subquery left join all_components on all_components.component_id = activity_subquery.first_component_id " // left join component to get name
                 + ") ";
 
         return sql;
