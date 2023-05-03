@@ -584,7 +584,7 @@ with component_activity as (
         (select revtype, rev, revtstmp, username, component_id, system_id, region_id, name, lag(name) over (partition by component_id order by rev) as previous_name from srm_owner.application_revision_info inner join srm_owner.component_aud using(rev))
     where revtype = 1 and name <> previous_name
     union all
-    select rev, revtstmp, username, component_id, system_id, 'PREVIOUSLY: ' || (select name from srm_owner.all_systems where system_id = previous_system_id) as remark, region_id, null as expiration, 'COMPONENT_SUBSYSTEM' as change_type from
+    select rev, revtstmp, username, component_id, system_id, 'PREVIOUSLY: ' || (select name from srm_owner.all_systems where system_id = previous_system_id) as remark, region_id, null as expiration, 'COMPONENT_SYSTEM' as change_type from
         (select revtype, rev, revtstmp, username, component_id, system_id, region_id, lag(system_id) over (partition by component_id order by rev) as previous_system_id from srm_owner.application_revision_info inner join srm_owner.component_aud using(rev))
     where revtype = 1 and system_id <> previous_system_id
     union all
@@ -616,13 +616,13 @@ with component_activity as (
          where revtype = 1 and name <> previous_name
      ),
      system_activity as (
-         select rev, revtstmp, username, category_id, system_id, 'CATEGORY: ' || (select name from srm_owner.all_categories where category_id = system_aud.category_id) as remark, case revtype when 0 then 'ADD_SUBSYSTEM' else 'DELETE_SUBSYSTEM' end as change_type from srm_owner.application_revision_info inner join srm_owner.system_aud using(rev) where revtype in (0,2)
+         select rev, revtstmp, username, category_id, system_id, 'CATEGORY: ' || (select name from srm_owner.all_categories where category_id = system_aud.category_id) as remark, case revtype when 0 then 'ADD_SYSTEM' else 'DELETE_SYSTEM' end as change_type from srm_owner.application_revision_info inner join srm_owner.system_aud using(rev) where revtype in (0,2)
          union all
-         select rev, revtstmp, username, category_id, system_id, (select name from srm_owner.all_categories where category_id = previous_category_id) || ' --> ' || (select name from srm_owner.all_categories where category_id = cat_sub.category_id) as remark, 'REORGANIZE_SUBSYSTEM' as change_type from
+         select rev, revtstmp, username, category_id, system_id, (select name from srm_owner.all_categories where category_id = previous_category_id) || ' --> ' || (select name from srm_owner.all_categories where category_id = cat_sub.category_id) as remark, 'REORGANIZE_SYSTEM' as change_type from
              (select revtype, rev, revtstmp, username, category_id, system_id, lag(category_id) over (partition by system_id order by rev) as previous_category_id from srm_owner.application_revision_info inner join srm_owner.system_aud using(rev)) cat_sub
          where revtype = 1 and category_id <> previous_category_id
          union all
-         select rev, revtstmp, username, category_id, system_id, 'PREVIOUSLY: ' || previous_name as remark, 'RENAME_SUBSYSTEM' as change_type from
+         select rev, revtstmp, username, category_id, system_id, 'PREVIOUSLY: ' || previous_name as remark, 'RENAME_SYSTEM' as change_type from
              (select revtype, rev, revtstmp, username, category_id, system_id, name, lag(name) over (partition by system_id order by rev) as previous_name from srm_owner.application_revision_info inner join srm_owner.system_aud using(rev)) re_sub
          where revtype = 1 and name <> previous_name
      )
@@ -640,7 +640,7 @@ with component_activity as (
         (select rev, revtstmp, username, component_id, system_id, name, lag(name) over (partition by component_id order by rev) as previous_name from srm_owner.application_revision_info inner join srm_owner.component_aud using(rev) where revtype = 1)
     where name <> previous_name
     union all
-    select rev, revtstmp, username, component_id, system_id, cast(previous_system_id as varchar2(1024 char)) as remark, null as expiration, 'MODIFY_COMPONENT_SUBSYSTEM' as change_type from
+    select rev, revtstmp, username, component_id, system_id, cast(previous_system_id as varchar2(1024 char)) as remark, null as expiration, 'MODIFY_COMPONENT_SYSTEM' as change_type from
         (select rev, revtstmp, username, component_id, system_id, lag(system_id) over (partition by component_id order by rev) as previous_system_id from srm_owner.application_revision_info inner join srm_owner.component_aud using(rev) where revtype = 1)
     where system_id <> previous_system_id
     union all
@@ -664,7 +664,7 @@ with component_activity as (
          select rev, revtstmp, username, category_id, case revtype when 0 then 'ADD_CATEGORY' when 1 then 'RENAME_REORGANIZE_CATEGORY' else 'DELETE_CATEGORY' end as change_type from srm_owner.application_revision_info inner join srm_owner.category_aud using(rev)
      ),
      system_activity as (
-         select rev, revtstmp, username, system_id, case revtype when 0 then 'ADD_SUBSYSTEM' when 1 then 'RENAME_RECATEGORIZE_SUBSYSTEM' else 'DELETE_SUBSYSTEM' end as change_type from srm_owner.application_revision_info inner join srm_owner.system_aud using(rev)
+         select rev, revtstmp, username, system_id, case revtype when 0 then 'ADD_SYSTEM' when 1 then 'RENAME_RECATEGORIZE_SYSTEM' else 'DELETE_SYSTEM' end as change_type from srm_owner.application_revision_info inner join srm_owner.system_aud using(rev)
      ),
      signoff_activity as (
          select
