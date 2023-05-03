@@ -237,7 +237,7 @@ public class SignoffActivityFacade extends AbstractFacade<SignoffActivityRecord>
             filters.add(cb.equal(root.get("groupId"), groupId));
         }
         if (username != null && !username.isEmpty()) {
-            filters.add(cb.equal(root.get("modified_username"), username));
+            filters.add(cb.equal(root.get("modifiedBy"), username));
         }
         if (componentName != null && !componentName.isEmpty()) {
             filters.add(cb.like(cb.lower(root.get("componentName")),
@@ -307,7 +307,7 @@ public class SignoffActivityFacade extends AbstractFacade<SignoffActivityRecord>
             filters.add(cb.equal(root.get("groupId"), groupId));
         }
         if (username != null && !username.isEmpty()) {
-            filters.add(cb.equal(root.get("username"), username));
+            filters.add(cb.equal(root.get("modifiedBy"), username));
         }
         if (componentName != null && !componentName.isEmpty()) {
             filters.add(cb.like(cb.lower(root.get("componentName")),
