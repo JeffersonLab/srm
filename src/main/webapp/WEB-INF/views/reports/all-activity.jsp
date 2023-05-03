@@ -62,17 +62,17 @@
     <jsp:attribute name="scripts">
         <script type="text/javascript">
             $(document).on("click", ".default-clear-panel", function () {
-                $("#destination-select").select2("val", "");
+                $("#destination-select").val(null).trigger('change');
                 $("#category-select").val('').trigger('change');
                 $("#system-select").val('');
                 $("#region-select").val('');
                 $("#group-select").val('');
                 $("#user").val('');
                 $("#component").val('');
-                $("#status-select").select2("val", "");
-                $("#component-status-select").select2("val", "");
-                $("#signoff-status-select").select2("val", "");
-                $("#change-select").select2("val", "");
+                $("#status-select").val(null).trigger('change');
+                $("#component-status-select").val(null).trigger('change');
+                $("#signoff-status-select").val(null).trigger('change');
+                $("#change-select").val(null).trigger('change');
                 $("#start").val('');
                 $("#end").val('');
                 $("#date-range").val('custom').trigger('change');
@@ -87,10 +87,10 @@
                 $("#group-select").val('');
                 $("#user").val('');
                 $("#component").val('');
-                $("#status-select").select2("val", "");
-                $("#component-status-select").select2("val", "");
-                $("#signoff-status-select").select2("val", "");
-                $("#change-select").select2("val", "");
+                $("#status-select").val(null).trigger('change');
+                $("#component-status-select").val(null).trigger('change');
+                $("#signoff-status-select").val(null).trigger('change');
+                $("#change-select").val(null).trigger('change');
                 $("#start").val('');
                 $("#end").val('');
                 $("#date-range").val('1day').trigger('change');

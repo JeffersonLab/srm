@@ -551,7 +551,7 @@ $(document).on("click", "#all-systems-link-list a", function () {
     return false;
 });
 $(document).on("click", ".default-clear-panel", function () {
-    $("#destination-select").select2("val", "");
+    $("#destination-select").val(null).trigger('change');
     $("#category-select").val('').trigger('change');
     $("#system-select").val('');
     $("#group-select").val('');
@@ -560,8 +560,8 @@ $(document).on("click", ".default-clear-panel", function () {
     $("#component").val('');
     $("#min-modified").val('');
     $("#max-modified").val('');
-    $("#region-select").select2("val", "");
-    $("#status-select").select2("val", "");
+    $("#region-select").val(null).trigger('change');
+    $("#status-select").val(null).trigger('change');
     return false;
 });
 $(document).on("click", "#exclude-na-link", function () {

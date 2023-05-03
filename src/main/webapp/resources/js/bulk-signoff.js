@@ -47,7 +47,7 @@ jlab.srm.bulkRequest = function (rows, statusId, comment) {
 };
 $(document).on("change", "#category-select", function () {
     var categoryId = $(this).val();
-    $("#system-select").select2("val", "");
+    $("#system-select").val(null).trigger('change');
     jlab.srm.filterSystemListByCategory(categoryId, "#system-select", "", true, true);
     $("system-select").select2("destroy").select2({
         width: 450
@@ -67,7 +67,7 @@ $(document).on("click", "#select-all-link", function () {
     return false;
 });
 $(document).on("click", "#select-none-link", function () {
-    $("#system-select").select2("val", "");
+    $("#system-select").val(null).trigger('change');
 
     return false;
 });

@@ -449,7 +449,7 @@ $(document).on("click", ".default-clear-panel", function () {
     $("#system-select").val('');
     $("#region-select").val('');
     $("#component").val('');
-    $("#col-destination-select").select2("val", "");
+    $("#col-destination-select").val(null).trigger('change');
     return false;
 });
 $(document).on("change", "#category-select", function () {

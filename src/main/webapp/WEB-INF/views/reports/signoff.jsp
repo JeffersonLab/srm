@@ -16,7 +16,7 @@
                 jlab.srm.filterSystemListByCategory(categoryId);
             });
             $(document).on("click", ".default-clear-panel", function () {
-                $("#destination-select").select2("val", "");
+                $("#destination-select").val(null).trigger('change');
                 $("#category-select").val('').trigger('change');
                 $("#system-select").val('');
                 $("#region-select").val('');
