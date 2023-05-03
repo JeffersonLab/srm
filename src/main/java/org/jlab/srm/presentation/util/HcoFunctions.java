@@ -39,21 +39,6 @@ public final class HcoFunctions {
         return name;
     }
 
-    public static String formatFakeStaff(String lastname, String firstname, String username) {
-        StringBuilder builder = new StringBuilder();
-
-        if (username != null && !username.isEmpty()) {
-            builder.append(lastname);
-            builder.append(", ");
-            builder.append(firstname);
-            builder.append(" (");
-            builder.append(username);
-            builder.append(")");
-        }
-
-        return builder.toString();
-    }
-
     public static String formatBoolean(Boolean value) {
         if (value == null) {
             return "";

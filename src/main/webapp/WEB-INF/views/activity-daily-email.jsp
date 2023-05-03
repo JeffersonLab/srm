@@ -108,7 +108,7 @@
                             <c:out value="${formattedModifiedDate}"/>
                         </div>
                         <div class="cell-subfield"><c:out
-                                value="${srm:formatFakeStaff(activity.lastname, activity.firstname, activity.username)}"/></div>
+                                value="${s:formatUsername(activity.username)}"/></div>
                     </td>
                     <td>
                         <div class="cell-header">

@@ -131,10 +131,6 @@ public class AllActivityService {
 
                 record.setUsername(username);
 
-                User user = userService.getUserFromUsername(username);
-                record.setLastname(user.getLastname());
-                record.setFirstname(user.getFirstname());
-
                 record.setUnpowered(unpowered);
 
                 recordList.add(record);

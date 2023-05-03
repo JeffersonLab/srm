@@ -17,15 +17,12 @@ public class AllActivityRecord implements Serializable {
     private BigInteger systemId;
     private BigInteger groupId;
     private BigInteger statusId;
-    private BigInteger modifiedBy;
     private Date modifiedDate;
     private String comments;
     private String systemName;
     private String groupName;
     private String statusName;
     private String username;
-    private String firstname;
-    private String lastname;
     private AllChangeType changeType;
 
 
@@ -75,14 +72,6 @@ public class AllActivityRecord implements Serializable {
 
     public void setStatusId(BigInteger statusId) {
         this.statusId = statusId;
-    }
-
-    public BigInteger getModifiedBy() {
-        return modifiedBy;
-    }
-
-    public void setModifiedBy(BigInteger modifiedBy) {
-        this.modifiedBy = modifiedBy;
     }
 
     public Date getModifiedDate() {
@@ -154,22 +143,6 @@ public class AllActivityRecord implements Serializable {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
     }
 
     public BigInteger getComponentCount() {
