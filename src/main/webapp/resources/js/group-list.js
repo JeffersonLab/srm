@@ -70,9 +70,9 @@ jlab.srm.edit = function () {
     var groupId = $(".editable-row-table tbody tr.selected-row").attr("data-group-id"),
         name = $("#row-name").val(),
         description = $("#row-description").val(),
-        workgroupId = $("#row-workgroup").val(),
+        workgroup = $("#row-workgroup").val(),
         url = jlab.contextPath + "/setup/ajax/edit-group",
-        data = {groupId: groupId, workgroupId: workgroupId, name: name, description: description},
+        data = {groupId: groupId, workgroup: workgroup, name: name, description: description},
         $dialog = $("#table-row-dialog");
 
     jlab.doAjaxJsonPostRequest(url, data, $dialog, true);
@@ -83,11 +83,11 @@ jlab.srm.add = function () {
         return;
     }
 
-    var workgroupId = $("#row-workgroup").val(),
+    var workgroup = $("#row-workgroup").val(),
         name = $("#row-name").val(),
         description = $("#row-description").val(),
         url = jlab.contextPath + "/setup/ajax/add-group",
-        data = {workgroupId: workgroupId, name: name, description: description},
+        data = {workgroup: workgroup, name: name, description: description},
         $dialog = $("#table-row-dialog");
 
     jlab.doAjaxJsonPostRequest(url, data, $dialog, true);
@@ -103,14 +103,13 @@ $(document).on("click", "#open-edit-row-dialog-button", function () {
         return;
     }
 
-    /*var groupId = $selectedRow.attr("data-group-id"),*/
     var name = $selectedRow.find("td:nth-child(1)").text(),
         description = $selectedRow.find("td:nth-child(2)").text(),
-        workgroupId = $selectedRow.attr("data-workgroup-id");
+        workgroup = $selectedRow.attr("data-workgroup");
 
     $("#row-name").val(name);
     $("#row-description").val(description);
-    $("#row-workgroup").val(workgroupId);
+    $("#row-workgroup").val(workgroup);
 });
 
 $(document).on("table-row-add", function () {

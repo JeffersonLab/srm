@@ -44,7 +44,7 @@ public class AddGroup extends HttpServlet {
         String errorReason = null;
 
         try {
-            String leaderWorkgroup = request.getParameter("leaderWorkgroup");
+            String leaderWorkgroup = request.getParameter("workgroup");
             String name = request.getParameter("name");
             String description = request.getParameter("description");
 

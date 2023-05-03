@@ -36,46 +36,6 @@
                 </c:forEach>
                 </tbody>
             </table>
-            <div id="add-dialog" class="dialog" title="Add New Group">
-                <form>
-                    <ul class="key-value-list">
-                        <li>
-                            <div class="li-key">
-                                <label for="add-name">Name</label>
-                            </div>
-                            <div class="li-value">
-                                <input type="text" name="addName" id="add-name"/>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="li-key">
-                                <label for="add-description">Description</label>
-                            </div>
-                            <div class="li-value">
-                                <input type="text" name="addDescription" id="add-description"/>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="li-key">
-                                <label for="add-workgroup">Leader Workgroup</label>
-                            </div>
-                            <div class="li-value">
-                                <select id="add-workgroup" name="workgroupId">
-                                    <option value="">&nbsp;</option>
-                                    <c:forEach items="${workgroupList}" var="workgroup">
-                                        <option value="${workgroup.workgroupId}"><c:out
-                                                value="${workgroup.name}"/></option>
-                                    </c:forEach>
-                                </select>
-                            </div>
-                        </li>
-                    </ul>
-                    <div class="dialog-button-panel">
-                        <button type="button" id="add-button" class="dialog-submit">Save</button>
-                        <button type="button" class="dialog-close-button">Cancel</button>
-                    </div>
-                </form>
-            </div>
             <s:editable-row-table-dialog>
                 <form id="row-form">
                     <ul class="key-value-list">
@@ -100,13 +60,7 @@
                                 <label for="row-workgroup">Leader Workgroup</label>
                             </div>
                             <div class="li-value">
-                                <select id="row-workgroup" name="workgroupId">
-                                    <option value="">&nbsp;</option>
-                                    <c:forEach items="${workgroupList}" var="workgroup">
-                                        <option value="${workgroup.workgroupId}"><c:out
-                                                value="${workgroup.name}"/></option>
-                                    </c:forEach>
-                                </select>
+                                <input type="text" name="workgroup" id="row-workgroup"/>
                             </div>
                         </li>
                     </ul>

@@ -48,7 +48,7 @@ public class EditGroup extends HttpServlet {
         try {
             BigInteger groupId = ParamConverter.convertBigInteger(
                     request, "groupId");
-            String leaderWorkgroup = request.getParameter("leaderWorkgroup");
+            String leaderWorkgroup = request.getParameter("workgroup");
             String name = request.getParameter("name");
             String description = request.getParameter("description");
 
