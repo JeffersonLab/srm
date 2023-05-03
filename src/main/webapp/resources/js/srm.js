@@ -77,7 +77,7 @@ jlab.updateDateRange = function (start, end) {
 
 $(document).on("click", "#current-run-link", function () {
     var $select = $("#destination-select");
-    $select.select2("val", $select.attr("data-current-run-id-csv").split(","));
+    $select.val($select.attr("data-current-run-id-csv").split(",")).trigger('change');
     return false;
 });
 

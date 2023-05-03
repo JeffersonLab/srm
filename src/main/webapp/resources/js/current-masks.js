@@ -235,7 +235,7 @@ $(document).on("click", ".default-clear-panel", function () {
 });
 $(document).on("click", ".default-reset-panel", function () {
     $select = $("#destination-select");
-    $select.select2("val", $select.attr("data-current-run-id-csv").split(","));
+    $select.val($select.attr("data-current-run-id-csv").split(",")).trigger('change');
     $("#category-select").val('').trigger('change');
     $("#system-select").val('');
     $("#region-select").val('');
@@ -243,11 +243,11 @@ $(document).on("click", ".default-reset-panel", function () {
     $("#exception-select").val('');
     $("#unpowered-select").val('');
     $("#component").val('');
-    $("#status-select").select2("val", [150, 200]);
+    $("#status-select").val([150, 200]).trigger('change');
     return false;
 });
 $(document).on("click", "#candidate-link", function () {
-    $("#status-select").select2("val", ["50", "100"]);
+    $("#status-select").val(["50", "100"]).trigger('change');
     return false;
 });
 $(document).on("change", "#category-select", function () {

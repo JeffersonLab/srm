@@ -565,8 +565,7 @@ $(document).on("click", ".default-clear-panel", function () {
     return false;
 });
 $(document).on("click", "#exclude-na-link", function () {
-    var $select = $("#status-select");
-    $select.select2("val", ("1,50,100").split(","));
+    $("#status-select").val(("1,50,100").split(",")).trigger('change');
     return false;
 });
 $(function () {

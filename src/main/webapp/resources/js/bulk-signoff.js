@@ -62,7 +62,7 @@ $(document).on("click", "#select-all-link", function () {
         systemsArray.push(val);
     });
 
-    $("#system-select").select2("val", systemsArray);
+    $("#system-select").val(systemsArray).trigger('change');
 
     return false;
 });

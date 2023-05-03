@@ -28,7 +28,7 @@
             });
             $(document).on("click", ".default-reset-panel", function () {
                 $select = $("#destination-select");
-                $select.select2("val", $select.attr("data-current-run-id-csv").split(","));
+                $select.val($select.attr("data-current-run-id-csv").split(",")).trigger('change');
                 $("#category-select").val('').trigger('change');
                 $("#system-select").val('');
                 $("#region-select").val('');
