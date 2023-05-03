@@ -42,6 +42,7 @@ public class ScheduledEmailer {
     @Resource
     private TimerService timerService;
     private Timer timer;
+    private final String TIMER_INFO = "ScheduledEmailer";
 
     @PostConstruct
     private void init() {
@@ -84,6 +85,7 @@ public class ScheduledEmailer {
             schedExp.hour("7");
             TimerConfig config = new TimerConfig();
             config.setPersistent(false);
+            config.setInfo(TIMER_INFO);
             timer = timerService.createCalendarTimer(schedExp, config);
         }
     }
@@ -105,7 +107,9 @@ public class ScheduledEmailer {
     private void clearAll() {
         /*Timers persist by default and may be hanging around after a redeploy*/
         for (Timer t : timerService.getTimers()) {
-            t.cancel();
+            if(TIMER_INFO.equals(t.getInfo())) {
+                t.cancel();
+            }
         }
     }
 
