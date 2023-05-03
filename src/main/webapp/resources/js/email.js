@@ -57,6 +57,6 @@ $(document).on("click", "#send-all-button", function () {
 
 $(document).on("click", "#activity-report-on-demand-button", function () {
     if (confirm('Are you sure you want to send activity email?')) {
-        jlab.srm.activity.call(this, 'activity');
+        jlab.srm.ondemand.call(this, 'activity');
     }
 });
