@@ -12,14 +12,18 @@
         Checklist</title>
     <link rel="shortcut icon"
           href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/img/favicon.ico"/>
-    <link rel="stylesheet" type="text/css"
-          href="${cdnContextPath}/jquery-ui/1.10.3/theme/smoothness/jquery-ui.min.css"/>
+    <c:choose>
+        <c:when test="${'CDN' eq resourceLocation}">
+            <link rel="stylesheet" type="text/css" href="${cdnContextPath}/jquery-ui/1.13.2/theme/smoothness/jquery-ui.min.css"/>
+            <link rel="stylesheet" type="text/css" href="${cdnContextPath}/jlab-theme/smoothness/${env['CDN_VERSION']}/css/smoothness.min.css"/>
+        </c:when>
+        <c:otherwise><!-- LOCAL -->
+            <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/jquery-ui-1.13.2/jquery-ui.min.css"/>
+            <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/smoothness.css"/>
+        </c:otherwise>
+    </c:choose>
     <link rel="stylesheet" type="text/css"
           href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/srm.css"/>
-    <link rel="stylesheet" type="text/css" href="${cdnContextPath}/jlab-theme/smoothness/1.6/css/smoothness.min.css"/>
-    <link rel="stylesheet" type="text/css" href="${cdnContextPath}/jquery-plugins/select2/3.5.2/select2.css"/>
-    <link rel="stylesheet" type="text/css"
-          href="${cdnContextPath}/jquery-plugins/timepicker/jquery-ui-timepicker-1.3.1.css"/>
     <link rel="stylesheet" type="text/css"
           href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/checklist.css"/>
     <link rel="stylesheet" type="text/css"
@@ -149,13 +153,22 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="${cdnContextPath}/jquery/1.10.2.min.js"></script>
-<script type="text/javascript" src="${cdnContextPath}/jquery-ui/1.10.3/jquery-ui.min.js"></script>
-<script type="text/javascript" src="${cdnContextPath}/jquery-plugins/select2/3.5.2/select2.min.js"></script>
-<script type="text/javascript"
-        src="${cdnContextPath}/jquery-plugins/maskedinput/jquery.maskedinput-1.3.1.min.js"></script>
-<script type="text/javascript" src="${cdnContextPath}/jquery-plugins/timepicker/jquery-ui-timepicker-1.3.1.js"></script>
-<script type="text/javascript" src="${cdnContextPath}/jlab-theme/smoothness/1.6/js/smoothness.min.js"></script>
+<c:choose>
+    <c:when test="${'CDN' eq resourceLocation}">
+        <script src="${cdnContextPath}/jquery/3.6.1.min.js"></script>
+        <script src="${cdnContextPath}/jquery-ui/1.13.2/jquery-ui.min.js"></script>
+        <script src="${cdnContextPath}/jquery-plugins/maskedinput/jquery.maskedinput-1.3.1.min.js"></script>
+        <script src="${cdnContextPath}/jquery-plugins/timepicker/jquery-ui-timepicker-1.5.0.min.js"></script>
+        <script src="${cdnContextPath}/jlab-theme/smoothness/${env['CDN_VERSION']}/js/smoothness.min.js"></script>
+    </c:when>
+    <c:otherwise><!-- LOCAL -->
+        <script src="${pageContext.request.contextPath}/resources/js/jquery-3.6.1.min.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/jquery-ui-1.13.2/jquery-ui.min.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/jquery-plugins/maskedinput/1.3.1.min.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/jquery-plugins/timepicker/1.5.0.min.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/js/smoothness.js"></script>
+    </c:otherwise>
+</c:choose>
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/js/srm.js"></script>
 <script type="text/javascript">
