@@ -327,7 +327,7 @@
                             </thead>
                             <tbody>
                             <c:forEach items="${activityList}" var="activity">
-                                <fmt:formatDate pattern="${s:getFriendlyDatePattern()}"
+                                <fmt:formatDate pattern="${s:getFriendlyDateTimePattern()}"
                                                 value="${activity.modifiedDate}" var="formattedModifiedDate"/>
                                 <fmt:formatDate pattern="${s:getFriendlyDateTimePattern()}"
                                                 value="${activity.modifiedDatePlusOneMinute}"

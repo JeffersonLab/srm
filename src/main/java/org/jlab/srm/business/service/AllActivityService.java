@@ -153,7 +153,7 @@ public class AllActivityService {
                 + "max(group_signoff_history_id) as first_history_id, "
                 + "max(component_id) as first_component_id, "
                 + "max(region_id) as first_region_id, "
-                + "trunc(modified_date, 'MI') as modified_date, modified_username as username, "
+                + "trunc(modified_date, 'MI') as modified_date, modified_username, "
                 + "system_id, group_id, comments, change_type, "
                 + "status_id from (select group_signoff_history_id, "
                 + "component_id, modified_date, modified_username, group_id, "
@@ -175,12 +175,12 @@ public class AllActivityService {
                 + "trunc(modified_date, 'MI'), modified_username, system_id, "
                 + "group_id, comments, change_type, status_id), "
                 + "combined as ( "
-                + "select * from (select modified_date, change_type, username, record_id, component_id, inventory_activity.system_id, all_components.region_id, remark, null as component_count, null as group_id, null as status_id, name as component_name from inventory_activity left join all_components using(component_id)) "; // We select from (select...) so we can filter by group_id, status_id;  left join component for component name
+                + "select * from (select modified_date, change_type, username as modified_username, record_id, component_id, inventory_activity.system_id, all_components.region_id, remark, null as component_count, null as group_id, null as status_id, name as component_name from inventory_activity left join all_components using(component_id)) "; // We select from (select...) so we can filter by group_id, status_id;  left join component for component name
 
         sql = sql + where;
 
         sql = sql + "union all "
-                + "select modified_date, change_type, username, first_history_id as record_id, first_component_id as component_id, signoff_activity.system_id, first_region_id as region_id, comments as remark, component_count, group_id, status_id, name as component_name from signoff_activity left join all_components on all_components.component_id = signoff_activity.first_component_id " // left join component to get name
+                + "select modified_date, change_type, modified_username, first_history_id as record_id, first_component_id as component_id, signoff_activity.system_id, first_region_id as region_id, comments as remark, component_count, group_id, status_id, name as component_name from signoff_activity left join all_components on all_components.component_id = signoff_activity.first_component_id " // left join component to get name
                 + ") ";
 
         return sql;
