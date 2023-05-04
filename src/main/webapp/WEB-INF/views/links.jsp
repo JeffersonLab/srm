@@ -13,31 +13,29 @@
             <h3>General</h3>
             <ul>
                 <li>
-                    <a href="http://opsweb.acc.jlab.org/abil/pro/">Accelerator Bypassed-Interlocks Log (ABIL)</a>
+                    <a href="https://logbooks.jlab.org/">Logbooks</a>
                 </li>
                 <li>
-                    <a href="https://logbooks.jlab.org/">Jefferson Lab Electronic Logbook (eLog)</a>
+                    <a href="https://tasklists.jlab.org/">Task Lists</a>
                 </li>
                 <li>
-                    <a href="http://opsweb.acc.jlab.org/CSUEApps/atlis/atlis.php">Accelerator Task List (ATLis)</a>
-                </li>
-                <li>
-                    <a href="http://opsntsrv.acc.jlab.org/ops_docs/online_document_files/MCC_online_files/mainmachine_beamline_dwg.pdf">Beamline
-                        Map</a>
+                    <a href="https://ace.jlab.org/cdn/doc/srm/Beamline.pdf">Beamline Map</a>
                 </li>
                 <li>
                     <a href="https://www.jlab.org/MEgroup/12GeVacc.html">Songsheets</a>
                 </li>
                 <li>
-                    <a href="https://accwiki.acc.jlab.org/pub/SWDocs/HotCheckout/Hall_AC_Beamline_Responsibilities.pdf">Hall
-                        A &amp; C Beamline Responsibilities</a>
+                    <a href="https://ace.jlab.org/cdn/doc/srm/ACResponsibilities.pdf">Hall
+                        A &amp; C Responsibilities</a>
                 </li>
                 <li>
-                    <a href="https://accwiki.acc.jlab.org/pub/SWDocs/HotCheckout/Hall_B_Ownership.pdf">Hall B Beamline
-                        Responsibilities</a>
+                    <a href="https://ace.jlab.org/cdn/doc/srm/BResponsibilities.pdf">Hall B Responsibilities</a>
+                </li>
+                <li>
+                    <a href="http://opsweb.acc.jlab.org/abil/pro/">Accelerator Bypassed-Interlocks Log (ABIL) - onsite only</a>
                 </li>
             </ul>
-            <h3>Beamline Sketches</h3>
+            <h3>Beamline Sketches (onsite only)</h3>
             <ul>
                 <li>
                     <a href="http://cedweb.acc.jlab.org/zones/INJECTOR_ZONES/sketch">Injector</a>
