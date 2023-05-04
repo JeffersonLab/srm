@@ -422,12 +422,12 @@ CREATE TYPE SRM_OWNER.CATEGORY_CHILD_TABLE IS TABLE OF SRM_OWNER.CATEGORY_CHILD;
 CREATE TYPE SRM_OWNER.NUMBER_TAB AS TABLE OF NUMBER;
 /
 
--- Special Indexes (Performance tweaks)
+-- Special Indexes (Performance/Uniqueness tweaks)
 
--- Note: Unique Constraint could work if not for NVL2()
-CREATE UNIQUE INDEX COMPONENT_PERF1 ON SRM_OWNER.COMPONENT (DATA_SOURCE, NVL2(DATA_SOURCE_ID, DATA_SOURCE_ID, COMPONENT_ID));
+-- Note: Unique Constraint could work if not for NVL2(); make sure unique ID per source
+CREATE UNIQUE INDEX COMPONENT_IN1 ON SRM_OWNER.COMPONENT (DATA_SOURCE, NVL2(DATA_SOURCE_ID, DATA_SOURCE_ID, COMPONENT_ID));
 
--- Not Unique, so not a constraint
+-- Not Unique, so not a constraint; this is purely for performance
 CREATE INDEX GROUP_SIGNOFF_IN1 on SRM_OWNER.GROUP_SIGNOFF(COMPONENT_ID, STATUS_ID);
 
 -- Views
