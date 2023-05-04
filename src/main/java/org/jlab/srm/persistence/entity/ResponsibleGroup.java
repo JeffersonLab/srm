@@ -129,7 +129,7 @@ public class ResponsibleGroup implements Serializable {
         return "org.jlab.srm.persistence.entity.ResponsibleGroup[ groupId=" + groupId + " ]";
     }
 
-    public void setLeaders(List<User> userList) {
+    public void setLeaders(List<User> leaders) {
         this.leaders = leaders;
     }
 
