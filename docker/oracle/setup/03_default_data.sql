@@ -18,6 +18,10 @@ insert into SRM_OWNER.STATUS (STATUS_ID, NAME) values (150, 'Masked (Director)')
 insert into SRM_OWNER.STATUS (STATUS_ID, NAME) values (200, 'Masked (Crew Chief)');
 insert into SRM_OWNER.STATUS (STATUS_ID, NAME) values (250, 'Masked (Administrator)');
 
+-- Saved Signoff Type
+INSERT INTO SRM_OWNER.SAVED_SIGNOFF_TYPE (SAVED_SIGNOFF_TYPE_ID, NAME, WEIGHT) VALUES (1, 'LERF', 2);
+INSERT INTO SRM_OWNER.SAVED_SIGNOFF_TYPE (SAVED_SIGNOFF_TYPE_ID, NAME, WEIGHT) VALUES (2, 'CEBAF', 1);
+
 -- Populate Region
 insert into SRM_OWNER.REGION (REGION_ID, NAME, ALIAS, WEIGHT) values (1, 'Injector', '0I,1I,2I,3I,0L,1D,2D,3D,4D,5D,0R', 10);
 insert into SRM_OWNER.REGION (REGION_ID, NAME, ALIAS, WEIGHT) values (2, 'North Linac', '1L,3L,5L,7L,9L,BL,NL', 20);
