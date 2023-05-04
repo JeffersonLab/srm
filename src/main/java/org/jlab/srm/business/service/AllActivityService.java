@@ -1,7 +1,5 @@
 package org.jlab.srm.business.service;
 
-import org.jlab.smoothness.business.service.UserAuthorizationService;
-import org.jlab.smoothness.persistence.view.User;
 import org.jlab.srm.business.params.AllActivityParams;
 import org.jlab.srm.persistence.entity.Status;
 import org.jlab.srm.persistence.enumeration.AllChangeType;
@@ -53,8 +51,6 @@ public class AllActivityService {
                 + sql + ") z where ROWNUM <= " + (offset + max) + ") where rnum > " + offset;
 
         LOGGER.log(Level.FINEST, "Query: {0}", sql);
-
-        UserAuthorizationService userService = UserAuthorizationService.getInstance();
 
         try {
             con = HcoSqlUtil.getConnection();
