@@ -450,7 +450,8 @@ from
              c.system_id = g.system_id) c
 where
         c.group_id = x.group_id (+) and
-        c.component_id = x.component_id (+);
+        c.component_id = x.component_id (+)
+        and c.system_id in (select system_id from srm_owner.system_application where application_id = 1);
 
 --
 -- Creates a view showing the status of components, including those which are masked.
