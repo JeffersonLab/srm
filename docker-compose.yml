@@ -45,5 +45,5 @@ services:
       SRM_FEEDBACK_SENDER_ADDRESS: 'srm@example.com'
       SRM_FEEDBACK_TO_ADDRESS_CSV: 'recipient1@example.com,recipient2@example.com'
       SRM_CONTENT_CONTACT: 'bob@example.com'
-      SRN_TECHNICAL_CONTACT: 'larry@example.com'
+      SRM_TECHNICAL_CONTACT: 'larry@example.com'
       SRM_DOC_CSV: 'https://github.com/JeffersonLab/srm|SRM Home,https://ace.jlab.org/cdn/doc/srm/FAQ.pdf|FAQ,https://ace.jlab.org/cdn/doc/srm/Training.pptx|Training,https://ace.jlab.org/cdn/doc/srm/ScheduleTemplate.pdf|Schedule,https://ace.jlab.org/cdn/doc/srm/LERFGuidance.docx|LERF Guidance'
