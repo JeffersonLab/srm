@@ -36,7 +36,3 @@ body.mce-content-body {
 #notification-bar {
     top: 0;
 }
-
-#notification-bar .breadcrumb {
-    margin-top: 32px;
-}

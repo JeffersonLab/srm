@@ -34,8 +34,8 @@
     <div id="notification-bar"><c:out value="${initParam.notification}"/></div>
 </c:if>
 <div id="page">
-    <div class="nav-links">
-        <ul class="breadcrumb">
+    <div class="banner-breadbox no-bottom-border nav-links">
+        <ul>
             <li>
                 <a href="${pageContext.request.contextPath}/readiness"><c:out value="${initParam.appShortName}"/></a>
             </li>

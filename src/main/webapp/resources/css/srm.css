@@ -290,3 +290,6 @@ div.jstree .jstree-hovered {
 .chart-footnote ul ul {
     list-style-type: circle;
 }
+.no-bottom-border {
+    border-bottom: none;
+}

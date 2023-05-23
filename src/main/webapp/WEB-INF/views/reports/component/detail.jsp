@@ -8,29 +8,12 @@
 <c:set var="title" value="Component -  Detail: ${component.name}"/>
 <t:reports-page title="${title}">
     <jsp:attribute name="stylesheets">
-        <style type="text/css">
-            .breadbox {
-                padding: 10px;
-                position: relative;
-            }
-
-            .breadcrumb:before {
-                content: " ";
-                position: absolute;
-                width: 10px;
-                background-color: #f0f0f0;
-                display: block;
-                left: -5px;
-                top: 0;
-                bottom: 0;
-            }
-        </style>
     </jsp:attribute>
     <jsp:attribute name="scripts">
     </jsp:attribute>
     <jsp:body>
-        <div class="breadbox">
-            <ul class="breadcrumb">
+        <div class="banner-breadbox">
+            <ul>
                 <li>
                     <a href="${pageContext.request.contextPath}/reports/component">Component Search</a>
                 </li>

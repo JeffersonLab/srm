@@ -37,8 +37,8 @@
 </c:if>
 <div id="page">
     <c:if test="${not editable}">
-        <div class="nav-links">
-            <ul class="breadcrumb">
+        <div class="banner-breadbox no-bottom-border nav-links">
+            <ul>
                 <li>
                     <a href="${pageContext.request.contextPath}/readiness"><c:out value="${initParam.appShortName}"/></a>
                 </li>
