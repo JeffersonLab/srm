@@ -1,3 +1,3 @@
 services:
   srm:
-    image: jeffersonlab/srm:5.1.0
+    image: jeffersonlab/srm:5.1.1
