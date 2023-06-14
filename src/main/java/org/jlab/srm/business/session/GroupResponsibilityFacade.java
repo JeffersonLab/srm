@@ -142,7 +142,7 @@ public class GroupResponsibilityFacade extends AbstractFacade<GroupResponsibilit
 
         BigInteger responsibilityId = BigInteger.valueOf(((Number) q1.getSingleResult()).longValue());
 
-        Query q = em.createNativeQuery("insert into group_responsibility (group_responsibility_id, group_id, system_id, weight, checklist_id, checklist_required, published, published_date, published_by) values (?, ?, ?, ?, null, ?, ?, null, null)");
+        Query q = em.createNativeQuery("insert into group_responsibility (group_responsibility_id, group_id, system_id, weight, checklist_id, checklist_required, published, published_date, published_username) values (?, ?, ?, ?, null, ?, ?, null, null)");
 
         q.setParameter(1, responsibilityId);
         q.setParameter(2, responsibility.getGroup().getGroupId());
