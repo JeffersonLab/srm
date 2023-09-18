@@ -86,7 +86,7 @@ The [server](https://github.com/JeffersonLab/wildfly/blob/main/scripts/server-se
 ## Release
 1. Bump the version number and release date in build.gradle and commit and push to GitHub (using [Semantic Versioning](https://semver.org/)).
 2. Create a new release on the GitHub Releases page corresponding to the same version in the build.gradle. The release should enumerate changes and link issues. A war artifact can be attached to the release to facilitate easy installation by users.
-3. [Publish to DockerHub](https://github.com/JeffersonLab/btm/actions/workflows/docker-publish.yml) GitHub Action should run automatically.
+3. [Publish to DockerHub](https://github.com/JeffersonLab/srm/actions/workflows/docker-publish.yml) GitHub Action should run automatically.
 4. Bump and commit quick start [image version](https://github.com/JeffersonLab/srm/blob/main/docker-compose.override.yml)
 
 ## Deploy
