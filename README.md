@@ -55,6 +55,8 @@ Wildfly must be pre-configured before the first deployment of the app. The [wild
 ### Runtime
 Uses the [Smoothness Environment Variables](https://github.com/JeffersonLab/smoothness#environment-variables).
 
+There are some [Settings](https://github.com/JeffersonLab/srm/blob/87cb8b7d1a9b0e2e36cc68b34eaefe02478bb89a/docker/oracle/setup/02_ddl.sql#L256-L264) in the database as well.
+
 ## Build
 This project is built with [Java 17](https://adoptium.net/) (compiled to Java 11 bytecode), and uses the [Gradle 7](https://gradle.org/) build tool to automatically download dependencies and build the project from source:
 
