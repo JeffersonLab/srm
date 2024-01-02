@@ -14,6 +14,11 @@ import java.math.BigInteger;
 
 public class OverallStatusUrlParamHandler implements UrlParamHandler<OverallStatusParams> {
 
+    public static final String SESSION_STATUS_REPORT_DESTINATION_ID = "statusReportDestinationId[]";
+    public static final String SESSION_STATUS_REPORT_CATEGORY_ID = "statusReportCategoryId[]";
+    public static final String SESSION_STATUS_REPORT_SYSTEM_ID = "statusReportSystemId[]";
+    public static final String SESSION_STATUS_REPORT_REGION_ID = "statusReportRegionId[]";
+
     private final HttpServletRequest request;
     private final BigInteger[] defaultDestinationIdArray;
 
@@ -50,16 +55,16 @@ public class OverallStatusUrlParamHandler implements UrlParamHandler<OverallStat
 
     @Override
     public void store(OverallStatusParams params) {
-        /* Note: We store each field indivdually as we want to re-use amoung screens*/
+        /* Note: We store each field individually as we want to re-use among screens*/
         /* Note: We use a 'SECURE' cookie so session changes every request unless over SSL/TLS */
         /* Note: We use an array regardless if the parameter is multi-valued because a null array means no page ever set this param before vs empty array or array with null elements means someone set it, but value is empty*/
         HttpSession session = request.getSession(true);
 
-        session.setAttribute("overallStatusReportDestinationId[]",
+        session.setAttribute(SESSION_STATUS_REPORT_DESTINATION_ID,
                 params.getDestinationIdArray() == null ? new BigInteger[0] : params.getDestinationIdArray());
-        session.setAttribute("overallStatusReportCategoryId[]", new BigInteger[]{params.getCategoryId()});
-        session.setAttribute("overallStatusReportSystemId[]", new BigInteger[]{params.getSystemId()});
-        session.setAttribute("overallStatusReportRegionId[]", new BigInteger[]{params.getRegionId()});
+        session.setAttribute(SESSION_STATUS_REPORT_CATEGORY_ID, new BigInteger[]{params.getCategoryId()});
+        session.setAttribute(SESSION_STATUS_REPORT_SYSTEM_ID, new BigInteger[]{params.getSystemId()});
+        session.setAttribute(SESSION_STATUS_REPORT_REGION_ID, new BigInteger[]{params.getRegionId()});
         session.setAttribute("overallStatusReportGroupId[]", new BigInteger[]{params.getGroupId()});
     }
 
@@ -76,14 +81,11 @@ public class OverallStatusUrlParamHandler implements UrlParamHandler<OverallStat
     public OverallStatusParams materialize() {
         OverallStatusParams defaultValues = defaults();
 
-        /* Note: We store each field indivdually as we want to re-use amoung screens*/
-        /* Note: We use a 'SECURE' cookie so session changes every request unless over SSL/TLS */
-        /* Note: We use an array regardless if the parameter is multi-valued because a null array means no page ever set this param before vs empty array or array with null elements means someone set it, but value is empty*/
         HttpSession session = request.getSession(true);
-        BigInteger[] destinationIdArray = (BigInteger[]) session.getAttribute("overallStatusReportDestinationId[]");
-        BigInteger[] categoryIdArray = (BigInteger[]) session.getAttribute("overallStatusReportCategoryId[]");
-        BigInteger[] systemIdArray = (BigInteger[]) session.getAttribute("overallStatusReportSystemId[]");
-        BigInteger[] regionIdArray = (BigInteger[]) session.getAttribute("overallStatusReportRegionId[]");
+        BigInteger[] destinationIdArray = (BigInteger[]) session.getAttribute(SESSION_STATUS_REPORT_DESTINATION_ID);
+        BigInteger[] categoryIdArray = (BigInteger[]) session.getAttribute(SESSION_STATUS_REPORT_CATEGORY_ID);
+        BigInteger[] systemIdArray = (BigInteger[]) session.getAttribute(SESSION_STATUS_REPORT_SYSTEM_ID);
+        BigInteger[] regionIdArray = (BigInteger[]) session.getAttribute(SESSION_STATUS_REPORT_REGION_ID);
         BigInteger[] groupIdArray = (BigInteger[]) session.getAttribute("overallStatusReportGroupId[]");
 
         BigInteger categoryId = defaultValues.getCategoryId();

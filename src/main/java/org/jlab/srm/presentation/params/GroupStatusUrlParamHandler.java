@@ -48,16 +48,16 @@ public class GroupStatusUrlParamHandler implements UrlParamHandler<GroupStatusPa
 
     @Override
     public void store(GroupStatusParams params) {
-        /* Note: We store each field indivdually as we want to re-use amoung screens*/
+        /* Note: We store each field individually as we want to re-use among screens*/
         /* Note: We use a 'SECURE' cookie so session changes every request unless over SSL/TLS */
         /* Note: We use an array regardless if the parameter is multi-valued because a null array means no page ever set this param before vs empty array or array with null elements means someone set it, but value is empty*/
         HttpSession session = request.getSession(true);
 
-        session.setAttribute("groupStatusReportDestinationId[]",
+        session.setAttribute(OverallStatusUrlParamHandler.SESSION_STATUS_REPORT_DESTINATION_ID,
                 params.getDestinationIdArray() == null ? new BigInteger[0] : params.getDestinationIdArray());
-        session.setAttribute("groupStatusReportCategoryId[]", new BigInteger[]{params.getCategoryId()});
-        session.setAttribute("groupStatusReportSystemId[]", new BigInteger[]{params.getSystemId()});
-        session.setAttribute("groupStatusReportRegionId[]", new BigInteger[]{params.getRegionId()});
+        session.setAttribute(OverallStatusUrlParamHandler.SESSION_STATUS_REPORT_CATEGORY_ID, new BigInteger[]{params.getCategoryId()});
+        session.setAttribute(OverallStatusUrlParamHandler.SESSION_STATUS_REPORT_SYSTEM_ID, new BigInteger[]{params.getSystemId()});
+        session.setAttribute(OverallStatusUrlParamHandler.SESSION_STATUS_REPORT_REGION_ID, new BigInteger[]{params.getRegionId()});
         session.setAttribute("groupStatusReportChart[]", new String[]{params.getChart()});
     }
 
@@ -76,14 +76,11 @@ public class GroupStatusUrlParamHandler implements UrlParamHandler<GroupStatusPa
     public GroupStatusParams materialize() {
         GroupStatusParams defaultValues = defaults();
 
-        /* Note: We store each field indivdually as we want to re-use amoung screens*/
-        /* Note: We use a 'SECURE' cookie so session changes every request unless over SSL/TLS */
-        /* Note: We use an array regardless if the parameter is multi-valued because a null array means no page ever set this param before vs empty array or array with null elements means someone set it, but value is empty*/
         HttpSession session = request.getSession(true);
-        BigInteger[] destinationIdArray = (BigInteger[]) session.getAttribute("groupStatusReportDestinationId[]");
-        BigInteger[] categoryIdArray = (BigInteger[]) session.getAttribute("groupStatusReportCategoryId[]");
-        BigInteger[] systemIdArray = (BigInteger[]) session.getAttribute("groupStatusReportSystemId[]");
-        BigInteger[] regionIdArray = (BigInteger[]) session.getAttribute("groupStatusReportRegionId[]");
+        BigInteger[] destinationIdArray = (BigInteger[]) session.getAttribute(OverallStatusUrlParamHandler.SESSION_STATUS_REPORT_DESTINATION_ID);
+        BigInteger[] categoryIdArray = (BigInteger[]) session.getAttribute(OverallStatusUrlParamHandler.SESSION_STATUS_REPORT_CATEGORY_ID);
+        BigInteger[] systemIdArray = (BigInteger[]) session.getAttribute(OverallStatusUrlParamHandler.SESSION_STATUS_REPORT_SYSTEM_ID);
+        BigInteger[] regionIdArray = (BigInteger[]) session.getAttribute(OverallStatusUrlParamHandler.SESSION_STATUS_REPORT_REGION_ID);
         String[] chartArray = (String[]) session.getAttribute("groupStatusReportChart[]");
 
         BigInteger categoryId = defaultValues.getCategoryId();
