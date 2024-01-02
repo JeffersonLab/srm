@@ -3,8 +3,8 @@ plugins {
 }
 description = 'System Readiness Manager app'
 group 'org.jlab'
-version '5.1.1'
-ext.releaseDate = 'June 14 2023'
+version '5.2.0'
+ext.releaseDate = 'Jan 2 2024'
 
 tasks.withType(JavaCompile) {
     options.release = 11
