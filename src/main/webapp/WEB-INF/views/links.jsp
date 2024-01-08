@@ -35,40 +35,40 @@
                     <a href="http://opsweb.acc.jlab.org/abil/pro/">Accelerator Bypassed-Interlocks Log (ABIL) - onsite only</a>
                 </li>
             </ul>
-            <h3>Beamline Sketches (onsite only)</h3>
+            <h3>Beamline Sketches</h3>
             <ul>
                 <li>
-                    <a href="http://cedweb.acc.jlab.org/zones/INJECTOR_ZONES/sketch">Injector</a>
+                    <a href="${env['CED_SERVER_URL']}/zones/INJECTOR_ZONES/sketch">Injector</a>
                 </li>
                 <li>
-                    <a href="http://cedweb.acc.jlab.org/zones/LINAC1/sketch">North LINAC</a>
+                    <a href="${env['CED_SERVER_URL']}/zones/LINAC1/sketch">North LINAC</a>
                 </li>
                 <li>
-                    <a href="http://cedweb.acc.jlab.org/zones/LINAC2/sketch">South LINAC</a>
+                    <a href="${env['CED_SERVER_URL']}/zones/LINAC2/sketch">South LINAC</a>
                 </li>
                 <li>
-                    <a href="http://cedweb.acc.jlab.org/zones/EAST_ARC/sketch">East Arc</a>
+                    <a href="${env['CED_SERVER_URL']}/zones/EAST_ARC/sketch">East Arc</a>
                 </li>
                 <li>
-                    <a href="http://cedweb.acc.jlab.org/zones/WEST_ARC/sketch">West Arc</a>
+                    <a href="${env['CED_SERVER_URL']}/zones/WEST_ARC/sketch">West Arc</a>
                 </li>
                 <li>
-                    <a href="http://cedweb.acc.jlab.org/zones/BSYS/sketch">BSY</a>
+                    <a href="${env['CED_SERVER_URL']}/zones/BSYS/sketch">BSY</a>
                 </li>
                 <li>
-                    <a href="http://cedweb.acc.jlab.org/zones/HALLA_ENDSTATION/sketch">Hall A</a>
+                    <a href="${env['CED_SERVER_URL']}/zones/HALLA_ENDSTATION/sketch">Hall A</a>
                 </li>
                 <li>
-                    <a href="http://cedweb.acc.jlab.org/zones/HALLB_ENDSTATION/sketch">Hall B</a>
+                    <a href="${env['CED_SERVER_URL']}/zones/HALLB_ENDSTATION/sketch">Hall B</a>
                 </li>
                 <li>
-                    <a href="http://cedweb.acc.jlab.org/zones/HALLC_ENDSTATION/sketch">Hall C</a>
+                    <a href="${env['CED_SERVER_URL']}/zones/HALLC_ENDSTATION/sketch">Hall C</a>
                 </li>
                 <li>
-                    <a href="http://cedweb.acc.jlab.org/zones/HALLD_ENDSTATION/sketch">Hall D</a>
+                    <a href="${env['CED_SERVER_URL']}/zones/HALLD_ENDSTATION/sketch">Hall D</a>
                 </li>
                 <li>
-                    <a href="http://ledweb.acc.jlab.org/zones/LERF/sketch">LERF</a>
+                    <a href="https://ledweb.acc.jlab.org/zones/LERF/sketch">LERF (onsite only)</a>
                 </li>
             </ul>
         </section>
