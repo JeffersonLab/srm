@@ -55,6 +55,8 @@ Wildfly must be pre-configured before the first deployment of the app. The [wild
 ### Runtime
 Uses the [Smoothness Environment Variables](https://github.com/JeffersonLab/smoothness#environment-variables).
 
+Additionally, the scheme, host name and port of the CEBAF Element Database (CED) server is configured with environment variable `CED_SERVER_URL`.
+
 There are some [Settings](https://github.com/JeffersonLab/srm/blob/87cb8b7d1a9b0e2e36cc68b34eaefe02478bb89a/docker/oracle/setup/02_ddl.sql#L256-L264) in the database as well.
 
 ## Build
