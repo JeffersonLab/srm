@@ -70,6 +70,7 @@
         <web-resource-collection>
             <web-resource-name>Setup Pages</web-resource-name>
             <url-pattern>/setup/*</url-pattern>
+            <url-pattern>/reports/inventory-activity/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>srm-admin</role-name>
