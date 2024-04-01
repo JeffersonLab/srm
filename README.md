@@ -41,7 +41,7 @@ See: [Docker Compose Strategy](https://gist.github.com/slominskir/a7da801e8259f5
 This application requires a Java 11+ JVM and standard library to run, plus a Java EE 8+ application server (developed with Wildfly).
 
 
-1. Install service [dependencies](https://github.com/JeffersonLab/srm/blob/main/deps.yml)
+1. Install service [dependencies](https://github.com/JeffersonLab/srm/blob/main/deps.yaml)
 2. Download [Wildfly 26.1.3](https://www.wildfly.org/downloads/)
 3. [Configure](https://github.com/JeffersonLab/srm#configure) Wildfly and start it
 4. Download [srm.war](https://github.com/JeffersonLab/srm/releases) and deploy it to Wildfly
@@ -76,7 +76,7 @@ See: [Docker Development Quick Reference](https://gist.github.com/slominskir/a7d
 ## Develop
 In order to iterate rapidly when making changes it's often useful to run the app directly on the local workstation, perhaps leveraging an IDE.  In this scenario run the service dependencies with:
 ```
-docker compose -f deps.yml up
+docker compose -f deps.yaml up
 ```
 **Note**: The local install of Wildfly should be [configured](https://github.com/JeffersonLab/srm#configure) to proxy connections to services via localhost and therefore the environment variables should contain:
 ```
@@ -91,7 +91,7 @@ The [server](https://github.com/JeffersonLab/wildfly/blob/main/scripts/server-se
 1. Bump the version number and release date in build.gradle and commit and push to GitHub (using [Semantic Versioning](https://semver.org/)).
 2. Create a new release on the GitHub Releases page corresponding to the same version in the build.gradle. The release should enumerate changes and link issues. A war artifact can be attached to the release to facilitate easy installation by users.
 3. [Publish to DockerHub](https://github.com/JeffersonLab/srm/actions/workflows/docker-publish.yml) GitHub Action should run automatically.
-4. Bump and commit quick start [image version](https://github.com/JeffersonLab/srm/blob/main/docker-compose.override.yml)
+4. Bump and commit quick start [image version](https://github.com/JeffersonLab/srm/blob/main/compose.override.yml)
 
 ## Deploy
 At JLab this app is found at [ace.jlab.org/srm](https://ace.jlab.org/srm) and internally at [acctest.acc.jlab.org/srm](https://acctest.acc.jlab.org/srm).  However, those servers are proxies for `wildfly5.acc.jlab.org` and `wildflytest5.acc.jlab.org` respectively.   A [deploy script](https://github.com/JeffersonLab/wildfly/blob/main/scripts/deploy.sh) is provided to automate wget and deploy.  Example:
