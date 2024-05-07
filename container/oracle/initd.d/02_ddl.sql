@@ -608,7 +608,7 @@ with component_activity as (
     where revtype = 1 and masked <> previous_masked
 ),
      category_activity as (
-         select rev, revtstmp, username, category_id, 'CATEGORY: ' || (select name from srm_owner.all_categories where category_id = srm_owner.category_aud.category_id and rownum = 1) as remark, case revtype when 0 then 'ADD_CATEGORY' else 'DELETE_CATEGORY' end as change_type from srm_owner.application_revision_info inner join srm_owner.category_aud using(rev) where revtype in (0,2)
+         select rev, revtstmp, username, category_id, 'CATEGORY: ' || name as remark, case revtype when 0 then 'ADD_CATEGORY' else 'DELETE_CATEGORY' end as change_type from srm_owner.application_revision_info inner join srm_owner.category_aud using(rev) where revtype in (0,2)
          union all
          select rev, revtstmp, username, category_id, (select name from srm_owner.all_categories where category_id = previous_parent_id) || ' --> ' || (select name from srm_owner.all_categories where category_id = par_cat.parent_id) as remark, 'REORGANIZE_CATEGORY' as change_type from
              (select revtype, rev, revtstmp, username, category_id, parent_id, lag(parent_id) over (partition by category_id order by rev) as previous_parent_id from srm_owner.application_revision_info inner join srm_owner.category_aud using(rev)) par_cat
