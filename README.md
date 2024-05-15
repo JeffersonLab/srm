@@ -60,7 +60,7 @@ Additionally, the scheme, host name and port of the CEBAF Element Database (CED)
 There are some [Settings](https://github.com/JeffersonLab/srm/blob/87cb8b7d1a9b0e2e36cc68b34eaefe02478bb89a/docker/oracle/setup/02_ddl.sql#L256-L264) in the database as well.
 
 ### Database
-This application requires an Oracle 18+ database with the following [schema](https://github.com/JeffersonLab/bam/tree/main/container/oracle/initdb.d) installed.   The application server hosting this app must also be configured with a JNDI datasource.
+This application requires an Oracle 18+ database with the following [schema](https://github.com/JeffersonLab/srm/tree/main/container/oracle/initdb.d) installed.   The application server hosting this app must also be configured with a JNDI datasource.
 
 ## Build
 This project is built with [Java 17](https://adoptium.net/) (compiled to Java 11 bytecode), and uses the [Gradle 7](https://gradle.org/) build tool to automatically download dependencies and build the project from source:
