@@ -10,7 +10,7 @@ services:
       ORACLE_PASSWORD: testing
       TZ: 'America/New_York'
     volumes:
-      - ./container/oracle/initd.d:/container-entrypoint-initdb.d
+      - ./container/oracle/initdb.d:/container-entrypoint-initdb.d
 
   keycloak:
     image: jeffersonlab/keycloak:1.1.1
@@ -31,7 +31,7 @@ services:
       KEYCLOAK_SECRET: 'yHi6W2raPmLvPXoxqMA7VWbLAA2WN0eB'
       TZ: 'America/New_York'
     volumes:
-      - ./container/keycloak/initd.d:/container-entrypoint-initdb.d
+      - ./container/keycloak/initdb.d:/container-entrypoint-initdb.d
 
   puppet:
     image: slominskir/puppet-show:2.1.1
