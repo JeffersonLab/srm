@@ -1,14 +1,13 @@
 package org.jlab.srm.persistence.entity.aud;
 
-import org.hibernate.envers.RevisionType;
-import org.jlab.srm.persistence.entity.ApplicationRevisionInfo;
-import org.jlab.srm.persistence.entity.view.AllCategory;
-
+import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
-import java.util.Objects;
+import org.hibernate.envers.RevisionType;
+import org.jlab.srm.persistence.entity.ApplicationRevisionInfo;
+import org.jlab.srm.persistence.entity.view.AllCategory;
 
 /**
  * @author ryans
@@ -17,70 +16,78 @@ import java.util.Objects;
 @Table(name = "CATEGORY_AUD", schema = "SRM_OWNER")
 public class CategoryAud implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected CategoryAudPK categoryAudPK;
-    @Enumerated(EnumType.ORDINAL)
-    @NotNull
-    @Column(name = "REVTYPE")
-    private RevisionType type;
-    @JoinColumn(name = "REV", referencedColumnName = "REV", insertable = false, updatable = false, nullable = false)
-    @NotNull
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private ApplicationRevisionInfo revision;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 128)
-    @Column(nullable = false, length = 128)
-    private String name;
-    @JoinColumn(name = "PARENT_ID", referencedColumnName = "CATEGORY_ID", nullable = true)
-    @ManyToOne(optional = true, fetch = FetchType.EAGER)
-    private AllCategory parent;
+  private static final long serialVersionUID = 1L;
+  @EmbeddedId protected CategoryAudPK categoryAudPK;
 
-    public RevisionType getType() {
-        return type;
-    }
+  @Enumerated(EnumType.ORDINAL)
+  @NotNull
+  @Column(name = "REVTYPE")
+  private RevisionType type;
 
-    public void setType(RevisionType type) {
-        this.type = type;
-    }
+  @JoinColumn(
+      name = "REV",
+      referencedColumnName = "REV",
+      insertable = false,
+      updatable = false,
+      nullable = false)
+  @NotNull
+  @ManyToOne(optional = false, fetch = FetchType.LAZY)
+  private ApplicationRevisionInfo revision;
 
-    public ApplicationRevisionInfo getRevision() {
-        return revision;
-    }
+  @Basic(optional = false)
+  @NotNull
+  @Size(min = 1, max = 128)
+  @Column(nullable = false, length = 128)
+  private String name;
 
-    public void setRevision(ApplicationRevisionInfo revision) {
-        this.revision = revision;
-    }
+  @JoinColumn(name = "PARENT_ID", referencedColumnName = "CATEGORY_ID", nullable = true)
+  @ManyToOne(optional = true, fetch = FetchType.EAGER)
+  private AllCategory parent;
 
-    public CategoryAudPK getCategoryAudPK() {
-        return categoryAudPK;
-    }
+  public RevisionType getType() {
+    return type;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public void setType(RevisionType type) {
+    this.type = type;
+  }
 
-    public AllCategory getParent() {
-        return parent;
-    }
+  public ApplicationRevisionInfo getRevision() {
+    return revision;
+  }
 
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 17 * hash + (this.categoryAudPK != null ? this.categoryAudPK.hashCode() : 0);
-        return hash;
-    }
+  public void setRevision(ApplicationRevisionInfo revision) {
+    this.revision = revision;
+  }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final CategoryAud other = (CategoryAud) obj;
-        return Objects.equals(this.categoryAudPK, other.categoryAudPK);
+  public CategoryAudPK getCategoryAudPK() {
+    return categoryAudPK;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public AllCategory getParent() {
+    return parent;
+  }
+
+  @Override
+  public int hashCode() {
+    int hash = 3;
+    hash = 17 * hash + (this.categoryAudPK != null ? this.categoryAudPK.hashCode() : 0);
+    return hash;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == null) {
+      return false;
     }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    final CategoryAud other = (CategoryAud) obj;
+    return Objects.equals(this.categoryAudPK, other.categoryAudPK);
+  }
 }

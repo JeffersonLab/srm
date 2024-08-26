@@ -1,31 +1,34 @@
 package org.jlab.srm.presentation.controller;
 
+import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * @author ryans
  */
-@WebServlet(name = "Reports", urlPatterns = {"/reports"})
+@WebServlet(
+    name = "Reports",
+    urlPatterns = {"/reports"})
 public class Reports extends HttpServlet {
 
-    /**
-     * Handles the HTTP
-     * <code>GET</code> method.
-     *
-     * @param request  servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException      if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        getServletConfig().getServletContext().getRequestDispatcher(
-                "/WEB-INF/views/reports.jsp").forward(request, response);
-    }
+  /**
+   * Handles the HTTP <code>GET</code> method.
+   *
+   * @param request servlet request
+   * @param response servlet response
+   * @throws ServletException if a servlet-specific error occurs
+   * @throws IOException if an I/O error occurs
+   */
+  @Override
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+    getServletConfig()
+        .getServletContext()
+        .getRequestDispatcher("/WEB-INF/views/reports.jsp")
+        .forward(request, response);
+  }
 }

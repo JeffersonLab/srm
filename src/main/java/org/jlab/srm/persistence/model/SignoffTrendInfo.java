@@ -3,19 +3,19 @@ package org.jlab.srm.persistence.model;
 import java.util.Date;
 
 public class SignoffTrendInfo {
-    private final Date date;
-    private final long count;
+  private final Date date;
+  private final long count;
 
-    public SignoffTrendInfo(Date date, Number count) {
-        this.date = date;
-        this.count = count.longValue();
-    }
+  public SignoffTrendInfo(Date date, Number count) {
+    this.date = date;
+    this.count = count.longValue();
+  }
 
-    public Date getDate() {
-        return date;
-    }
+  public Date getDate() {
+    return date;
+  }
 
-    public long getCount() {
-        return count;
-    }
+  public long getCount() {
+    return count;
+  }
 }

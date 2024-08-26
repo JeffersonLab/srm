@@ -1,17 +1,16 @@
 package org.jlab.srm.persistence.entity;
 
-import org.jlab.smoothness.persistence.view.User;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.List;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import org.jlab.smoothness.persistence.view.User;
 
 /**
- * Note: we name this class ResponsibleGroup instead of Group because group
- * is a reserved word in SQL.
+ * Note: we name this class ResponsibleGroup instead of Group because group is a reserved word in
+ * SQL.
  *
  * @author ryans
  */
@@ -19,121 +18,127 @@ import java.util.List;
 @Table(name = "RESPONSIBLE_GROUP", schema = "SRM_OWNER")
 public class ResponsibleGroup implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @SequenceGenerator(name = "GroupId", sequenceName = "GROUP_ID", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GroupId")
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "GROUP_ID", nullable = false, precision = 22, scale = 0)
-    private BigInteger groupId;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 128)
-    @Column(nullable = false, length = 128)
-    private String name;
-    @Size(max = 1024)
-    @Column(length = 1024)
-    private String description;
-    @NotNull
-    @Basic(optional = false)
-    @Column(name = "GOAL_PERCENT", nullable = false)
-    private int goalPercent;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "group", fetch = FetchType.LAZY)
-    private List<GroupResponsibility> groupResponsibilityList;
-    @NotNull
-    @Column(name = "LEADER_WORKGROUP", nullable = false, length = 64)
-    private String leaderWorkgroup;
-    @Transient
-    private List<User> leaders;
+  private static final long serialVersionUID = 1L;
 
-    public ResponsibleGroup() {
-    }
+  @Id
+  @SequenceGenerator(name = "GroupId", sequenceName = "GROUP_ID", allocationSize = 1)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GroupId")
+  @Basic(optional = false)
+  @NotNull
+  @Column(name = "GROUP_ID", nullable = false, precision = 22, scale = 0)
+  private BigInteger groupId;
 
-    public ResponsibleGroup(BigInteger groupId) {
-        this.groupId = groupId;
-    }
+  @Basic(optional = false)
+  @NotNull
+  @Size(min = 1, max = 128)
+  @Column(nullable = false, length = 128)
+  private String name;
 
-    public ResponsibleGroup(BigInteger groupId, String name) {
-        this.groupId = groupId;
-        this.name = name;
-    }
+  @Size(max = 1024)
+  @Column(length = 1024)
+  private String description;
 
-    public BigInteger getGroupId() {
-        return groupId;
-    }
+  @NotNull
+  @Basic(optional = false)
+  @Column(name = "GOAL_PERCENT", nullable = false)
+  private int goalPercent;
 
-    public void setGroupId(BigInteger groupId) {
-        this.groupId = groupId;
-    }
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "group", fetch = FetchType.LAZY)
+  private List<GroupResponsibility> groupResponsibilityList;
 
-    public String getName() {
-        return name;
-    }
+  @NotNull
+  @Column(name = "LEADER_WORKGROUP", nullable = false, length = 64)
+  private String leaderWorkgroup;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  @Transient private List<User> leaders;
 
-    public String getDescription() {
-        return description;
-    }
+  public ResponsibleGroup() {}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+  public ResponsibleGroup(BigInteger groupId) {
+    this.groupId = groupId;
+  }
 
-    public int getGoalPercent() {
-        return goalPercent;
-    }
+  public ResponsibleGroup(BigInteger groupId, String name) {
+    this.groupId = groupId;
+    this.name = name;
+  }
 
-    public void setGoalPercent(int goalPercent) {
-        this.goalPercent = goalPercent;
-    }
+  public BigInteger getGroupId() {
+    return groupId;
+  }
 
-    public List<GroupResponsibility> getGroupResponsibilityList() {
-        return groupResponsibilityList;
-    }
+  public void setGroupId(BigInteger groupId) {
+    this.groupId = groupId;
+  }
 
-    public void setGroupResponsibilityList(List<GroupResponsibility> groupResponsibilityList) {
-        this.groupResponsibilityList = groupResponsibilityList;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public String getLeaderWorkgroup() {
-        return leaderWorkgroup;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public void setLeaderWorkgroup(String leaderWorkgroup) {
-        this.leaderWorkgroup = leaderWorkgroup;
-    }
+  public String getDescription() {
+    return description;
+  }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (groupId != null ? groupId.hashCode() : 0);
-        return hash;
-    }
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ResponsibleGroup)) {
-            return false;
-        }
-        ResponsibleGroup other = (ResponsibleGroup) object;
-        return (this.groupId != null || other.groupId == null) && (this.groupId == null || this.groupId.equals(other.groupId));
-    }
+  public int getGoalPercent() {
+    return goalPercent;
+  }
 
-    @Override
-    public String toString() {
-        return "org.jlab.srm.persistence.entity.ResponsibleGroup[ groupId=" + groupId + " ]";
-    }
+  public void setGoalPercent(int goalPercent) {
+    this.goalPercent = goalPercent;
+  }
 
-    public void setLeaders(List<User> leaders) {
-        this.leaders = leaders;
-    }
+  public List<GroupResponsibility> getGroupResponsibilityList() {
+    return groupResponsibilityList;
+  }
 
-    public List<User> getLeaders() {
-        return leaders;
+  public void setGroupResponsibilityList(List<GroupResponsibility> groupResponsibilityList) {
+    this.groupResponsibilityList = groupResponsibilityList;
+  }
+
+  public String getLeaderWorkgroup() {
+    return leaderWorkgroup;
+  }
+
+  public void setLeaderWorkgroup(String leaderWorkgroup) {
+    this.leaderWorkgroup = leaderWorkgroup;
+  }
+
+  @Override
+  public int hashCode() {
+    int hash = 0;
+    hash += (groupId != null ? groupId.hashCode() : 0);
+    return hash;
+  }
+
+  @Override
+  public boolean equals(Object object) {
+    // TODO: Warning - this method won't work in the case the id fields are not set
+    if (!(object instanceof ResponsibleGroup)) {
+      return false;
     }
+    ResponsibleGroup other = (ResponsibleGroup) object;
+    return (this.groupId != null || other.groupId == null)
+        && (this.groupId == null || this.groupId.equals(other.groupId));
+  }
+
+  @Override
+  public String toString() {
+    return "org.jlab.srm.persistence.entity.ResponsibleGroup[ groupId=" + groupId + " ]";
+  }
+
+  public void setLeaders(List<User> leaders) {
+    this.leaders = leaders;
+  }
+
+  public List<User> getLeaders() {
+    return leaders;
+  }
 }

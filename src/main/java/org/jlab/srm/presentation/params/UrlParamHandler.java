@@ -1,22 +1,22 @@
 package org.jlab.srm.presentation.params;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
 
 public interface UrlParamHandler<E> {
-    E convert();
+  E convert();
 
-    void validate(E params);
+  void validate(E params);
 
-    void store(E params);
+  void store(E params);
 
-    E defaults();
+  E defaults();
 
-    E materialize();
+  E materialize();
 
-    boolean qualified();
+  boolean qualified();
 
-    String message(E params);
+  String message(E params);
 
-    void redirect(HttpServletResponse response, E params) throws IOException;
+  void redirect(HttpServletResponse response, E params) throws IOException;
 }
