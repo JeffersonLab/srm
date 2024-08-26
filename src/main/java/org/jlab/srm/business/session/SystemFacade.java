@@ -281,7 +281,8 @@ public class SystemFacade extends AbstractFacade<SystemEntity> {
   }
 
   @PermitAll
-  public void addNew(BigInteger parentId, String name, String description) throws UserFriendlyException {
+  public void addNew(BigInteger parentId, String name, String description)
+      throws UserFriendlyException {
     String username = checkAuthenticated();
 
     if (parentId == null) {
