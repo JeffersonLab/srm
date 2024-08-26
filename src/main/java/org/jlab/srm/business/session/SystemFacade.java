@@ -281,7 +281,8 @@ public class SystemFacade extends AbstractFacade<SystemEntity> {
   }
 
   @PermitAll
-  public void addNew(BigInteger parentId, String name) throws UserFriendlyException {
+  public void addNew(BigInteger parentId, String name, String description)
+      throws UserFriendlyException {
     String username = checkAuthenticated();
 
     if (parentId == null) {
@@ -305,6 +306,7 @@ public class SystemFacade extends AbstractFacade<SystemEntity> {
     SystemEntity s = new SystemEntity();
     s.setCategory(parent);
     s.setName(name);
+    s.setDescription(description);
     s.setWeight(BigInteger.valueOf(1000));
 
     create(s);
@@ -332,7 +334,7 @@ public class SystemFacade extends AbstractFacade<SystemEntity> {
   }
 
   @PermitAll
-  public void edit(BigInteger systemId, BigInteger parentId, String name)
+  public void edit(BigInteger systemId, BigInteger parentId, String name, String description)
       throws UserFriendlyException {
     String username = checkAuthenticated();
 
@@ -362,5 +364,6 @@ public class SystemFacade extends AbstractFacade<SystemEntity> {
 
     s.setCategory(parent);
     s.setName(name);
+    s.setDescription(description);
   }
 }

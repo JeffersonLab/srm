@@ -46,7 +46,8 @@ public class EditSystem extends HttpServlet {
       BigInteger systemId = ParamConverter.convertBigInteger(request, "systemId");
       BigInteger parentId = ParamConverter.convertBigInteger(request, "parentId");
       String name = request.getParameter("name");
-      systemFacade.edit(systemId, parentId, name);
+      String description = request.getParameter("description");
+      systemFacade.edit(systemId, parentId, name, description);
     } catch (EJBAccessException e) {
       logger.log(Level.WARNING, "Not authorized", e);
       errorReason = "Not authorized";

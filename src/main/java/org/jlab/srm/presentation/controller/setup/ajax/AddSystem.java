@@ -45,7 +45,8 @@ public class AddSystem extends HttpServlet {
     try {
       BigInteger parentId = ParamConverter.convertBigInteger(request, "parentId");
       String name = request.getParameter("name");
-      systemFacade.addNew(parentId, name);
+      String description = request.getParameter("description");
+      systemFacade.addNew(parentId, name, description);
     } catch (EJBAccessException e) {
       logger.log(Level.WARNING, "Not authorized", e);
       errorReason = "Not authorized";

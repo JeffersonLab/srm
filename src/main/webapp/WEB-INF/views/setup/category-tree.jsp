@@ -41,6 +41,11 @@
             #open-edit-root-dialog-button {
                 float: right;
             }
+            #node-description {
+                resize: none;
+                height: 100px;
+                width: 370px;
+            }
         </style>          
     </jsp:attribute>
     <jsp:attribute name="scripts">
@@ -136,7 +141,7 @@
                                         <option value="">&nbsp;</option>
                                         <c:forEach items="${systemList}" var="system">
                                             <option value="${system.systemId}"${param.systemId eq system.systemId ? ' selected="selected"' : ''}
-                                                    data-category="${system.category.name}"><c:out
+                                                    data-category="${system.category.name}" data-description="${system.description}"><c:out
                                                     value="${system.name}"/></option>
                                         </c:forEach>
                                     </select>
@@ -167,6 +172,14 @@
                                 </div>
                                 <div class="li-value">
                                     <input type="text" maxlength="128" id="node-name" name="node-name"/>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="li-key">
+                                    <label for="node-description">Description</label>
+                                </div>
+                                <div class="li-value">
+                                    <textarea  maxlength="2048" id="node-description" name="node-description"></textarea>
                                 </div>
                             </li>
                         </ul>

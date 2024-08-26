@@ -39,6 +39,9 @@ public class SystemEntity implements Serializable, Comparable<SystemEntity> {
   @Column(nullable = false, length = 128)
   private String name;
 
+  @Column(nullable = true, length = 2048)
+  private String description;
+
   private BigInteger weight;
 
   @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "CATEGORY_ID", nullable = false)
@@ -82,6 +85,14 @@ public class SystemEntity implements Serializable, Comparable<SystemEntity> {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
   }
 
   public BigInteger getWeight() {
