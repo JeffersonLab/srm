@@ -1,66 +1,66 @@
 package org.jlab.srm.presentation.controller.setup;
 
-import org.jlab.srm.business.session.AbstractFacade.OrderDirective;
-import org.jlab.srm.business.session.BeamDestinationFacade;
-import org.jlab.srm.persistence.entity.BeamDestination;
-import org.jlab.smoothness.presentation.util.ParamConverter;
-
+import java.io.IOException;
+import java.math.BigInteger;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.math.BigInteger;
-import java.util.List;
+import org.jlab.smoothness.presentation.util.ParamConverter;
+import org.jlab.srm.business.session.AbstractFacade.OrderDirective;
+import org.jlab.srm.business.session.BeamDestinationFacade;
+import org.jlab.srm.persistence.entity.BeamDestination;
 
 /**
  * @author ryans
  */
-@WebServlet(name = "BeamDestinationList", urlPatterns = {"/setup/destination-list"})
+@WebServlet(
+    name = "BeamDestinationList",
+    urlPatterns = {"/setup/destination-list"})
 public class BeamDestinationList extends HttpServlet {
 
-    @EJB
-    BeamDestinationFacade destinationFacade;
+  @EJB BeamDestinationFacade destinationFacade;
 
-    /**
-     * Handles the HTTP
-     * <code>GET</code> method.
-     *
-     * @param request  servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException      if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        List<BeamDestination> destinationList = destinationFacade.findAll(new OrderDirective("weight"));
+  /**
+   * Handles the HTTP <code>GET</code> method.
+   *
+   * @param request servlet request
+   * @param response servlet response
+   * @throws ServletException if a servlet-specific error occurs
+   * @throws IOException if an I/O error occurs
+   */
+  @Override
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+    List<BeamDestination> destinationList = destinationFacade.findAll(new OrderDirective("weight"));
 
-        request.setAttribute("destinationList", destinationList);
+    request.setAttribute("destinationList", destinationList);
 
-        getServletConfig().getServletContext().getRequestDispatcher(
-                "/WEB-INF/views/setup/destination-list.jsp").forward(request, response);
-    }
+    getServletConfig()
+        .getServletContext()
+        .getRequestDispatcher("/WEB-INF/views/setup/destination-list.jsp")
+        .forward(request, response);
+  }
 
-    /**
-     * Handles the HTTP
-     * <code>POST</code> method.
-     *
-     * @param request  servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException      if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+  /**
+   * Handles the HTTP <code>POST</code> method.
+   *
+   * @param request servlet request
+   * @param response servlet response
+   * @throws ServletException if a servlet-specific error occurs
+   * @throws IOException if an I/O error occurs
+   */
+  @Override
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
 
-        BigInteger[] targetArray = ParamConverter.convertBigIntegerArray(request, "target");
+    BigInteger[] targetArray = ParamConverter.convertBigIntegerArray(request, "target");
 
-        destinationFacade.setTarget(targetArray);
+    destinationFacade.setTarget(targetArray);
 
-        response.sendRedirect(response.encodeRedirectURL("destination-list"));
-    }
+    response.sendRedirect(response.encodeRedirectURL("destination-list"));
+  }
 }

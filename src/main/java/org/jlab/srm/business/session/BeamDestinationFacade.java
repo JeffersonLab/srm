@@ -1,7 +1,9 @@
 package org.jlab.srm.business.session;
 
-import org.jlab.srm.persistence.entity.BeamDestination;
-
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
@@ -9,10 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import org.jlab.srm.persistence.entity.BeamDestination;
 
 /**
  * @author ryans
@@ -20,140 +19,153 @@ import java.util.List;
 @Stateless
 public class BeamDestinationFacade extends AbstractFacade<BeamDestination> {
 
-    @PersistenceContext(unitName = "srmPU")
-    private EntityManager em;
+  @PersistenceContext(unitName = "srmPU")
+  private EntityManager em;
 
-    public BeamDestinationFacade() {
-        super(BeamDestination.class);
+  public BeamDestinationFacade() {
+    super(BeamDestination.class);
+  }
+
+  @Override
+  protected EntityManager getEntityManager() {
+    return em;
+  }
+
+  @RolesAllowed("srm-admin")
+  public void setTarget(BigInteger[] targetArray) {
+    Query q = em.createQuery("update BeamDestination a set a.targetYn = 'N'");
+    q.executeUpdate();
+
+    if (targetArray != null && targetArray.length > 0) {
+      q =
+          em.createQuery(
+              "update BeamDestination a set a.targetYn = 'Y' where a.beamDestinationId in :destinationIdArray");
+      q.setParameter("destinationIdArray", Arrays.asList(targetArray));
+      q.executeUpdate();
     }
+  }
 
-    @Override
-    protected EntityManager getEntityManager() {
-        return em;
-    }
+  @PermitAll
+  public List<BeamDestination> filterTargetList(List<BeamDestination> destinationList) {
+    List<BeamDestination> targetList = new ArrayList<>();
 
-    @RolesAllowed("srm-admin")
-    public void setTarget(BigInteger[] targetArray) {
-        Query q = em.createQuery("update BeamDestination a set a.targetYn = 'N'");
-        q.executeUpdate();
-
-        if (targetArray != null && targetArray.length > 0) {
-            q = em.createQuery("update BeamDestination a set a.targetYn = 'Y' where a.beamDestinationId in :destinationIdArray");
-            q.setParameter("destinationIdArray", Arrays.asList(targetArray));
-            q.executeUpdate();
+    if (destinationList != null) {
+      for (BeamDestination destination : destinationList) {
+        if (destination.isTarget()) {
+          targetList.add(destination);
         }
+      }
     }
 
-    @PermitAll
-    public List<BeamDestination> filterTargetList(List<BeamDestination> destinationList) {
-        List<BeamDestination> targetList = new ArrayList<>();
+    return targetList;
+  }
 
-        if (destinationList != null) {
-            for (BeamDestination destination : destinationList) {
-                if (destination.isTarget()) {
-                    targetList.add(destination);
-                }
-            }
+  @PermitAll
+  public String filterTargetCsv(List<BeamDestination> destinationList) {
+    String csv = "";
+    List<BeamDestination> targetList = filterTargetList(destinationList);
+
+    if (targetList != null && !targetList.isEmpty()) {
+      csv = targetList.get(0).getBeamDestinationId().toString();
+
+      for (int i = 1; i < targetList.size(); i++) {
+        csv = csv + "," + targetList.get(i).getBeamDestinationId().toString();
+      }
+    }
+
+    return csv;
+  }
+
+  @PermitAll
+  public String toCsv(List<BeamDestination> destinationList) {
+    String csv = "";
+
+    if (destinationList != null && !destinationList.isEmpty()) {
+      csv = destinationList.get(0).getBeamDestinationId().toString();
+
+      for (int i = 1; i < destinationList.size(); i++) {
+        csv = csv + "," + destinationList.get(i).getBeamDestinationId().toString();
+      }
+    }
+
+    return csv;
+  }
+
+  @PermitAll
+  public BigInteger[] toIdArray(List<BeamDestination> destinationList) {
+    List<BigInteger> destinationIdList = new ArrayList<>();
+
+    if (destinationList != null) {
+      for (BeamDestination destination : destinationList) {
+        if (destination != null) {
+          destinationIdList.add(destination.getBeamDestinationId());
         }
-
-        return targetList;
+      }
     }
 
-    @PermitAll
-    public String filterTargetCsv(List<BeamDestination> destinationList) {
-        String csv = "";
-        List<BeamDestination> targetList = filterTargetList(destinationList);
+    return destinationIdList.toArray(new BigInteger[0]);
+  }
 
-        if (targetList != null && !targetList.isEmpty()) {
-            csv = targetList.get(0).getBeamDestinationId().toString();
+  @PermitAll
+  public BeamDestination findTarget() {
+    TypedQuery<BeamDestination> q =
+        em.createQuery(
+            "select a from BeamDestination a where a.targetYn = 'Y'", BeamDestination.class);
 
-            for (int i = 1; i < targetList.size(); i++) {
-                csv = csv + "," + targetList.get(i).getBeamDestinationId().toString();
-            }
-        }
+    BeamDestination target = null;
 
-        return csv;
+    List<BeamDestination> destinationList = q.getResultList();
+
+    if (destinationList != null && !destinationList.isEmpty()) {
+      target = destinationList.get(0);
     }
 
-    @PermitAll
-    public String toCsv(List<BeamDestination> destinationList) {
-        String csv = "";
+    return target;
+  }
 
-        if (destinationList != null && !destinationList.isEmpty()) {
-            csv = destinationList.get(0).getBeamDestinationId().toString();
+  @PermitAll
+  public List<BeamDestination> getFilteredDestinationList(BigInteger[] destinationIdArray) {
+    List<BeamDestination> destinationList;
 
-            for (int i = 1; i < destinationList.size(); i++) {
-                csv = csv + "," + destinationList.get(i).getBeamDestinationId().toString();
-            }
-        }
-
-        return csv;
+    if (destinationIdArray == null) {
+      destinationList = findAll(new OrderDirective("weight"));
+    } else {
+      TypedQuery<BeamDestination> q =
+          em.createQuery(
+              "select b from BeamDestination b where b.beamDestinationId in :destinationList order by weight asc",
+              BeamDestination.class);
+      q.setParameter("destinationList", Arrays.asList(destinationIdArray));
+      destinationList = q.getResultList();
     }
 
-    @PermitAll
-    public BigInteger[] toIdArray(List<BeamDestination> destinationList) {
-        List<BigInteger> destinationIdList = new ArrayList<>();
+    return destinationList;
+  }
 
-        if (destinationList != null) {
-            for (BeamDestination destination : destinationList) {
-                if (destination != null) {
-                    destinationIdList.add(destination.getBeamDestinationId());
-                }
-            }
-        }
+  @PermitAll
+  public List<BeamDestination> filterList(BigInteger componentId) {
+    String sql = "select b from BeamDestination b order by weight asc";
 
-        return destinationIdList.toArray(new BigInteger[0]);
+    if (componentId != null) {
+      sql =
+          "select b from BeamDestination b inner join b.componentList c where c.componentId = "
+              + componentId
+              + " order by b.weight asc";
     }
 
-    @PermitAll
-    public BeamDestination findTarget() {
-        TypedQuery<BeamDestination> q = em.createQuery("select a from BeamDestination a where a.targetYn = 'Y'", BeamDestination.class);
+    TypedQuery<BeamDestination> q = em.createQuery(sql, BeamDestination.class);
 
-        BeamDestination target = null;
+    return q.getResultList();
+  }
 
-        List<BeamDestination> destinationList = q.getResultList();
+  @PermitAll
+  public List<BeamDestination> findMultiple(BigInteger[] destinationIdArray) {
+    TypedQuery<BeamDestination> q =
+        em.createQuery(
+            "select a from BeamDestination a where a.beamDestinationId in :destinationIdArray",
+            BeamDestination.class);
 
-        if (destinationList != null && !destinationList.isEmpty()) {
-            target = destinationList.get(0);
-        }
+    q.setParameter("destinationIdArray", Arrays.asList(destinationIdArray));
 
-        return target;
-    }
-
-    @PermitAll
-    public List<BeamDestination> getFilteredDestinationList(BigInteger[] destinationIdArray) {
-        List<BeamDestination> destinationList;
-
-        if (destinationIdArray == null) {
-            destinationList = findAll(new OrderDirective("weight"));
-        } else {
-            TypedQuery<BeamDestination> q = em.createQuery("select b from BeamDestination b where b.beamDestinationId in :destinationList order by weight asc", BeamDestination.class);
-            q.setParameter("destinationList", Arrays.asList(destinationIdArray));
-            destinationList = q.getResultList();
-        }
-
-        return destinationList;
-    }
-
-    @PermitAll
-    public List<BeamDestination> filterList(BigInteger componentId) {
-        String sql = "select b from BeamDestination b order by weight asc";
-
-        if (componentId != null) {
-            sql = "select b from BeamDestination b inner join b.componentList c where c.componentId = " + componentId + " order by b.weight asc";
-        }
-
-        TypedQuery<BeamDestination> q = em.createQuery(sql, BeamDestination.class);
-
-        return q.getResultList();
-    }
-
-    @PermitAll
-    public List<BeamDestination> findMultiple(BigInteger[] destinationIdArray) {
-        TypedQuery<BeamDestination> q = em.createQuery("select a from BeamDestination a where a.beamDestinationId in :destinationIdArray", BeamDestination.class);
-
-        q.setParameter("destinationIdArray", Arrays.asList(destinationIdArray));
-
-        return q.getResultList();
-    }
+    return q.getResultList();
+  }
 }
