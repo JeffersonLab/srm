@@ -17,6 +17,10 @@
 <div id="page">
     <h1>System ${system.name}</h1>
     <dl class="dialog-content">
+        <dt>Description:</dt>
+        <dd>
+            <c:out value="${system.description eq null ? 'None' : system.description}"/>
+        </dd>
         <dt>Group Responsibilities:</dt>
         <dd>
             <c:if test="${fn:length(system.groupResponsibilityList) > 0}">

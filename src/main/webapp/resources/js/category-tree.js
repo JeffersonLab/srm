@@ -211,7 +211,8 @@ jlab.srm.addSystem = function () {
     $("#SaveButton").attr("disabled", "disabled");
 
     var parentId = $("#category-parent").val(),
-        name = $("#node-name").val();
+        name = $("#node-name").val(),
+        description = $("#node-description").val();
 
     var leaveSpinning = false;
 
@@ -220,7 +221,8 @@ jlab.srm.addSystem = function () {
         type: "POST",
         data: {
             parentId: parentId,
-            name: name
+            name: name,
+            description: description
         },
         dataType: "html"
     });
@@ -274,7 +276,8 @@ jlab.srm.editSystem = function () {
     $("#SaveButton").attr("disabled", "disabled");
 
     var parentId = $("#category-parent").val(),
-        name = $("#node-name").val();
+        name = $("#node-name").val(),
+        description = $("#node-description").val();
 
     var leaveSpinning = false;
 
@@ -284,7 +287,8 @@ jlab.srm.editSystem = function () {
         data: {
             systemId: systemId,
             parentId: parentId,
-            name: name
+            name: name,
+            description: description
         },
         dataType: "html"
     });
@@ -454,6 +458,7 @@ $(document).on("click", "#open-add-category-dialog-button", function () {
     $("#node-dialog").dialog("option", "title", "Add Category");
     $("#select-node-fieldset").hide();
     $("#new-value-fieldset").show();
+    $("#node-description").prop("disabled", true);
     jlab.srm.clearAndOpenNodeDialog();
 });
 
@@ -463,6 +468,7 @@ $(document).on("click", "#open-edit-category-dialog-button", function () {
     $("#category-node-select").show();
     $("#system-node-select").hide();
     $("#new-value-fieldset").show();
+    $("#node-description").prop("disabled", true);
     jlab.srm.clearAndOpenNodeDialog();
 });
 
@@ -479,6 +485,7 @@ $(document).on("click", "#open-add-system-dialog-button", function () {
     $("#node-dialog").dialog("option", "title", "Add System");
     $("#select-node-fieldset").hide();
     $("#new-value-fieldset").show();
+    $("#node-description").prop("disabled", false);
     jlab.srm.clearAndOpenNodeDialog();
 });
 
@@ -488,6 +495,7 @@ $(document).on("click", "#open-edit-system-dialog-button", function () {
     $("#category-node-select").hide();
     $("#system-node-select").show();
     $("#new-value-fieldset").show();
+    $("#node-description").prop("disabled", false);
     jlab.srm.clearAndOpenNodeDialog();
 });
 
@@ -521,6 +529,7 @@ $(document).on("change", "#system", function () {
         return $(this).text().trim() === currentParentCategoryName;
     }).prop("selected", true);
     $("#node-name").val($("#system option:selected").text().trim());
+    $("#node-description").val($("#system option:selected").attr("data-description"));
 });
 
 $(document).on("click", "#open-edit-root-dialog-button", function () {
@@ -536,7 +545,9 @@ $(function () {
     $(".dialog").dialog({
         autoOpen: false,
         width: 600,
-        height: 400,
+        height: 500,
+        minHeight: 500,
+        minWidth: 600,
         modal: true
     });
 
