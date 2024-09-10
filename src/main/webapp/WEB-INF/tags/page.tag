@@ -45,7 +45,7 @@
                                 href="${pageContext.request.contextPath}/links">Links</a></li>
                         <li${fn:startsWith(currentPath, '/reports') ? ' class="current-primary"' : ''}><a
                                 href="${pageContext.request.contextPath}/reports/overall-status">Reports</a></li>
-                        <c:if test="${pageContext.request.isUserInRole('srm-admin') || pageContext.request.isUserInRole('halead') || pageContext.request.isUserInRole('hblead') || pageContext.request.isUserInRole('hclead') || pageContext.request.isUserInRole('hdlead') || pageContext.request.isUserInRole('lerfadm') || pageContext.request.isUserInRole('cryoadm')}">
+                        <c:if test="${pageContext.request.isUserInRole('srm-admin') || pageContext.request.isUserInRole('halead') || pageContext.request.isUserInRole('hblead') || pageContext.request.isUserInRole('hclead') || pageContext.request.isUserInRole('hdlead') || pageContext.request.isUserInRole('lerfadm') || pageContext.request.isUserInRole('cryoadm') || pageContext.request.isUserInRole('cmtfadm') || pageContext.request.isUserInRole('vtaadm')}">
                             <li${fn:startsWith(currentPath, '/setup') ? ' class="current-primary"' : ''}><a
                                     href="${pageContext.request.contextPath}/setup/category-tree">Setup</a></li>
                             </c:if>
