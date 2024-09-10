@@ -16,6 +16,8 @@ KEYCLOAK_ROLE_NAME=group2Leaders
 create_role
 KEYCLOAK_ROLE_NAME=group3Leaders
 create_role
+KEYCLOAK_ROLE_NAME=vtaadm
+create_role
 
 echo "----------------"
 echo "| Create Users |"
@@ -75,4 +77,6 @@ create_user
 KEYCLOAK_ROLE_NAME=${KEYCLOAK_RESOURCE}-user
 assign_role
 KEYCLOAK_ROLE_NAME=group3Leaders
+assign_role
+KEYCLOAK_ROLE_NAME=vtaadm
 assign_role
