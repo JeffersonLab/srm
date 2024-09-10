@@ -239,6 +239,12 @@ public abstract class AbstractFacade<T> {
           case "Cryo":
             isBranchAdmin = context.isCallerInRole("cryoadm");
             break;
+          case "CMTF":
+            isBranchAdmin = context.isCallerInRole("cmtfadm");
+            break;
+          case "VTA":
+            isBranchAdmin = context.isCallerInRole("vtaadm");
+            break;
         }
       }
       if (isBranchAdmin) {
