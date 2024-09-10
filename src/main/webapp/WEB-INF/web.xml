@@ -80,6 +80,8 @@
             <role-name>hdlead</role-name>
             <role-name>lerfadm</role-name>
             <role-name>cryoadm</role-name>
+            <role-name>vtaadm</role-name>
+            <role-name>cmtfadm</role-name>
         </auth-constraint>
     </security-constraint>
     <login-config>
@@ -105,6 +107,12 @@
     </security-role>
     <security-role>
         <role-name>cryoadm</role-name>
+    </security-role>
+    <security-role>
+        <role-name>vtaadm</role-name>
+    </security-role>
+    <security-role>
+        <role-name>cmtfadm</role-name>
     </security-role>
     <security-role>
         <role-name>cc</role-name>
