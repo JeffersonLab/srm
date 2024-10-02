@@ -275,7 +275,7 @@ jlab.srm.filterSystemListByGroup = function (groupId) {
             $select.empty();
             $select.append('<option></option>');
             $(data.optionList).each(function () {
-                $select.append('<option value="' + this.value + '">' + this.name + '</option>');
+                $select.append('<option value="' + String(this.value).encodeXml() + '">' + String(this.name).encodeXml() + '</option>');
             });
             $select.slideDown();
         }
@@ -319,7 +319,7 @@ jlab.srm.filterGroupList = function (systemId) {
             $select.empty();
             $select.append('<option></option>');
             $(data.optionList).each(function () {
-                $select.append('<option value="' + this.value + '">' + this.name + '</option>');
+                $select.append('<option value="' + String(this.value).encodeXml() + '">' + String(this.name).encodeXml() + '</option>');
             });
 
             if ($(data.optionList).length === 1) {
@@ -433,7 +433,7 @@ jlab.srm.prepareEditDialog = function () {
     $selectedList.empty();
 
     for (var i = 0; i < componentNameArray.length; i++) {
-        $selectedList.append('<li>' + componentNameArray[i] + '</li>');
+        $selectedList.append('<li>' + String(componentNameArray[i]).encodeXml() + '</li>');
     }
 
     $(".selected-group").text(groupNameArray[0]);
