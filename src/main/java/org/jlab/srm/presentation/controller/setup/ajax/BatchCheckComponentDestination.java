@@ -52,7 +52,7 @@ public class BatchCheckComponentDestination extends HttpServlet {
       }
     } catch (Exception e) {
       logger.log(Level.SEVERE, "Unable to batch check", e);
-      errorReason = e.getClass().getSimpleName() + ": " + e.getMessage();
+      errorReason = e.getClass().getSimpleName();
     }
 
     response.setContentType("text/xml");

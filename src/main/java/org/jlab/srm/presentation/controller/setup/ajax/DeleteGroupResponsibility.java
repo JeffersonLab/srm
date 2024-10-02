@@ -54,10 +54,10 @@ public class DeleteGroupResponsibility extends HttpServlet {
       errorReason = "Not authorized";
     } catch (UserFriendlyException e) {
       logger.log(Level.WARNING, "Application Exception", e);
-      errorReason = e.getMessage();
+      errorReason = e.getUserMessage();
     } catch (Exception e) {
       logger.log(Level.SEVERE, "Unable to delete group responsibility", e);
-      errorReason = e.getClass().getSimpleName() + ": " + e.getMessage();
+      errorReason = e.getClass().getSimpleName();
     }
 
     response.setContentType("text/xml");

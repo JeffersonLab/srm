@@ -53,7 +53,7 @@ public class EditCategory extends HttpServlet {
       errorReason = "Not authorized";
     } catch (UserFriendlyException e) {
       logger.log(Level.SEVERE, "Unable to edit category", e);
-      errorReason = e.getMessage();
+      errorReason = e.getUserMessage();
     } catch (Exception e) {
       logger.log(Level.SEVERE, "Unable to edit category", e);
       Throwable rootCause = ExceptionUtil.getRootCause(e);

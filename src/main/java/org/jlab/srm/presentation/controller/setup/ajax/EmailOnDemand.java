@@ -58,7 +58,7 @@ public class EmailOnDemand extends HttpServlet {
       errorReason = "Not authorized";
     } catch (Exception e) {
       logger.log(Level.SEVERE, "Unable to send email", e);
-      errorReason = e.getClass().getSimpleName() + ": " + e.getMessage();
+      errorReason = e.getClass().getSimpleName();
     }
 
     response.setContentType("text/xml");

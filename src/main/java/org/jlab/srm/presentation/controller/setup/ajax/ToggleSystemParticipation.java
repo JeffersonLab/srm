@@ -50,7 +50,7 @@ public class ToggleSystemParticipation extends HttpServlet {
       errorReason = "Not authorized";
     } catch (Exception e) {
       logger.log(Level.SEVERE, "Unable to toggle", e);
-      errorReason = e.getClass().getSimpleName() + ": " + e.getMessage();
+      errorReason = e.getClass().getSimpleName();
     }
 
     response.setContentType("text/xml");

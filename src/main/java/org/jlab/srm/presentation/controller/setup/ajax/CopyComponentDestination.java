@@ -46,7 +46,7 @@ public class CopyComponentDestination extends HttpServlet {
       // componentBeamDestinationFacade.copy(fromComponentId, toComponentId);
     } catch (Exception e) {
       logger.log(Level.SEVERE, "Unable to copy", e);
-      errorReason = e.getClass().getSimpleName() + ": " + e.getMessage();
+      errorReason = e.getClass().getSimpleName();
     }
 
     response.setContentType("text/xml");
