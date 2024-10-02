@@ -137,7 +137,7 @@ public class Groups extends HttpServlet {
       String jsonStr = json.build().toString();
 
       if (jsonp != null) {
-        jsonStr = jsonp + "(" + jsonStr + ");";
+        jsonStr = "jsonp" + "(" + jsonStr + ");";
       }
 
       pw.write(jsonStr);
