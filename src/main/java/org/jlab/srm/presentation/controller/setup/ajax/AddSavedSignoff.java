@@ -73,7 +73,7 @@ public class AddSavedSignoff extends HttpServlet {
       errorReason = "Not authorized";
     } catch (UserFriendlyException e) {
       logger.log(Level.WARNING, "Application Exception", e);
-      errorReason = e.getMessage();
+      errorReason = e.getUserMessage();
     } catch (Exception e) {
       logger.log(Level.SEVERE, "Unable to add saved signoff", e);
       Throwable rootCause = ExceptionUtil.getRootCause(e);

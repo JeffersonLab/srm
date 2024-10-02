@@ -79,7 +79,7 @@ public class Categories extends HttpServlet {
       category = categoryFacade.findBranch(parentId, applicationId);
     } catch (Exception e) {
       logger.log(Level.SEVERE, "Unable to obtain category tree", e);
-      errorReason = e.getClass().getSimpleName() + ": " + e.getMessage();
+      errorReason = e.getClass().getSimpleName();
     }
 
     PrintWriter pw = response.getWriter();

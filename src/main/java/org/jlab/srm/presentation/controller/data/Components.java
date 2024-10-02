@@ -114,7 +114,7 @@ public class Components extends HttpServlet {
 
     } catch (Exception e) {
       LOGGER.log(Level.SEVERE, "Unable to obtain component list", e);
-      errorReason = e.getClass().getSimpleName() + ": " + e.getMessage();
+      errorReason = e.getClass().getSimpleName();
     }
 
     PrintWriter pw = response.getWriter();

@@ -20,6 +20,7 @@ import org.jlab.srm.business.session.ComponentBeamDestinationFacade;
 @WebServlet(
     name = "BatchCheckComponentDestination",
     urlPatterns = {"/grid-batch-check"})
+@Deprecated
 public class BatchCheckComponentDestination extends HttpServlet {
 
   private static final Logger logger =

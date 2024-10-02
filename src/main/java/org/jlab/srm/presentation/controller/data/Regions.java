@@ -76,7 +76,7 @@ public class Regions extends HttpServlet {
       regionList = regionFacade.filterList(systemId);
     } catch (Exception e) {
       logger.log(Level.SEVERE, "Unable to obtain region list", e);
-      errorReason = e.getClass().getSimpleName() + ": " + e.getMessage();
+      errorReason = e.getClass().getSimpleName();
     }
 
     PrintWriter pw = response.getWriter();

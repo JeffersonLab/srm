@@ -20,6 +20,7 @@ import org.jlab.srm.business.session.ComponentBeamDestinationFacade;
 @WebServlet(
     name = "CopyComponentDestination",
     urlPatterns = {"/grid-copy"})
+@Deprecated
 public class CopyComponentDestination extends HttpServlet {
 
   private static final Logger logger = Logger.getLogger(CopyComponentDestination.class.getName());

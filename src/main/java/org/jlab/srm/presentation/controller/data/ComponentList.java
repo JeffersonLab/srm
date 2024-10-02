@@ -70,7 +70,7 @@ public class ComponentList extends HttpServlet {
 
     } catch (Exception e) {
       logger.log(Level.SEVERE, "Unable to obtain component list", e);
-      errorReason = e.getClass().getSimpleName() + ": " + e.getMessage();
+      errorReason = e.getClass().getSimpleName();
     }
 
     response.setContentType("application/json");

@@ -79,7 +79,7 @@ public class Groups extends HttpServlet {
 
     } catch (Exception e) {
       logger.log(Level.SEVERE, "Unable to obtain group list", e);
-      errorReason = e.getClass().getSimpleName() + ": " + e.getMessage();
+      errorReason = e.getClass().getSimpleName();
     }
 
     PrintWriter pw = response.getWriter();
