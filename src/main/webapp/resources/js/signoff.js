@@ -546,7 +546,7 @@ $(document).on("click", ".close-bubble", function () {
 $(document).on("click", "#all-systems-link-list a", function () {
     var url = $(this).attr('href'),
         groupId = $("#group-select").val(),
-        url = url + '?' + 'groupId=' + groupId;
+        url = url + '?' + 'groupId=' + parseInt(groupId);
     window.location.href = url;
     return false;
 });
