@@ -93,7 +93,7 @@ jlab.srm.openExceptionDialog = function () {
     $selectedList.empty();
 
     for (var i = 0; i < componentNameArray.length; i++) {
-        $selectedList.append('<li>' + componentNameArray[i] + '</li>');
+        $selectedList.append('<li>' + String(componentNameArray[i]).encodeXml() + '</li>');
     }
 
     var count = $("#selected-count").text() * 1;

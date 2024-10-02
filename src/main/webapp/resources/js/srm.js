@@ -35,7 +35,7 @@ jlab.srm.filterSystemListByCategory = function (categoryId, systemSelectSelector
                 $select.append('<option></option>');
             }
             $(data.optionList).each(function () {
-                $select.append('<option value="' + this.value + '">' + this.name + '</option>');
+                $select.append('<option value="' + String(this.value).encodeXml() + '">' + String(this.name).encodeXml() + '</option>');
             });
             if (!keephidden) {
                 $select.slideDown();

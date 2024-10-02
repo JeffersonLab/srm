@@ -232,8 +232,9 @@ $(document).on("click", ".default-clear-panel", function () {
 
 $(".tree").on("open_node.jstree", function (node) {
     $('.jstree-node[data-node-type="COMPONENT"] > a').addClass("dialog-ready").attr("data-dialog-type", "component").each(function () {
-        $(this).attr("href", "reports/component/detail?componentId=" + $(this).closest("li").attr("data-node-id"));
-        $(this).attr("data-dialog-title", "Component Information: " + $(this).text());
+        var nodeId = $(this).closest("li").attr("data-node-id");
+        $(this).attr("href", "reports/component/detail?componentId=" + parseInt(nodeId));
+        $(this).attr("data-dialog-title", "Component Information: " + String($(this).text()).encodeXml());
     });
 });
 
