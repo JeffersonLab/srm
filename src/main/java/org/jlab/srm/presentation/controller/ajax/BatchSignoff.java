@@ -97,13 +97,13 @@ public class BatchSignoff extends HttpServlet {
               validateRule);
     } catch (EJBAccessException e) {
       logger.log(Level.WARNING, "Auth Exception", e);
-      errorReason = e.getMessage();
+      errorReason = "Not authorized";
     } catch (UserFriendlyException e) {
       logger.log(Level.WARNING, "Application Exception", e);
-      errorReason = e.getMessage();
+      errorReason = e.getUserMessage();
     } catch (Exception e) {
       logger.log(Level.SEVERE, "Unable to perform batch signoff", e);
-      errorReason = e.getClass().getSimpleName() + ": " + e.getMessage();
+      errorReason = e.getClass().getSimpleName();
     }
 
     response.setContentType("text/xml");

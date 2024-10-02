@@ -67,7 +67,7 @@ public class AcceptMaskRequest extends HttpServlet {
       }
     } catch (Exception e) {
       LOGGER.log(Level.SEVERE, "Unable to accept masking requset", e);
-      errorReason = e.getClass().getSimpleName() + ": " + e.getMessage();
+      errorReason = e.getClass().getSimpleName();
     }
 
     String stat = "ok";

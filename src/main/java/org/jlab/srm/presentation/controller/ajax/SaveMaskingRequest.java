@@ -64,13 +64,13 @@ public class SaveMaskingRequest extends HttpServlet {
       requestFacade.createRequest(componentIdList, reason, expirationDate);
     } catch (EJBAccessException e) {
       LOGGER.log(Level.WARNING, "Auth Exception", e);
-      errorReason = e.getMessage();
+      errorReason = "Not authorized";
     } catch (UserFriendlyException e) {
       LOGGER.log(Level.WARNING, "Application Exception", e);
-      errorReason = e.getMessage();
+      errorReason = e.getUserMessage();
     } catch (Exception e) {
       LOGGER.log(Level.SEVERE, "Unable to create masking request", e);
-      errorReason = e.getClass().getSimpleName() + ": " + e.getMessage();
+      errorReason = e.getClass().getSimpleName();
     }
 
     response.setContentType("text/xml");

@@ -55,7 +55,7 @@ public class FilterSystemListByCategory extends HttpServlet {
 
     } catch (Exception e) {
       LOGGER.log(Level.SEVERE, "Unable to filter system list", e);
-      errorReason = e.getClass().getSimpleName() + ": " + e.getMessage();
+      errorReason = e.getClass().getSimpleName();
     }
 
     response.setContentType("application/json");

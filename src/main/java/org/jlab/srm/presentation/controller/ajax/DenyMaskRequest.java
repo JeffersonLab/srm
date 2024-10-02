@@ -50,7 +50,7 @@ public class DenyMaskRequest extends HttpServlet {
       errorReason = "Not authorized";
     } catch (Exception e) {
       LOGGER.log(Level.SEVERE, "Unable to deny masking requset", e);
-      errorReason = e.getClass().getSimpleName() + ": " + e.getMessage();
+      errorReason = e.getClass().getSimpleName();
     }
 
     String stat = "ok";

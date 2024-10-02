@@ -52,7 +52,7 @@ public class EditComponentException extends HttpServlet {
       errorReason = "Not authorized";
     } catch (Exception e) {
       logger.log(Level.SEVERE, "Unable to edit component exception", e);
-      errorReason = e.getClass().getSimpleName() + ": " + e.getMessage();
+      errorReason = e.getClass().getSimpleName();
     }
 
     response.setContentType("text/xml");

@@ -53,7 +53,7 @@ public class FilterGroupListBySystem extends HttpServlet {
 
     } catch (Exception e) {
       LOGGER.log(Level.SEVERE, "Unable to filter group list", e);
-      errorReason = e.getClass().getSimpleName() + ": " + e.getMessage();
+      errorReason = e.getClass().getSimpleName();
     }
 
     response.setContentType("application/json");

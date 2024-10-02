@@ -52,7 +52,7 @@ public class SearchComponent extends HttpServlet {
 
     } catch (Exception e) {
       LOGGER.log(Level.SEVERE, "Unable to perform component search", e);
-      errorReason = e.getClass().getSimpleName() + ": " + e.getMessage();
+      errorReason = e.getClass().getSimpleName();
     }
 
     response.setContentType("application/json");

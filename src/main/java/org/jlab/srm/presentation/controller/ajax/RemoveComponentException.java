@@ -55,7 +55,7 @@ public class RemoveComponentException extends HttpServlet {
       errorReason = "Not authorized";
     } catch (Exception e) {
       logger.log(Level.SEVERE, "Unable to remove component mask", e);
-      errorReason = e.getClass().getSimpleName() + ": " + e.getMessage();
+      errorReason = e.getClass().getSimpleName();
     }
 
     response.setContentType("text/xml");
