@@ -79,7 +79,7 @@
                                             </div>
                                             <div class="li-value">
                                                 <input type="text" id="author" name="author"
-                                                       value="${param.author ne null ? param.author : checklist.author}"/>
+                                                       value="${param.author ne null ? fn:escapeXml(param.author) : checklist.author}"/>
                                             </div>
                                         </li>
                                         <li>
@@ -96,7 +96,7 @@
                                                        for="comments">Revision Comment</label>
                                             </div>
                                             <div class="li-value">
-                                                <textarea id="comments" name="comments">${param.comments}</textarea>
+                                                <textarea id="comments" name="comments">${fn:escapeXml(param.comments)}</textarea>
                                             </div>
                                         </li>
                                     </ul>
@@ -186,7 +186,7 @@
                         <c:choose>
                             <c:when test="${editable}">
                                         <textarea name="bodyHtml" class="checklist-body">
-                                                ${param.bodyHtml ne null ? param.bodyHtml : checklist.bodyHtml}
+                                                ${param.bodyHtml ne null ? fn:escapeXml(param.bodyHtml) : checklist.bodyHtml}
                                         </textarea>
                             </c:when>
                             <c:otherwise>

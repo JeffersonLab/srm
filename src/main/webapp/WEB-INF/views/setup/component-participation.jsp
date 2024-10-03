@@ -117,7 +117,7 @@
                         </ul>
                     </fieldset>
                     <input type="hidden" id="offset-input" name="offset" value="0"/>
-                    <input type="hidden" id="max-input" name="max" value="${param.max}"/>
+                    <input type="hidden" id="max-input" name="max" value="${fn:esacpeXml(param.max)}"/>
                     <input type="submit" id="filter-form-submit-button" value="Apply"/>
                 </form>
             </s:filter-flyout-widget>

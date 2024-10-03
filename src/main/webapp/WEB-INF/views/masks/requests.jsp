@@ -134,7 +134,7 @@
                                         <label for="reason">Reason</label>
                                     </div>
                                     <div class="li-value">
-                                        <input type="text" name="reason" id="reason" value="${param.reason}"/>
+                                        <input type="text" name="reason" id="reason" value="${fn:escapeXml(param.reason)}"/>
                                         (use % as wildcard)
                                     </div>
                                 </li>

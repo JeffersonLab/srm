@@ -16,11 +16,11 @@
             <script type="text/javascript">
                 $(function () {
                     $("#open-add-dialog-button").click();
-                    $("#system-select").val(${param.systemId});
-                    $("#group-select").val(${param.groupId});
-                    $("#region-select").val(${param.regionId});
-                    $("#filter-status-select").val(${param.statusId});
-                    $("#component").val('${param.component}');
+                    $("#system-select").val(${fn:escapeXml(param.systemId)});
+                    $("#group-select").val(${fn:escapeXml(param.groupId)});
+                    $("#region-select").val(${fn:escapeXml(param.regionId)});
+                    $("#filter-status-select").val(${fn:escapeXml(param.statusId)});
+                    $("#component").val('${fn:esacpeXml(param.component)}');
                 });
             </script>
         </c:if>

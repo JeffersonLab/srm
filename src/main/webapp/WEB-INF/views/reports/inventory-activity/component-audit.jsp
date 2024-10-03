@@ -24,7 +24,7 @@
                                 </div>
                                 <div class="li-value">
                                     <input type="text" id="component-id" name="componentId"
-                                           value="${param.componentId}"/>
+                                           value="${fn:escapeXml(param.componentId)}"/>
                                 </div>
                             </li>
                             <li>
@@ -32,7 +32,7 @@
                                     <label for="revision-id">Revision ID</label>
                                 </div>
                                 <div class="li-value">
-                                    <input type="text" id="revision-id" name="revisionId" value="${param.revisionId}"/>
+                                    <input type="text" id="revision-id" name="revisionId" value="${fn:escapeXml(param.revisionId)}"/>
                                 </div>
                             </li>
                         </ul>

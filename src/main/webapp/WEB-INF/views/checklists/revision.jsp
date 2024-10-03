@@ -51,7 +51,7 @@
                         value="${history.checklist.groupResponsibility.system.name}"/> History</a>
             </li>
             <li>
-                Printable Checklist (Revision ${param.revision})
+                Printable Checklist (Revision ${fn:escapeXml(param.revision)})
             </li>
         </ul>
     </div>
@@ -62,7 +62,7 @@
                         value="${history.checklist.groupResponsibility.group.name.concat(' ').concat(history.checklist.groupResponsibility.system.name)} Checklist"/></h1>
                 <div class="dialog-content">
                     <div class="dialog-links dialog-only">
-                        <a href="${pageContext.request.contextPath}/checklists/revision?checklistHistoryId=${history.checklistHistoryId}&amp;revision=${param.revision}">Printer
+                        <a href="${pageContext.request.contextPath}/checklists/revision?checklistHistoryId=${history.checklistHistoryId}&amp;revision=${fn:escapeXml(param.revision)}">Printer
                             Friendly</a>
                     </div>
                     <div>
