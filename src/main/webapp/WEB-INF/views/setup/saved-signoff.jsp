@@ -20,7 +20,7 @@
                     $("#group-select").val(${fn:escapeXml(param.groupId)});
                     $("#region-select").val(${fn:escapeXml(param.regionId)});
                     $("#filter-status-select").val(${fn:escapeXml(param.statusId)});
-                    $("#component").val('${fn:esacpeXml(param.component)}');
+                    $("#component").val('${fn:escapeXml(param.component)}');
                 });
             </script>
         </c:if>
