@@ -29,6 +29,10 @@
                         A &amp; C Responsibilities</a>
                 </li>
                 <li>
+                    <a href="https://ace.jlab.org/cdn/doc/srm/ACDumpResponsibilities.pdf">Hall
+                        A &amp; C Beam Dump Responsibilities</a>
+                </li>
+                <li>
                     <a href="https://ace.jlab.org/cdn/doc/srm/BResponsibilities.pdf">Hall B Responsibilities</a>
                 </li>
                 <li>
