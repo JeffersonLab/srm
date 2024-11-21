@@ -92,6 +92,10 @@ li[data-node-type='GROUP'] > a:hover {
     /*border-top: 1px dashed black;*/
 }
 
+.middle-row {
+    word-break: break-word;
+}
+
 .bottom-row {
     height: 50px;
     vertical-align: top;
