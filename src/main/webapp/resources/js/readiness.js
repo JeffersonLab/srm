@@ -178,13 +178,7 @@ jlab.srm.updateSignoff = function () {
 
             var prId = $(".pr-id", data).html();
             if (prId !== 'null') {
-                var logbookHost = 'logbooks.jlab.org';
-
-                if (jlab.logbookHost !== '') {
-                    logbookHost = jlab.logbookHost;
-                }
-
-                var url = "https://" + logbookHost + "/entry/" + prId;
+                var url = jlab.logbookServerUrl + "/entry/" + prId;
                 $("#ops-pr-link").text(prId);
                 $("#ops-pr-link").attr("href", url);
                 $("#ops-pr-dialog").dialog("open");
