@@ -475,13 +475,12 @@ public class GroupSignoffFacade extends AbstractFacade<GroupSignoff> {
 
     String subject = "System Readiness (HCO) Update for " + system.getName();
 
-    String logbooks = System.getenv("LOGBOOK_OPS_BOOKS_CSV");
+    String logbooks = System.getenv("SRM_BOOKS_CSV");
 
     if (logbooks == null || logbooks.isEmpty()) {
       logbooks = "TLOG";
       LOGGER.log(
-          Level.WARNING,
-          "Environment variable 'LOGBOOK_OPS_BOOKS_CSV' not found, using default TLOG");
+          Level.WARNING, "Environment variable 'SRM_BOOKS_CSV' not found, using default TLOG");
     }
 
     ProblemReport report =

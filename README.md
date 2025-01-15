@@ -53,9 +53,12 @@ This application requires a Java 11+ JVM and standard library to run, plus a Jav
 Wildfly must be pre-configured before the first deployment of the app. The [wildfly bash scripts](https://github.com/JeffersonLab/wildfly#configure) can be used to accomplish this. See the [Dockerfile](https://github.com/JeffersonLab/srm/blob/main/Dockerfile) for an example.
 
 ### Runtime
-Uses the [Smoothness Environment Variables](https://github.com/JeffersonLab/smoothness#environment-variables).
+Uses the [Smoothness Environment Variables](https://github.com/JeffersonLab/smoothness#environment-variables) plus the following application specific:
 
-Additionally, the scheme, host name and port of the CEBAF Element Database (CED) server is configured with environment variable `CED_SERVER_URL`.
+| Name           | Description                                                                                                                     |
+|----------------|---------------------------------------------------------------------------------------------------------------------------------|
+| SRM_BOOKS_CSV  | Comma Separated Logbooks to post CREATED/DELETED entries to.  Defaults to TLOG.  Generally should be set to ELOG in production. |
+| CED_SERVER_URL | The scheme, host name and port of the CEBAF Element Database (CED)                                                              |
 
 There are some [Settings](https://github.com/JeffersonLab/srm/blob/87cb8b7d1a9b0e2e36cc68b34eaefe02478bb89a/docker/oracle/setup/02_ddl.sql#L256-L264) in the database as well.
 
