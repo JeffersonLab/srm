@@ -57,7 +57,7 @@ Uses the [Smoothness Environment Variables](https://github.com/JeffersonLab/smoo
 
 | Name           | Description                                                                                                                     |
 |----------------|---------------------------------------------------------------------------------------------------------------------------------|
-| SRM_BOOKS_CSV  | Comma Separated Logbooks to post CREATED/DELETED entries to.  Defaults to TLOG.  Generally should be set to ELOG in production. |
+| SRM_BOOKS_CSV  | Comma Separated Logbooks to post OPS-PR entries to.  Defaults to TLOG.  Generally should be set to ELOG in production.          |
 | CED_SERVER_URL | The scheme, host name and port of the CEBAF Element Database (CED)                                                              |
 
 There are some [Settings](https://github.com/JeffersonLab/srm/blob/87cb8b7d1a9b0e2e36cc68b34eaefe02478bb89a/docker/oracle/setup/02_ddl.sql#L256-L264) in the database as well.
