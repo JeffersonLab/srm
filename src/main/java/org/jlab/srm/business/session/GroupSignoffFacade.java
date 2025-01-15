@@ -480,8 +480,7 @@ public class GroupSignoffFacade extends AbstractFacade<GroupSignoff> {
     if (logbooks == null || logbooks.isEmpty()) {
       logbooks = "TLOG";
       LOGGER.log(
-          Level.WARNING,
-          "Environment variable 'SRM_BOOKS_CSV' not found, using default TLOG");
+          Level.WARNING, "Environment variable 'SRM_BOOKS_CSV' not found, using default TLOG");
     }
 
     ProblemReport report =
