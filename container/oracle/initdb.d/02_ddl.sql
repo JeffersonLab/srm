@@ -728,6 +728,21 @@ EXCEPTION
 end;
 /
 
+-- This view depends on function declared above
+create or replace view SRM_OWNER.READY_TURN as
+select
+    a.component_id,
+    a.group_id
+from
+    component_signoff a,
+    group_responsibility b
+where
+    a.group_id = b.group_id
+  and a.system_id = b.system_id
+  and a.status_id in (50, 100)
+  and previous_signoff_status(a.component_id, b.weight) = 1
+    /
+
 create or replace FUNCTION SRM_OWNER.csv_2_nums(
     p_str IN VARCHAR2)
     RETURN number_tab
