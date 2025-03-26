@@ -2,7 +2,7 @@ var jlab = jlab || {};
 
 jlab.mousePosition = {x: 0, y: 0};
 
-$(document).on("mousemove", "#chart-placeholder", function (e) {
+$(document).on("mousemove", ".chart-placeholder", function (e) {
     jlab.mousePosition.x = e.clientX || e.pageX;
     jlab.mousePosition.y = e.clientY || e.pageY;
 });
@@ -17,7 +17,7 @@ jlab.addPieTooltips = function () {
         opacity: 0.80
     }).appendTo("body");
 
-    $("#chart-placeholder").bind("plothover", function (event, pos, item) {
+    $(".chart-placeholder").bind("plothover", function (event, pos, item) {
 
         if (item) {
             var x = item.datapoint[0].toFixed(1) * 1,
@@ -66,11 +66,11 @@ doPieChart = function () {
         });
     });
 
-    if ($("#chart-placeholder").length > 0) {
+    if ($(".chart-placeholder").length > 0) {
 
-        $("#chart-wrap").addClass("chart-wrap-backdrop");
+        $(".chart-wrap").addClass("chart-wrap-backdrop");
 
-        jlab.flotplot = $.plot($("#chart-placeholder"), ds, {
+        jlab.flotplot = $.plot($(".chart-placeholder"), ds, {
             series: {
                 pie: {
                     show: true,
