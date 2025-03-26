@@ -248,7 +248,7 @@
                                 <span>Components:</span>
                             </div>
                             <div class="li-value">
-                                <ul id="selected-row-list"></ul>
+                                <ul class="selected-row-list"></ul>
                                 <span id="exception-dialog-component-count"></span>
                             </div>
                         </li>
