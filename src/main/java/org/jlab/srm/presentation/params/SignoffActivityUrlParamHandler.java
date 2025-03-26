@@ -2,7 +2,6 @@ package org.jlab.srm.presentation.params;
 
 import java.io.IOException;
 import java.math.BigInteger;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -11,6 +10,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.jlab.smoothness.business.exception.UserFriendlyException;
 import org.jlab.smoothness.business.util.IOUtil;
 import org.jlab.smoothness.business.util.TimeUtil;
 import org.jlab.smoothness.presentation.util.ParamBuilder;
@@ -71,7 +71,7 @@ public class SignoffActivityUrlParamHandler implements UrlParamHandler<SignoffAc
     try {
       start = ParamConverter.convertFriendlyDateTime(request, "start");
       end = ParamConverter.convertFriendlyDateTime(request, "end");
-    } catch (ParseException e) {
+    } catch (UserFriendlyException e) {
       throw new RuntimeException("Unable to parse date");
     }
 
