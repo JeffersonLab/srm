@@ -136,7 +136,7 @@
     <jsp:body>
         <section>
             <s:filter-flyout-widget clearButton="true" resetButton="true">
-                <form id="filter-form" method="get" action="all-activity">
+                <form class="filter-form" method="get" action="all-activity">
                     <div id="filter-form-panel">
                         <fieldset>
                             <legend>Time</legend>

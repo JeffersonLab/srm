@@ -37,7 +37,7 @@
                 </div>
             </div>
             <s:filter-flyout-widget clearButton="true">
-                <form id="filter-form" method="get" action="overall-status">
+                <form class="filter-form" method="get" action="overall-status">
                     <div id="filter-form-panel">
                         <fieldset>
                             <legend>Filter</legend>

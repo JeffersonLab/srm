@@ -28,7 +28,7 @@
             <c:when test="${selectedSystem eq null}">
             <h2 id="page-header-title"><c:out value="${title}"/></h2> <span style="font-weight: bold;">(<span
                 class="required-field"></span> required)
-                        <form id="filter-form" action="group-responsibility" method="get">
+                        <form class="filter-form" action="group-responsibility" method="get">
                             <div id="filter-form-panel">
                                 <fieldset>
                                     <jsp:include page="/WEB-INF/includes/group-responsibility-setup-form.jsp"/>
@@ -40,7 +40,7 @@
                     </c:when>                                
                     <c:otherwise>
                         <s:filter-flyout-widget requiredMessage="true" clearButton="true">
-                            <form id="filter-form" action="group-responsibility" method="get">
+                            <form class="filter-form" action="group-responsibility" method="get">
                                 <div id="filter-form-panel">
                                     <fieldset>
                                         <legend>Filter</legend>

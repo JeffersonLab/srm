@@ -18,7 +18,7 @@
     <jsp:body>
         <section>
             <s:filter-flyout-widget clearButton="true">
-                <form id="filter-form" action="component-participation" method="get">
+                <form class="filter-form" action="component-participation" method="get">
                     <fieldset class="content-filter">
                         <legend>Component Filter (Rows)</legend>
                         <ul class="key-value-list">

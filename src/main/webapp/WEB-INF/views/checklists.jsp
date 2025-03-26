@@ -40,7 +40,7 @@
                     <a href="${pageContext.request.contextPath}/checklists">Checklists</a>
                 </li>
                 <li>
-                    <form id="filter-form" method="get" action="checklists">
+                    <form class="filter-form" method="get" action="checklists">
                         <select id="group-select" name="groupId" class="change-submit">
                             <option value="">&nbsp;</option>
                             <c:forEach items="${groupList}" var="group">

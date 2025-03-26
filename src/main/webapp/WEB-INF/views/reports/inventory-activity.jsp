@@ -53,7 +53,7 @@
                 </div>
             </div>
             <s:filter-flyout-widget clearButton="true">
-                <form id="filter-form" method="get" action="inventory-activity">
+                <form class="filter-form" method="get" action="inventory-activity">
                     <div id="filter-form-panel">
                         <fieldset>
                             <legend>Time</legend>

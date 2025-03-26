@@ -16,7 +16,7 @@
     <jsp:body>
         <section>
             <s:filter-flyout-widget>
-                <form id="filter-form" method="get"
+                <form class="filter-form" method="get"
                       action="${pageContext.request.contextPath}/setup/system-participation">
                     <fieldset>
                         <legend>Filter</legend>

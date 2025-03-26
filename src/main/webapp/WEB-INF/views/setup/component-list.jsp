@@ -157,7 +157,7 @@
     <jsp:body>
         <section>
             <s:filter-flyout-widget clearButton="true">
-                <form id="filter-form" method="get" action="component-list">
+                <form class="filter-form" method="get" action="component-list">
                     <div id="filter-form-panel">
                         <fieldset>
                             <legend>Filter</legend>

@@ -28,7 +28,7 @@
     <jsp:body>
         <section>
             <s:filter-flyout-widget clearButton="true">
-                <form id="filter-form" method="get" action="saved-signoff">
+                <form class="filter-form" method="get" action="saved-signoff">
                     <fieldset>
                         <legend>Filter</legend>
                         <ul class="key-value-list">

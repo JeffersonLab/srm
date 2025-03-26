@@ -45,7 +45,7 @@
                 </div>
             </div>
             <s:filter-flyout-widget clearButton="true">
-                <form id="filter-form" method="get" action="group-responsibility">
+                <form class="filter-form" method="get" action="group-responsibility">
                     <fieldset>
                         <legend>Filter</legend>
                         <ul class="key-value-list">

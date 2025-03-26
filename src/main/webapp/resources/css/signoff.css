@@ -65,7 +65,7 @@
     /*z-index: 11 !important;*/
 }
 
-#filter-flyout-panel {
+.filter-flyout-panel {
     width: 700px;
 }
 
@@ -123,15 +123,15 @@ fieldset {
     margin-top: 1em;
 }
 
-#filter-flyout-panel .signoff-action-button {
+.filter-flyout-panel .signoff-action-button {
     margin-left: 0.25em;
 }
 
-#filter-flyout-panel #signoff-parameter-panel-buttons input[type=submit] {
+.filter-flyout-panel #signoff-parameter-panel-buttons input[type=submit] {
     float: none;
 }
 
-#filter-flyout-panel #signoff-parameter-panel-buttons {
+.filter-flyout-panel #signoff-parameter-panel-buttons {
     float: right;
 }
 

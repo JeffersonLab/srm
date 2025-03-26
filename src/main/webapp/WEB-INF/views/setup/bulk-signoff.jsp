@@ -34,7 +34,7 @@
             <h2 id="page-header-title"><c:out value="${title}"/></h2> <span id="required-span"
                                                                             style="font-weight: bold;">(<span
                 class="required-field"></span> required)</span>
-            <form id="filter-form" action="bulk-signoff" method="get">
+            <form class="filter-form" action="bulk-signoff" method="get">
                 <div id="filter-form-panel">
                     <fieldset>
                         <ul class="key-value-list">

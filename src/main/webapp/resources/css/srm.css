@@ -22,7 +22,7 @@
 }
 
 /*Override flyout width*/
-#filter-flyout-panel {
+.filter-flyout-panel {
     width: 655px;
 }
 
