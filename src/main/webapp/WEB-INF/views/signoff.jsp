@@ -34,7 +34,7 @@
     </jsp:attribute>
     <jsp:body>
         <section>
-            <form class="filter-form" method="get" action="signoff">
+            <form id="signoff-filter-form" class="filter-form" method="get" action="signoff">
                 <div id="start-with-div"><input id="start-with-checkbox" name="systemFirst" class="change-submit"
                                                 value="Y"${param.systemFirst eq 'Y' ? ' checked="checked"' : ''}
                                                 type="checkbox"/><label for="start-with-checkbox">Start with
@@ -86,7 +86,7 @@
                             </div>
                         </c:if>
                         <div id="table-option-panel">
-                            <input form="filter-form" id="show-comments-checkbox" name="showComments" type="checkbox"
+                            <input form="signoff-filter-form" id="show-comments-checkbox" name="showComments" type="checkbox"
                                    value="Y"${param.showComments eq 'Y' ? ' checked="checked"' : ''}/>
                             <label for="show-comments-checkbox">Show Comments</label>
                         </div>
@@ -333,7 +333,7 @@
                             <label for="readyCascade">Ready Cascades To</label>
                         </div>
                         <div class="li-value">
-                            <select form="filter-form" id="readyCascade" name="readyCascade">
+                            <select form="signoff-filter-form" id="readyCascade" name="readyCascade">
                                 <option value="">&nbsp;</option>
                                 <option value="50"${readyCascade eq '50' ? ' selected="selected"' : ''}>Checked</option>
                                 <option value="100"${readyCascade eq '100' ? ' selected="selected"' : ''}>Not Ready
@@ -346,7 +346,7 @@
                             <label for="checkedCascade">Checked Cascades To</label>
                         </div>
                         <div class="li-value">
-                            <select form="filter-form" id="checkedCascade" name="checkedCascade">
+                            <select form="signoff-filter-form" id="checkedCascade" name="checkedCascade">
                                 <option value="">&nbsp;</option>
                                 <option value="100"${checkedCascade eq '100' ? ' selected="selected"' : ''}>Not Ready
                                 </option>
@@ -355,7 +355,7 @@
                     </li>
                 </ul>
                 <div class="dialog-button-panel">
-                    <button form="filter-form" type="submit">Apply</button>
+                    <button form="signoff-filter-form" type="submit">Apply</button>
                     <button class="dialog-close-button" type="button">Cancel</button>
                 </div>
             </div>
