@@ -2,20 +2,30 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="srm" uri="http://jlab.org/srm/functions" %>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>HCO - System ${system.name}</title>
-    <link rel="shortcut icon"
-          href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/img/favicon.ico"/>
-    <link rel="stylesheet" type="text/css" href="${cdnContextPath}/jlab-theme/smoothness/1.6/css/smoothness.min.css"/>
-    <link rel="stylesheet" type="text/css"
-          href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/srm.css"/>
-</head>
-<body>
-<div id="page">
-    <h1>System ${system.name}</h1>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
+<c:set var="title" value="System Information: ${system.name}"/>
+<t:loose-page title="${title}" category="" description="System Detail">
+    <jsp:attribute name="stylesheets">
+        <c:choose>
+            <c:when test="${'NONE' eq resourceLocation}">
+            </c:when>
+            <c:when test="${'CDN' eq resourceLocation}">
+                <link rel="stylesheet" type="text/css" href="//${env[initParam.appSpecificEnvPrefix.concat('_CDN_SERVER')]}/jquery-ui/1.14.1/theme/smoothness/jquery-ui.min.css"/>
+                <link rel="stylesheet" type="text/css" href="//${env[initParam.appSpecificEnvPrefix.concat('_CDN_SERVER')]}/jlab-theme/smoothness/${env[initParam.appSpecificEnvPrefix.concat('_SMOOTHNESS_VERSION')]}/css/smoothness.min.css"/>
+            </c:when>
+            <c:otherwise><!-- LOCAL -->
+                <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/jquery-ui-1.14.1/jquery-ui.min.css"/>
+                <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/smoothness.css"/>
+            </c:otherwise>
+        </c:choose>
+            <link rel="stylesheet" type="text/css"
+                  href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/srm.css"/>
+    </jsp:attribute>
+    <jsp:attribute name="scripts">
+    </jsp:attribute>
+    <jsp:body>
+        <section>
+    <h2 class="hide-in-dialog">System ${system.name}</h2>
     <dl class="dialog-content">
         <dt>Description:</dt>
         <dd>
@@ -74,6 +84,6 @@
             </ul>
         </dd>
     </dl>
-</div>
-</body>
-</html>
+</section>
+    </jsp:body>
+</t:loose-page>
