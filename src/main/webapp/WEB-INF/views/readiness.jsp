@@ -145,10 +145,10 @@
                         </fieldset>
                     </div>
                     <input type="hidden" name="qualified" value=""/>
-                    <input id="filter-form-submit-button" type="submit" value="Apply"/>
+                    <input class="filter-form-submit-button" type="submit" value="Apply"/>
                 </form>
             </s:filter-flyout-widget>
-            <h2 id="page-header-title"><c:out value="${title}"/></h2>
+            <h2 class="page-header-title"><c:out value="${title}"/></h2>
             <div class="message-box">
                 <c:out value="${selectionMessage}"/>
                 <c:if test="${maskedCount > 0}">

@@ -183,12 +183,12 @@
                             </ul>
                         </fieldset>
                     </div>
-                    <input type="hidden" id="offset-input" name="offset" value="0"/>
+                    <input type="hidden" class="offset-input" name="offset" value="0"/>
                     <input type="hidden" name="qualified" value=""/>
-                    <input id="filter-form-submit-button" type="submit" value="Apply"/>
+                    <input class="filter-form-submit-button" type="submit" value="Apply"/>
                 </form>
             </s:filter-flyout-widget>
-            <h2 id="page-header-title"><c:out value="${title}"/></h2>
+            <h2 class="page-header-title"><c:out value="${title}"/></h2>
             <div class="message-box"><c:out value="${selectionMessage}"/></div>
             <div>
                 <c:if test="${fn:length(recordList) > 0}">
@@ -276,10 +276,10 @@
                             <a target="_blank" href="${fn:escapeXml(url)}">More...</a>
                         </c:if>
                     </div>
-                    <button id="previous-button" type="button" data-offset="${paginator.previousOffset}"
+                    <button class="previous-button" type="button" data-offset="${paginator.previousOffset}"
                             value="Previous"${paginator.previous ? '' : ' disabled="disabled"'}>Previous
                     </button>
-                    <button id="next-button" type="button" data-offset="${paginator.nextOffset}"
+                    <button class="next-button" type="button" data-offset="${paginator.nextOffset}"
                             value="Next"${paginator.next ? '' : ' disabled="disabled"'}>Next
                     </button>
                 </c:if>

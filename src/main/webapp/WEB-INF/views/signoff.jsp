@@ -41,7 +41,7 @@
                     Category/System</label></div>
                 <c:choose>
                     <c:when test="${componentList eq null}">
-                        <h2 id="page-header-title"><c:out value="${title}"/></h2> <span
+                        <h2 class="page-header-title"><c:out value="${title}"/></h2> <span
                             style="font-weight: bold;">(<span class="required-field"></span> required)</span> <span
                             class="default-clear-panel">(<a href="#">Clear</a>)</span>
                         <jsp:include page="/WEB-INF/includes/signoff-form.jsp"/>
@@ -50,7 +50,7 @@
                         <s:filter-flyout-widget requiredMessage="true" ribbon="true" clearButton="true">
                             <jsp:include page="/WEB-INF/includes/signoff-form.jsp"/>
                         </s:filter-flyout-widget>
-                        <h2 id="page-header-title"><c:out value="${title}"/></h2>
+                        <h2 class="page-header-title"><c:out value="${title}"/></h2>
                     </c:otherwise>
                 </c:choose>
             </form>

@@ -31,7 +31,7 @@
     </jsp:attribute>
     <jsp:body>
         <section>
-            <h2 id="page-header-title"><c:out value="${title}"/></h2> <span id="required-span"
+            <h2 class="page-header-title"><c:out value="${title}"/></h2> <span id="required-span"
                                                                             style="font-weight: bold;">(<span
                 class="required-field"></span> required)</span>
             <form class="filter-form" action="bulk-signoff" method="get">

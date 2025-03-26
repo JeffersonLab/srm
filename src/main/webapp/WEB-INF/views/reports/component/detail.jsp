@@ -18,7 +18,7 @@
                     <a href="${pageContext.request.contextPath}/reports/component">Component Search</a>
                 </li>
                 <li>
-                    <h2 id="page-header-title"><c:out value="${component.name}"/></h2>
+                    <h2 class="page-header-title"><c:out value="${component.name}"/></h2>
                 </li>
             </ul>
         </div>
