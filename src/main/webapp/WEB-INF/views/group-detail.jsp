@@ -3,8 +3,8 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
-<c:set var="title" value="Responsible Group"/>
-<t:loose-page title="${title}" category="Responsible Group" description="Responsible Group Detail">
+<c:set var="title" value="Group Information: ${group.name}"/>
+<t:loose-page title="${title}" category="" description="Responsible Group Detail">
     <jsp:attribute name="stylesheets">
         <c:choose>
             <c:when test="${'NONE' eq resourceLocation}">
@@ -24,8 +24,8 @@
     <jsp:attribute name="scripts">
     </jsp:attribute>
     <jsp:body>
-<div id="page">
-    <h1>Group ${group.name}</h1>
+<section>
+    <h2 class="hide-in-dialog"><c:out value="${title}"/></h2>
     <div class="dialog-content">
         <dl>
             <dt>Description:</dt>
@@ -76,6 +76,6 @@
             </dd>
         </dl>
     </div>
-</div>
+</section>
     </jsp:body>
 </t:loose-page>

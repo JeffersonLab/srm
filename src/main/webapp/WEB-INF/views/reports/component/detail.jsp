@@ -5,14 +5,14 @@
 <%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
 <%@taglib prefix="srm" uri="http://jlab.org/srm/functions" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<c:set var="title" value="Component -  Detail: ${component.name}"/>
+<c:set var="title" value="Component Information: ${component.name}"/>
 <t:reports-page title="${title}">
     <jsp:attribute name="stylesheets">
     </jsp:attribute>
     <jsp:attribute name="scripts">
     </jsp:attribute>
     <jsp:body>
-        <div class="banner-breadbox">
+        <div class="banner-breadbox hide-in-dialog">
             <ul>
                 <li>
                     <a href="${pageContext.request.contextPath}/reports/component">Component Search</a>
