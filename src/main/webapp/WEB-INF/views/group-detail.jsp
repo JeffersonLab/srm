@@ -2,18 +2,28 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>HCO - Group ${group.name}</title>
-    <link rel="shortcut icon"
-          href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/img/favicon.ico"/>
-    <link rel="stylesheet" type="text/css" href="${cdnContextPath}/jlab-theme/smoothness/1.6/css/smoothness.min.css"/>
-    <link rel="stylesheet" type="text/css"
+<%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
+<c:set var="title" value="Responsible Group"/>
+<t:loose-page title="${title}" category="Responsible Group" description="Responsible Group Detail">
+    <jsp:attribute name="stylesheets">
+        <c:choose>
+            <c:when test="${'NONE' eq resourceLocation}">
+            </c:when>
+            <c:when test="${'CDN' eq resourceLocation}">
+                <link rel="stylesheet" type="text/css" href="//${env[initParam.appSpecificEnvPrefix.concat('_CDN_SERVER')]}/jquery-ui/1.14.1/theme/smoothness/jquery-ui.min.css"/>
+                <link rel="stylesheet" type="text/css" href="//${env[initParam.appSpecificEnvPrefix.concat('_CDN_SERVER')]}/jlab-theme/smoothness/${env[initParam.appSpecificEnvPrefix.concat('_SMOOTHNESS_VERSION')]}/css/smoothness.min.css"/>
+            </c:when>
+            <c:otherwise><!-- LOCAL -->
+                <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/jquery-ui-1.14.1/jquery-ui.min.css"/>
+                <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/smoothness.css"/>
+            </c:otherwise>
+        </c:choose>
+            <link rel="stylesheet" type="text/css"
           href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/srm.css"/>
-</head>
-<body>
+    </jsp:attribute>
+    <jsp:attribute name="scripts">
+    </jsp:attribute>
+    <jsp:body>
 <div id="page">
     <h1>Group ${group.name}</h1>
     <div class="dialog-content">
@@ -44,7 +54,7 @@
                         <tbody>
                         <c:forEach var="responsibility" items="${group.groupResponsibilityList}">
                             <tr>
-                                <td><a title="System Information" class="dialog-ready"
+                                <td><a title="System Information" class="dialog-opener"
                                        data-dialog-title="System Information: ${fn:escapeXml(responsibility.system.name)}"
                                        href="${pageContext.request.contextPath}/system-detail?systemId=${responsibility.system.systemId}"><c:out
                                         value="${responsibility.system.name}"/></a></td>
@@ -53,7 +63,7 @@
                                     <c:if test="${responsibility.checklist ne null and responsibility.published}">
                                         <a title="Checklist"
                                            data-dialog-title="${responsibility.group.name.concat(' ').concat(responsibility.system.name)} Checklist"
-                                           class="dialog-ready"
+                                           class="dialog-opener"
                                            data-dialog-title="${fn:escapeXml(responsibility.group.name)} ${fn:escapeXml(responsibility.system.name)} Checklist"
                                            href="${pageContext.request.contextPath}/checklist?checklistId=${responsibility.checklist.checklistId}">Checklist</a>
                                     </c:if>
@@ -67,5 +77,5 @@
         </dl>
     </div>
 </div>
-</body>
-</html>
+    </jsp:body>
+</t:loose-page>

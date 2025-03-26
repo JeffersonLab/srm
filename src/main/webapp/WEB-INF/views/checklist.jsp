@@ -118,7 +118,7 @@
                                             <div class="li-value">
                                                 <span class="fullpage-only"><c:out
                                                         value="${checklist.groupResponsibility.group.name}"/></span>
-                                                <a title="Group Information" class="dialog-ready dialog-only"
+                                                <a title="Group Information" class="dialog-opener dialog-only"
                                                    data-dialog-title="Group Information: ${fn:escapeXml(checklist.groupResponsibility.group.name)}"
                                                    href="${pageContext.request.contextPath}/group-detail?groupId=${checklist.groupResponsibility.group.groupId}"><c:out
                                                         value="${checklist.groupResponsibility.group.name}"/></a>
@@ -131,7 +131,7 @@
                                             <div class="li-value">
                                                 <span class="fullpage-only"><c:out
                                                         value="${checklist.groupResponsibility.system.name}"/></span>
-                                                <a title="System Information" class="dialog-ready dialog-only"
+                                                <a title="System Information" class="dialog-opener dialog-only"
                                                    data-dialog-title="System Information: ${fn:escapeXml(checklist.groupResponsibility.system.name)}"
                                                    href="${pageContext.request.contextPath}/system-detail?systemId=${checklist.groupResponsibility.system.systemId}"><c:out
                                                         value="${checklist.groupResponsibility.system.name}"/></a>

@@ -89,7 +89,7 @@
                                             <c:choose>
                                                 <c:when test="${responsibility.checklist ne null}">
                                                     <a data-dialog-title="${responsibility.group.name.concat(' ').concat(responsibility.system.name)} Checklist"
-                                                       class="dialog-ready" data-dialog-type="checklist"
+                                                       class="dialog-opener" data-dialog-type="checklist"
                                                        href="${pageContext.request.contextPath}/checklist?checklistId=${responsibility.checklist.checklistId}">View</a>
                                                     |
                                                     <a href="${pageContext.request.contextPath}/checklists/history-list?checklistId=${responsibility.checklist.checklistId}">History</a>

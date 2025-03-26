@@ -147,7 +147,7 @@
                             <tr data-component-id="${component.componentId}">
                                 <th style="display: none;">
                                     <div class="component-name-box">
-                                        <a title="${fn:escapeXml(srm:formatComponent(component))}" class="dialog-ready"
+                                        <a title="${fn:escapeXml(srm:formatComponent(component))}" class="dialog-opener"
                                            data-dialog-title="Component Information: ${fn:escapeXml(srm:formatComponent(component))}"
                                            href="${pageContext.request.contextPath}/reports/component/detail?componentId=${component.componentId}">
                                             <c:out value="${srm:formatComponent(component)}"/>

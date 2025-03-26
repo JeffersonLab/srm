@@ -17,7 +17,7 @@
         <ul class="system-list">
             <c:forEach var="child" items="${parent.systemList}">
                 <li data-node-type="SYSTEM" data-jstree='{"type":"SYSTEM"}'><a title="System Information"
-                                                                               class="dialog-ready"
+                                                                               class="dialog-opener"
                                                                                data-dialog-title="System Information: ${fn:escapeXml(child.name)}"
                                                                                href="${pageContext.request.contextPath}/system-detail?systemId=${child.systemId}"><c:out
                         value="${child.name}"/></a></li>

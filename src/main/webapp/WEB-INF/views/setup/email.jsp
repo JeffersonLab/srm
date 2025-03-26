@@ -131,7 +131,7 @@
                 </c:if>
             </code>
             <fieldset style="display:inline-block;">
-                <a style="margin-right: 10px;" data-dialog-title="HCO - Activity Report" class="dialog-ready"
+                <a style="margin-right: 10px;" data-dialog-title="HCO - Activity Report" class="dialog-opener"
                    href="${pageContext.request.contextPath}/activity-daily-email">Preview</a>
                 <button id="activity-report-on-demand-button" type="button">Send Now</button>
             </fieldset>
@@ -158,11 +158,11 @@
                 <tbody>
                 <c:forEach items="${groupList}" var="group">
                     <tr>
-                        <td><a title="Group Information" class="dialog-ready"
+                        <td><a title="Group Information" class="dialog-opener"
                                data-dialog-title="Group Information: ${fn:escapeXml(group.name)}"
                                href="${pageContext.request.contextPath}/group-detail?groupId=${group.groupId}"><c:out
                                 value="${group.name}"/></a></td>
-                        <td><a data-dialog-title="HCO - Group Action Report" class="dialog-ready"
+                        <td><a data-dialog-title="HCO - Group Action Report" class="dialog-opener"
                                href="${pageContext.request.contextPath}/group-daily-email?groupId=${group.groupId}">Preview</a>
                         </td>
                         <td>

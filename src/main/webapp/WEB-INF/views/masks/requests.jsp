@@ -191,7 +191,7 @@
                         <c:forEach items="${recordList}" var="record">
                             <tr data-request-id="${record.maskingRequestId}">
                                 <td><c:out value="${record.requestStatus}"/></td>
-                                <td><a title="Component Information" class="dialog-ready"
+                                <td><a title="Component Information" class="dialog-opener"
                                        data-dialog-title="Component Information: ${fn:escapeXml(srm:formatComponent(record.component))}"
                                        href="${pageContext.request.contextPath}/reports/component/detail?componentId=${record.component.componentId}"><c:out
                                         value="${srm:formatComponent(record.component)}"/></a></td>

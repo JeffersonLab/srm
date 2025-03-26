@@ -239,7 +239,7 @@
                                     <td><c:out value="${srm:formatChangeType(activity.changeType)}"/>; <c:out
                                             value="${activity.statusName}"/></td>
                                     <c:if test="${param.dialog ne 'true'}">
-                                        <td><a title="Component Information" class="dialog-ready"
+                                        <td><a title="Component Information" class="dialog-opener"
                                                data-dialog-title="Component Information: ${fn:escapeXml(srm:formatFakeComponent(activity.componentName, activity.unpowered))}"
                                                href="${pageContext.request.contextPath}/reports/component/detail?componentId=${activity.componentId}"><c:out
                                                 value="${srm:formatFakeComponent(activity.componentName, activity.unpowered)}"/></a>

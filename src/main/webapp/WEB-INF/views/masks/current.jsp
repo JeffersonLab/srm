@@ -202,7 +202,7 @@
                                                                     pattern="${s:getFriendlyDateTimePattern()}"/>
                                                 </td>
                                                 <td>
-                                                    <a title="Component Information" class="dialog-ready"
+                                                    <a title="Component Information" class="dialog-opener"
                                                        data-dialog-title="Component Information: ${fn:escapeXml(srm:formatComponent(component))}"
                                                        href="${pageContext.request.contextPath}/reports/component/detail?componentId=${component.componentId}">
                                                         <span class="component-name"

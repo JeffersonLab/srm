@@ -36,7 +36,7 @@
                     <c:forEach var="responsibility" items="${system.groupResponsibilityList}">
                         <tr>
                             <td class="right-aligned"><c:out value="${responsibility.weight}"/></td>
-                            <td><a title="Group Information" class="dialog-ready"
+                            <td><a title="Group Information" class="dialog-opener"
                                    data-dialog-title="Group Information: ${fn:escapeXml(responsibility.group.name)}"
                                    href="${pageContext.request.contextPath}/group-detail?groupId=${responsibility.group.groupId}"><c:out
                                     value="${responsibility.group.name}"/></a></td>
@@ -44,7 +44,7 @@
                                 <c:if test="${responsibility.checklist ne null and responsibility.published}">
                                     <a title="Checklist"
                                        data-dialog-title="${responsibility.group.name.concat(' ').concat(responsibility.system.name)} Checklist"
-                                       class="dialog-ready" data-dialog-type="checklist"
+                                       class="dialog-opener" data-dialog-type="checklist"
                                        href="${pageContext.request.contextPath}/checklist?checklistId=${responsibility.checklist.checklistId}">Checklist</a>
                                 </c:if>
                             </td>
@@ -66,7 +66,7 @@
         <dd>
             <ul>
                 <c:forEach var="component" items="${system.componentList}">
-                    <li><a title="Component Information" class="dialog-ready"
+                    <li><a title="Component Information" class="dialog-opener"
                            data-dialog-title="Component Information: ${fn:escapeXml(srm:formatComponent(component))}"
                            href="${pageContext.request.contextPath}/reports/component/detail?componentId=${component.componentId}"><c:out
                             value="${srm:formatComponent(component)}"/></a></li>

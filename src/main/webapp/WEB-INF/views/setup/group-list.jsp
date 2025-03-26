@@ -26,7 +26,7 @@
                 <tbody>
                 <c:forEach items="${groupList}" var="group">
                     <tr data-group-id="${group.groupId}" data-workgroup="${group.leaderWorkgroup}">
-                        <td><a title="Group Information" class="dialog-ready"
+                        <td><a title="Group Information" class="dialog-opener"
                                data-dialog-title="Group Information: ${fn:escapeXml(group.name)}"
                                href="${pageContext.request.contextPath}/group-detail?groupId=${group.groupId}"><c:out
                                 value="${group.name}"/></a></td>

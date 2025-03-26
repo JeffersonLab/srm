@@ -211,7 +211,7 @@
                             <c:forEach items="${recordList}" var="record">
                                 <tr>
                                     <c:if test="${param.dialog ne 'true'}">
-                                        <td><a title="Component Information" class="dialog-ready"
+                                        <td><a title="Component Information" class="dialog-opener"
                                                data-dialog-title="Component Information: ${srm:formatFakeComponent(record.componentName, record.unpowered)}"
                                                href="${pageContext.request.contextPath}/reports/component/detail?componentId=${record.componentId}"><c:out
                                                 value="${srm:formatFakeComponent(record.componentName, record.unpowered)}"/></a>
@@ -252,7 +252,7 @@
                                         <a href="${fn:escapeXml(url)}"
                                            data-dialog-title="${fn:escapeXml(record.componentName)}: ${record.groupName} Signoff History"
                                            title="Click for signoff history"
-                                           class="small-icon dialog-ready comment-icon"></a>
+                                           class="small-icon dialog-opener comment-icon"></a>
                                     </td>
                                 </tr>
                             </c:forEach>

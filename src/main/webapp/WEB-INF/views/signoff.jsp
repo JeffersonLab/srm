@@ -108,7 +108,7 @@
                                             data-group-id="${responsibility.group.groupId}">
                                             <div class="group-header-content">
                                                 <c:out value="${status.count}."/>
-                                                <a title="Group Information" class="dialog-ready"
+                                                <a title="Group Information" class="dialog-opener"
                                                    data-dialog-title="Group Information: ${fn:escapeXml(responsibility.group.name)}"
                                                    href="group-detail?groupId=${responsibility.group.groupId}"><c:out
                                                         value="${responsibility.group.name}"/></a>
@@ -150,7 +150,7 @@
                                                                               title="Masked (Administrator)"></span>
                                                                     </c:when>
                                                                 </c:choose>
-                                                                <a title="Component Information" class="dialog-ready"
+                                                                <a title="Component Information" class="dialog-opener"
                                                                    data-dialog-title="Component Information: ${fn:escapeXml(srm:formatComponent(component))}"
                                                                    href="reports/component/detail?componentId=${component.componentId}">
                                                                     <c:out value="${srm:formatComponent(component)}"/>
@@ -187,7 +187,7 @@
                                                                                     <a href="${fn:escapeXml(url)}"
                                                                                        data-dialog-title="${fn:escapeXml(srm:formatComponent(component))}: ${responsibility.group.name} Signoff History"
                                                                                        title="Click for signoff history"
-                                                                                       class="small-icon dialog-ready comment-icon"></a>
+                                                                                       class="small-icon dialog-opener comment-icon"></a>
                                                                                 </div>
                                                                                 <div class="signoff-cell">
                                                                                     <c:out value="${signoff.comments}"/>

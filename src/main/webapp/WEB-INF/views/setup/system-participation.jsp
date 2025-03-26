@@ -76,7 +76,7 @@
                     <tbody>
                     <c:forEach items="${systemList}" var="system">
                         <tr data-system-id="${system.systemId}">
-                            <th><a title="System Information" class="dialog-ready"
+                            <th><a title="System Information" class="dialog-opener"
                                    data-dialog-title="System Information: ${fn:escapeXml(system.name)}"
                                    href="${pageContext.request.contextPath}/system-detail?systemId=${system.systemId}"><c:out
                                     value="${system.name}"/></a></th>

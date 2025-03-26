@@ -189,7 +189,7 @@
                         <tbody>
                         <c:forEach items="${componentStatusList}" var="component">
                             <tr>
-                                <td><a title="Component Information" class="dialog-ready"
+                                <td><a title="Component Information" class="dialog-opener"
                                        data-dialog-title="Component Information: ${fn:escapeXml(srm:formatFakeComponent(component.name, component.unpowered))}"
                                        href="${pageContext.request.contextPath}/reports/component/detail?componentId=${component.componentId}"><c:out
                                         value="${srm:formatFakeComponent(component.name, component.unpowered)}"/></a>
