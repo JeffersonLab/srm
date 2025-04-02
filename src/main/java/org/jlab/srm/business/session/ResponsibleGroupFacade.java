@@ -25,7 +25,7 @@ import org.jlab.srm.persistence.entity.ResponsibleGroup;
 @DeclareRoles("srm-admin")
 public class ResponsibleGroupFacade extends AbstractFacade<ResponsibleGroup> {
 
-  @PersistenceContext(unitName = "srmPU")
+  @PersistenceContext(unitName = "webappPU")
   private EntityManager em;
 
   public ResponsibleGroupFacade() {

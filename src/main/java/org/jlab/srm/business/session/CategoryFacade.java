@@ -34,7 +34,7 @@ public class CategoryFacade extends AbstractFacade<Category> {
 
   @EJB SystemFacade systemFacade;
 
-  @PersistenceContext(unitName = "srmPU")
+  @PersistenceContext(unitName = "webappPU")
   private EntityManager em;
 
   public CategoryFacade() {

@@ -16,7 +16,7 @@ import org.jlab.srm.persistence.entity.ChecklistHistory;
  */
 @Stateless
 public class ChecklistHistoryFacade extends AbstractFacade<ChecklistHistory> {
-  @PersistenceContext(unitName = "srmPU")
+  @PersistenceContext(unitName = "webappPU")
   private EntityManager em;
 
   public ChecklistHistoryFacade() {

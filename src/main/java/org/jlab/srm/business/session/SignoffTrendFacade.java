@@ -18,7 +18,7 @@ import org.jlab.srm.persistence.model.SignoffTrendInfo;
 @Stateless
 public class SignoffTrendFacade extends AbstractFacade<GroupSignoffHistory> {
 
-  @PersistenceContext(unitName = "srmPU")
+  @PersistenceContext(unitName = "webappPU")
   private EntityManager em;
 
   public SignoffTrendFacade() {

@@ -10,7 +10,7 @@ import org.jlab.srm.persistence.entity.SavedSignoffType;
  */
 @Stateless
 public class SavedSignoffTypeFacade extends AbstractFacade<SavedSignoffType> {
-  @PersistenceContext(unitName = "srmPU")
+  @PersistenceContext(unitName = "webappPU")
   private EntityManager em;
 
   public SavedSignoffTypeFacade() {

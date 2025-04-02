@@ -25,7 +25,7 @@ public class ComponentSignoffFacade {
   @EJB ResponsibleGroupFacade groupFacade;
   @EJB SystemFacade systemFacade;
 
-  @PersistenceContext(unitName = "srmPU")
+  @PersistenceContext(unitName = "webappPU")
   private EntityManager em;
 
   @SuppressWarnings("unchecked")

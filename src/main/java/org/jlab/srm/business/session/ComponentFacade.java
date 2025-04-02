@@ -38,7 +38,7 @@ public class ComponentFacade extends AbstractFacade<Component> {
   @EJB GroupSignoffFacade groupSignoffFacade;
   @EJB GroupResponsibilityFacade groupResponsibilityFacade;
 
-  @PersistenceContext(unitName = "srmPU")
+  @PersistenceContext(unitName = "webappPU")
   private EntityManager em;
 
   public ComponentFacade() {

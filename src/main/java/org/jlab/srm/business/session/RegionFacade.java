@@ -19,7 +19,7 @@ import org.jlab.srm.persistence.entity.Region;
 @Stateless
 public class RegionFacade extends AbstractFacade<Region> {
 
-  @PersistenceContext(unitName = "srmPU")
+  @PersistenceContext(unitName = "webappPU")
   private EntityManager em;
 
   public RegionFacade() {

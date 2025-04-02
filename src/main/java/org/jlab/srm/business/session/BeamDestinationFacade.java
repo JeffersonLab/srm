@@ -19,7 +19,7 @@ import org.jlab.srm.persistence.entity.BeamDestination;
 @Stateless
 public class BeamDestinationFacade extends AbstractFacade<BeamDestination> {
 
-  @PersistenceContext(unitName = "srmPU")
+  @PersistenceContext(unitName = "webappPU")
   private EntityManager em;
 
   public BeamDestinationFacade() {

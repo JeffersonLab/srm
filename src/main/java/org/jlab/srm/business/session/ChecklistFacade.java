@@ -23,7 +23,7 @@ public class ChecklistFacade extends AbstractFacade<Checklist> {
   @EJB GroupResponsibilityFacade responsibilityFacade;
   @EJB ChecklistHistoryFacade historyFacade;
 
-  @PersistenceContext(unitName = "srmPU")
+  @PersistenceContext(unitName = "webappPU")
   private EntityManager em;
 
   public ChecklistFacade() {

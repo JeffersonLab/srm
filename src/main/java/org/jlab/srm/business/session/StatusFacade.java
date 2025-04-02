@@ -15,7 +15,7 @@ import org.jlab.srm.persistence.entity.Status;
  */
 @Stateless
 public class StatusFacade extends AbstractFacade<Status> {
-  @PersistenceContext(unitName = "srmPU")
+  @PersistenceContext(unitName = "webappPU")
   private EntityManager em;
 
   public StatusFacade() {
