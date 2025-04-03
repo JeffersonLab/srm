@@ -121,4 +121,4 @@
                 </s:editable-row-table-dialog>
         </section>
     </jsp:body>
-</t:setup-page>
+</s:setup-page>
