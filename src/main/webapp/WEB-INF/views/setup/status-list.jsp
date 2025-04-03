@@ -1,8 +1,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <c:set var="title" value="Status List"/>
-<t:setup-page title="${title}">  
+<s:setup-page title="${title}">
     <jsp:attribute name="stylesheets">
     </jsp:attribute>
     <jsp:attribute name="scripts">
@@ -28,4 +29,4 @@
             </table>
         </section>
     </jsp:body>
-</t:setup-page>  
+</s:setup-page>

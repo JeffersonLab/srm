@@ -223,6 +223,7 @@
             <button id="exit-fullscreen-button">Exit Full Screen</button>
         </div>
         <div class="dialog" id="approval-dialog" title="Approve">
+            <section>
             <form>
                 <ul class="key-value-list">
                     <li>
@@ -252,6 +253,7 @@
                     </li>
                 </ul>
             </form>
+            </section>
             <div class="dialog-button-panel">
                 <button type="button" id="approve-save-button" class="dialog-submit-button">Save</button>
                 <button type="button" class="dialog-close-button">Cancel</button>

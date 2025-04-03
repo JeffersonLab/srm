@@ -4,7 +4,7 @@
 <%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <c:set var="title" value="Group Responsibility"/>
-<t:setup-page title="${title}">  
+<s:setup-page title="${title}">
     <jsp:attribute name="stylesheets">
         <style type="text/css">
             .dialog textarea {

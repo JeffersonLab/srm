@@ -241,6 +241,7 @@
                 </button>
             </c:if>
             <div id="exception-dialog" class="dialog" title="Edit Component Mask">
+                <section>
                 <form id="mask-component-form" action="component-list" method="post">
                     <ul class="key-value-list">
                         <li>
@@ -278,8 +279,10 @@
                         <button type="button" class="dialog-close-button">Cancel</button>
                     </div>
                 </form>
+                </section>
             </div>
             <div id="remove-exception-dialog" class="dialog" title="Remove Component Mask">
+                <section>
                 <form id="unmask-component-form" action="component-list" method="post">
                     <ul class="key-value-list">
                         <li>
@@ -316,6 +319,7 @@
                         <button type="button" class="dialog-close-button">Cancel</button>
                     </div>
                 </form>
+                </section>
             </div>
         </section>
     </jsp:body>

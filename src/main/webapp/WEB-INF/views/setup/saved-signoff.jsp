@@ -4,7 +4,7 @@
 <%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <c:set var="title" value="Saved Signoffs"/>
-<t:setup-page title="${title}">  
+<s:setup-page title="${title}">
     <jsp:attribute name="stylesheets">
         <link rel="stylesheet" type="text/css"
               href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/saved-signoffs.css"/>
@@ -163,6 +163,7 @@
             <p><b>Tip:</b> Be conscientious of cascade rules when downgrading.</p>
             <p><b>Note:</b> The filter options that can be saved are simplified (subset of signoff screen).</p>
             <div id="add-dialog" class="dialog" title="Add Saved Signoff">
+                <section>
                 <form>
                     <ul class="key-value-list">
                         <li>
@@ -296,8 +297,10 @@
                         <button type="button" class="dialog-close-button">Cancel</button>
                     </div>
                 </form>
+                </section>
             </div>
             <div id="edit-dialog" class="dialog" title="Edit Saved Downgrade">
+                <section>
                 <form>
                     <div class="dialog-button-panel">
                         <button type="button" id="edit-button" class="dialog-submit">Save</button>
@@ -305,7 +308,8 @@
                     </div>
                     <input type="hidden" id="downgradeId" name="downgradeId" value=""/>
                 </form>
+                </section>
             </div>
         </section>
     </jsp:body>
-</t:setup-page>
+</s:setup-page>

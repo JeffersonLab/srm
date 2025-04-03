@@ -226,6 +226,7 @@
                 </c:otherwise>
             </c:choose>
             <div id="signoff-dialog" class="dialog" title="Edit Group Signoff">
+                <section>
                 <form>
                     <ul class="key-value-list">
                         <li>
@@ -278,14 +279,18 @@
                         <button class="dialog-close-button" type="button">Cancel</button>
                     </div>
                 </form>
+                </section>
             </div>
             <div id="ops-pr-dialog" class="dialog" title="OPS-PR Created">
+                <section>
                 <div><a id="ops-pr-link" href="#">OPS-PR</a></div>
                 <div class="dialog-button-panel">
                     <button id="ops-pr-ok-button" type="button">OK</button>
                 </div>
+                </section>
             </div>
             <div id="request-dialog" class="dialog" title="Request Masking">
+                <section>
                 <form>
                     <ul class="key-value-list">
                         <li>
@@ -322,8 +327,10 @@
                         <button class="dialog-close-button" type="button">Cancel</button>
                     </div>
                 </form>
+                </section>
             </div>
             <div id="signoff-options-dialog" class="dialog" title="Downgrade Signoff Options">
+                <section>
                 <p style="margin-top: 0;">When downgrading a signoff any group signoffs which follow (to the right of
                     the selected group) are subject to cascade rules.
                     The behavior of cascades is based on the status of the signoffs which follow.</p>
@@ -354,6 +361,7 @@
                         </div>
                     </li>
                 </ul>
+                </section>
                 <div class="dialog-button-panel">
                     <button form="signoff-filter-form" type="submit">Apply</button>
                     <button class="dialog-close-button" type="button">Cancel</button>

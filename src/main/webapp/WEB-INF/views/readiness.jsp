@@ -354,6 +354,7 @@
                 </div>
             </div>
             <div id="group-dialog" class="dialog" title="Edit Group Signoff">
+                <section>
                 <form>
                     <ul class="key-value-list">
                         <li>
@@ -400,12 +401,15 @@
                         <button class="dialog-close-button" type="button">Cancel</button>
                     </div>
                 </form>
+                </section>
             </div>
             <div id="ops-pr-dialog" class="dialog" title="OPS-PR Created">
+                <section>
                 <div><a id="ops-pr-link" href="#">OPS-PR</a></div>
                 <div class="dialog-button-panel">
                     <button id="ops-pr-ok-button" type="button">OK</button>
                 </div>
+                </section>
             </div>
             <form id="excel-form" method="get" action="${pageContext.request.contextPath}/categories-systems.xlsx">
                 <button id="excel" type="submit" style="display: none;">Excel</button>

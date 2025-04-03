@@ -229,6 +229,7 @@
                 </button>
             </c:if>
             <div id="exception-dialog" class="dialog" title="Mask Component">
+                <section>
                 <form id="mask-component-form" action="component-list" method="post">
                     <ul class="key-value-list">
                         <li>
@@ -266,6 +267,7 @@
                         <button type="button" class="dialog-close-button">Cancel</button>
                     </div>
                 </form>
+                </section>
             </div>
         </section>
     </jsp:body>

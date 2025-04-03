@@ -6,7 +6,7 @@
 <%@taglib prefix="srm" uri="http://jlab.org/srm/functions" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <c:set var="title" value="Component Beam Destination Participation"/>
-<t:setup-page title="${title}">  
+<s:setup-page title="${title}">
     <jsp:attribute name="stylesheets">      
         <link rel="stylesheet" type="text/css"
               href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/component-participation.css"/>
@@ -183,4 +183,4 @@
             </c:if>
         </section>
     </jsp:body>
-</t:setup-page>
+</s:setup-page>

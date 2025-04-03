@@ -4,7 +4,7 @@
 <%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <c:set var="title" value="System Application Participation"/>
-<t:setup-page title="${title}">  
+<s:setup-page title="${title}">
     <jsp:attribute name="stylesheets">
         <link rel="stylesheet" type="text/css"
               href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/system-participation.css"/>
@@ -94,4 +94,4 @@
             </c:if>
         </section>
     </jsp:body>
-</t:setup-page>
+</s:setup-page>

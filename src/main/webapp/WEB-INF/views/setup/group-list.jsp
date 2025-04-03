@@ -4,7 +4,7 @@
 <%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <c:set var="title" value="Group List"/>
-<t:setup-page title="${title}">  
+<s:setup-page title="${title}">
     <jsp:attribute name="stylesheets">       
     </jsp:attribute>
     <jsp:attribute name="scripts">
@@ -68,4 +68,4 @@
             </s:editable-row-table-dialog>
         </section>
     </jsp:body>
-</t:setup-page>       
+</s:setup-page>
