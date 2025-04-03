@@ -3,38 +3,25 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><c:out value="${initParam.appShortName}"/> -
-        ${checklist.groupResponsibility.group.name.concat(' ').concat(checklist.groupResponsibility.system.name)}
-        Checklist</title>
-    <link rel="shortcut icon"
-          href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/img/favicon.ico"/>
-    <c:choose>
-        <c:when test="${'CDN' eq resourceLocation}">
-            <link rel="stylesheet" type="text/css" href="${cdnContextPath}/jquery-ui/1.13.2/theme/smoothness/jquery-ui.min.css"/>
-            <link rel="stylesheet" type="text/css" href="${cdnContextPath}/jlab-theme/smoothness/${env['CDN_VERSION']}/css/smoothness.min.css"/>
-            <link rel="stylesheet" type="text/css" href="${cdnContextPath}/jquery-plugins/timepicker/jquery-ui-timepicker-1.5.0.css"/>
-        </c:when>
-        <c:otherwise><!-- LOCAL -->
-            <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/jquery-ui-1.13.2/jquery-ui.min.css"/>
-            <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/smoothness.css"/>
-            <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/jquery-plugins/timepicker/1.5.0.min.css"/>
-        </c:otherwise>
-    </c:choose>
-    <link rel="stylesheet" type="text/css"
-          href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/srm.css"/>
-    <link rel="stylesheet" type="text/css"
+<c:set var="title" value="${checklist.groupResponsibility.group.name} ${checklist.groupResponsibility.system.name} Checklist"/>
+<s:loose-page title="${title}" category="" description="Responsible Group Detail">
+    <jsp:attribute name="stylesheets">
+        <link rel="stylesheet" type="text/css"
+                  href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/srm.css"/>
+        <link rel="stylesheet" type="text/css"
           href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/checklist.css"/>
-    <link rel="stylesheet" type="text/css"
+        <link rel="stylesheet" type="text/css"
           href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/fullpage-checklist.css"/>
-</head>
-<body>
-<c:if test="${initParam.notification ne null}">
-    <div id="notification-bar"><c:out value="${initParam.notification}"/></div>
-</c:if>
+    </jsp:attribute>
+    <jsp:attribute name="scripts">
+        <script type="text/javascript"
+            src="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/js/srm.js"></script>
+        <script type="text/javascript">
+            jlab.contextPath = '${pageContext.request.contextPath}';
+        </script>
+    </jsp:attribute>
+    <jsp:body>
+        <c:if test="${'Y' ne param.partial}">
 <div id="page">
     <c:if test="${not editable}">
         <div class="banner-breadbox no-bottom-border nav-links">
@@ -57,14 +44,17 @@
     </c:if>
     <div id="content">
         <div id="content-liner">
+        </c:if>
             <section>
                 <form method="post" action="checklist">
-                    <h1><c:out
+                    <h1 class="hide-in-dialog"><c:out
                             value="${checklist.groupResponsibility.group.name.concat(' ').concat(checklist.groupResponsibility.system.name)} Checklist"/></h1>
                     <div class="dialog-content">
-                        <div class="dialog-links dialog-only">
+                        <div class="dialog-links">
+                            <c:if test="${'Y' eq param.partial}">
                             <a href="${pageContext.request.contextPath}/checklist?checklistId=${checklist.checklistId}">Printer
                                 Friendly</a>
+                            </c:if>
                         </div>
                         <div>
                             <c:choose>
@@ -235,29 +225,9 @@
                     <input type="hidden" name="systemId" value="${checklist.groupResponsibility.system.systemId}"/>
                 </form>
             </section>
+        <c:if test="${'Y' ne param.partial}">
         </div>
     </div>
-</div>
-<c:choose>
-    <c:when test="${'CDN' eq resourceLocation}">
-        <script src="${cdnContextPath}/jquery/3.6.1.min.js"></script>
-        <script src="${cdnContextPath}/jquery-ui/1.13.2/jquery-ui.min.js"></script>
-        <script src="${cdnContextPath}/jquery-plugins/maskedinput/jquery.maskedinput-1.3.1.min.js"></script>
-        <script src="${cdnContextPath}/jquery-plugins/timepicker/jquery-ui-timepicker-1.5.0.min.js"></script>
-        <script src="${cdnContextPath}/jlab-theme/smoothness/${env['CDN_VERSION']}/js/smoothness.min.js"></script>
-    </c:when>
-    <c:otherwise><!-- LOCAL -->
-        <script src="${pageContext.request.contextPath}/resources/js/jquery-3.6.1.min.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/jquery-ui-1.13.2/jquery-ui.min.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/jquery-plugins/maskedinput/1.3.1.min.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/jquery-plugins/timepicker/1.5.0.min.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/js/smoothness.js"></script>
-    </c:otherwise>
-</c:choose>
-<script type="text/javascript"
-        src="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/js/srm.js"></script>
-<script type="text/javascript">
-    jlab.contextPath = '${pageContext.request.contextPath}';
-</script>
-</body>
-</html>
+        </c:if>
+    </jsp:body>
+</s:loose-page>

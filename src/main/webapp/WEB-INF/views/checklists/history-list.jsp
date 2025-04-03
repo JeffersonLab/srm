@@ -6,7 +6,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <c:set var="title"
        value="Checklists > ${checklist.groupResponsibility.group.name.concat(' > ').concat(checklist.groupResponsibility.system.name)} History"/>
-<t:page title="${title}">  
+<s:page title="${title}">
     <jsp:attribute name="stylesheets">
     </jsp:attribute>
     <jsp:attribute name="scripts">        
@@ -60,4 +60,4 @@
             </div>
         </section>
     </jsp:body>
-</t:page>
+</s:page>
