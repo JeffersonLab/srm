@@ -5,7 +5,7 @@
 <%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <c:set var="title" value="Checklists${selectedGroup ne null ? ' > '.concat(selectedGroup.name) : ''}"/>
-<t:page title="${title}">  
+<s:page title="${title}">
     <jsp:attribute name="stylesheets">
     </jsp:attribute>
     <jsp:attribute name="scripts">
@@ -129,4 +129,4 @@
             <input id="publish-form-group-responsibility-id" type="hidden" name="groupResponsibilityId" value=""/>
         </form>
     </jsp:body>
-</t:page>
+</s:page>

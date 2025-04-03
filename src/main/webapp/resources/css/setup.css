@@ -1,9 +1,0 @@
-#setup-menu ul li a {
-    text-decoration: none;
-    color: blue;
-}
-
-#setup-menu ul li a:hover {
-    color: red;
-}
-

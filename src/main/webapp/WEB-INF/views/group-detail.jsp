@@ -4,20 +4,8 @@
 <%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <c:set var="title" value="Group Information: ${group.name}"/>
-<t:loose-page title="${title}" category="" description="Responsible Group Detail">
+<s:loose-page title="${title}" category="" description="Responsible Group Detail">
     <jsp:attribute name="stylesheets">
-        <c:choose>
-            <c:when test="${'NONE' eq resourceLocation}">
-            </c:when>
-            <c:when test="${'CDN' eq resourceLocation}">
-                <link rel="stylesheet" type="text/css" href="//${env[initParam.appSpecificEnvPrefix.concat('_CDN_SERVER')]}/jquery-ui/1.14.1/theme/smoothness/jquery-ui.min.css"/>
-                <link rel="stylesheet" type="text/css" href="//${env[initParam.appSpecificEnvPrefix.concat('_CDN_SERVER')]}/jlab-theme/smoothness/${env[initParam.appSpecificEnvPrefix.concat('_SMOOTHNESS_VERSION')]}/css/smoothness.min.css"/>
-            </c:when>
-            <c:otherwise><!-- LOCAL -->
-                <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/jquery-ui-1.14.1/jquery-ui.min.css"/>
-                <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/smoothness.css"/>
-            </c:otherwise>
-        </c:choose>
             <link rel="stylesheet" type="text/css"
           href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/srm.css"/>
     </jsp:attribute>
@@ -78,4 +66,4 @@
     </div>
 </section>
     </jsp:body>
-</t:loose-page>
+</s:loose-page>

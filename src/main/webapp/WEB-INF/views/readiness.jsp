@@ -6,7 +6,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib prefix="srm" uri="http://jlab.org/srm/functions" %>
 <c:set var="title" value="Readiness"/>
-<t:page title="${title}">  
+<s:page title="${title}">
     <jsp:attribute name="stylesheets">
         <c:choose>
             <c:when test="${'CDN' eq resourceLocation}">
@@ -412,4 +412,4 @@
             </form>
         </section>
     </jsp:body>
-</t:page>
+</s:page>

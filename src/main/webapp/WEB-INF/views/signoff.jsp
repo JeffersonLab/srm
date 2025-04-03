@@ -6,7 +6,7 @@
 <%@taglib prefix="srm" uri="http://jlab.org/srm/functions" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <c:set var="title" value="Signoff"/>
-<t:page title="${title}">  
+<s:page title="${title}">
     <jsp:attribute name="stylesheets">
         <link rel="stylesheet" type="text/css"
               href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/signoff.css"/>
@@ -376,4 +376,4 @@
             </div>
         </section>
     </jsp:body>
-</t:page>
+</s:page>

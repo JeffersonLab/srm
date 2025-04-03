@@ -1,6 +1,7 @@
 <%@tag description="The Setup Page Template Tag" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@attribute name="title" %>
 <%@attribute name="stylesheets" fragment="true" %>
@@ -22,7 +23,7 @@
         </div>
     </c:when>
     <c:otherwise>
-        <t:page title="Reports - ${title}">
+        <s:page title="Reports - ${title}">
     <jsp:attribute name="stylesheets">
         <jsp:invoke fragment="stylesheets"/>
     </jsp:attribute>
@@ -70,6 +71,6 @@
                     </div>
                 </div>
             </jsp:body>
-        </t:page>
+        </s:page>
     </c:otherwise>
 </c:choose>
