@@ -25,7 +25,7 @@ import org.jlab.srm.persistence.model.AuditedEntityChange;
 @Stateless
 public class ApplicationRevisionInfoFacade extends AbstractFacade<ApplicationRevisionInfo> {
 
-  @PersistenceContext(unitName = "srmPU")
+  @PersistenceContext(unitName = "webappPU")
   private EntityManager em;
 
   public ApplicationRevisionInfoFacade() {

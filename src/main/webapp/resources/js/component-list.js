@@ -304,7 +304,7 @@ jlab.srm.openMaskDialog = function () {
 };
 $(document).on("click", "#next-button, #previous-button", function () {
     $("#offset-input").val($(this).attr("data-offset"));
-    $("#filter-form").submit();
+    $(".filter-form").submit();
 });
 $(document).on("click", "#show-add-dialog-button", function () {
     $("#new-component-name").val('');

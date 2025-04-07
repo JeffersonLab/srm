@@ -16,7 +16,7 @@ import org.jlab.srm.persistence.entity.Settings;
 @Stateless
 @DeclareRoles("srm-admin")
 public class SettingsFacade extends AbstractFacade<Settings> {
-  @PersistenceContext(unitName = "srmPU")
+  @PersistenceContext(unitName = "webappPU")
   private EntityManager em;
 
   public SettingsFacade() {

@@ -6,7 +6,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib prefix="srm" uri="http://jlab.org/srm/functions" %>
 <c:set var="title" value="Readiness"/>
-<t:page title="${title}">  
+<s:page title="${title}">
     <jsp:attribute name="stylesheets">
         <c:choose>
             <c:when test="${'CDN' eq resourceLocation}">
@@ -42,7 +42,7 @@
                 </div>
             </div>
             <s:filter-flyout-widget ribbon="true" clearButton="true">
-                <form id="filter-form" action="readiness" method="get">
+                <form class="filter-form" action="readiness" method="get">
                     <div id="filter-form-panel">
                         <fieldset>
                             <legend>Filter</legend>
@@ -145,10 +145,10 @@
                         </fieldset>
                     </div>
                     <input type="hidden" name="qualified" value=""/>
-                    <input id="filter-form-submit-button" type="submit" value="Apply"/>
+                    <input class="filter-form-submit-button" type="submit" value="Apply"/>
                 </form>
             </s:filter-flyout-widget>
-            <h2 id="page-header-title"><c:out value="${title}"/></h2>
+            <h2 class="page-header-title"><c:out value="${title}"/></h2>
             <div class="message-box">
                 <c:out value="${selectionMessage}"/>
                 <c:if test="${maskedCount > 0}">
@@ -354,6 +354,7 @@
                 </div>
             </div>
             <div id="group-dialog" class="dialog" title="Edit Group Signoff">
+                <section>
                 <form>
                     <ul class="key-value-list">
                         <li>
@@ -400,16 +401,19 @@
                         <button class="dialog-close-button" type="button">Cancel</button>
                     </div>
                 </form>
+                </section>
             </div>
             <div id="ops-pr-dialog" class="dialog" title="OPS-PR Created">
+                <section>
                 <div><a id="ops-pr-link" href="#">OPS-PR</a></div>
                 <div class="dialog-button-panel">
                     <button id="ops-pr-ok-button" type="button">OK</button>
                 </div>
+                </section>
             </div>
             <form id="excel-form" method="get" action="${pageContext.request.contextPath}/categories-systems.xlsx">
                 <button id="excel" type="submit" style="display: none;">Excel</button>
             </form>
         </section>
     </jsp:body>
-</t:page>
+</s:page>

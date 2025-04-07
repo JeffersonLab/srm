@@ -1,7 +1,7 @@
 var jlab = jlab || {};
 jlab.srm = jlab.srm || {};
 jlab.srm.bulkSignoff = function (systemsArray, statusId, comment) {
-    $("#filter-form").hide();
+    $(".filter-form").hide();
     $("#required-span").text("");
 
     var $table = $('<table class="data-table"><thead><tr><th>System</th><th>Progress</th></tr></thead><tbody></tbody></table>'),

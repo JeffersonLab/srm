@@ -5,20 +5,20 @@
 <%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
 <%@taglib prefix="srm" uri="http://jlab.org/srm/functions" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<c:set var="title" value="Component -  Detail: ${component.name}"/>
+<c:set var="title" value="Component Information: ${component.name}"/>
 <t:reports-page title="${title}">
     <jsp:attribute name="stylesheets">
     </jsp:attribute>
     <jsp:attribute name="scripts">
     </jsp:attribute>
     <jsp:body>
-        <div class="banner-breadbox">
+        <div class="banner-breadbox hide-in-dialog">
             <ul>
                 <li>
                     <a href="${pageContext.request.contextPath}/reports/component">Component Search</a>
                 </li>
                 <li>
-                    <h2 id="page-header-title"><c:out value="${component.name}"/></h2>
+                    <h2 class="page-header-title"><c:out value="${component.name}"/></h2>
                 </li>
             </ul>
         </div>
@@ -79,7 +79,7 @@
                                                         <c:param name="qualified" value=""/>
                                                     </c:url>
                                                     <div><a title="Group Signoff" href="${signoffUrl}">Signoff</a> |
-                                                        <a class="dialog-ready"
+                                                        <a class="dialog-opener"
                                                            data-dialog-title="${fn:escapeXml(component.name)}: ${responsibility.group.name} Signoff Activity"
                                                            title="Signoff Activity Report" href="${activityUrl}">Activity</a>
                                                     </div>
@@ -112,7 +112,7 @@
                                                    items="${component.system.groupResponsibilityList}">
                                             <tr>
                                                 <td class="right-aligned"><c:out value="${responsibility.weight}"/></td>
-                                                <td><a title="Group Information" class="dialog-ready"
+                                                <td><a title="Group Information" class="dialog-opener"
                                                        data-dialog-title="Group Information: ${fn:escapeXml(responsibility.group.name)}"
                                                        href="${pageContext.request.contextPath}/group-detail?groupId=${responsibility.group.groupId}"><c:out
                                                         value="${responsibility.group.name}"/></a></td>
@@ -120,7 +120,7 @@
                                                     <c:if test="${responsibility.checklist ne null and responsibility.published}">
                                                         <a title="Checklist"
                                                            data-dialog-title="${fn:escapeXml(responsibility.group.name.concat(' ').concat(responsibility.system.name))} Checklist"
-                                                           class="dialog-ready" data-dialog-type="checklist"
+                                                           class="dialog-opener" data-dialog-type="checklist"
                                                            href="${pageContext.request.contextPath}/checklist?checklistId=${responsibility.checklist.checklistId}">Checklist</a>
                                                     </c:if>
                                                 </td>
@@ -139,7 +139,7 @@
                                 </c:forEach>
                             </dd>
                             <dt>System:</dt>
-                            <dd><a title="System Information" class="dialog-ready"
+                            <dd><a title="System Information" class="dialog-opener"
                                    data-dialog-title="System Information: ${fn:escapeXml(component.system.name)}"
                                    href="${pageContext.request.contextPath}/system-detail?systemId=${component.system.systemId}"><c:out
                                     value="${component.system.name}"/></a></dd>

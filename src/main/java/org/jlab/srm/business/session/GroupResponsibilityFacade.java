@@ -31,7 +31,7 @@ public class GroupResponsibilityFacade extends AbstractFacade<GroupResponsibilit
   @EJB GroupSignoffHistoryFacade groupSignoffHistoryFacade;
   @EJB CategoryFacade categoryFacade;
 
-  @PersistenceContext(unitName = "srmPU")
+  @PersistenceContext(unitName = "webappPU")
   private EntityManager em;
 
   public GroupResponsibilityFacade() {

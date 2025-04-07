@@ -26,7 +26,7 @@ public class SystemFacade extends AbstractFacade<SystemEntity> {
 
   @EJB CategoryFacade categoryFacade;
 
-  @PersistenceContext(unitName = "srmPU")
+  @PersistenceContext(unitName = "webappPU")
   private EntityManager em;
 
   public SystemFacade() {

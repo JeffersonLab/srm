@@ -4,7 +4,7 @@
 <%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <c:set var="title" value="Saved Signoffs"/>
-<t:setup-page title="${title}">  
+<s:setup-page title="${title}">
     <jsp:attribute name="stylesheets">
         <link rel="stylesheet" type="text/css"
               href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/saved-signoffs.css"/>
@@ -28,7 +28,7 @@
     <jsp:body>
         <section>
             <s:filter-flyout-widget clearButton="true">
-                <form id="filter-form" method="get" action="saved-signoff">
+                <form class="filter-form" method="get" action="saved-signoff">
                     <fieldset>
                         <legend>Filter</legend>
                         <ul class="key-value-list">
@@ -76,11 +76,11 @@
                             </li>
                         </ul>
                     </fieldset>
-                    <input type="hidden" id="offset-input" name="offset" value="0"/>
-                    <input id="filter-form-submit-button" type="submit" value="Apply"/>
+                    <input type="hidden" class="offset-input" name="offset" value="0"/>
+                    <input class="filter-form-submit-button" type="submit" value="Apply"/>
                 </form>
             </s:filter-flyout-widget>
-            <h2 id="page-header-title"><c:out value="${title}"/></h2>
+            <h2 class="page-header-title"><c:out value="${title}"/></h2>
             <div class="message-box">
                 <c:out value="${selectionMessage}"/>
             </div>
@@ -148,10 +148,10 @@
                 <div id="multi-instructions">Hold down the control (Ctrl) or shift key when clicking to select
                     multiple. Hold down the Command (⌘) key on Mac.
                 </div>
-                <button id="previous-button" type="button" data-offset="${paginator.previousOffset}"
+                <button class="previous-button" type="button" data-offset="${paginator.previousOffset}"
                         value="Previous"${paginator.previous ? '' : ' disabled="disabled"'}>Previous
                 </button>
-                <button id="next-button" type="button" data-offset="${paginator.nextOffset}"
+                <button class="next-button" type="button" data-offset="${paginator.nextOffset}"
                         value="Next"${paginator.next ? '' : ' disabled="disabled"'}>Next
                 </button>
             </c:if>
@@ -163,6 +163,7 @@
             <p><b>Tip:</b> Be conscientious of cascade rules when downgrading.</p>
             <p><b>Note:</b> The filter options that can be saved are simplified (subset of signoff screen).</p>
             <div id="add-dialog" class="dialog" title="Add Saved Signoff">
+                <section>
                 <form>
                     <ul class="key-value-list">
                         <li>
@@ -296,8 +297,10 @@
                         <button type="button" class="dialog-close-button">Cancel</button>
                     </div>
                 </form>
+                </section>
             </div>
             <div id="edit-dialog" class="dialog" title="Edit Saved Downgrade">
+                <section>
                 <form>
                     <div class="dialog-button-panel">
                         <button type="button" id="edit-button" class="dialog-submit">Save</button>
@@ -305,7 +308,8 @@
                     </div>
                     <input type="hidden" id="downgradeId" name="downgradeId" value=""/>
                 </form>
+                </section>
             </div>
         </section>
     </jsp:body>
-</t:setup-page>
+</s:setup-page>

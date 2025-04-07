@@ -356,7 +356,7 @@ jlab.srm.initDialogs = function () {
         height: 400,
         modal: false,
         close: function () {
-            $("#filter-form")[0].reset(); /*TODO: use defaultSelected on option instead of resetting entire form*/
+            $(".filter-form")[0].reset(); /*TODO: use defaultSelected on option instead of resetting entire form*/
         }
     });
     $("#ops-pr-dialog").dialog({
@@ -519,7 +519,7 @@ $(document).on("click", "#save-signoff-button", function () {
 });
 
 $(document).on("change", "#show-comments-checkbox", function () {
-    $("#filter-form").submit();
+    $(".filter-form").submit();
 });
 
 $(document).on("click", "#expand-icon", function () {

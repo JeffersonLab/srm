@@ -2,20 +2,18 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>HCO - Group ${group.name}</title>
-    <link rel="shortcut icon"
-          href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/img/favicon.ico"/>
-    <link rel="stylesheet" type="text/css" href="${cdnContextPath}/jlab-theme/smoothness/1.6/css/smoothness.min.css"/>
-    <link rel="stylesheet" type="text/css"
+<%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
+<c:set var="title" value="Group Information: ${group.name}"/>
+<s:loose-page title="${title}" category="" description="Responsible Group Detail">
+    <jsp:attribute name="stylesheets">
+            <link rel="stylesheet" type="text/css"
           href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/srm.css"/>
-</head>
-<body>
-<div id="page">
-    <h1>Group ${group.name}</h1>
+    </jsp:attribute>
+    <jsp:attribute name="scripts">
+    </jsp:attribute>
+    <jsp:body>
+<section>
+    <h2 class="hide-in-dialog"><c:out value="${title}"/></h2>
     <div class="dialog-content">
         <dl>
             <dt>Description:</dt>
@@ -44,7 +42,7 @@
                         <tbody>
                         <c:forEach var="responsibility" items="${group.groupResponsibilityList}">
                             <tr>
-                                <td><a title="System Information" class="dialog-ready"
+                                <td><a title="System Information" class="dialog-opener"
                                        data-dialog-title="System Information: ${fn:escapeXml(responsibility.system.name)}"
                                        href="${pageContext.request.contextPath}/system-detail?systemId=${responsibility.system.systemId}"><c:out
                                         value="${responsibility.system.name}"/></a></td>
@@ -53,7 +51,7 @@
                                     <c:if test="${responsibility.checklist ne null and responsibility.published}">
                                         <a title="Checklist"
                                            data-dialog-title="${responsibility.group.name.concat(' ').concat(responsibility.system.name)} Checklist"
-                                           class="dialog-ready"
+                                           class="dialog-opener"
                                            data-dialog-title="${fn:escapeXml(responsibility.group.name)} ${fn:escapeXml(responsibility.system.name)} Checklist"
                                            href="${pageContext.request.contextPath}/checklist?checklistId=${responsibility.checklist.checklistId}">Checklist</a>
                                     </c:if>
@@ -66,6 +64,6 @@
             </dd>
         </dl>
     </div>
-</div>
-</body>
-</html>
+</section>
+    </jsp:body>
+</s:loose-page>

@@ -19,7 +19,7 @@ import org.jlab.srm.persistence.entity.aud.SystemAud;
 public class SystemAudFacade extends AbstractFacade<SystemAud> {
   @EJB ApplicationRevisionInfoFacade revisionFacade;
 
-  @PersistenceContext(unitName = "srmPU")
+  @PersistenceContext(unitName = "webappPU")
   private EntityManager em;
 
   public SystemAudFacade() {

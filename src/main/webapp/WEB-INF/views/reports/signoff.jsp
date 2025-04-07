@@ -40,7 +40,7 @@
     <jsp:body>
         <section>
             <s:filter-flyout-widget clearButton="true">
-                <form id="filter-form" method="get" action="signoff">
+                <form class="filter-form" method="get" action="signoff">
                     <div id="filter-form-panel">
                         <fieldset>
                             <legend>Filter</legend>
@@ -183,12 +183,12 @@
                             </ul>
                         </fieldset>
                     </div>
-                    <input type="hidden" id="offset-input" name="offset" value="0"/>
+                    <input type="hidden" class="offset-input" name="offset" value="0"/>
                     <input type="hidden" name="qualified" value=""/>
-                    <input id="filter-form-submit-button" type="submit" value="Apply"/>
+                    <input class="filter-form-submit-button" type="submit" value="Apply"/>
                 </form>
             </s:filter-flyout-widget>
-            <h2 id="page-header-title"><c:out value="${title}"/></h2>
+            <h2 class="page-header-title"><c:out value="${title}"/></h2>
             <div class="message-box"><c:out value="${selectionMessage}"/></div>
             <div>
                 <c:if test="${fn:length(recordList) > 0}">
@@ -211,7 +211,7 @@
                             <c:forEach items="${recordList}" var="record">
                                 <tr>
                                     <c:if test="${param.dialog ne 'true'}">
-                                        <td><a title="Component Information" class="dialog-ready"
+                                        <td><a title="Component Information" class="dialog-opener"
                                                data-dialog-title="Component Information: ${srm:formatFakeComponent(record.componentName, record.unpowered)}"
                                                href="${pageContext.request.contextPath}/reports/component/detail?componentId=${record.componentId}"><c:out
                                                 value="${srm:formatFakeComponent(record.componentName, record.unpowered)}"/></a>
@@ -252,7 +252,7 @@
                                         <a href="${fn:escapeXml(url)}"
                                            data-dialog-title="${fn:escapeXml(record.componentName)}: ${record.groupName} Signoff History"
                                            title="Click for signoff history"
-                                           class="small-icon dialog-ready comment-icon"></a>
+                                           class="small-icon dialog-opener comment-icon"></a>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -276,10 +276,10 @@
                             <a target="_blank" href="${fn:escapeXml(url)}">More...</a>
                         </c:if>
                     </div>
-                    <button id="previous-button" type="button" data-offset="${paginator.previousOffset}"
+                    <button class="previous-button" type="button" data-offset="${paginator.previousOffset}"
                             value="Previous"${paginator.previous ? '' : ' disabled="disabled"'}>Previous
                     </button>
-                    <button id="next-button" type="button" data-offset="${paginator.nextOffset}"
+                    <button class="next-button" type="button" data-offset="${paginator.nextOffset}"
                             value="Next"${paginator.next ? '' : ' disabled="disabled"'}>Next
                     </button>
                 </c:if>

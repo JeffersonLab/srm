@@ -45,7 +45,7 @@
                 </div>
             </div>
             <s:filter-flyout-widget clearButton="true">
-                <form id="filter-form" method="get" action="group-status">
+                <form class="filter-form" method="get" action="group-status">
                     <div id="filter-form-panel">
                         <fieldset>
                             <legend>Filter</legend>
@@ -140,10 +140,10 @@
                         </fieldset>
                     </div>
                     <input type="hidden" name="qualified" value=""/>
-                    <input id="filter-form-submit-button" type="submit" value="Apply"/>
+                    <input class="filter-form-submit-button" type="submit" value="Apply"/>
                 </form>
             </s:filter-flyout-widget>
-            <h2 id="page-header-title"><c:out value="${title}"/></h2>
+            <h2 class="page-header-title"><c:out value="${title}"/></h2>
             <div class="message-box">
                 <c:out value="${selectionMessage}"/>
             </div>

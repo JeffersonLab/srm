@@ -19,7 +19,7 @@ import org.jlab.srm.persistence.entity.aud.CategoryAud;
 public class CategoryAudFacade extends AbstractFacade<CategoryAud> {
   @EJB ApplicationRevisionInfoFacade revisionFacade;
 
-  @PersistenceContext(unitName = "srmPU")
+  @PersistenceContext(unitName = "webappPU")
   private EntityManager em;
 
   public CategoryAudFacade() {

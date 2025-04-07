@@ -6,7 +6,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <c:set var="title"
        value="Checklists > ${checklist.groupResponsibility.group.name.concat(' > ').concat(checklist.groupResponsibility.system.name)} History"/>
-<t:page title="${title}">  
+<s:page title="${title}">
     <jsp:attribute name="stylesheets">
     </jsp:attribute>
     <jsp:attribute name="scripts">        
@@ -50,7 +50,7 @@
                             <td><c:out value="${s:formatUsername(history.modifiedBy)}"/></td>
                             <td>
                                 <a data-dialog-title="${history.checklist.groupResponsibility.group.name.concat(' ').concat(history.checklist.groupResponsibility.system.name)} Checklist (History)"
-                                   class="dialog-ready" data-dialog-type="checklist"
+                                   class="dialog-opener" data-dialog-type="checklist"
                                    href="${pageContext.request.contextPath}/checklists/revision?checklistHistoryId=${history.checklistHistoryId}&amp;revision=${status.count}">View</a>
                             </td>
                         </tr>
@@ -60,4 +60,4 @@
             </div>
         </section>
     </jsp:body>
-</t:page>
+</s:page>

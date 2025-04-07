@@ -59,78 +59,10 @@ jlab.srm.filterSystemListByCategory = function (categoryId, systemSelectSelector
 jlab.pageDialog.minWidth = 840;
 jlab.pageDialog.minHeight = 590;
 
-jlab.dateTimeToJLabString = function (x) {
-    var year = x.getFullYear(),
-        month = x.getMonth(),
-        day = x.getDate(),
-        hour = x.getHours(),
-        minute = x.getMinutes();
-
-    return jlab.pad(day, 2) + '-' + jlab.triCharMonthNames[month] + '-' + year + ' ' + jlab.pad(hour, 2) + ':' + jlab.pad(minute, 2);
-};
-
-jlab.updateDateRange = function (start, end) {
-    $("#custom-date-range-list").hide();
-    $("#start").val(jlab.dateTimeToJLabString(start));
-    $("#end").val(jlab.dateTimeToJLabString(end));
-};
-
 $(document).on("click", "#current-run-link", function () {
     var $select = $("#destination-select");
     $select.val($select.attr("data-current-run-id-csv").split(",")).trigger('change');
     return false;
-});
-
-$(document).on("change", "#range", function () {
-    var selected = $("#range option:selected").val();
-
-    switch (selected) {
-        case '7days':
-            var start = new Date(),
-                end = new Date();
-
-            end.setMilliseconds(0);
-            end.setSeconds(0);
-            end.setMinutes(0);
-            end.setHours(7);
-
-            start.setTime(end.getTime());
-            start.setDate(start.getDate() - 7);
-
-            jlab.updateDateRange(start, end);
-            break;
-        case '3days':
-            var start = new Date(),
-                end = new Date();
-
-            end.setMilliseconds(0);
-            end.setSeconds(0);
-            end.setMinutes(0);
-            end.setHours(7);
-
-            start.setTime(end.getTime());
-            start.setDate(start.getDate() - 3);
-
-            jlab.updateDateRange(start, end);
-            break;
-        case '1day':
-            var start = new Date(),
-                end = new Date();
-
-            end.setMilliseconds(0);
-            end.setSeconds(0);
-            end.setMinutes(0);
-            end.setHours(7);
-
-            start.setTime(end.getTime());
-            start.setDate(start.getDate() - 1);
-
-            jlab.updateDateRange(start, end);
-            break;
-        case 'custom':
-            $("#custom-date-range-list").show();
-            break;
-    }
 });
 
 $(function () {

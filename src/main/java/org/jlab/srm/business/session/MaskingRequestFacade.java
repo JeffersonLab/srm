@@ -31,7 +31,7 @@ public class MaskingRequestFacade extends AbstractFacade<MaskingRequest> {
   @EJB CategoryFacade categoryFacade;
   @EJB EmailFacade emailFacade;
 
-  @PersistenceContext(unitName = "srmPU")
+  @PersistenceContext(unitName = "webappPU")
   private EntityManager em;
 
   public MaskingRequestFacade() {

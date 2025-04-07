@@ -1,4 +1,4 @@
-#chart-placeholder {
+.chart-placeholder {
     height: 700px;
 }
 
@@ -36,6 +36,6 @@
     background: url(../img/pin-location-blue.png);
 }
 
-#chart-placeholder {
+.chart-placeholder {
     margin-bottom: 1em;
 }

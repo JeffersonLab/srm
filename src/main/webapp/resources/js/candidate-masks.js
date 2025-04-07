@@ -25,7 +25,7 @@ jlab.srm.editComponentException = function () {
     $(".dialog-close-button").attr("disabled", "disabled");
     $(".ui-dialog-titlebar button").attr("disabled", "disabled");
 
-    var componentIdArray = $.parseJSON($("#selected-row-list").attr('data-id-json')),
+    var componentIdArray = $.parseJSON($(".selected-row-list").attr('data-id-json')),
         maskedReason = $("#mask-component-masked-reason").val(),
         doReload = false,
         expirationDate = $("#mask-expiration").val();
@@ -86,7 +86,7 @@ jlab.srm.openExceptionDialog = function () {
         componentReasonArray.push(reason);
     });
 
-    var $selectedList = $("#selected-row-list");
+    var $selectedList = $(".selected-row-list");
 
     $selectedList.attr("data-id-json", JSON.stringify(componentIdArray));
 

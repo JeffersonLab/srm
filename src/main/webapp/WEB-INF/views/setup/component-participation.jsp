@@ -6,7 +6,7 @@
 <%@taglib prefix="srm" uri="http://jlab.org/srm/functions" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <c:set var="title" value="Component Beam Destination Participation"/>
-<t:setup-page title="${title}">  
+<s:setup-page title="${title}">
     <jsp:attribute name="stylesheets">      
         <link rel="stylesheet" type="text/css"
               href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/component-participation.css"/>
@@ -18,7 +18,7 @@
     <jsp:body>
         <section>
             <s:filter-flyout-widget clearButton="true">
-                <form id="filter-form" action="component-participation" method="get">
+                <form class="filter-form" action="component-participation" method="get">
                     <fieldset class="content-filter">
                         <legend>Component Filter (Rows)</legend>
                         <ul class="key-value-list">
@@ -116,12 +116,12 @@
                             </li>
                         </ul>
                     </fieldset>
-                    <input type="hidden" id="offset-input" name="offset" value="0"/>
+                    <input type="hidden" class="offset-input" name="offset" value="0"/>
                     <input type="hidden" id="max-input" name="max" value="${fn:escapeXml(param.max)}"/>
-                    <input type="submit" id="filter-form-submit-button" value="Apply"/>
+                    <input type="submit" class="filter-form-submit-button" value="Apply"/>
                 </form>
             </s:filter-flyout-widget>
-            <h2 id="page-header-title"><c:out value="${title}"/></h2>
+            <h2 class="page-header-title"><c:out value="${title}"/></h2>
             <div class="message-box"><c:out value="${selectionMessage}"/></div>
             <c:if test="${fn:length(componentList) > 0}">
                 <div class="carousel-table-wrapper">
@@ -147,7 +147,7 @@
                             <tr data-component-id="${component.componentId}">
                                 <th style="display: none;">
                                     <div class="component-name-box">
-                                        <a title="${fn:escapeXml(srm:formatComponent(component))}" class="dialog-ready"
+                                        <a title="${fn:escapeXml(srm:formatComponent(component))}" class="dialog-opener"
                                            data-dialog-title="Component Information: ${fn:escapeXml(srm:formatComponent(component))}"
                                            href="${pageContext.request.contextPath}/reports/component/detail?componentId=${component.componentId}">
                                             <c:out value="${srm:formatComponent(component)}"/>
@@ -174,13 +174,13 @@
                 <option ${param.max eq '100' ? 'selected="selected"' : ''}>100</option>
                 <option ${param.max eq '1000' ? 'selected="selected"' : ''}>1000</option>
                 </select> at a time)
-                <button id="previous-button" type="button" data-offset="${paginator.previousOffset}"
+                <button class="previous-button" type="button" data-offset="${paginator.previousOffset}"
                         value="Previous"${paginator.previous ? '' : ' disabled="disabled"'}>&uarr; Previous
                 </button>
-                <button id="next-button" type="button" data-offset="${paginator.nextOffset}"
+                <button class="next-button" type="button" data-offset="${paginator.nextOffset}"
                         value="Next"${paginator.next ? '' : ' disabled="disabled"'}>Next &darr;
                 </button>
             </c:if>
         </section>
     </jsp:body>
-</t:setup-page>
+</s:setup-page>

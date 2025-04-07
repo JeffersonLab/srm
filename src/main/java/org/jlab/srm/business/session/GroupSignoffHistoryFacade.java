@@ -14,7 +14,7 @@ import org.jlab.srm.persistence.entity.GroupSignoffHistory;
 @Stateless
 public class GroupSignoffHistoryFacade extends AbstractFacade<GroupSignoffHistory> {
 
-  @PersistenceContext(unitName = "srmPU")
+  @PersistenceContext(unitName = "webappPU")
   private EntityManager em;
 
   public GroupSignoffHistoryFacade() {

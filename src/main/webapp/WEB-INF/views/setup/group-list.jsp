@@ -4,7 +4,7 @@
 <%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <c:set var="title" value="Group List"/>
-<t:setup-page title="${title}">  
+<s:setup-page title="${title}">
     <jsp:attribute name="stylesheets">       
     </jsp:attribute>
     <jsp:attribute name="scripts">
@@ -26,7 +26,7 @@
                 <tbody>
                 <c:forEach items="${groupList}" var="group">
                     <tr data-group-id="${group.groupId}" data-workgroup="${group.leaderWorkgroup}">
-                        <td><a title="Group Information" class="dialog-ready"
+                        <td><a title="Group Information" class="dialog-opener"
                                data-dialog-title="Group Information: ${fn:escapeXml(group.name)}"
                                href="${pageContext.request.contextPath}/group-detail?groupId=${group.groupId}"><c:out
                                 value="${group.name}"/></a></td>
@@ -68,4 +68,4 @@
             </s:editable-row-table-dialog>
         </section>
     </jsp:body>
-</t:setup-page>       
+</s:setup-page>

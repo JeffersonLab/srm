@@ -18,7 +18,7 @@
     <jsp:body>
         <section>
             <s:filter-flyout-widget clearButton="true" resetButton="true" ribbon="false">
-                <form id="filter-form" method="get" action="current">
+                <form class="filter-form" method="get" action="current">
                     <div id="filter-form-panel">
                         <fieldset>
                             <legend>Filter</legend>
@@ -147,12 +147,12 @@
                             </ul>
                         </fieldset>
                     </div>
-                    <input type="hidden" id="offset-input" name="offset" value="0"/>
+                    <input type="hidden" class="offset-input" name="offset" value="0"/>
                     <input type="hidden" name="qualified" value=""/>
-                    <input id="filter-form-submit-button" type="submit" value="Apply"/>
+                    <input class="filter-form-submit-button" type="submit" value="Apply"/>
                 </form>
             </s:filter-flyout-widget>
-            <h2 id="page-header-title"><c:out value="${title}"/></h2>
+            <h2 class="page-header-title"><c:out value="${title}"/></h2>
             <div class="message-box"><c:out value="${selectionMessage}"/></div>
             <c:choose>
                 <c:when test="${fn:length(componentList) == 0}">
@@ -202,7 +202,7 @@
                                                                     pattern="${s:getFriendlyDateTimePattern()}"/>
                                                 </td>
                                                 <td>
-                                                    <a title="Component Information" class="dialog-ready"
+                                                    <a title="Component Information" class="dialog-opener"
                                                        data-dialog-title="Component Information: ${fn:escapeXml(srm:formatComponent(component))}"
                                                        href="${pageContext.request.contextPath}/reports/component/detail?componentId=${component.componentId}">
                                                         <span class="component-name"
@@ -233,14 +233,15 @@
                         multiple. Hold down the Command (⌘) key on Mac.
                     </div>
                 </c:if>
-                <button id="previous-button" type="button" data-offset="${paginator.previousOffset}"
+                <button class="previous-button" type="button" data-offset="${paginator.previousOffset}"
                         value="Previous"${paginator.previous ? '' : ' disabled="disabled"'}>Previous
                 </button>
-                <button id="next-button" type="button" data-offset="${paginator.nextOffset}"
+                <button class="next-button" type="button" data-offset="${paginator.nextOffset}"
                         value="Next"${paginator.next ? '' : ' disabled="disabled"'}>Next
                 </button>
             </c:if>
             <div id="exception-dialog" class="dialog" title="Edit Component Mask">
+                <section>
                 <form id="mask-component-form" action="component-list" method="post">
                     <ul class="key-value-list">
                         <li>
@@ -248,7 +249,7 @@
                                 <span>Components:</span>
                             </div>
                             <div class="li-value">
-                                <ul id="selected-row-list"></ul>
+                                <ul class="selected-row-list"></ul>
                                 <span id="exception-dialog-component-count"></span>
                             </div>
                         </li>
@@ -278,8 +279,10 @@
                         <button type="button" class="dialog-close-button">Cancel</button>
                     </div>
                 </form>
+                </section>
             </div>
             <div id="remove-exception-dialog" class="dialog" title="Remove Component Mask">
+                <section>
                 <form id="unmask-component-form" action="component-list" method="post">
                     <ul class="key-value-list">
                         <li>
@@ -316,6 +319,7 @@
                         <button type="button" class="dialog-close-button">Cancel</button>
                     </div>
                 </form>
+                </section>
             </div>
         </section>
     </jsp:body>

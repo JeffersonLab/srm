@@ -441,7 +441,7 @@ $(document).on("click", ".add-button", function () {
 
 $(document).on("change", "#vertical-record-max-selector", function () {
     $("#max-input").val($(this).val());
-    $("#filter-form").submit();
+    $(".filter-form").submit();
 });
 $(document).on("click", ".default-clear-panel", function () {
     $("#destination-select").val('');

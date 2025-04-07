@@ -6,7 +6,7 @@
 <%@taglib prefix="srm" uri="http://jlab.org/srm/functions" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <c:set var="title" value="Component List"/>
-<t:setup-page title="${title}">  
+<s:setup-page title="${title}">
     <jsp:attribute name="stylesheets">
         <style type="text/css">
             #add-component-form {
@@ -157,7 +157,7 @@
     <jsp:body>
         <section>
             <s:filter-flyout-widget clearButton="true">
-                <form id="filter-form" method="get" action="component-list">
+                <form class="filter-form" method="get" action="component-list">
                     <div id="filter-form-panel">
                         <fieldset>
                             <legend>Filter</legend>
@@ -297,12 +297,12 @@
                             </ul>
                         </fieldset>
                     </div>
-                    <input type="hidden" id="offset-input" name="offset" value="0"/>
+                    <input type="hidden" class="offset-input" name="offset" value="0"/>
                     <input type="hidden" name="qualified" value=""/>
-                    <input id="filter-form-submit-button" type="submit" value="Apply"/>
+                    <input class="filter-form-submit-button" type="submit" value="Apply"/>
                 </form>
             </s:filter-flyout-widget>
-            <h2 id="page-header-title"><c:out value="${title}"/> <a href="#" class="flyout-link"
+            <h2 class="page-header-title"><c:out value="${title}"/> <a href="#" class="flyout-link"
                                                                     data-flyout-type="all-components-flyout">‡</a></h2>
             <div class="message-box"><c:out value="${selectionMessage}"/></div>
             <s:editable-row-table-controls excludeAdd="${true}" excludeEdit="${true}" excludeDelete="${true}">
@@ -366,7 +366,7 @@
                                                 data-unpowered="${component.unpowered}"
                                                 data-alias="${component.nameAlias}">
                                                 <td>
-                                                    <a title="Component Information" class="dialog-ready"
+                                                    <a title="Component Information" class="dialog-opener"
                                                        data-dialog-title="Component Information: ${fn:escapeXml(srm:formatComponent(component))}"
                                                        href="${pageContext.request.contextPath}/reports/component/detail?componentId=${component.componentId}">
                                                         <span class="component-name"
@@ -392,14 +392,15 @@
                     </tr>
                     </tbody>
                 </table>
-                <button id="previous-button" type="button" data-offset="${paginator.previousOffset}"
+                <button class="previous-button" type="button" data-offset="${paginator.previousOffset}"
                         value="Previous"${paginator.previous ? '' : ' disabled="disabled"'}>Previous
                 </button>
-                <button id="next-button" type="button" data-offset="${paginator.nextOffset}"
+                <button class="next-button" type="button" data-offset="${paginator.nextOffset}"
                         value="Next"${paginator.next ? '' : ' disabled="disabled"'}>Next
                 </button>
             </c:if>
             <div id="add-dialog" class="dialog" title="Add New Component">
+                <section>
                 <form id="add-component-form" action="component-list" method="post">
                     <ul class="key-value-list">
                         <li>
@@ -481,8 +482,10 @@
                         <button type="button" class="dialog-close-button">Cancel</button>
                     </div>
                 </form>
+                </section>
             </div>
             <div id="bulk-add-dialog" class="dialog" title="Bulk Add New Components">
+                <section>
                 <form id="bulk-add-component-form" action="component-list" method="post">
                     <ul class="key-value-list">
                         <li>
@@ -549,8 +552,10 @@
                         <button type="button" class="dialog-close-button">Cancel</button>
                     </div>
                 </form>
+                </section>
             </div>
             <div id="mask-dialog" class="dialog" title="Mask/Unmask Component">
+                <section>
                 <form id="mask-component-form" action="mask-component" method="post">
                     <div class="warning-banner"><span class="warning-banner-heading">WARNING:</span> Masking a component
                         will clear any Crew Chief Exception. Unmasking a component will reset all group signoffs to Not
@@ -598,8 +603,10 @@
                         <button type="button" class="dialog-close-button">Cancel</button>
                     </div>
                 </form>
+                </section>
             </div>
             <div id="unpowered-dialog" class="dialog" title="Component Unpowered State">
+                <section>
                 <form id="unpowered-component-form" action="edit-component-unpowered" method="post">
                     <div class="warning-banner"><span class="warning-banner-heading">WARNING:</span> Changing the
                         unpowered state of a component results in all associated signoffs being reset to Not Ready.
@@ -628,8 +635,10 @@
                         <button type="button" class="dialog-close-button">Cancel</button>
                     </div>
                 </form>
+                </section>
             </div>
             <div id="source-dialog" class="dialog" title="Component Source">
+                <section>
                 <form id="source-component-form" action="edit-component-source" method="post">
                     <ul class="key-value-list">
                         <li>
@@ -668,8 +677,10 @@
                         <button type="button" class="dialog-close-button">Cancel</button>
                     </div>
                 </form>
+                </section>
             </div>
             <div id="rename-dialog" class="dialog" title="Rename Component">
+                <section>
                 <form id="rename-component-form" action="rename-component" method="post">
                     <div class="warning-banner"><span class="warning-banner-heading">WARNING:</span> This component is
                         linked to the CED/LED. The name should not be changed unless you want to contradict the CED/LED
@@ -698,8 +709,10 @@
                         <button type="button" class="dialog-close-button">Cancel</button>
                     </div>
                 </form>
+                </section>
             </div>
             <div id="system-dialog" class="dialog" title="Edit Component System">
+                <section>
                 <form id="edit-component-form" action="edit-component-system" method="post">
                     <div class="warning-banner"><span class="warning-banner-heading">WARNING:</span> This component is
                         linked to the CED/LED. The system should not be changed unless you want to contradict the
@@ -735,8 +748,10 @@
                         <button type="button" class="dialog-close-button">Cancel</button>
                     </div>
                 </form>
+                </section>
             </div>
             <div id="region-dialog" class="dialog" title="Edit Component Region">
+                <section>
                 <form id="edit-component-region-form" action="edit-component-region" method="post">
                     <ul class="key-value-list">
                         <li>
@@ -768,8 +783,10 @@
                         <button type="button" class="dialog-close-button">Cancel</button>
                     </div>
                 </form>
+                </section>
             </div>
             <div id="alias-dialog" class="dialog" title="Edit Component Alias">
+                <section>
                 <form id="edit-component-alias-form" action="edit-component-alias" method="post">
                     <ul class="key-value-list">
                         <li>
@@ -787,6 +804,7 @@
                         <button type="button" class="dialog-close-button">Cancel</button>
                     </div>
                 </form>
+                </section>
             </div>
             <div id="flyouts">
                 <div class="all-components-flyout">
@@ -802,4 +820,4 @@
             </div>
         </section>
     </jsp:body>
-</t:setup-page>
+</s:setup-page>

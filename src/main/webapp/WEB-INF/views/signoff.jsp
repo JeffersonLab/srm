@@ -6,7 +6,7 @@
 <%@taglib prefix="srm" uri="http://jlab.org/srm/functions" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <c:set var="title" value="Signoff"/>
-<t:page title="${title}">  
+<s:page title="${title}">
     <jsp:attribute name="stylesheets">
         <link rel="stylesheet" type="text/css"
               href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/signoff.css"/>
@@ -34,14 +34,14 @@
     </jsp:attribute>
     <jsp:body>
         <section>
-            <form id="filter-form" method="get" action="signoff">
+            <form id="signoff-filter-form" class="filter-form" method="get" action="signoff">
                 <div id="start-with-div"><input id="start-with-checkbox" name="systemFirst" class="change-submit"
                                                 value="Y"${param.systemFirst eq 'Y' ? ' checked="checked"' : ''}
                                                 type="checkbox"/><label for="start-with-checkbox">Start with
                     Category/System</label></div>
                 <c:choose>
                     <c:when test="${componentList eq null}">
-                        <h2 id="page-header-title"><c:out value="${title}"/></h2> <span
+                        <h2 class="page-header-title"><c:out value="${title}"/></h2> <span
                             style="font-weight: bold;">(<span class="required-field"></span> required)</span> <span
                             class="default-clear-panel">(<a href="#">Clear</a>)</span>
                         <jsp:include page="/WEB-INF/includes/signoff-form.jsp"/>
@@ -50,7 +50,7 @@
                         <s:filter-flyout-widget requiredMessage="true" ribbon="true" clearButton="true">
                             <jsp:include page="/WEB-INF/includes/signoff-form.jsp"/>
                         </s:filter-flyout-widget>
-                        <h2 id="page-header-title"><c:out value="${title}"/></h2>
+                        <h2 class="page-header-title"><c:out value="${title}"/></h2>
                     </c:otherwise>
                 </c:choose>
             </form>
@@ -86,7 +86,7 @@
                             </div>
                         </c:if>
                         <div id="table-option-panel">
-                            <input form="filter-form" id="show-comments-checkbox" name="showComments" type="checkbox"
+                            <input form="signoff-filter-form" id="show-comments-checkbox" name="showComments" type="checkbox"
                                    value="Y"${param.showComments eq 'Y' ? ' checked="checked"' : ''}/>
                             <label for="show-comments-checkbox">Show Comments</label>
                         </div>
@@ -108,7 +108,7 @@
                                             data-group-id="${responsibility.group.groupId}">
                                             <div class="group-header-content">
                                                 <c:out value="${status.count}."/>
-                                                <a title="Group Information" class="dialog-ready"
+                                                <a title="Group Information" class="dialog-opener"
                                                    data-dialog-title="Group Information: ${fn:escapeXml(responsibility.group.name)}"
                                                    href="group-detail?groupId=${responsibility.group.groupId}"><c:out
                                                         value="${responsibility.group.name}"/></a>
@@ -150,7 +150,7 @@
                                                                               title="Masked (Administrator)"></span>
                                                                     </c:when>
                                                                 </c:choose>
-                                                                <a title="Component Information" class="dialog-ready"
+                                                                <a title="Component Information" class="dialog-opener"
                                                                    data-dialog-title="Component Information: ${fn:escapeXml(srm:formatComponent(component))}"
                                                                    href="reports/component/detail?componentId=${component.componentId}">
                                                                     <c:out value="${srm:formatComponent(component)}"/>
@@ -187,7 +187,7 @@
                                                                                     <a href="${fn:escapeXml(url)}"
                                                                                        data-dialog-title="${fn:escapeXml(srm:formatComponent(component))}: ${responsibility.group.name} Signoff History"
                                                                                        title="Click for signoff history"
-                                                                                       class="small-icon dialog-ready comment-icon"></a>
+                                                                                       class="small-icon dialog-opener comment-icon"></a>
                                                                                 </div>
                                                                                 <div class="signoff-cell">
                                                                                     <c:out value="${signoff.comments}"/>
@@ -226,6 +226,7 @@
                 </c:otherwise>
             </c:choose>
             <div id="signoff-dialog" class="dialog" title="Edit Group Signoff">
+                <section>
                 <form>
                     <ul class="key-value-list">
                         <li>
@@ -278,14 +279,18 @@
                         <button class="dialog-close-button" type="button">Cancel</button>
                     </div>
                 </form>
+                </section>
             </div>
             <div id="ops-pr-dialog" class="dialog" title="OPS-PR Created">
+                <section>
                 <div><a id="ops-pr-link" href="#">OPS-PR</a></div>
                 <div class="dialog-button-panel">
                     <button id="ops-pr-ok-button" type="button">OK</button>
                 </div>
+                </section>
             </div>
             <div id="request-dialog" class="dialog" title="Request Masking">
+                <section>
                 <form>
                     <ul class="key-value-list">
                         <li>
@@ -322,8 +327,10 @@
                         <button class="dialog-close-button" type="button">Cancel</button>
                     </div>
                 </form>
+                </section>
             </div>
             <div id="signoff-options-dialog" class="dialog" title="Downgrade Signoff Options">
+                <section>
                 <p style="margin-top: 0;">When downgrading a signoff any group signoffs which follow (to the right of
                     the selected group) are subject to cascade rules.
                     The behavior of cascades is based on the status of the signoffs which follow.</p>
@@ -333,7 +340,7 @@
                             <label for="readyCascade">Ready Cascades To</label>
                         </div>
                         <div class="li-value">
-                            <select form="filter-form" id="readyCascade" name="readyCascade">
+                            <select form="signoff-filter-form" id="readyCascade" name="readyCascade">
                                 <option value="">&nbsp;</option>
                                 <option value="50"${readyCascade eq '50' ? ' selected="selected"' : ''}>Checked</option>
                                 <option value="100"${readyCascade eq '100' ? ' selected="selected"' : ''}>Not Ready
@@ -346,7 +353,7 @@
                             <label for="checkedCascade">Checked Cascades To</label>
                         </div>
                         <div class="li-value">
-                            <select form="filter-form" id="checkedCascade" name="checkedCascade">
+                            <select form="signoff-filter-form" id="checkedCascade" name="checkedCascade">
                                 <option value="">&nbsp;</option>
                                 <option value="100"${checkedCascade eq '100' ? ' selected="selected"' : ''}>Not Ready
                                 </option>
@@ -354,8 +361,9 @@
                         </div>
                     </li>
                 </ul>
+                </section>
                 <div class="dialog-button-panel">
-                    <button form="filter-form" type="submit">Apply</button>
+                    <button form="signoff-filter-form" type="submit">Apply</button>
                     <button class="dialog-close-button" type="button">Cancel</button>
                 </div>
             </div>
@@ -376,4 +384,4 @@
             </div>
         </section>
     </jsp:body>
-</t:page>
+</s:page>

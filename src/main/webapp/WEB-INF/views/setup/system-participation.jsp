@@ -4,7 +4,7 @@
 <%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <c:set var="title" value="System Application Participation"/>
-<t:setup-page title="${title}">  
+<s:setup-page title="${title}">
     <jsp:attribute name="stylesheets">
         <link rel="stylesheet" type="text/css"
               href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/system-participation.css"/>
@@ -16,7 +16,7 @@
     <jsp:body>
         <section>
             <s:filter-flyout-widget>
-                <form id="filter-form" method="get"
+                <form class="filter-form" method="get"
                       action="${pageContext.request.contextPath}/setup/system-participation">
                     <fieldset>
                         <legend>Filter</legend>
@@ -38,10 +38,10 @@
                             </li>
                         </ul>
                     </fieldset>
-                    <input id="filter-form-submit-button" type="submit" value="Apply"/>
+                    <input class="filter-form-submit-button" type="submit" value="Apply"/>
                 </form>
             </s:filter-flyout-widget>
-            <h2 id="page-header-title"><c:out value="${title}"/></h2>
+            <h2 class="page-header-title"><c:out value="${title}"/></h2>
             <c:choose>
                 <c:when test="${systemList eq null}">
                     <div class="message-box">No Systems found</div>
@@ -76,7 +76,7 @@
                     <tbody>
                     <c:forEach items="${systemList}" var="system">
                         <tr data-system-id="${system.systemId}">
-                            <th><a title="System Information" class="dialog-ready"
+                            <th><a title="System Information" class="dialog-opener"
                                    data-dialog-title="System Information: ${fn:escapeXml(system.name)}"
                                    href="${pageContext.request.contextPath}/system-detail?systemId=${system.systemId}"><c:out
                                     value="${system.name}"/></a></th>
@@ -94,4 +94,4 @@
             </c:if>
         </section>
     </jsp:body>
-</t:setup-page>
+</s:setup-page>

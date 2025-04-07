@@ -51,7 +51,7 @@ jlab.srm.doBarChart = function () {
         data: d3
     });
 
-    $.plot($("#chart-placeholder"), ds, {
+    $.plot($(".chart-placeholder"), ds, {
         series: {
             stackpercent: true,
             bars: {
@@ -92,7 +92,7 @@ jlab.srm.doBarChart = function () {
 
 $(function () {
 
-    if ($("#chart-placeholder").length > 0) {
+    if ($(".chart-placeholder").length > 0) {
         jlab.srm.doBarChart();
     }
 

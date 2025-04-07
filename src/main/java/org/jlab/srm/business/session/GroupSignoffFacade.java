@@ -33,7 +33,7 @@ public class GroupSignoffFacade extends AbstractFacade<GroupSignoff> {
   @EJB GroupSignoffHistoryFacade groupSignoffHistoryFacade;
   @EJB SystemFacade systemFacade;
 
-  @PersistenceContext(unitName = "srmPU")
+  @PersistenceContext(unitName = "webappPU")
   private EntityManager em;
 
   public GroupSignoffFacade() {

@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServletResponse;
  * @author ryans
  */
 @WebServlet(
-    name = "Index",
-    urlPatterns = {"/index"})
-public class Index extends HttpServlet {
+    name = "ContextRootController",
+    urlPatterns = {""})
+public class ContextRootController extends HttpServlet {
 
   /**
    * Handles the HTTP <code>GET</code> method.
@@ -27,6 +27,6 @@ public class Index extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/readiness"));
+    response.sendRedirect(request.getContextPath() + "/readiness");
   }
 }

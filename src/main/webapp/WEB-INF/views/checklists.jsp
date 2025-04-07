@@ -5,7 +5,7 @@
 <%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <c:set var="title" value="Checklists${selectedGroup ne null ? ' > '.concat(selectedGroup.name) : ''}"/>
-<t:page title="${title}">  
+<s:page title="${title}">
     <jsp:attribute name="stylesheets">
     </jsp:attribute>
     <jsp:attribute name="scripts">
@@ -40,7 +40,7 @@
                     <a href="${pageContext.request.contextPath}/checklists">Checklists</a>
                 </li>
                 <li>
-                    <form id="filter-form" method="get" action="checklists">
+                    <form class="filter-form" method="get" action="checklists">
                         <select id="group-select" name="groupId" class="change-submit">
                             <option value="">&nbsp;</option>
                             <c:forEach items="${groupList}" var="group">
@@ -89,7 +89,7 @@
                                             <c:choose>
                                                 <c:when test="${responsibility.checklist ne null}">
                                                     <a data-dialog-title="${responsibility.group.name.concat(' ').concat(responsibility.system.name)} Checklist"
-                                                       class="dialog-ready" data-dialog-type="checklist"
+                                                       class="dialog-opener" data-dialog-type="checklist"
                                                        href="${pageContext.request.contextPath}/checklist?checklistId=${responsibility.checklist.checklistId}">View</a>
                                                     |
                                                     <a href="${pageContext.request.contextPath}/checklists/history-list?checklistId=${responsibility.checklist.checklistId}">History</a>
@@ -129,4 +129,4 @@
             <input id="publish-form-group-responsibility-id" type="hidden" name="groupResponsibilityId" value=""/>
         </form>
     </jsp:body>
-</t:page>
+</s:page>

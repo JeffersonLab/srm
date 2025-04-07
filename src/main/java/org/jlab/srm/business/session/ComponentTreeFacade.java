@@ -40,7 +40,7 @@ public class ComponentTreeFacade {
   @EJB GroupSignoffFacade signoffFacade;
   @EJB SystemFacade systemFacade;
 
-  @PersistenceContext(unitName = "srmPU")
+  @PersistenceContext(unitName = "webappPU")
   private EntityManager em;
 
   /**

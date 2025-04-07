@@ -1,9 +1,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <c:set var="title" value="Bulk Signoff"/>
-<t:setup-page title="${title}">  
+<s:setup-page title="${title}">
     <jsp:attribute name="stylesheets">
         <style type="text/css">
             body .select2-container-multi .select2-choices li {
@@ -31,10 +32,10 @@
     </jsp:attribute>
     <jsp:body>
         <section>
-            <h2 id="page-header-title"><c:out value="${title}"/></h2> <span id="required-span"
+            <h2 class="page-header-title"><c:out value="${title}"/></h2> <span id="required-span"
                                                                             style="font-weight: bold;">(<span
                 class="required-field"></span> required)</span>
-            <form id="filter-form" action="bulk-signoff" method="get">
+            <form class="filter-form" action="bulk-signoff" method="get">
                 <div id="filter-form-panel">
                     <fieldset>
                         <ul class="key-value-list">
@@ -105,4 +106,4 @@
             <div id="bulk-div"></div>
         </section>
     </jsp:body>
-</t:setup-page>
+</s:setup-page>
