@@ -14,11 +14,13 @@ import javax.ejb.*;
 import javax.mail.Address;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
+import org.jlab.smoothness.business.service.SettingsService;
 import org.jlab.smoothness.business.service.UserAuthorizationService;
+import org.jlab.smoothness.persistence.view.ImmutableSettings;
+import org.jlab.smoothness.persistence.view.SettingChangeAction;
 import org.jlab.smoothness.persistence.view.User;
 import org.jlab.srm.business.session.AbstractFacade.OrderDirective;
 import org.jlab.srm.persistence.entity.ResponsibleGroup;
-import org.jlab.srm.persistence.entity.Settings;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -28,26 +30,29 @@ import org.jsoup.nodes.Document;
 @Singleton
 @DeclareRoles({"srm-admin"})
 @Startup
-public class ScheduledEmailer {
+@LocalBean // https://www.javacodegeeks.com/2013/03/defining-ejb-3-1-views-local-remote-no-interface.html
+public class ScheduledEmailer implements SettingChangeAction {
 
-  private static final Logger logger = Logger.getLogger(ScheduledEmailer.class.getName());
+  private static final Logger LOGGER = Logger.getLogger(ScheduledEmailer.class.getName());
   @EJB ResponsibleGroupFacade groupFacade;
   @EJB EmailFacade emailFacade;
-  @EJB SettingsFacade settingsFacade;
+  @EJB SettingsService settingsService;
   @Resource private TimerService timerService;
   private Timer timer;
   private final String TIMER_INFO = "ScheduledEmailer";
 
   @PostConstruct
   private void init() {
-    logger.log(Level.FINE, "Canceling Cached Timers");
+    LOGGER.log(Level.FINE, "Canceling Cached Timers");
     listAll();
     clearAll();
 
     timer = null;
 
-    if (settingsFacade.findSettings().isAutoEmail()) {
-      logger.log(Level.FINE, "Creating New Timer");
+    ImmutableSettings settings = settingsService.getImmutableSettings();
+
+    if (settings.is("EMAIL_LEADERS_ENABLED") || settings.is("EMAIL_ACTIVITY_ENABLED")) {
+      LOGGER.log(Level.FINE, "Creating New Timer");
       enableTimer();
     }
   }
@@ -60,14 +65,12 @@ public class ScheduledEmailer {
   @RolesAllowed("srm-admin")
   public void setEnabled(Boolean enabled) {
 
-    settingsFacade.setAutoEmail(enabled);
-
     if (enabled) {
       enableTimer();
     } else {
       disableTimer();
     }
-    logger.log(Level.FINE, "Enabled: {0}; Listing Timers", enabled);
+    LOGGER.log(Level.FINE, "Enabled: {0}; Listing Timers", enabled);
     listAll();
   }
 
@@ -94,7 +97,7 @@ public class ScheduledEmailer {
 
   private void listAll() {
     for (Timer t : timerService.getTimers()) {
-      logger.log(
+      LOGGER.log(
           Level.FINE,
           "Timer Expression: {0}, Remaining: {1}, Next timeout: {2}",
           new Object[] {t.getSchedule(), t.getTimeRemaining(), t.getNextTimeout()});
@@ -112,13 +115,18 @@ public class ScheduledEmailer {
 
   @Timeout
   private void handleTimeout(Timer timer) {
-    logger.log(Level.FINE, "Sending Auto Emails");
+    LOGGER.log(Level.FINE, "Sending Auto Emails");
 
     try {
-      sendActivityEmails();
-      sendGroupActionNeededEmails();
+      if (SettingsService.cachedSettings.is("EMAIL_LEADERS_ENABLED")) {
+        sendGroupActionNeededEmails();
+      }
+
+      if (SettingsService.cachedSettings.is("EMAIL_ACTIVITY_ENABLED")) {
+        sendActivityEmails();
+      }
     } catch (Exception e) {
-      logger.log(Level.SEVERE, "Unable to send email on schedule", e);
+      LOGGER.log(Level.SEVERE, "Unable to send email on schedule", e);
     }
   }
 
@@ -129,15 +137,18 @@ public class ScheduledEmailer {
     Document doc = Jsoup.connect(url).get();
 
     if (!doc.select("#doNotSend").text().trim().isEmpty()) {
-      logger.log(Level.FINE, "Skipping activity email");
+      LOGGER.log(Level.FINE, "Skipping activity email");
     } else {
-      logger.log(Level.FINE, "Sending activity email");
+      LOGGER.log(Level.FINE, "Sending activity email");
 
       String html = doc.outerHtml();
 
-      Settings settings = settingsFacade.findSettings();
+      List<String> addressList = SettingsService.cachedSettings.csv("EMAIL_ACTIVITY_LIST");
+      List<Address> addresses = new ArrayList<>();
 
-      List<Address> addresses = settings.getActivityEmailAddresses();
+      for (String address : addressList) {
+        addresses.add(new InternetAddress(address));
+      }
 
       if (!addresses.isEmpty()) {
         emailFacade.sendHTMLEmail(addresses.toArray(new Address[] {}), "HCO - Activity", html);
@@ -161,9 +172,9 @@ public class ScheduledEmailer {
     Document doc = Jsoup.connect(url).get();
 
     if (!doc.select("#doNotSend").text().trim().isEmpty()) {
-      logger.log(Level.FINE, "Skipping email for group: {0}", group.getName());
+      LOGGER.log(Level.FINE, "Skipping email for group: {0}", group.getName());
     } else {
-      logger.log(Level.FINE, "Sending email for group: {0}", group.getName());
+      LOGGER.log(Level.FINE, "Sending email for group: {0}", group.getName());
 
       String html = doc.outerHtml();
 
@@ -198,5 +209,17 @@ public class ScheduledEmailer {
     }
 
     sendGroupMail(group);
+  }
+
+  @Override
+  @RolesAllowed("srm-admin")
+  public void handleChange(String key, String value) {
+    LOGGER.log(Level.INFO, "SettingChangeAction handleChange: {0}={1}", new Object[] {key, value});
+    if (SettingsService.cachedSettings.is("EMAIL_LEADERS_ENABLED")
+        || SettingsService.cachedSettings.is("EMAIL_ACTIVITY_ENABLED")) {
+      setEnabled(true);
+    } else {
+      setEnabled(false);
+    }
   }
 }

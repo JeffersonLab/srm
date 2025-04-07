@@ -1,9 +1,9 @@
 package org.jlab.srm.business.session;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.annotation.security.PermitAll;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.mail.*;
 import javax.mail.internet.AddressException;
@@ -11,7 +11,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.persistence.EntityManager;
 import org.jlab.smoothness.business.exception.UserFriendlyException;
-import org.jlab.srm.persistence.entity.Settings;
+import org.jlab.smoothness.business.service.SettingsService;
 
 /**
  * @author ryans
@@ -20,8 +20,6 @@ import org.jlab.srm.persistence.entity.Settings;
 public class EmailFacade extends AbstractFacade<Object> {
   @Resource(name = "mail/jlab")
   private Session mailSession;
-
-  @EJB private SettingsFacade settingsFacade;
 
   public EmailFacade() {
     super(Object.class);
@@ -87,8 +85,12 @@ public class EmailFacade extends AbstractFacade<Object> {
       }
 
       subject = "HCO Mask Request: " + subject;
-      Settings settings = settingsFacade.findSettings();
-      List<Address> toAddresses = settings.getMaskRequestEmailAddresses();
+      List<String> addressList = SettingsService.cachedSettings.csv("EMAIL_MASK_REQUEST_LIST");
+      List<Address> toAddresses = new ArrayList<>();
+
+      for (String address : addressList) {
+        toAddresses.add(new InternetAddress(address));
+      }
 
       if (toAddresses == null || toAddresses.isEmpty()) {
         throw new UserFriendlyException("No recipients configured.  Please contact your HCO admin");

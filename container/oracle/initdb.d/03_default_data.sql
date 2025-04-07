@@ -9,6 +9,12 @@ insert into SRM_OWNER.SETTING (KEY, VALUE, TYPE, DESCRIPTION, TAG, WEIGHT) value
 insert into SRM_OWNER.SETTING (KEY, VALUE, TYPE, DESCRIPTION, TAG, WEIGHT) values ('SMOOTHNESS_SERVER', 'ace.jlab.org/cdn', 'STRING', 'Host name and port of content delivery network host for shared smoothness resources. Only used if SMOOTHNESS_LOCATION=CDN', 'CDN', 2);
 insert into SRM_OWNER.SETTING (KEY, VALUE, TYPE, DESCRIPTION, TAG, WEIGHT) values ('SMOOTHNESS_VERSION', '4.11.0', 'STRING', 'Version of smoothness lib on CDN.  Only used if SMOOTHNESS_LOCATION=CDN', 'CDN', 3);
 
+insert into SRM_OWNER.SETTING (KEY, VALUE, TYPE, DESCRIPTION, TAG, WEIGHT, CHANGE_ACTION_JNDI) values ('EMAIL_LEADERS_ENABLED', 'N', 'BOOLEAN', 'Group Leader Emails Enabled', 'EMAIL', 1, 'java:global/srn/ScheduledEmailer');
+insert into SRM_OWNER.SETTING (KEY, VALUE, TYPE, DESCRIPTION, TAG, WEIGHT, CHANGE_ACTION_JNDI) values ('EMAIL_ACTIVITY_ENABLED', 'N', 'BOOLEAN', 'Admin Activity Emails Enabled', 'EMAIL', 2, 'java:global/srm/ScheduledEmailer');
+insert into SRM_OWNER.SETTING (KEY, VALUE, TYPE, DESCRIPTION, TAG, WEIGHT) values ('EMAIL_MASK_REQUEST_LIST', 'tester@example.com', 'CSV', 'List of email addresses to notify about masking requests', 'EMAIL', 3);
+insert into SRM_OWNER.SETTING (KEY, VALUE, TYPE, DESCRIPTION, TAG, WEIGHT) values ('EMAIL_ACTIVITY_LIST', 'tester@example.com', 'CSV', 'List of email addresses to notify of activity', 'EMAIL', 4);
+
+
 -- Populate Application
 insert into SRM_OWNER.APPLICATION (APPLICATION_ID, NAME) values (1, 'Readiness');
 insert into SRM_OWNER.APPLICATION (APPLICATION_ID, NAME) values (2, 'Downtime');

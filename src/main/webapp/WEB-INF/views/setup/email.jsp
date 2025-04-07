@@ -105,18 +105,8 @@
                     None
                 </c:if>
             </code>
-            <h3 class="email-section">Scheduled Daily Emails
-                <form style="position: relative; top: -5px; display: inline-block; float: right; font-size: 10px;"
-                      method="post" action="email">
-                    <fieldset>
-                        <label for="on-notification">On</label>
-                        <input style="vertical-align: bottom;" class="change-submit" id="on-notification" type="radio"
-                               name="schedulerEnabled" value="Y"${schedulerEnabled ? ' checked="checked"' : ''}/>
-                        <label style="margin-left: 10px;" for="off-notification">Off</label>
-                        <input style="vertical-align: bottom;" class="change-submit" id="off-notification" type="radio"
-                               name="schedulerEnabled" value="N"${not schedulerEnabled ? ' checked="checked"' : ''}/>
-                    </fieldset>
-                </form>
+            <h3 class="email-section">Scheduled Daily Emails:
+                    ${schedulerEnabled ? ' YES' : ' NO'}
             </h3>
             <h4>Activity Emails</h4>
             <p>Activty report emails are scheduled for 7:00 AM, are sent to interested parties, and report notable

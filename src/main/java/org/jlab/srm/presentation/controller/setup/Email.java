@@ -12,13 +12,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.jlab.smoothness.business.service.SettingsService;
 import org.jlab.smoothness.presentation.util.ParamConverter;
 import org.jlab.srm.business.session.AbstractFacade;
 import org.jlab.srm.business.session.ResponsibleGroupFacade;
 import org.jlab.srm.business.session.ScheduledEmailer;
-import org.jlab.srm.business.session.SettingsFacade;
 import org.jlab.srm.persistence.entity.ResponsibleGroup;
-import org.jlab.srm.persistence.entity.Settings;
 
 /**
  * @author ryans
@@ -30,7 +29,6 @@ public class Email extends HttpServlet {
 
   @EJB ResponsibleGroupFacade groupFacade;
   @EJB ScheduledEmailer emailer;
-  @EJB SettingsFacade settingsFacade;
 
   /**
    * Handles the HTTP <code>GET</code> method.
@@ -47,14 +45,16 @@ public class Email extends HttpServlet {
     List<ResponsibleGroup> groupList =
         groupFacade.findAll(new AbstractFacade.OrderDirective("name"));
 
-    Settings settings = settingsFacade.findSettings();
-
     List<Address> maskRequestAddresses = null;
     List<Address> feedbackAddresses = null;
     List<Address> activityAddresses = null;
 
     try {
-      maskRequestAddresses = settings.getMaskRequestEmailAddresses();
+      List<String> maskAddressList = SettingsService.cachedSettings.csv("EMAIL_MASK_REQUEST_LIST");
+      maskRequestAddresses = new ArrayList<>();
+      for (String maskAddress : maskAddressList) {
+        maskRequestAddresses.add(new InternetAddress(maskAddress));
+      }
 
       String prefix = getServletContext().getInitParameter("appSpecificEnvPrefix");
 
@@ -62,11 +62,20 @@ public class Email extends HttpServlet {
 
       feedbackAddresses = new ArrayList<>();
 
-      for (String s : feedbackCsv.split(",")) {
-        feedbackAddresses.add(new InternetAddress(s.trim()));
+      if (feedbackCsv != null) {
+        for (String s : feedbackCsv.split(",")) {
+          feedbackAddresses.add(new InternetAddress(s.trim()));
+        }
       }
 
-      activityAddresses = settings.getActivityEmailAddresses();
+      List<String> activityAddressesList =
+          SettingsService.cachedSettings.csv("EMAIL_ACTIVITY_LIST");
+      activityAddresses = new ArrayList<>();
+
+      for (String activityAddress : activityAddressesList) {
+        activityAddresses.add(new InternetAddress(activityAddress.trim()));
+      }
+
     } catch (AddressException e) {
       throw new ServletException(e);
     }

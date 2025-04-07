@@ -2,8 +2,6 @@ package org.jlab.srm.presentation.controller.reports;
 
 import java.io.IOException;
 import java.math.BigInteger;
-import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -13,8 +11,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.jlab.smoothness.presentation.util.ParamConverter;
-import org.jlab.smoothness.presentation.util.ParamValidator;
 import org.jlab.srm.business.params.GroupStatusParams;
 import org.jlab.srm.business.session.*;
 import org.jlab.srm.business.session.AbstractFacade.OrderDirective;
@@ -22,7 +18,6 @@ import org.jlab.srm.business.session.ComponentSignoffFacade.GroupStatusCount;
 import org.jlab.srm.persistence.entity.*;
 import org.jlab.srm.presentation.params.GroupStatusUrlParamHandler;
 import org.jlab.srm.presentation.util.FilterSelectionMessage;
-import org.jlab.srm.presentation.util.HcoParamConverter;
 
 /**
  * @author ryans
@@ -38,7 +33,6 @@ public class GroupStatus extends HttpServlet {
   @EJB ResponsibleGroupFacade groupFacade;
   @EJB ComponentSignoffFacade reportFacade;
   @EJB ComponentFacade componentFacade;
-  @EJB SettingsFacade settingsFacade;
   @EJB CategoryFacade categoryFacade;
 
   /**
@@ -129,10 +123,6 @@ public class GroupStatus extends HttpServlet {
         FilterSelectionMessage.getOverallStatusFootnoteList(
             selectedDestinationList, selectedCategory, selectedSystem, selectedRegion, null);
 
-    Settings settings = settingsFacade.findSettings();
-
-    Date goalDate = settings.getGoalDate();
-
     if ("table".equals(params.getChart())) {
       request.setAttribute(
           "selectionMessage",
@@ -152,7 +142,6 @@ public class GroupStatus extends HttpServlet {
 
     request.setAttribute("targetCsv", targetCsv);
     request.setAttribute("footnoteList", footnoteList);
-    request.setAttribute("goalDate", goalDate);
     request.setAttribute("totalCount", totalCount);
     request.setAttribute("maskedCount", maskedCount);
     request.setAttribute("destinationList", destinationList);
@@ -166,50 +155,5 @@ public class GroupStatus extends HttpServlet {
         .getServletContext()
         .getRequestDispatcher("/WEB-INF/views/reports/group-status.jsp")
         .forward(request, response);
-  }
-
-  /**
-   * Handles the HTTP <code>POST</code> method.
-   *
-   * @param request servlet request
-   * @param response servlet response
-   * @throws ServletException if a servlet-specific error occurs
-   * @throws IOException if an I/O error occurs
-   */
-  @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    Date goalDate = null;
-
-    try {
-      goalDate = HcoParamConverter.convertISO8601Date(request, "goalDate");
-    } catch (ParseException e) {
-      throw new IllegalArgumentException("goal date must be in the format yyyy-MM-dd");
-    }
-
-    settingsFacade.updateGoalDate(goalDate);
-
-    List<ResponsibleGroup> groupList = groupFacade.findAll();
-
-    List<BigInteger> groupIdList = new ArrayList<>();
-    List<Integer> percentList = new ArrayList<>();
-
-    for (ResponsibleGroup group : groupList) {
-      String name = group.getGroupId().toString();
-      Integer percent = ParamConverter.convertInteger(request, name);
-
-      ParamValidator.validatePercent(name, percent);
-
-      if (percent == null) {
-        throw new IllegalArgumentException("Group goal percent cannot be empty");
-      }
-
-      groupIdList.add(group.getGroupId());
-      percentList.add(percent);
-    }
-
-    groupFacade.updateGoals(groupIdList, percentList);
-
-    response.sendRedirect("group-status");
   }
 }
