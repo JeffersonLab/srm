@@ -4,7 +4,7 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
 <c:set var="title" value="${checklist.groupResponsibility.group.name} ${checklist.groupResponsibility.system.name} Checklist"/>
-<s:loose-page title="${title}" category="" description="Responsible Group Detail">
+<s:loose-page title="${title}" category="" description="Checklist">
     <jsp:attribute name="stylesheets">
         <link rel="stylesheet" type="text/css"
                   href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/srm.css"/>
