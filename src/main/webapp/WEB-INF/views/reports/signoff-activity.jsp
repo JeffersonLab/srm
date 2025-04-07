@@ -63,6 +63,7 @@
     </jsp:attribute>
     <jsp:body>
         <section>
+            <c:if test="${param.dialog ne 'true'}">
             <s:filter-flyout-widget clearButton="true" resetButton="true">
                 <form class="filter-form" method="get" action="signoff-activity">
                     <div id="filter-form-panel">
@@ -210,6 +211,7 @@
                 </form>
             </s:filter-flyout-widget>
             <h2 class="page-header-title"><c:out value="${title}"/></h2>
+        </c:if>
             <div class="message-box">
                 <c:out value="${selectionMessage}"/>
             </div>
@@ -266,6 +268,7 @@
                         <div class="message-box">No History Found</div>
                     </c:if>
                 </div>
+                <c:if test="${param.dialog ne 'true'}">
                 <c:if test="${fn:length(signoffActivityList) > 0}">
                     <button class="previous-button" type="button" data-offset="${paginator.previousOffset}"
                             value="Previous"${paginator.previous ? '' : ' disabled="disabled"'}>Previous
@@ -273,6 +276,7 @@
                     <button class="next-button" type="button" data-offset="${paginator.nextOffset}"
                             value="Next"${paginator.next ? '' : ' disabled="disabled"'}>Next
                     </button>
+                </c:if>
                 </c:if>
             </div>
         </section>
