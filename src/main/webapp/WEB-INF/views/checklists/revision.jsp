@@ -10,7 +10,7 @@
               href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/srm.css"/>
         <link rel="stylesheet" type="text/css"
               href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/checklist.css"/>
-        <link rel="stylesheet" type="text/css"
+        <link rel="stylesheet" type="text/css" class="full-page-only"
               href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/fullpage-checklist.css"/>
     </jsp:attribute>
     <jsp:attribute name="scripts">
