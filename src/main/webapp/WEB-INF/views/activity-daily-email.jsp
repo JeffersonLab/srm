@@ -5,20 +5,13 @@
 <%@taglib prefix="s" uri="http://jlab.org/jsp/smoothness" %>
 <%@taglib prefix="srm" uri="http://jlab.org/srm/functions" %>
 <fmt:setLocale value="en_US" scope="session"/>
-<c:set var="pathPrefix" value="${pageContext.request.contextPath}"/>
-<c:if test="${param.email eq 'Y'}">
-    <c:set var="pathPrefix" value="https://ace.jlab.org/srm"/>
-</c:if>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>SRM - Activity Report</title>
-    <link rel="shortcut icon" href="${pathPrefix}/resources/v${initParam.releaseNumber}/img/favicon.ico"/>
-    <link rel="stylesheet" type="text/css" href="${cdnContextPath}/jlab-theme/smoothness/1.6/css/smoothness.min.css"/>
-    <link rel="stylesheet" type="text/css"
-          href="${pathPrefix}/resources/v${initParam.releaseNumber}/css/srm.css"/>
-    <style type="text/css">
+<c:set var="pathPrefix" value="${env['FRONTEND_SERVER_URL']}/srm"/>
+<c:set var="title" value="Activty Report"/>
+<s:loose-page title="${title}" category="Email" description="Activity">
+    <jsp:attribute name="stylesheets">
+            <link rel="stylesheet" type="text/css"
+                  href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/srm.css"/>
+    <style id="activity-email-style">
         body {
             background-color: white;
         }
@@ -80,8 +73,10 @@
             color: #595959;
         }
     </style>
-</head>
-<body>
+    </jsp:attribute>
+    <jsp:attribute name="scripts">
+    </jsp:attribute>
+    <jsp:body>
 <h2 style="margin-left: 16px;">SRM - Activity Report</h2>
 <div style="margin-left: 16px;" id="email-content" class="content-section dialog-content">
     <h3>New Outstanding Signoffs</h3>
@@ -177,5 +172,5 @@
         <c:out value="${willNotBeSentMessage}"/>
     </div>
 </div>
-</body>
-</html>
+    </jsp:body>
+</s:loose-page>
