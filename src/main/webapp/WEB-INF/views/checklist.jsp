@@ -10,8 +10,51 @@
                   href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/srm.css"/>
         <link rel="stylesheet" type="text/css"
           href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/checklist.css"/>
-        <link rel="stylesheet" type="text/css"
-          href="${pageContext.request.contextPath}/resources/v${initParam.releaseNumber}/css/fullpage-checklist.css"/>
+        <!-- style tag without ID is not included in partial pages -->
+        <style>
+            h1 {
+                text-align: center;
+                text-shadow: none;
+            }
+            .key-value-list {
+                margin: 0 auto 1em auto;
+            }
+            #page {
+                padding-top: 0;
+            }
+            .dialog-only {
+                display: none;
+            }
+            body .fullpage-only {
+                display: inline;
+            }
+            .edit-controls {
+                margin-top: 1em;
+                text-align: center;
+            }
+            @media print {
+                body {
+                    background-color: white;
+                }
+                body #content {
+                    border: none;
+                    box-shadow: none;
+                    margin: 0;
+                    padding: 0;
+                }
+                body #content-liner {
+                    border: none;
+                }
+                body .nav-links,
+                body .edit-controls {
+                    display: none;
+                }
+
+                #page {
+                    min-width: 0;
+                }
+            }
+        </style>
     </jsp:attribute>
     <jsp:attribute name="scripts">
         <script type="text/javascript"
