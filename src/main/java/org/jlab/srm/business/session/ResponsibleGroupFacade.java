@@ -180,12 +180,13 @@ public class ResponsibleGroupFacade extends AbstractFacade<ResponsibleGroup> {
   private void createSpecial(ResponsibleGroup group) {
     Query q =
         em.createNativeQuery(
-            "insert into responsible_group (group_id, name, description, goal_percent, leader_workgroup) values (group_id.nextval, ?, ?, ?, ?)");
+            "insert into responsible_group (group_id, name, description, goal_percent, leader_workgroup, archived_yn) values (group_id.nextval, ?, ?, ?, ?, ?)");
 
     q.setParameter(1, group.getName());
     q.setParameter(2, group.getDescription());
     q.setParameter(3, group.getGoalPercent());
     q.setParameter(4, group.getLeaderWorkgroup());
+    q.setParameter(5, group.isArchived() ? "Y" : "N");
 
     q.executeUpdate();
   }
