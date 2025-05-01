@@ -32,7 +32,7 @@ public class GroupLeaderReport extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    List<ResponsibleGroup> groupList = groupFacade.findAllWithLeaderList();
+    List<ResponsibleGroup> groupList = groupFacade.findAllWithLeaderList(null);
 
     request.setAttribute("groupList", groupList);
 

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.jlab.srm.business.session.ResponsibleGroupFacade;
 import org.jlab.srm.persistence.entity.ResponsibleGroup;
+import org.jlab.srm.persistence.enumeration.Include;
 
 /**
  * @author ryans
@@ -32,7 +33,7 @@ public class GroupList extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    List<ResponsibleGroup> groupList = groupFacade.findAllWithLeaderList();
+    List<ResponsibleGroup> groupList = groupFacade.findAllWithLeaderList(Include.YES);
 
     request.setAttribute("groupList", groupList);
 

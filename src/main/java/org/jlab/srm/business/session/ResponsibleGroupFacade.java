@@ -17,6 +17,7 @@ import org.jlab.smoothness.persistence.util.JPAUtil;
 import org.jlab.smoothness.persistence.view.User;
 import org.jlab.srm.persistence.entity.GroupResponsibility;
 import org.jlab.srm.persistence.entity.ResponsibleGroup;
+import org.jlab.srm.persistence.enumeration.Include;
 
 /**
  * @author ryans
@@ -65,9 +66,50 @@ public class ResponsibleGroupFacade extends AbstractFacade<ResponsibleGroup> {
     return group;
   }
 
+  private List<Predicate> getFilters(
+      CriteriaBuilder cb,
+      CriteriaQuery<? extends Object> cq,
+      Root<ResponsibleGroup> root,
+      Include includeArchived) {
+    List<Predicate> filters = new ArrayList<>();
+
+    if (includeArchived == null) {
+      filters.add(cb.equal(root.get("archived"), false));
+    } else if (Include.EXCLUSIVELY == includeArchived) {
+      filters.add(cb.equal(root.get("archived"), true));
+    } // else Include.YES, which means don't filter at all
+
+    return filters;
+  }
+
   @PermitAll
-  public List<ResponsibleGroup> findAllWithLeaderList() {
-    List<ResponsibleGroup> groupList = findAll(new OrderDirective("name"));
+  public List<ResponsibleGroup> filterList(Include includeArchived, int offset, int max) {
+    CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+    CriteriaQuery<ResponsibleGroup> cq = cb.createQuery(ResponsibleGroup.class);
+    Root<ResponsibleGroup> root = cq.from(ResponsibleGroup.class);
+    cq.select(root);
+
+    List<Predicate> filters = getFilters(cb, cq, root, includeArchived);
+
+    if (!filters.isEmpty()) {
+      cq.where(cb.and(filters.toArray(new Predicate[] {})));
+    }
+
+    List<Order> orders = new ArrayList<>();
+    Path p0 = root.get("name");
+    Order o0 = cb.asc(p0);
+    orders.add(o0);
+    cq.orderBy(orders);
+    return getEntityManager()
+        .createQuery(cq)
+        .setFirstResult(offset)
+        .setMaxResults(max)
+        .getResultList();
+  }
+
+  @PermitAll
+  public List<ResponsibleGroup> findAllWithLeaderList(Include includeArchived) {
+    List<ResponsibleGroup> groupList = filterList(includeArchived, 0, Integer.MAX_VALUE);
 
     for (ResponsibleGroup group : groupList) {
       UserAuthorizationService userService = UserAuthorizationService.getInstance();
