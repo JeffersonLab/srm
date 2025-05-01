@@ -116,7 +116,7 @@ insert into SRM_OWNER.RESPONSIBLE_GROUP (GROUP_ID, NAME, DESCRIPTION, GOAL_PERCE
 insert into SRM_OWNER.RESPONSIBLE_GROUP (GROUP_ID, NAME, DESCRIPTION, GOAL_PERCENT, LEADER_WORKGROUP) values (6, 'Low Level Apps', 'LLA, IOCs.', 100, 'llaplead');
 insert into SRM_OWNER.RESPONSIBLE_GROUP (GROUP_ID, NAME, DESCRIPTION, GOAL_PERCENT, LEADER_WORKGROUP) values (7, 'Hall C', 'Hall C', 100, 'hclead');
 insert into SRM_OWNER.RESPONSIBLE_GROUP (GROUP_ID, NAME, DESCRIPTION, GOAL_PERCENT, LEADER_WORKGROUP) values (8, 'DC Power', 'Electrical hookup, interlock testing, polarity checks.', 100, 'dcpolead');
-insert into SRM_OWNER.RESPONSIBLE_GROUP (GROUP_ID, NAME, DESCRIPTION, GOAL_PERCENT, LEADER_WORKGROUP) values (9, 'High Level Apps', 'High level application software.', 100, 'hlaplead');
+insert into SRM_OWNER.RESPONSIBLE_GROUP (GROUP_ID, NAME, DESCRIPTION, GOAL_PERCENT, LEADER_WORKGROUP, ARCHIVED_YN) values (9, 'High Level Apps', 'High level application software.', 100, 'hlaplead', 'Y');
 insert into SRM_OWNER.RESPONSIBLE_GROUP (GROUP_ID, NAME, DESCRIPTION, GOAL_PERCENT, LEADER_WORKGROUP) values (10, 'I&C Hardware', 'Electrical hookup and instrumentation.', 100, 'iclead');
 insert into SRM_OWNER.RESPONSIBLE_GROUP (GROUP_ID, NAME, DESCRIPTION, GOAL_PERCENT, LEADER_WORKGROUP) values (11, 'Hall B Beam', 'Hall B Beamline', 100, 'bbemlead');
 insert into SRM_OWNER.RESPONSIBLE_GROUP (GROUP_ID, NAME, DESCRIPTION, GOAL_PERCENT, LEADER_WORKGROUP) values (12, 'Cryo', 'Verifies that Cryo Plant is producing cryogens sufficient for 2K Operation.', 100, 'cryolead');

@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.jlab.smoothness.persistence.util.YnStringToBoolean;
 import org.jlab.smoothness.persistence.view.User;
 
 /**
@@ -49,6 +51,11 @@ public class ResponsibleGroup implements Serializable {
   @NotNull
   @Column(name = "LEADER_WORKGROUP", nullable = false, length = 64)
   private String leaderWorkgroup;
+
+  @Basic
+  @Column(name = "ARCHIVED_YN", nullable = false, length = 1)
+  @Convert(converter = YnStringToBoolean.class)
+  private boolean archived;
 
   @Transient private List<User> leaders;
 
@@ -101,6 +108,14 @@ public class ResponsibleGroup implements Serializable {
 
   public void setGroupResponsibilityList(List<GroupResponsibility> groupResponsibilityList) {
     this.groupResponsibilityList = groupResponsibilityList;
+  }
+
+  public boolean isArchived() {
+    return archived;
+  }
+
+  public void setArchived(boolean archived) {
+    this.archived = archived;
   }
 
   public String getLeaderWorkgroup() {
