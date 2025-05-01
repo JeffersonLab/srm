@@ -147,7 +147,7 @@ public class ResponsibleGroupFacade extends AbstractFacade<ResponsibleGroup> {
   }
 
   @RolesAllowed("srm-admin")
-  public void add(String name, String description, String leaderWorkgroup)
+  public void add(String name, String description, String leaderWorkgroup, boolean archived)
       throws UserFriendlyException {
 
     if (name == null || name.isEmpty()) {
@@ -167,6 +167,7 @@ public class ResponsibleGroupFacade extends AbstractFacade<ResponsibleGroup> {
     group.setName(name);
     group.setDescription(description);
     group.setLeaderWorkgroup(leaderWorkgroup);
+    group.setArchived(archived);
 
     createSpecial(group);
   }
@@ -218,7 +219,8 @@ public class ResponsibleGroupFacade extends AbstractFacade<ResponsibleGroup> {
   }
 
   @RolesAllowed("srm-admin")
-  public void edit(BigInteger groupId, String name, String description, String leaderWorkgroup)
+  public void edit(
+      BigInteger groupId, String name, String description, String leaderWorkgroup, boolean archived)
       throws UserFriendlyException {
 
     if (groupId == null) {
@@ -246,6 +248,7 @@ public class ResponsibleGroupFacade extends AbstractFacade<ResponsibleGroup> {
     group.setName(name);
     group.setDescription(description);
     group.setLeaderWorkgroup(leaderWorkgroup);
+    group.setArchived(archived);
 
     edit(group);
   }
