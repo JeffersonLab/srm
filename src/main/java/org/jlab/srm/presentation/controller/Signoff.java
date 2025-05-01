@@ -119,7 +119,7 @@ public class Signoff extends HttpServlet {
       groupList = groupFacade.findBySystem(params.getSystemId());
     } else {
       systemList = systemFacade.findByGroup(params.getGroupId());
-      groupList = groupFacade.findAll(new OrderDirective("name"));
+      groupList = groupFacade.filterList(null, 0, Integer.MAX_VALUE);
     }
 
     ResponsibleGroup selectedGroup = null;

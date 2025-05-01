@@ -90,7 +90,7 @@ public class Readiness extends HttpServlet {
 
     List<BeamDestination> destinationList = destinationFacade.findAll(new OrderDirective("weight"));
     List<Region> regionList = regionFacade.findAll(new OrderDirective("weight"));
-    List<ResponsibleGroup> groupList = groupFacade.findAll(new OrderDirective("name"));
+    List<ResponsibleGroup> groupList = groupFacade.filterList(null, 0, Integer.MAX_VALUE);
     List<Status> statusList = statusFacade.findAll(new OrderDirective("statusId"));
     Long maskedCount =
         componentFacade.countMasked(

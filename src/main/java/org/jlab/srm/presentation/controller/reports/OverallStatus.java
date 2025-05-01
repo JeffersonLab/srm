@@ -71,7 +71,7 @@ public class OverallStatus extends HttpServlet {
     }
 
     List<Region> regionList = regionFacade.findAll(new OrderDirective("weight"));
-    List<ResponsibleGroup> groupList = groupFacade.findAll(new OrderDirective("name"));
+    List<ResponsibleGroup> groupList = groupFacade.filterList(null, 0, Integer.MAX_VALUE);
 
     Category categoryRoot = categoryFacade.findBranch(null, BigInteger.ONE);
     List<SystemEntity> systemList =

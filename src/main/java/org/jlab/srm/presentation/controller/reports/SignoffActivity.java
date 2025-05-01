@@ -85,7 +85,7 @@ public class SignoffActivity extends HttpServlet {
         systemFacade.findWithCategory(
             params.getCategoryId(), null, null, BigInteger.ONE, true, false);
     List<Region> regionList = regionFacade.findAll(new OrderDirective("weight"));
-    List<ResponsibleGroup> groupList = groupFacade.findAll(new OrderDirective("name"));
+    List<ResponsibleGroup> groupList = groupFacade.filterList(null, 0, Integer.MAX_VALUE);
     List<Status> statusList = statusFacade.findAll(new OrderDirective("statusId"));
     List<SignoffActivityRecord> signoffActivityList =
         signoffActivityFacade.filterList(

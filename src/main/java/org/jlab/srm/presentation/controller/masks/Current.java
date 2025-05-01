@@ -104,7 +104,7 @@ public class Current extends HttpServlet {
             params.isUnpowered(),
             params.getComponentName(),
             params.getStatusIdArray());
-    List<ResponsibleGroup> groupList = groupFacade.findAll(new OrderDirective("name"));
+    List<ResponsibleGroup> groupList = groupFacade.filterList(null, 0, Integer.MAX_VALUE);
     List<Region> regionList = regionFacade.findAll(new OrderDirective("weight"));
     List<Status> statusList = statusFacade.findAll(new OrderDirective("statusId"));
 

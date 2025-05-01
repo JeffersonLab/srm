@@ -180,7 +180,7 @@ public class ResponsibleGroupFacade extends AbstractFacade<ResponsibleGroup> {
 
     Query q =
         em.createNativeQuery(
-            "select a.* from responsible_group a, group_responsibility b where a.group_id = b.group_id and b.system_id = :systemId order by b.weight, a.name asc",
+            "select a.* from responsible_group a, group_responsibility b where a.group_id = b.group_id and b.system_id = :systemId and a.archived_yn = 'N' order by b.weight, a.name asc",
             ResponsibleGroup.class);
 
     q.setParameter("systemId", systemId);
