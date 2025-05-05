@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.jlab.smoothness.presentation.util.ParamConverter;
-import org.jlab.srm.business.session.AbstractFacade.OrderDirective;
 import org.jlab.srm.business.session.GroupResponsibilityFacade;
 import org.jlab.srm.business.session.ResponsibleGroupFacade;
 import org.jlab.srm.business.session.SystemFacade;
@@ -43,7 +42,7 @@ public class Checklists extends HttpServlet {
     try {
       BigInteger groupId = ParamConverter.convertBigInteger(request, "groupId");
 
-      List<ResponsibleGroup> groupList = groupFacade.findAll(new OrderDirective("name"));
+      List<ResponsibleGroup> groupList = groupFacade.filterList(null, 0, Integer.MAX_VALUE);
 
       boolean adminOrLeader = false;
       List<GroupResponsibility> groupResponsibilityList = null;

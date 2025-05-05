@@ -114,6 +114,7 @@ public class Groups extends HttpServlet {
             JsonObjectBuilder itemJson = Json.createObjectBuilder();
             itemJson.add("id", group.getGroupId());
             itemJson.add("name", group.getName());
+            itemJson.add("archived", group.isArchived());
             JsonArrayBuilder emailArray = Json.createArrayBuilder();
             UserAuthorizationService userService = UserAuthorizationService.getInstance();
             List<User> userList = userService.getUsersInRole(group.getLeaderWorkgroup());

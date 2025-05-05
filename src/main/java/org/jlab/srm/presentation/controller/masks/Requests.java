@@ -83,8 +83,7 @@ public class Requests extends HttpServlet {
         systemFacade.findWithCategory(
             params.getCategoryId(), null, null, BigInteger.ONE, true, false);
     List<Region> regionList = regionFacade.findAll(new AbstractFacade.OrderDirective("weight"));
-    List<ResponsibleGroup> groupList =
-        groupFacade.findAll(new AbstractFacade.OrderDirective("name"));
+    List<ResponsibleGroup> groupList = groupFacade.filterList(null, 0, Integer.MAX_VALUE);
     List<MaskingRequest> recordList =
         recordFacade.find(
             params.getDestinationIdArray(),

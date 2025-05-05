@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.jlab.smoothness.business.exception.UserFriendlyException;
 import org.jlab.smoothness.business.util.ExceptionUtil;
 import org.jlab.smoothness.presentation.util.ParamConverter;
 import org.jlab.srm.business.session.ResponsibleGroupFacade;
@@ -49,8 +50,13 @@ public class EditGroup extends HttpServlet {
       String leaderWorkgroup = request.getParameter("workgroup");
       String name = request.getParameter("name");
       String description = request.getParameter("description");
+      Boolean archived = ParamConverter.convertYNBoolean(request, "archived");
 
-      groupFacade.edit(groupId, name, description, leaderWorkgroup);
+      if (archived == null) {
+        throw new UserFriendlyException("archived must not be empty");
+      }
+
+      groupFacade.edit(groupId, name, description, leaderWorkgroup, archived);
     } catch (EJBAccessException e) {
       logger.log(Level.WARNING, "Not authorized", e);
       errorReason = "Not authorized";

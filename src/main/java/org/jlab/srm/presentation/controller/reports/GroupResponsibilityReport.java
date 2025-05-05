@@ -15,7 +15,6 @@ import org.jlab.smoothness.presentation.util.Paginator;
 import org.jlab.smoothness.presentation.util.ParamUtil;
 import org.jlab.srm.business.params.GroupResponsibilityReportParams;
 import org.jlab.srm.business.session.*;
-import org.jlab.srm.business.session.AbstractFacade.OrderDirective;
 import org.jlab.srm.persistence.entity.*;
 import org.jlab.srm.presentation.params.GroupResponsibilityReportUrlParamHandler;
 
@@ -80,7 +79,7 @@ public class GroupResponsibilityReport extends HttpServlet {
     List<SystemEntity> systemList =
         systemFacade.findWithCategory(
             params.getCategoryId(), null, null, BigInteger.ONE, true, false);
-    List<ResponsibleGroup> groupList = groupFacade.findAll(new OrderDirective("name"));
+    List<ResponsibleGroup> groupList = groupFacade.filterList(null, 0, Integer.MAX_VALUE);
     List<GroupResponsibility> groupResponsibilityList =
         groupResponsibilityFacade.filterList(
             params.getDestinationIdArray(),

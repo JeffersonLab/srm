@@ -71,8 +71,9 @@ jlab.srm.edit = function () {
         name = $("#row-name").val(),
         description = $("#row-description").val(),
         workgroup = $("#row-workgroup").val(),
+        archived = $("#row-archived").prop('checked'),
         url = jlab.contextPath + "/setup/ajax/edit-group",
-        data = {groupId: groupId, workgroup: workgroup, name: name, description: description},
+        data = {groupId: groupId, workgroup: workgroup, name: name, description: description, archived: archived ? 'Y' : 'N'},
         $dialog = $("#table-row-dialog");
 
     jlab.doAjaxJsonPostRequest(url, data, $dialog, true);
@@ -86,8 +87,9 @@ jlab.srm.add = function () {
     var workgroup = $("#row-workgroup").val(),
         name = $("#row-name").val(),
         description = $("#row-description").val(),
+        archived = $("#row-archived").prop('checked'),
         url = jlab.contextPath + "/setup/ajax/add-group",
-        data = {workgroup: workgroup, name: name, description: description},
+        data = {workgroup: workgroup, name: name, description: description, archived: archived ? 'Y' : 'N'},
         $dialog = $("#table-row-dialog");
 
     jlab.doAjaxJsonPostRequest(url, data, $dialog, true);
@@ -105,11 +107,13 @@ $(document).on("click", "#open-edit-row-dialog-button", function () {
 
     var name = $selectedRow.find("td:nth-child(1)").text(),
         description = $selectedRow.find("td:nth-child(2)").text(),
-        workgroup = $selectedRow.attr("data-workgroup");
+        workgroup = $selectedRow.attr("data-workgroup"),
+        archived = $selectedRow.attr("data-archived");
 
     $("#row-name").val(name);
     $("#row-description").val(description);
     $("#row-workgroup").val(workgroup);
+    $("#row-archived").prop("checked", "true" === archived);
 });
 
 $(document).on("table-row-add", function () {
