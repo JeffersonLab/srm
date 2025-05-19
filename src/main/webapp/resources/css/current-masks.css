@@ -58,7 +58,7 @@
 .outer-table thead th:nth-child(5),
 .inner-table tbody td:nth-child(5) {
     width: 375px;
-    word-wrap: break-word;
+    word-break: break-word;
 }
 
 #unmask-selected-row-list {
