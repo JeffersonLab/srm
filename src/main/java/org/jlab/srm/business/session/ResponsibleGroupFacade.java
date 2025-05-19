@@ -133,7 +133,7 @@ public class ResponsibleGroupFacade extends AbstractFacade<ResponsibleGroup> {
   }
 
   @PermitAll
-  public List<ResponsibleGroup> findWithLeaders(BigInteger systemId) {
+  public List<ResponsibleGroup> findWithLeaders(BigInteger systemId, Include archived) {
     CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
     CriteriaQuery<ResponsibleGroup> cq = cb.createQuery(ResponsibleGroup.class);
     Root<ResponsibleGroup> root = cq.from(ResponsibleGroup.class);
@@ -150,6 +150,13 @@ public class ResponsibleGroupFacade extends AbstractFacade<ResponsibleGroup> {
       Order o0 = cb.asc(p0);
       orders.add(o0);
     }
+
+    if (archived == null) {
+      filters.add(cb.equal(root.get("archived"), false));
+    } else if (Include.EXCLUSIVELY == archived) {
+      filters.add(cb.equal(root.get("archived"), true));
+    } // else Include.YES, which means don't filter at all
+
     if (!filters.isEmpty()) {
       cq.where(cb.and(filters.toArray(new Predicate[] {})));
     }

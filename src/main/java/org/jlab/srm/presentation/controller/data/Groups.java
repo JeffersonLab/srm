@@ -20,6 +20,7 @@ import org.jlab.smoothness.persistence.view.User;
 import org.jlab.smoothness.presentation.util.ParamConverter;
 import org.jlab.srm.business.session.ResponsibleGroupFacade;
 import org.jlab.srm.persistence.entity.ResponsibleGroup;
+import org.jlab.srm.persistence.enumeration.Include;
 
 /**
  * @author ryans
@@ -73,9 +74,10 @@ public class Groups extends HttpServlet {
 
     try {
       BigInteger systemId = ParamConverter.convertBigInteger(request, "system_id");
+      Include archived = convertInclude(request, "archived");
       jsonp = request.getParameter("jsonp");
 
-      groupList = groupFacade.findWithLeaders(systemId);
+      groupList = groupFacade.findWithLeaders(systemId, archived);
 
     } catch (Exception e) {
       logger.log(Level.SEVERE, "Unable to obtain group list", e);
@@ -151,5 +153,16 @@ public class Groups extends HttpServlet {
     if (error) {
       logger.log(Level.SEVERE, "PrintWriter Error");
     }
+  }
+
+  public static Include convertInclude(HttpServletRequest request, String parameterName) {
+    String value = request.getParameter(parameterName);
+    Include result = null;
+
+    if (value != null && !value.isBlank()) {
+      result = Include.valueOf(value);
+    }
+
+    return result;
   }
 }
