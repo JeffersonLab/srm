@@ -39,9 +39,16 @@ public class Checklists extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    try {
-      BigInteger groupId = ParamConverter.convertBigInteger(request, "groupId");
+    BigInteger groupId = null;
 
+    try {
+      groupId = ParamConverter.convertBigInteger(request, "groupId");
+    } catch (Exception e) {
+      response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+      return;
+    }
+
+    try {
       List<ResponsibleGroup> groupList = groupFacade.filterList(null, 0, Integer.MAX_VALUE);
 
       boolean adminOrLeader = false;

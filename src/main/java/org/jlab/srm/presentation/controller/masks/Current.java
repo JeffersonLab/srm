@@ -59,9 +59,14 @@ public class Current extends HttpServlet {
     CurrentMasksParams params;
 
     if (paramHandler.qualified()) {
-      params = paramHandler.convert();
-      paramHandler.validate(params);
-      paramHandler.store(params);
+      try {
+        params = paramHandler.convert();
+        paramHandler.validate(params);
+        paramHandler.store(params);
+      } catch (Exception e) {
+        response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        return;
+      }
     } else {
       params = paramHandler.materialize();
       paramHandler.redirect(response, params);
