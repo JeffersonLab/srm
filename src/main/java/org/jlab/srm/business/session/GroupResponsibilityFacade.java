@@ -492,7 +492,7 @@ public class GroupResponsibilityFacade extends AbstractFacade<GroupResponsibilit
       filters.add(cb.equal(root.get("system"), systemId));
     }
     if (groupId != null) {
-      filters.add(cb.equal(root.get("group"), groupId));
+      filters.add(cb.equal(root.get("group").get("groupId"), groupId));
     }
     if (checklistRequired != null) {
       filters.add(cb.equal(root.get("checklistRequiredStr"), checklistRequired ? "Y" : "N"));
