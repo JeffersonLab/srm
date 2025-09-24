@@ -251,7 +251,7 @@ public class ComponentTreeFacade {
 
     List<Predicate> filters = new ArrayList<>();
     if (categoryId != null) {
-      filters.add(root.get("category").in(categoryId));
+      filters.add(root.get("category").get("categoryId").in(categoryId));
     }
 
     destinationIdArray = IOUtil.removeNullValues(destinationIdArray, BigInteger.class);
@@ -326,7 +326,7 @@ public class ComponentTreeFacade {
     Root<Component> root = cq.from(Component.class);
     cq.select(root).distinct(true);
     List<Predicate> filters = new ArrayList<>();
-    filters.add(root.get("system").in(systemId));
+    filters.add(root.get("system").get("systemId").in(systemId));
 
     destinationIdArray = IOUtil.removeNullValues(destinationIdArray, BigInteger.class);
 
