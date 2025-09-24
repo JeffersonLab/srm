@@ -426,7 +426,7 @@ public class ComponentFacade extends AbstractFacade<Component> {
     }
 
     if (systemId != null) {
-      filters.add(cb.equal(root.<BigInteger>get("system"), systemId));
+      filters.add(cb.equal(root.<BigInteger>get("system").get("systemId"), systemId));
     }
     if (regionIdArray != null && regionIdArray.length > 0) {
       filters.add(root.<BigInteger>get("region").in(Arrays.asList(regionIdArray)));
