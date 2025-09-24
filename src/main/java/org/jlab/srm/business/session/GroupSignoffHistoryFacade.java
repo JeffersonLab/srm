@@ -1,10 +1,10 @@
 package org.jlab.srm.business.session;
 
-import javax.annotation.security.PermitAll;
-import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import jakarta.annotation.security.PermitAll;
+import jakarta.ejb.Stateless;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import org.jlab.srm.persistence.entity.GroupSignoff;
 import org.jlab.srm.persistence.entity.GroupSignoffHistory;
 

@@ -1,7 +1,7 @@
 package org.jlab.srm.presentation.params;
 
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import javax.servlet.http.HttpServletResponse;
 
 public interface UrlParamHandler<E> {
   E convert();

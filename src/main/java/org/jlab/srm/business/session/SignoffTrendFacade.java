@@ -1,13 +1,13 @@
 package org.jlab.srm.business.session;
 
+import jakarta.annotation.security.PermitAll;
+import jakarta.ejb.Stateless;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
+import jakarta.persistence.TemporalType;
 import java.util.Date;
 import java.util.List;
-import javax.annotation.security.PermitAll;
-import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.TemporalType;
 import org.jlab.smoothness.persistence.util.JPAUtil;
 import org.jlab.srm.persistence.entity.GroupSignoffHistory;
 import org.jlab.srm.persistence.model.SignoffTrendInfo;
