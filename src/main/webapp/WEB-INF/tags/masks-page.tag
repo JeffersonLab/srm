@@ -1,5 +1,5 @@
 <%@tag description="The Setup Page Template Tag" pageEncoding="UTF-8" %>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fn" uri="jakarta.tags.functions" %>
 <%@taglib prefix="s" uri="jlab.tags.smoothness"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@attribute name="title" %>
