@@ -432,7 +432,7 @@ public class ComponentFacade extends AbstractFacade<Component> {
       filters.add(root.<BigInteger>get("region").in(Arrays.asList(regionIdArray)));
     }
     if (groupId != null && statusIdArray != null && statusIdArray.length > 0) {
-      Subquery<ComponentSignoff> subquery = cq.subquery(ComponentSignoff.class);
+      Subquery<BigInteger> subquery = cq.subquery(BigInteger.class);
       Root<ComponentSignoff> subqueryRoot = subquery.from(ComponentSignoff.class);
       subquery.select(subqueryRoot.get("componentId"));
       Predicate p1 = cb.equal(subqueryRoot.<BigInteger>get("groupId"), groupId);
@@ -441,7 +441,7 @@ public class ComponentFacade extends AbstractFacade<Component> {
       filters.add(cb.in(root.get("componentId")).value(subquery));
     }
     if (readyTurn != null) {
-      Subquery<ReadyTurn> subquery = cq.subquery(ReadyTurn.class);
+      Subquery<BigInteger> subquery = cq.subquery(BigInteger.class);
       Root<ReadyTurn> subqueryRoot = subquery.from(ReadyTurn.class);
       subquery.select(subqueryRoot.get("componentId"));
       subquery.where(cb.equal(subqueryRoot.<BigInteger>get("groupId"), groupId));
@@ -455,7 +455,7 @@ public class ComponentFacade extends AbstractFacade<Component> {
       filters.add(cb.like(cb.lower(root.get("name")), name.toLowerCase()));
     }
     if (minLastModifiedDate != null) {
-      Subquery<GroupSignoff> subquery = cq.subquery(GroupSignoff.class);
+      Subquery<BigInteger> subquery = cq.subquery(BigInteger.class);
       Root<GroupSignoff> subqueryRoot = subquery.from(GroupSignoff.class);
       subquery.select(subqueryRoot.get("componentId"));
       Predicate p1 = cb.greaterThanOrEqualTo(subqueryRoot.get("modifiedDate"), minLastModifiedDate);
@@ -464,7 +464,7 @@ public class ComponentFacade extends AbstractFacade<Component> {
       filters.add(cb.in(root.get("componentId")).value(subquery));
     }
     if (maxLastModifiedDate != null) {
-      Subquery<GroupSignoff> subquery = cq.subquery(GroupSignoff.class);
+      Subquery<BigInteger> subquery = cq.subquery(BigInteger.class);
       Root<GroupSignoff> subqueryRoot = subquery.from(GroupSignoff.class);
       subquery.select(subqueryRoot.get("componentId"));
       Predicate p1 = cb.lessThanOrEqualTo(subqueryRoot.get("modifiedDate"), maxLastModifiedDate);
