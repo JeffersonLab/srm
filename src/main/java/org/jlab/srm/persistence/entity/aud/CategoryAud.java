@@ -19,7 +19,7 @@ public class CategoryAud implements Serializable {
   private static final long serialVersionUID = 1L;
   @EmbeddedId protected CategoryAudPK categoryAudPK;
 
-  @Enumerated(EnumType.ORDINAL)
+  // @Enumerated(EnumType.ORDINAL)
   @NotNull
   @Column(name = "REVTYPE")
   private RevisionType type;
