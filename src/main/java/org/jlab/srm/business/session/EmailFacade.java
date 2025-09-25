@@ -1,15 +1,15 @@
 package org.jlab.srm.business.session;
 
+import jakarta.annotation.Resource;
+import jakarta.annotation.security.PermitAll;
+import jakarta.ejb.Stateless;
+import jakarta.mail.*;
+import jakarta.mail.internet.AddressException;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Resource;
-import javax.annotation.security.PermitAll;
-import javax.ejb.Stateless;
-import javax.mail.*;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import javax.persistence.EntityManager;
 import org.jlab.smoothness.business.exception.UserFriendlyException;
 import org.jlab.smoothness.business.service.SettingsService;
 

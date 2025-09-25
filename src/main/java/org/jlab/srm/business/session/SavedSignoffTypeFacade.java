@@ -1,8 +1,8 @@
 package org.jlab.srm.business.session;
 
-import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import jakarta.ejb.Stateless;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.jlab.srm.persistence.entity.SavedSignoffType;
 
 /**

@@ -1,18 +1,18 @@
 package org.jlab.srm.business.session;
 
+import jakarta.annotation.Resource;
+import jakarta.annotation.security.PermitAll;
+import jakarta.ejb.EJB;
+import jakarta.ejb.Stateless;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
+import jakarta.persistence.criteria.*;
 import java.math.BigInteger;
 import java.sql.*;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.Resource;
-import javax.annotation.security.PermitAll;
-import javax.ejb.EJB;
-import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.criteria.*;
 import javax.sql.DataSource;
 import oracle.jdbc.OracleTypes;
 import org.jlab.smoothness.business.util.IOUtil;
@@ -251,7 +251,7 @@ public class ComponentTreeFacade {
 
     List<Predicate> filters = new ArrayList<>();
     if (categoryId != null) {
-      filters.add(root.get("category").in(categoryId));
+      filters.add(root.get("category").get("categoryId").in(categoryId));
     }
 
     destinationIdArray = IOUtil.removeNullValues(destinationIdArray, BigInteger.class);
@@ -326,7 +326,7 @@ public class ComponentTreeFacade {
     Root<Component> root = cq.from(Component.class);
     cq.select(root).distinct(true);
     List<Predicate> filters = new ArrayList<>();
-    filters.add(root.get("system").in(systemId));
+    filters.add(root.get("system").get("systemId").in(systemId));
 
     destinationIdArray = IOUtil.removeNullValues(destinationIdArray, BigInteger.class);
 
