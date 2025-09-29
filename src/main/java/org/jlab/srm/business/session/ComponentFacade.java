@@ -813,7 +813,7 @@ public class ComponentFacade extends AbstractFacade<Component> {
       }
 
       if (systemIdArray != null && systemIdArray.length > 0) {
-        filters.add(root.get("system").in((Object[]) systemIdArray));
+        filters.add(root.get("system").get("systemId").in((Object[]) systemIdArray));
       }
       if (q != null && !q.isEmpty()) {
         String searchString = q.toUpperCase();
@@ -828,7 +828,7 @@ public class ComponentFacade extends AbstractFacade<Component> {
         filters.add(cb.or(p1, p2));
       }
       if (regionId != null) {
-        filters.add(cb.equal(root.get("region"), regionId));
+        filters.add(cb.equal(root.get("region").get("regionId"), regionId));
       }
       if (componentId != null) {
         filters.add(cb.equal(root.get("componentId"), componentId));
