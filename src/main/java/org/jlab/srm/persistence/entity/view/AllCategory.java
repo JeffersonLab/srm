@@ -29,7 +29,7 @@ public class AllCategory implements Serializable {
   private BigInteger weight;
 
   @JoinColumn(name = "PARENT_ID", referencedColumnName = "CATEGORY_ID", nullable = true)
-  @ManyToOne(optional = true, fetch = FetchType.EAGER)
+  @ManyToOne(optional = true, fetch = FetchType.LAZY)
   private AllCategory parent;
 
   public BigInteger getCategoryId() {
