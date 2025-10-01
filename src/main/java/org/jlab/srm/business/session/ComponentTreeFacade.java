@@ -278,12 +278,12 @@ public class ComponentTreeFacade {
     }
 
     if (regionId != null) {
-      filters.add(componentList.get("region").in(regionId));
+      filters.add(componentList.get("region").get("regionId").in(regionId));
     }
     if (groupId != null) {
       Join<SystemEntity, GroupResponsibility> responsibilities =
           root.join("groupResponsibilityList");
-      filters.add(responsibilities.get("group").in(groupId));
+      filters.add(responsibilities.get("group").get("groupId").in(groupId));
     }
     Join<SystemEntity, Application> application = root.join("applicationList");
     filters.add(cb.equal(application.get("applicationId"), 1));
