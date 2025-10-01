@@ -341,13 +341,13 @@ public class ComponentTreeFacade {
       filters.add(cb.in(root.get("componentId")).value(subquery));
     }
     if (regionId != null) {
-      filters.add(root.get("region").in(regionId));
+      filters.add(root.get("region").get("regionId").in(regionId));
     }
     if (groupId != null) {
       Join<Component, SystemEntity> system = root.join("system");
       Join<SystemEntity, GroupResponsibility> responsibilities =
           system.join("groupResponsibilityList");
-      filters.add(responsibilities.get("group").in(groupId));
+      filters.add(responsibilities.get("group").get("groupId").in(groupId));
     }
 
     statusIdArray = IOUtil.removeNullValues(statusIdArray, BigInteger.class);
