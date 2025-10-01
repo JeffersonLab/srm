@@ -219,16 +219,16 @@ public class ComponentFacade extends AbstractFacade<Component> {
       filters.add(root.get("system").in(systemList));
     }
     if (systemId != null) {
-      filters.add(root.get("system").in(systemId));
+      filters.add(root.get("system").get("systemId").in(systemId));
     }
     if (regionId != null) {
-      filters.add(root.get("region").in(regionId));
+      filters.add(root.get("region").get("regionId").in(regionId));
     }
     if (groupId != null) {
       Join<Component, SystemEntity> systems = root.join("system");
       Join<Category, GroupResponsibility> responsibilities =
           systems.join("groupResponsibilityList");
-      filters.add(responsibilities.get("group").in(groupId));
+      filters.add(responsibilities.get("group").get("groupId").in(groupId));
     }
     if (applicationId != null) {
       Join<Component, SystemEntity> system = root.join("system");
@@ -618,16 +618,16 @@ public class ComponentFacade extends AbstractFacade<Component> {
       filters.add(root.get("system").in(systemList));
     }
     if (systemId != null) {
-      filters.add(cb.equal(root.get("system"), systemId));
+      filters.add(cb.equal(root.get("system").get("systemId"), systemId));
     }
     if (regionId != null) {
-      filters.add(cb.equal(root.get("region"), regionId));
+      filters.add(cb.equal(root.get("region").get("regionId"), regionId));
     }
     if (groupId != null) {
       Join<Component, SystemEntity> systems = root.join("system");
       Join<Category, GroupResponsibility> responsibilities =
           systems.join("groupResponsibilityList");
-      filters.add(cb.equal(responsibilities.get("group"), groupId));
+      filters.add(cb.equal(responsibilities.get("group").get("groupId"), groupId));
     }
     if (reason != null && !reason.isEmpty()) {
       filters.add(cb.like(cb.lower(root.get("maskedComment")), reason.toLowerCase()));
