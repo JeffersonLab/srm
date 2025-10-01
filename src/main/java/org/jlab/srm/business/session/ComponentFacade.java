@@ -108,15 +108,15 @@ public class ComponentFacade extends AbstractFacade<Component> {
       filters.add(root.get("system").in(systemList));
     }
     if (systemId != null) {
-      filters.add(root.get("system").in(systemId));
+      filters.add(root.get("system").get("systemId").in(systemId));
     }
     if (regionId != null) {
-      filters.add(root.get("region").in(regionId));
+      filters.add(root.get("region").get("regionId").in(regionId));
     }
     if (groupId != null) {
       Join<Category, GroupResponsibility> responsibilities =
           systems.join("groupResponsibilityList");
-      filters.add(responsibilities.get("group").in(groupId));
+      filters.add(responsibilities.get("group").get("groupId").in(groupId));
     }
     if (applicationId != null) {
       Join<Component, SystemEntity> system = root.join("system");
