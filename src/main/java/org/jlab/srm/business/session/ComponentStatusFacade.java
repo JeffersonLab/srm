@@ -192,7 +192,7 @@ public class ComponentStatusFacade extends AbstractFacade<ComponentStatusRecord>
       Join<ComponentStatusRecord, SystemEntity> system = root.join("system");
       Join<SystemEntity, GroupResponsibility> responsibilities =
           system.join("groupResponsibilityList");
-      filters.add(responsibilities.get("group").in(groupId));
+      filters.add(responsibilities.get("group").get("groupId").in(groupId));
     }
     if (statusId != null) {
       filters.add(cb.equal(root.get("statusId"), statusId));
@@ -338,7 +338,7 @@ public class ComponentStatusFacade extends AbstractFacade<ComponentStatusRecord>
       Join<ComponentStatusRecord, SystemEntity> system = root.join("system");
       Join<SystemEntity, GroupResponsibility> responsibilities =
           system.join("groupResponsibilityList");
-      filters.add(responsibilities.get("group").in(groupId));
+      filters.add(responsibilities.get("group").get("groupId").in(groupId));
     }
     if (statusId != null) {
       filters.add(cb.equal(root.get("statusId"), statusId));

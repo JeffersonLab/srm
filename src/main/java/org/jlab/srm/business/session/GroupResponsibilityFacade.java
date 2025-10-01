@@ -489,7 +489,7 @@ public class GroupResponsibilityFacade extends AbstractFacade<GroupResponsibilit
       filters.add(root.get("system").in(systemList));
     }
     if (systemId != null) {
-      filters.add(cb.equal(root.get("system"), systemId));
+      filters.add(cb.equal(root.get("system").get("systemId"), systemId));
     }
     if (groupId != null) {
       filters.add(cb.equal(root.get("group").get("groupId"), groupId));
@@ -572,10 +572,10 @@ public class GroupResponsibilityFacade extends AbstractFacade<GroupResponsibilit
       filters.add(root.get("system").in(systemList));
     }
     if (systemId != null) {
-      filters.add(cb.equal(root.get("system"), systemId));
+      filters.add(cb.equal(root.get("system").get("systemId"), systemId));
     }
     if (groupId != null) {
-      filters.add(cb.equal(root.get("group"), groupId));
+      filters.add(cb.equal(root.get("group").get("groupId"), groupId));
     }
     if (checklistRequired != null) {
       filters.add(cb.equal(root.get("checklistRequiredStr"), checklistRequired ? "Y" : "N"));
