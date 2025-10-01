@@ -429,7 +429,7 @@ public class ComponentFacade extends AbstractFacade<Component> {
       filters.add(cb.equal(root.<BigInteger>get("system").get("systemId"), systemId));
     }
     if (regionIdArray != null && regionIdArray.length > 0) {
-      filters.add(root.<BigInteger>get("region").in(Arrays.asList(regionIdArray)));
+      filters.add(root.<BigInteger>get("region").get("regionId").in(Arrays.asList(regionIdArray)));
     }
     if (groupId != null && statusIdArray != null && statusIdArray.length > 0) {
       Subquery<BigInteger> subquery = cq.subquery(BigInteger.class);
