@@ -112,4 +112,5 @@ At JLab this app is found at [ace.jlab.org/srm](https://ace.jlab.org/srm) and in
 **JLab Internal Docs**:  [RHEL9 Wildfly](https://acgdocs.acc.jlab.org/en/ace/builds/rhel9-wildfly)
 
 ## See Also
+ - [Hot Checkout for 12 GeV at Jefferson Lab](https://proceedings.jacow.org/ICALEPCS2015/papers/mopgf072.pdf), presented at [ICALEPCS 2015](https://proceedings.jacow.org/ICALEPCS2015/)
  - [JLab ACE management-app list](https://github.com/search?q=org%3Ajeffersonlab+topic%3Aace+topic%3Amanagement-app&type=repositories)
