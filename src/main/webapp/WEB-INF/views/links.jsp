@@ -37,6 +37,10 @@
                     <a href="https://ace.jlab.org/cdn/doc/srm/BResponsibilities.pdf">Hall B Responsibilities</a>
                 </li>
                 <li>
+                    <a href="https://ace.jlab.org/cdn/doc/srm/DDumpResponsibilities.pdf">Hall
+                        D Beam Dump Responsibilities</a>
+                </li>
+                <li>
                     <a href="http://opsweb.acc.jlab.org/abil/pro/">Accelerator Bypassed-Interlocks Log (ABIL) - onsite only</a>
                 </li>
             </ul>
