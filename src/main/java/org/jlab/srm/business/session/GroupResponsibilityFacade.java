@@ -501,17 +501,15 @@ public class GroupResponsibilityFacade extends AbstractFacade<GroupResponsibilit
       if (checklistMissing) {
         Predicate p1 = cb.equal(root.get("checklistRequiredStr"), "Y");
         Predicate p2 = cb.isNull(root.get("checklist"));
-        Predicate p3 = cb.equal(cb.length(root.get("checklist")), 0);
         Predicate p4 = cb.equal(root.get("publishedStr"), "N");
-        filters.add(cb.and(p1, cb.or(p2, p3, p4)));
+        filters.add(cb.and(p1, cb.or(p2, p4)));
       } else {
         Predicate p1 = cb.equal(root.get("checklistRequiredStr"), "N");
         Predicate p2 = cb.equal(root.get("checklistRequiredStr"), "Y");
         Predicate p3 = cb.isNotNull(root.get("checklist"));
-        Predicate p4 = cb.gt(cb.length(root.get("checklist")), 0);
         Predicate p5 = cb.equal(root.get("publishedStr"), "Y");
 
-        filters.add(cb.or(p1, cb.and(p2, p3, p4, p5)));
+        filters.add(cb.or(p1, cb.and(p2, p3, p5)));
       }
     }
     if (!filters.isEmpty()) {
@@ -584,17 +582,15 @@ public class GroupResponsibilityFacade extends AbstractFacade<GroupResponsibilit
       if (checklistMissing) {
         Predicate p1 = cb.equal(root.get("checklistRequiredStr"), "Y");
         Predicate p2 = cb.isNull(root.get("checklist"));
-        Predicate p3 = cb.equal(cb.length(root.get("checklist")), 0);
         Predicate p4 = cb.equal(root.get("publishedStr"), "N");
-        filters.add(cb.and(p1, cb.or(p2, p3, p4)));
+        filters.add(cb.and(p1, cb.or(p2, p4)));
       } else {
         Predicate p1 = cb.equal(root.get("checklistRequiredStr"), "N");
         Predicate p2 = cb.equal(root.get("checklistRequiredStr"), "Y");
         Predicate p3 = cb.isNotNull(root.get("checklist"));
-        Predicate p4 = cb.gt(cb.length(root.get("checklist")), 0);
         Predicate p5 = cb.equal(root.get("publishedStr"), "Y");
 
-        filters.add(cb.or(p1, cb.and(p2, p3, p4, p5)));
+        filters.add(cb.or(p1, cb.and(p2, p3, p5)));
       }
     }
     if (!filters.isEmpty()) {
