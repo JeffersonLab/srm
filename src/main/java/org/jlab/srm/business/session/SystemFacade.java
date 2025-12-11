@@ -128,7 +128,7 @@ public class SystemFacade extends AbstractFacade<SystemEntity> {
 
     if (componentId != null) {
       Join<SystemEntity, Component> components = root.join("componentList");
-      filters.add(components.in(componentId));
+      filters.add(components.get("componentId").in(componentId));
     }
     if (categoryId != null) {
       filters.add(cb.equal(root.get("category").get("categoryId"), categoryId));
