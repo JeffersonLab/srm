@@ -835,7 +835,7 @@ public class ComponentFacade extends AbstractFacade<Component> {
       }
       if (destinationId != null) {
         Join<Component, BeamDestination> destinations = root.join("beamDestinationList");
-        filters.add(destinations.in(destinationId));
+        filters.add(destinations.get("beamDestinationId").in(destinationId));
       }
       if (applicationId != null) {
         Join<Component, SystemEntity> system = root.join("system");
