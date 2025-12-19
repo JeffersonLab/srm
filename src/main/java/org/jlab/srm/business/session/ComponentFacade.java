@@ -343,17 +343,17 @@ public class ComponentFacade extends AbstractFacade<Component> {
     List<Predicate> filters = new ArrayList<>();
     if (destinationId != null) {
       Join<Component, BeamDestination> destinations = root.join("beamDestinationList");
-      filters.add(destinations.in(destinationId));
+      filters.add(destinations.get("beamDestinationId").in(destinationId));
     }
     if (categoryId != null) {
       List<SystemEntity> systemList = systemFacade.fetchHierarchy(categoryId, null);
       filters.add(root.get("system").in(systemList));
     }
     if (systemId != null) {
-      filters.add(root.get("system").in(systemId));
+      filters.add(root.get("system").get("systemId").in(systemId));
     }
     if (regionId != null) {
-      filters.add(root.get("region").in(regionId));
+      filters.add(root.get("region").get("regionId").in(regionId));
     }
     if (componentName != null && !componentName.isEmpty()) {
       filters.add(cb.like(cb.lower(root.get("name")), componentName.toLowerCase()));
