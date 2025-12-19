@@ -252,13 +252,13 @@ public class SavedSignoffFacade extends AbstractFacade<SavedSignoff> {
     cq.select(root); // .distinct(true);
     List<Predicate> filters = new ArrayList<>();
     if (typeId != null) {
-      filters.add(cb.equal(root.get("type"), typeId));
+      filters.add(cb.equal(root.get("type").get("savedSignoffTypeId"), typeId));
     }
     if (systemId != null) {
-      filters.add(cb.equal(root.get("system"), systemId));
+      filters.add(cb.equal(root.get("system").get("systemId"), systemId));
     }
     if (groupId != null) {
-      filters.add(cb.equal(root.get("group"), groupId));
+      filters.add(cb.equal(root.get("group").get("groupId"), groupId));
     }
     if (!filters.isEmpty()) {
       cq.where(cb.and(filters.toArray(new Predicate[] {})));
@@ -285,13 +285,13 @@ public class SavedSignoffFacade extends AbstractFacade<SavedSignoff> {
     Root<SavedSignoff> root = cq.from(SavedSignoff.class);
     List<Predicate> filters = new ArrayList<>();
     if (typeId != null) {
-      filters.add(cb.equal(root.get("type"), typeId));
+      filters.add(cb.equal(root.get("type").get("savedSignoffTypeId"), typeId));
     }
     if (systemId != null) {
-      filters.add(cb.equal(root.get("system"), systemId));
+      filters.add(cb.equal(root.get("system").get("systemId"), systemId));
     }
     if (groupId != null) {
-      filters.add(cb.equal(root.get("group"), groupId));
+      filters.add(cb.equal(root.get("group").get("groupId"), groupId));
     }
     if (!filters.isEmpty()) {
       cq.where(cb.and(filters.toArray(new Predicate[] {})));
