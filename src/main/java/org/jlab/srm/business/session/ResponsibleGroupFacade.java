@@ -145,7 +145,7 @@ public class ResponsibleGroupFacade extends AbstractFacade<ResponsibleGroup> {
     if (systemId != null) {
       Join<ResponsibleGroup, GroupResponsibility> responsibilities =
           root.join("groupResponsibilityList");
-      filters.add(responsibilities.get("system").in(systemId));
+      filters.add(responsibilities.get("system").get("systemId").in(systemId));
       Path p0 = responsibilities.get("weight");
       Order o0 = cb.asc(p0);
       orders.add(o0);
