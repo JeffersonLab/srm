@@ -87,16 +87,16 @@ public class ComponentStatusFacade extends AbstractFacade<ComponentStatusRecord>
       filters.add(root.get("system").in(systemList));
     }
     if (systemId != null) {
-      filters.add(cb.equal(root.get("system"), systemId));
+      filters.add(cb.equal(root.get("system").get("systemId"), systemId));
     }
     if (regionId != null) {
-      filters.add(cb.equal(root.get("region"), regionId));
+      filters.add(cb.equal(root.get("region").get("regionId"), regionId));
     }
     if (groupId != null) {
       Join<ComponentStatusRecord, SystemEntity> system = root.join("system");
       Join<SystemEntity, GroupResponsibility> responsibilities =
           system.join("groupResponsibilityList");
-      filters.add(responsibilities.get("group").in(groupId));
+      filters.add(responsibilities.get("group").get("groupId").in(groupId));
     }
     if (unpowered != null) {
       filters.add(cb.equal(root.get("unpoweredStr"), unpowered ? "Y" : "N"));
@@ -262,16 +262,16 @@ public class ComponentStatusFacade extends AbstractFacade<ComponentStatusRecord>
       filters.add(root.get("system").in(systemList));
     }
     if (systemId != null) {
-      filters.add(cb.equal(root.get("system"), systemId));
+      filters.add(cb.equal(root.get("system").get("systemId"), systemId));
     }
     if (regionId != null) {
-      filters.add(cb.equal(root.get("region"), regionId));
+      filters.add(cb.equal(root.get("region").get("regionId"), regionId));
     }
     if (groupId != null) {
       Join<ComponentStatusRecord, SystemEntity> system = root.join("system");
       Join<SystemEntity, GroupResponsibility> responsibilities =
           system.join("groupResponsibilityList");
-      filters.add(responsibilities.get("group").in(groupId));
+      filters.add(responsibilities.get("group").get("groupId").in(groupId));
     }
     if (unpowered != null) {
       filters.add(cb.equal(root.get("unpoweredStr"), unpowered ? "Y" : "N"));
