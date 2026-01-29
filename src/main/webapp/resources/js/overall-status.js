@@ -51,7 +51,7 @@ doPieChart = function () {
     var ds = [];
     var colors = ['green', 'yellow', 'red'];
 
-    $(".chart-legend tbody tr").each(function (index, value) {
+    $(".chart-legend tbody tr.series").each(function (index, value) {
 
         $(this).find("th:first-child .color-box").css("background-color", colors[index]);
 

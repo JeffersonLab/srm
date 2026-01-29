@@ -140,7 +140,7 @@
                 <table class="chart-legend">
                     <tbody>
                     <c:forEach items="${statusCountList}" var="count">
-                        <tr>
+                        <tr class="series">
                             <th>
                                 <div class="color-box"></div>
                             </th>
