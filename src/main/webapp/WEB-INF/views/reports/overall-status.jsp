@@ -6,7 +6,12 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <c:set var="title" value="Overall Signoff Status"/>
 <t:reports-page title="${title}">  
-    <jsp:attribute name="stylesheets">        
+    <jsp:attribute name="stylesheets">
+        <style>
+            .chart-legend tbody tr, .chart-legend tbody th, .chart-legend tbody td {
+                border-bottom: none;
+            }
+        </style>
     </jsp:attribute>
     <jsp:attribute name="scripts">
         <c:choose>
@@ -149,6 +154,12 @@
                             </td>
                         </tr>
                     </c:forEach>
+                        <tr>
+                            <th></th>
+                            <td></td>
+                            <td><fmt:formatNumber value="${totalCount eq 0 ? 0 : totalCount}"/></td>
+                            <td></td>
+                        </tr>
                     </tbody>
                 </table>
                 <div class="chart-footnote">
