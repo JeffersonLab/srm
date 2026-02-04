@@ -1,4 +1,4 @@
-package org.jlab.srm.presentation.controller;
+package org.jlab.srm.presentation.controller.excel;
 
 import jakarta.ejb.EJB;
 import jakarta.servlet.ServletException;
@@ -7,17 +7,17 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import org.jlab.srm.business.session.ExcelFacade;
+import org.jlab.srm.business.session.ExcelCategorySystemsFacade;
 
 /**
  * @author ryans
  */
 @WebServlet(
-    name = "ExportExcel",
-    urlPatterns = {"/categories-systems.xlsx"})
-public class ExportExcel extends HttpServlet {
+    name = "ExcelCategorySystems",
+    urlPatterns = {"/excel/categories-systems.xlsx"})
+public class ExcelCategorySystems extends HttpServlet {
 
-  @EJB ExcelFacade excelFacade;
+  @EJB ExcelCategorySystemsFacade excelFacade;
 
   /**
    * Handles the HTTP <code>GET</code> method.
@@ -34,6 +34,6 @@ public class ExportExcel extends HttpServlet {
     response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
     response.setHeader("content-disposition", "attachment;filename=\"categories-systems.xlsx\"");
 
-    excelFacade.exportCategoriesAndSystems(response.getOutputStream());
+    excelFacade.export(response.getOutputStream());
   }
 }

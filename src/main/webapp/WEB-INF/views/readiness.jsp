@@ -411,7 +411,7 @@
                 </div>
                 </section>
             </div>
-            <form id="excel-form" method="get" action="${pageContext.request.contextPath}/categories-systems.xlsx">
+            <form id="excel-form" method="get" action="${pageContext.request.contextPath}/excel/categories-systems.xlsx">
                 <button id="excel" type="submit" style="display: none;">Excel</button>
             </form>
         </section>

@@ -39,6 +39,16 @@
     </jsp:attribute>
     <jsp:body>
         <section>
+            <div id="report-page-actions">
+                <div id="export-widget">
+                    <button id="export-menu-button">Export</button>
+                    <ul id="export-menu">
+                        <li id="image-menu-item">Image</li>
+                        <li id="print-menu-item">Print</li>
+                        <li id="excel-menu-item">Excel</li>
+                    </ul>
+                </div>
+            </div>
             <s:filter-flyout-widget clearButton="true">
                 <form class="filter-form" method="get" action="signoff">
                     <div id="filter-form-panel">
@@ -285,5 +295,19 @@
                 </c:if>
             </div>
         </section>
+        <form id="excel-form" method="get" action="${pageContext.request.contextPath}/excel/signoff.xlsx">
+            <c:forEach items="${paramValues.destinationId}" var="destinationId">
+                <input type="hidden" name="destinationId" value="${fn:escapeXml(destinationId)}"/>
+            </c:forEach>
+            <input type="hidden" name="categoryId" value="${fn:escapeXml(param.categoryId)}"/>
+            <input type="hidden" name="systemId" value="${fn:escapeXml(param.systemId)}"/>
+            <input type="hidden" name="regionId" value="${fn:escapeXml(param.regionId)}"/>
+            <input type="hidden" name="groupId" value="${fn:escapeXml(param.groupId)}"/>
+            <input type="hidden" name="statusId" value="${fn:escapeXml(param.statusId)}"/>
+            <input type="hidden" name="readyTurn" value="${fn:escapeXml(param.readyTurn)}"/>
+            <input type="hidden" name="masked" value="${fn:escapeXml(param.masked)}"/>
+            <input type="hidden" name="componentName" value="${fn:escapeXml(param.componentName)}"/>
+            <button id="excel" type="submit" style="display: none;">Excel</button>
+        </form>
     </jsp:body>
 </t:reports-page>

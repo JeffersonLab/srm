@@ -15,14 +15,14 @@ import org.jlab.srm.persistence.entity.SystemEntity;
  * @author ryans
  */
 @Stateless
-public class ExcelFacade {
+public class ExcelCategorySystemsFacade {
 
   @EJB CategoryFacade categoryFacade;
 
   private Sheet sheet = null;
   private int rownum = 0;
 
-  public void exportCategoriesAndSystems(OutputStream out) throws IOException {
+  public void export(OutputStream out) throws IOException {
     Workbook wb = new XSSFWorkbook();
     sheet = wb.createSheet("Categories and systems");
 
