@@ -143,7 +143,7 @@
                                         <select id="status-select" name="statusId">
                                             <option value="">&nbsp;</option>
                                             <c:forEach items="${statusList}" var="status">
-                                                <option value="${status.statusId}"${param.statusId eq status.statusId ? ' selected="selected"' : ''}>
+                                                <option value="${status.statusId}"${param.statusId eq status.statusId.toString() ? ' selected="selected"' : ''}>
                                                     <c:out value="${status.name}"/></option>
                                             </c:forEach>
                                         </select>
