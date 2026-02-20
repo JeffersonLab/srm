@@ -145,16 +145,16 @@ public class MaskingRequestFacade extends AbstractFacade<MaskingRequest> {
       filters.add(component.get("system").in(systemList));
     }
     if (systemId != null) {
-      filters.add(cb.equal(component.get("system"), systemId));
+      filters.add(cb.equal(component.get("system").get("systemId"), systemId));
     }
     if (regionId != null) {
-      filters.add(cb.equal(component.get("region"), regionId));
+      filters.add(cb.equal(component.get("region").get("regionId"), regionId));
     }
     if (groupId != null) {
       Join<Component, SystemEntity> systems = component.join("system");
       Join<Category, GroupResponsibility> responsibilities =
           systems.join("groupResponsibilityList");
-      filters.add(cb.equal(responsibilities.get("group"), groupId));
+      filters.add(cb.equal(responsibilities.get("group").get("groupId"), groupId));
     }
     if (reason != null && !reason.isEmpty()) {
       filters.add(cb.like(cb.lower(root.get("requestReason")), reason.toLowerCase()));
@@ -235,16 +235,16 @@ public class MaskingRequestFacade extends AbstractFacade<MaskingRequest> {
       filters.add(component.get("system").in(systemList));
     }
     if (systemId != null) {
-      filters.add(cb.equal(component.get("system"), systemId));
+      filters.add(cb.equal(component.get("system").get("systemId"), systemId));
     }
     if (regionId != null) {
-      filters.add(cb.equal(component.get("region"), regionId));
+      filters.add(cb.equal(component.get("region").get("regionId"), regionId));
     }
     if (groupId != null) {
       Join<Component, SystemEntity> systems = component.join("system");
       Join<Category, GroupResponsibility> responsibilities =
           systems.join("groupResponsibilityList");
-      filters.add(cb.equal(responsibilities.get("group"), groupId));
+      filters.add(cb.equal(responsibilities.get("group").get("groupId"), groupId));
     }
     if (reason != null && !reason.isEmpty()) {
       filters.add(cb.like(cb.lower(root.get("requestReason")), reason.toLowerCase()));

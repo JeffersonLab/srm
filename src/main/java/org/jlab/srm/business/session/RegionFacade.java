@@ -54,7 +54,7 @@ public class RegionFacade extends AbstractFacade<Region> {
       Subquery<Integer> regionIdSubquery = cq.subquery(Integer.class);
       Root<Component> componentRoot = regionIdSubquery.from(Component.class);
       regionIdSubquery.select(componentRoot.<Region>get("region").get("regionId"));
-      regionIdSubquery.where(cb.equal(componentRoot.get("system"), systemId));
+      regionIdSubquery.where(cb.equal(componentRoot.get("system").get("systemId"), systemId));
       filters.add(cb.in(root.get("regionId")).value(regionIdSubquery));
     }
     if (!filters.isEmpty()) {
