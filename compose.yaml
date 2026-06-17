@@ -3,25 +3,29 @@ services:
     extends:
       file: deps.yaml
       service: oracle
+    container_name: srm-oracle
 
   keycloak:
     extends:
       file: deps.yaml
       service: keycloak
+    container_name: srm-keycloak
 
   puppet:
     extends:
       file: deps.yaml
       service: puppet
+    container_name: srm-puppet
 
   mailhog:
     extends:
       file: deps.yaml
       service: mailhog
+    container_name: srm-mailhog
 
   srm:
     hostname: srm
-    container_name: srm
+    container_name: srm-dev
     ports:
       - "8443:8443"
       - "8080:8080"

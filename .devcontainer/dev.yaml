@@ -1,0 +1,30 @@
+name: srm-devcontainers
+services:
+  oracle:
+    extends:
+      file: ../compose.yaml
+      service: oracle
+    container_name: srm-oracle-devc
+
+  keycloak:
+    extends:
+      file: ../compose.yaml
+      service: keycloak
+    container_name: srm-keycloak-devc
+
+  mailhog:
+    extends:
+      file: ../compose.yaml
+      service: mailhog
+    container_name: srm-mailhog-devc
+
+  puppet:
+    extends:
+      file: ../compose.yaml
+      service: puppet
+    container_name: srm-puppet-devc
+
+  dev:
+    image: jeffersonlab/srm:latest
+    hostname: dev
+    container_name: srm-dev-devc
