@@ -36,6 +36,13 @@ dependencies {
 
     // Latest Wildfly no longer includes...
     implementation 'org.jsoup:jsoup:1.21.2'
+
+    testImplementation platform('org.junit:junit-bom:5.13.4')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+tasks.named('test') {
+    useJUnitPlatform()
 }
 tasks.named('jar') {
     enabled = false
