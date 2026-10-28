@@ -93,6 +93,15 @@ Further, the local DataSource must also leverage localhost port forwarding so th
 
 The [server](https://github.com/JeffersonLab/wildfly/blob/main/scripts/server-setup.sh) and [app](https://github.com/JeffersonLab/wildfly/blob/main/scripts/app-setup.sh) setup scripts can be used to set up a local instance of Wildfly. 
 
+The unit tests run with `gradlew build`, or alone with `gradlew test`, and need no database, Wildfly, or containers.
+
+The integration tests run against the app and its services in containers, built from source, and are not part of `gradlew build`:
+```
+docker compose -f build.yaml up -d --build
+gradlew integrationTest
+```
+They wait up to 10 minutes for the services to start (set `SRM_READY_TIMEOUT_SECONDS` to change that), then log in with the demo users `jdoe` (admin) and `user1`.  The masking request tests add their own components and delete them afterwards, and check the emails MailHog catches.  To test an app elsewhere, or with other ports, set `SRM_URL` (default `https://localhost:8443/srm`), `KEYCLOAK_URL` (default `http://localhost:8081/auth`) and `MAILHOG_URL` (default `http://localhost:8025`).
+
 ## Release
 1. Bump the version number in the VERSION file and commit and push to GitHub (using [Semantic Versioning](https://semver.org/)).
 2. The [CD](https://github.com/JeffersonLab/srm/blob/main/.github/workflows/cd.yaml) GitHub Action should run automatically invoking:

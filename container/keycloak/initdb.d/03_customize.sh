@@ -47,3 +47,9 @@ KC_ROLE_NAME=group3Leaders
 assign_role
 KC_ROLE_NAME=vtaadm
 assign_role
+
+echo "------------------------------------"
+echo "| Allow Password Grant (Test Only) |"
+echo "------------------------------------"
+# Integration tests get tokens for test users such as jdoe with their passwords
+${KC_HOME}/bin/kcadm.sh update clients/${KC_CLIENT_NAME} -r "${KC_REALM}" -s directAccessGrantsEnabled=true
