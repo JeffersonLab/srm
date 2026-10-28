@@ -10,6 +10,7 @@ import java.net.http.HttpResponse;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 /** The pages and data anyone may read, and the setup pages only admins may. */
@@ -46,6 +47,23 @@ class PagesIT {
       })
   void anyoneReadsPage(String path) throws Exception {
     assertRendered(Srm.getPage(path, null));
+  }
+
+  @ParameterizedTest
+  @CsvSource({
+    "/system-detail, 400",
+    "/system-detail?systemId=, 400",
+    "/system-detail?systemId=abc, 400",
+    "/system-detail?systemId=999999, 404",
+    "/group-detail, 400",
+    "/group-detail?groupId=, 400",
+    "/group-detail?groupId=abc, 400",
+    "/group-detail?groupId=999999, 404"
+  })
+  void detailPageRejectsMissingOrUnknownId(String path, int status) throws Exception {
+    HttpResponse<String> response = Srm.get(path, null);
+
+    assertEquals(status, response.statusCode(), path + ": " + response.body());
   }
 
   @ParameterizedTest
