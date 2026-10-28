@@ -46,6 +46,8 @@ public class ReadinessUrlParamHandler implements UrlParamHandler<ReadinessParams
   public ReadinessParams convert() {
     BigInteger[] destinationIdArray =
         ParamConverter.convertBigIntegerArray(request, "destinationId");
+    BigInteger[] excludeDestinationIdArray =
+        ParamConverter.convertBigIntegerArray(request, "excludeDestinationId");
     BigInteger categoryId = ParamConverter.convertBigInteger(request, "categoryId");
     BigInteger systemId = ParamConverter.convertBigInteger(request, "systemId");
     BigInteger regionId = ParamConverter.convertBigInteger(request, "regionId");
@@ -55,6 +57,7 @@ public class ReadinessUrlParamHandler implements UrlParamHandler<ReadinessParams
     ReadinessParams params = new ReadinessParams();
 
     params.setDestinationIdArray(destinationIdArray);
+    params.setExcludeDestinationIdArray(excludeDestinationIdArray);
     params.setCategoryId(categoryId);
     params.setSystemId(systemId);
     params.setRegionId(regionId);
@@ -81,6 +84,11 @@ public class ReadinessUrlParamHandler implements UrlParamHandler<ReadinessParams
         params.getDestinationIdArray() == null
             ? new BigInteger[0]
             : params.getDestinationIdArray());
+    session.setAttribute(
+        "readinessExcludeDestinationId[]",
+        params.getExcludeDestinationIdArray() == null
+            ? new BigInteger[0]
+            : params.getExcludeDestinationIdArray());
     session.setAttribute("readinessCategoryId[]", new BigInteger[] {params.getCategoryId()});
     session.setAttribute("readinessSystemId[]", new BigInteger[] {params.getSystemId()});
     session.setAttribute("readinessRegionId[]", new BigInteger[] {params.getRegionId()});
@@ -105,6 +113,8 @@ public class ReadinessUrlParamHandler implements UrlParamHandler<ReadinessParams
     HttpSession session = request.getSession(true);
     BigInteger[] destinationIdArray =
         (BigInteger[]) session.getAttribute("readinessDestinationId[]");
+    BigInteger[] excludeDestinationIdArray =
+        (BigInteger[]) session.getAttribute("readinessExcludeDestinationId[]");
     BigInteger[] categoryIdArray = (BigInteger[]) session.getAttribute("readinessCategoryId[]");
     BigInteger[] systemIdArray = (BigInteger[]) session.getAttribute("readinessSystemId[]");
     BigInteger[] regionIdArray = (BigInteger[]) session.getAttribute("readinessRegionId[]");
@@ -118,6 +128,10 @@ public class ReadinessUrlParamHandler implements UrlParamHandler<ReadinessParams
 
     if (destinationIdArray == null) {
       destinationIdArray = defaultValues.getDestinationIdArray();
+    }
+
+    if (excludeDestinationIdArray == null) {
+      excludeDestinationIdArray = defaultValues.getExcludeDestinationIdArray();
     }
 
     if (categoryIdArray != null && categoryIdArray.length > 0) {
@@ -143,6 +157,7 @@ public class ReadinessUrlParamHandler implements UrlParamHandler<ReadinessParams
     ReadinessParams params = new ReadinessParams();
 
     params.setDestinationIdArray(destinationIdArray);
+    params.setExcludeDestinationIdArray(excludeDestinationIdArray);
     params.setCategoryId(categoryId);
     params.setSystemId(systemId);
     params.setRegionId(regionId);
@@ -162,6 +177,7 @@ public class ReadinessUrlParamHandler implements UrlParamHandler<ReadinessParams
     List<String> filters = new ArrayList<>();
 
     List<BeamDestination> destinationList = null;
+    List<BeamDestination> excludeDestinationList = null;
     Category category = null;
     SystemEntity system = null;
     Region region = null;
@@ -170,6 +186,11 @@ public class ReadinessUrlParamHandler implements UrlParamHandler<ReadinessParams
 
     if (params.getDestinationIdArray() != null) {
       destinationList = destinationFacade.findMultiple(params.getDestinationIdArray());
+    }
+
+    if (params.getExcludeDestinationIdArray() != null) {
+      excludeDestinationList =
+          destinationFacade.findMultiple(params.getExcludeDestinationIdArray());
     }
 
     if (params.getCategoryId() != null) {
@@ -193,14 +214,7 @@ public class ReadinessUrlParamHandler implements UrlParamHandler<ReadinessParams
     }
 
     if (destinationList != null && !destinationList.isEmpty()) {
-      String sublist = "\"" + destinationList.get(0).getName() + "\"";
-
-      for (int i = 1; i < destinationList.size(); i++) {
-        BeamDestination destination = destinationList.get(i);
-        sublist = sublist + ", \"" + destination.getName() + "\"";
-      }
-
-      filters.add("Beam Destination " + sublist);
+      filters.add("Beam Destination " + quotedNames(destinationList));
     }
 
     if (category != null) {
@@ -241,7 +255,27 @@ public class ReadinessUrlParamHandler implements UrlParamHandler<ReadinessParams
       }
     }
 
+    // The exclude filters apply after the include filters, which select from all components
+    if (excludeDestinationList != null && !excludeDestinationList.isEmpty()) {
+      if (message.isEmpty()) {
+        message = "All Components";
+      }
+
+      message += " excluding Beam Destination " + quotedNames(excludeDestinationList);
+    }
+
     return message;
+  }
+
+  private static String quotedNames(List<BeamDestination> destinationList) {
+    String sublist = "\"" + destinationList.get(0).getName() + "\"";
+
+    for (int i = 1; i < destinationList.size(); i++) {
+      BeamDestination destination = destinationList.get(i);
+      sublist = sublist + ", \"" + destination.getName() + "\"";
+    }
+
+    return sublist;
   }
 
   /**
@@ -258,6 +292,7 @@ public class ReadinessUrlParamHandler implements UrlParamHandler<ReadinessParams
     ParamBuilder builder = new ParamBuilder();
 
     builder.add("destinationId", params.getDestinationIdArray());
+    builder.add("excludeDestinationId", params.getExcludeDestinationIdArray());
     builder.add("categoryId", IOUtil.nullOrString(params.getCategoryId()));
     builder.add("systemId", IOUtil.nullOrString(params.getSystemId()));
     builder.add("regionId", IOUtil.nullOrString(params.getRegionId()));

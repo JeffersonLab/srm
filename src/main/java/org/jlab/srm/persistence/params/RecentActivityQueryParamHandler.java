@@ -35,6 +35,17 @@ public final class RecentActivityQueryParamHandler implements QueryParamHandler 
       filters.add(subFilter);
     }
 
+    if (params.getExcludeDestinationIdArray() != null
+        && params.getExcludeDestinationIdArray().length > 0) {
+      String subFilter =
+          "a.component_id not in (select component_id from component_beam_destination where beam_destination_id in (?";
+      for (int i = 1; i < params.getExcludeDestinationIdArray().length; i++) {
+        subFilter = subFilter + ",?";
+      }
+      subFilter = subFilter + ")) ";
+      filters.add(subFilter);
+    }
+
     if (params.getSystemIdArray() != null && params.getSystemIdArray().length > 0) {
       String subFilter = "b.system_id in (?";
       for (int i = 1; i < params.getSystemIdArray().length; i++) {
@@ -80,6 +91,12 @@ public final class RecentActivityQueryParamHandler implements QueryParamHandler 
 
     if (params.getDestinationIdArray() != null) {
       for (BigInteger destinationId : params.getDestinationIdArray()) {
+        stmt.setBigDecimal(i++, new BigDecimal(destinationId));
+      }
+    }
+
+    if (params.getExcludeDestinationIdArray() != null) {
+      for (BigInteger destinationId : params.getExcludeDestinationIdArray()) {
         stmt.setBigDecimal(i++, new BigDecimal(destinationId));
       }
     }

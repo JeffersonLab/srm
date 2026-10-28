@@ -18,6 +18,14 @@ jlab.srm.initTrees = function () {
 
     mydata['destinationId'] = destinationIdArray;
 
+    var excludeDestinationIdArray = [];
+
+    $("#exclude-destination-select option:selected").each(function () {
+        excludeDestinationIdArray.push($(this).val());
+    });
+
+    mydata['excludeDestinationId'] = excludeDestinationIdArray;
+
     var statusIdArray = [];
 
     $("#status-select option:selected").each(function () {
@@ -216,6 +224,7 @@ $(document).on("click", '.jstree-node[data-node-type="GROUP"] > a', function () 
 
 $(document).on("click", ".default-clear-panel", function () {
     $("#destination-select").val(null).trigger('change');
+    $("#exclude-destination-select").val(null).trigger('change');
     $("#category-select").val('');
     $("#system-select").val('');
     $("#region-select").val('');
@@ -303,11 +312,17 @@ $(document).on("click", "#ops-pr-ok-button", function () {
         width: 390
     });
 
+    $("#exclude-destination-select").select2({
+        width: 390
+    });
+
     $("#status-select").select2({
         width: 390
     });
 
     $("#destination-select").closest(".li-value").css("visibility", "visible");
+
+    $("#exclude-destination-select").closest(".li-value").css("visibility", "visible");
 
     $("#status-select").closest(".li-value").css("visibility", "visible");
 })(jQuery);
