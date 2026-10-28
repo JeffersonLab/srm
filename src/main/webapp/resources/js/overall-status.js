@@ -40,6 +40,7 @@ $(document).on("change", "#category-select", function () {
 
 $(document).on("click", ".default-clear-panel", function () {
     $("#destination-select").val(null).trigger('change');
+    $("#exclude-destination-select").val(null).trigger('change');
     $("#category-select").val('').trigger('change');
     $("#system-select").val('');
     $("#region-select").val('');
@@ -98,5 +99,11 @@ $(function () {
         width: 390
     });
 
+    $("#exclude-destination-select").select2({
+        width: 390
+    });
+
     $("#destination-select").closest(".li-value").css("visibility", "visible");
+
+    $("#exclude-destination-select").closest(".li-value").css("visibility", "visible");
 });

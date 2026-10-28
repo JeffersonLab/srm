@@ -48,7 +48,7 @@
                 <form class="filter-form" method="get" action="group-status">
                     <div id="filter-form-panel">
                         <fieldset>
-                            <legend>Filter</legend>
+                            <legend>Include</legend>
                             <ul class="key-value-list">
                                 <li>
                                     <div class="li-key">
@@ -112,6 +112,25 @@
                                             <c:forEach items="${regionList}" var="region">
                                                 <option value="${region.regionId}"${param.regionId eq region.regionId ? ' selected="selected"' : ''}>
                                                     <c:out value="${region.name} (${region.alias})"/></option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                </li>
+                            </ul>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Exclude</legend>
+                            <ul class="key-value-list">
+                                <li>
+                                    <div class="li-key">
+                                        <label for="exclude-destination-select">Beam Destination</label>
+                                    </div>
+                                    <div class="li-value" style="visibility: hidden;">
+                                        <select id="exclude-destination-select" multiple="multiple" name="excludeDestinationId"
+                                                style="min-height: 34px;">
+                                            <c:forEach items="${destinationList}" var="destination">
+                                                <option value="${destination.beamDestinationId}"${s:inArray(paramValues.excludeDestinationId, destination.beamDestinationId.toString()) ? ' selected="selected"' : ''}>
+                                                    <c:out value="${destination.name}"/></option>
                                             </c:forEach>
                                         </select>
                                     </div>

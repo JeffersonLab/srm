@@ -84,6 +84,7 @@ public class OverallStatus extends HttpServlet {
             params.getCategoryId(), null, null, BigInteger.ONE, true, false);
 
     List<BeamDestination> selectedDestinationList = null;
+    List<BeamDestination> excludedDestinationList = null;
     Category selectedCategory = null;
     SystemEntity selectedSystem = null;
     Region selectedRegion = null;
@@ -92,6 +93,7 @@ public class OverallStatus extends HttpServlet {
     List<StatusCount> statusCountList =
         reportFacade.getStatusCount(
             params.getDestinationIdArray(),
+            params.getExcludeDestinationIdArray(),
             params.getCategoryId(),
             params.getSystemId(),
             params.getRegionId(),
@@ -99,6 +101,7 @@ public class OverallStatus extends HttpServlet {
     Long maskedCount =
         componentFacade.countMasked(
             params.getDestinationIdArray(),
+            params.getExcludeDestinationIdArray(),
             null,
             params.getSystemId(),
             params.getRegionId(),
@@ -110,6 +113,11 @@ public class OverallStatus extends HttpServlet {
 
     if (params.getDestinationIdArray() != null) {
       selectedDestinationList = destinationFacade.findMultiple(params.getDestinationIdArray());
+    }
+
+    if (params.getExcludeDestinationIdArray() != null) {
+      excludedDestinationList =
+          destinationFacade.findMultiple(params.getExcludeDestinationIdArray());
     }
 
     if (params.getCategoryId() != null) {
@@ -157,6 +165,7 @@ public class OverallStatus extends HttpServlet {
     List<Map.Entry<String, Object>> footnoteList =
         FilterSelectionMessage.getOverallStatusFootnoteList(
             selectedDestinationList,
+            excludedDestinationList,
             selectedCategory,
             selectedSystem,
             selectedRegion,

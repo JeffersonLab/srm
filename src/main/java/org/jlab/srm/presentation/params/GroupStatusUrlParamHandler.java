@@ -26,6 +26,8 @@ public class GroupStatusUrlParamHandler implements UrlParamHandler<GroupStatusPa
   public GroupStatusParams convert() {
     BigInteger[] destinationIdArray =
         ParamConverter.convertBigIntegerArray(request, "destinationId");
+    BigInteger[] excludeDestinationIdArray =
+        ParamConverter.convertBigIntegerArray(request, "excludeDestinationId");
     BigInteger categoryId = ParamConverter.convertBigInteger(request, "categoryId");
     BigInteger systemId = ParamConverter.convertBigInteger(request, "systemId");
     BigInteger regionId = ParamConverter.convertBigInteger(request, "regionId");
@@ -34,6 +36,7 @@ public class GroupStatusUrlParamHandler implements UrlParamHandler<GroupStatusPa
     GroupStatusParams params = new GroupStatusParams();
 
     params.setDestinationIdArray(destinationIdArray);
+    params.setExcludeDestinationIdArray(excludeDestinationIdArray);
     params.setCategoryId(categoryId);
     params.setSystemId(systemId);
     params.setRegionId(regionId);
@@ -59,6 +62,11 @@ public class GroupStatusUrlParamHandler implements UrlParamHandler<GroupStatusPa
         params.getDestinationIdArray() == null
             ? new BigInteger[0]
             : params.getDestinationIdArray());
+    session.setAttribute(
+        OverallStatusUrlParamHandler.SESSION_STATUS_REPORT_EXCLUDE_DESTINATION_ID,
+        params.getExcludeDestinationIdArray() == null
+            ? new BigInteger[0]
+            : params.getExcludeDestinationIdArray());
     session.setAttribute(
         OverallStatusUrlParamHandler.SESSION_STATUS_REPORT_CATEGORY_ID,
         new BigInteger[] {params.getCategoryId()});
@@ -90,6 +98,10 @@ public class GroupStatusUrlParamHandler implements UrlParamHandler<GroupStatusPa
     BigInteger[] destinationIdArray =
         (BigInteger[])
             session.getAttribute(OverallStatusUrlParamHandler.SESSION_STATUS_REPORT_DESTINATION_ID);
+    BigInteger[] excludeDestinationIdArray =
+        (BigInteger[])
+            session.getAttribute(
+                OverallStatusUrlParamHandler.SESSION_STATUS_REPORT_EXCLUDE_DESTINATION_ID);
     BigInteger[] categoryIdArray =
         (BigInteger[])
             session.getAttribute(OverallStatusUrlParamHandler.SESSION_STATUS_REPORT_CATEGORY_ID);
@@ -108,6 +120,10 @@ public class GroupStatusUrlParamHandler implements UrlParamHandler<GroupStatusPa
 
     if (destinationIdArray == null) {
       destinationIdArray = defaultValues.getDestinationIdArray();
+    }
+
+    if (excludeDestinationIdArray == null) {
+      excludeDestinationIdArray = defaultValues.getExcludeDestinationIdArray();
     }
 
     if (categoryIdArray != null && categoryIdArray.length > 0) {
@@ -129,6 +145,7 @@ public class GroupStatusUrlParamHandler implements UrlParamHandler<GroupStatusPa
     GroupStatusParams params = new GroupStatusParams();
 
     params.setDestinationIdArray(destinationIdArray);
+    params.setExcludeDestinationIdArray(excludeDestinationIdArray);
     params.setCategoryId(categoryId);
     params.setSystemId(systemId);
     params.setRegionId(regionId);
@@ -161,6 +178,7 @@ public class GroupStatusUrlParamHandler implements UrlParamHandler<GroupStatusPa
     ParamBuilder builder = new ParamBuilder();
 
     builder.add("destinationId", params.getDestinationIdArray());
+    builder.add("excludeDestinationId", params.getExcludeDestinationIdArray());
     builder.add("categoryId", IOUtil.nullOrString(params.getCategoryId()));
     builder.add("systemId", IOUtil.nullOrString(params.getSystemId()));
     builder.add("regionId", IOUtil.nullOrString(params.getRegionId()));

@@ -81,6 +81,7 @@ public class GroupStatus extends HttpServlet {
     List<Region> regionList = regionFacade.findAll(new OrderDirective("weight"));
 
     List<BeamDestination> selectedDestinationList = null;
+    List<BeamDestination> excludedDestinationList = null;
     Category selectedCategory = null;
     SystemEntity selectedSystem = null;
     Region selectedRegion = null;
@@ -88,12 +89,14 @@ public class GroupStatus extends HttpServlet {
     List<GroupStatusCount> groupStatusList =
         reportFacade.getGroupStatusCount(
             params.getDestinationIdArray(),
+            params.getExcludeDestinationIdArray(),
             params.getCategoryId(),
             params.getSystemId(),
             params.getRegionId());
     Long maskedCount =
         componentFacade.countMasked(
             params.getDestinationIdArray(),
+            params.getExcludeDestinationIdArray(),
             null,
             params.getSystemId(),
             params.getRegionId(),
@@ -105,6 +108,11 @@ public class GroupStatus extends HttpServlet {
 
     if (params.getDestinationIdArray() != null) {
       selectedDestinationList = destinationFacade.findMultiple(params.getDestinationIdArray());
+    }
+
+    if (params.getExcludeDestinationIdArray() != null) {
+      excludedDestinationList =
+          destinationFacade.findMultiple(params.getExcludeDestinationIdArray());
     }
 
     if (params.getCategoryId() != null) {
@@ -126,23 +134,30 @@ public class GroupStatus extends HttpServlet {
 
     List<Map.Entry<String, Object>> footnoteList =
         FilterSelectionMessage.getOverallStatusFootnoteList(
-            selectedDestinationList, selectedCategory, selectedSystem, selectedRegion, null);
+            selectedDestinationList,
+            excludedDestinationList,
+            selectedCategory,
+            selectedSystem,
+            selectedRegion,
+            null);
 
     if ("table".equals(params.getChart())) {
       request.setAttribute(
           "selectionMessage",
-          FilterSelectionMessage.getActivityScreenMessage(
-              selectedDestinationList,
-              selectedCategory,
-              selectedSystem,
-              selectedRegion,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null));
+          FilterSelectionMessage.withExcludedDestinations(
+              FilterSelectionMessage.getActivityScreenMessage(
+                  selectedDestinationList,
+                  selectedCategory,
+                  selectedSystem,
+                  selectedRegion,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null),
+              excludedDestinationList));
     }
 
     request.setAttribute("targetCsv", targetCsv);
