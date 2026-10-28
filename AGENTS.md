@@ -13,13 +13,19 @@ project is, its settings, and how to set it up.
   same ports: check `ss -ltnp` and `docker ps` first, and if a port is taken, ask the person
   you work with rather than stopping what holds it.
 - On every change, run `./gradlew build` (about 20 s cold, a second warm). It compiles for Java
-  17 and runs `spotlessCheck` (google-java-format; `./gradlew spotlessApply` formats). There are
-  no tests yet: the first one added goes in `src/test/java`; check that `./gradlew build` and CI
-  run it.
+  17, runs `spotlessCheck` (google-java-format; `./gradlew spotlessApply` formats), and runs the
+  unit tests in `src/test/java`, which need no services. CI runs the same build.
+- Integration tests (`*IT` in `src/integration/java`) send requests to the running app and its
+  services: `./gradlew integrationTest`. Neither `build` nor CI runs them, so run them yourself
+  for a change to behavior or pages, and add a case for what you change; for a bug fix, show it
+  failing against the app without the fix. The masking request tests add and delete their own
+  components and read MailHog. `SRM_URL`, `KEYCLOAK_URL` and `MAILHOG_URL` point the tests at
+  other ports (`README.md`, "Develop").
 - Before opening a pull request, for a change to behavior or pages, rebuild and restart the app,
   since the container runs the image and not your working tree:
-  `docker compose -f build.yaml up -d --build srm`. Then check the change in a browser at
-  `http://localhost:8080/srm`, and look for errors in `docker compose -f build.yaml logs srm`.
+  `docker compose -f build.yaml up -d --build srm`. Then run the integration tests, check the
+  change in a browser at `http://localhost:8080/srm`, and look for errors in
+  `docker compose -f build.yaml logs srm`.
 - Test data: `container/oracle/initdb.d` builds the schema, defaults, settings and test data
   when the Oracle container is created. `docker compose -f build.yaml down -v` deletes it; the
   next `up` rebuilds it. Schema and settings changes go there; there are no migrations, so give
