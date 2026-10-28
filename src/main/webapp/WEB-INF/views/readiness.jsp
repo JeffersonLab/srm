@@ -45,7 +45,7 @@
                 <form class="filter-form" action="readiness" method="get">
                     <div id="filter-form-panel">
                         <fieldset>
-                            <legend>Filter</legend>
+                            <legend>Include</legend>
                             <ul class="key-value-list">
                                 <li>
                                     <div class="li-key">
@@ -137,6 +137,25 @@
                                             <c:forEach items="${statusList}" var="status">
                                                 <option value="${status.statusId}"${s:inArray(paramValues.statusId, status.statusId.toString()) ? ' selected="selected"' : ''}>
                                                     <c:out value="${status.name}"/></option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                </li>
+                            </ul>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Exclude</legend>
+                            <ul class="key-value-list">
+                                <li>
+                                    <div class="li-key">
+                                        <label for="exclude-destination-select">Beam Destination</label>
+                                    </div>
+                                    <div class="li-value" style="visibility: hidden;">
+                                        <select id="exclude-destination-select" multiple="multiple" name="excludeDestinationId"
+                                                style="min-height: 34px;">
+                                            <c:forEach items="${destinationList}" var="destination">
+                                                <option value="${destination.beamDestinationId}"}>
+                                                    <c:out value="${destination.name}"/></option>
                                             </c:forEach>
                                         </select>
                                     </div>

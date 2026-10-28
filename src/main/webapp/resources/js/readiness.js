@@ -303,11 +303,17 @@ $(document).on("click", "#ops-pr-ok-button", function () {
         width: 390
     });
 
+    $("#exclude-destination-select").select2({
+        width: 390
+    });
+
     $("#status-select").select2({
         width: 390
     });
 
     $("#destination-select").closest(".li-value").css("visibility", "visible");
+
+    $("#exclude-destination-select").closest(".li-value").css("visibility", "visible");
 
     $("#status-select").closest(".li-value").css("visibility", "visible");
 })(jQuery);
