@@ -32,9 +32,25 @@ public class GroupDetail extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    BigInteger groupId = ParamConverter.convertBigInteger(request, "groupId");
+    BigInteger groupId;
+
+    try {
+      groupId = ParamConverter.convertBigInteger(request, "groupId");
+    } catch (NumberFormatException e) {
+      groupId = null;
+    }
+
+    if (groupId == null) {
+      response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+      return;
+    }
 
     ResponsibleGroup group = groupFacade.findDetail(groupId);
+
+    if (group == null) {
+      response.sendError(HttpServletResponse.SC_NOT_FOUND);
+      return;
+    }
 
     request.setAttribute("group", group);
 

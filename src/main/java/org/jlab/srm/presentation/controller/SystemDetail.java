@@ -33,9 +33,25 @@ public class SystemDetail extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    BigInteger systemId = ParamConverter.convertBigInteger(request, "systemId");
+    BigInteger systemId;
+
+    try {
+      systemId = ParamConverter.convertBigInteger(request, "systemId");
+    } catch (NumberFormatException e) {
+      systemId = null;
+    }
+
+    if (systemId == null) {
+      response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+      return;
+    }
 
     SystemEntity system = systemFacade.findWithRelatedData(systemId);
+
+    if (system == null) {
+      response.sendError(HttpServletResponse.SC_NOT_FOUND);
+      return;
+    }
 
     request.setAttribute("system", system);
 
