@@ -161,4 +161,44 @@ class FilterSelectionMessageTest {
         FilterSelectionMessage.getOverallStatusFootnoteList(null, null, null, null, null)
             .isEmpty());
   }
+
+  @Test
+  void overallStatusFootnotesEndWithExcludedDestinations() {
+    List<BeamDestination> destinations = List.of(destination("Hall D"));
+    List<BeamDestination> excluded = List.of(destination("Hall A"), destination("Hall B"));
+
+    List<Map.Entry<String, Object>> footnotes =
+        FilterSelectionMessage.getOverallStatusFootnoteList(
+            destinations, excluded, null, SYSTEM, null, null);
+
+    assertEquals(3, footnotes.size());
+    assertEquals(Map.entry("Beam Destination", destinations), footnotes.get(0));
+    assertEquals(Map.entry("System", "Dipoles"), footnotes.get(1));
+    assertEquals(Map.entry("Excluding Beam Destination", excluded), footnotes.get(2));
+    assertEquals(
+        List.of(),
+        FilterSelectionMessage.getOverallStatusFootnoteList(
+            null, List.of(), null, null, null, null));
+  }
+
+  @Test
+  void excludedDestinationsFollowTheMessage() {
+    List<BeamDestination> excluded = List.of(destination("Hall A"), destination("Hall B"));
+
+    assertEquals(
+        " Region \"North Linac\" excluding Beam Destination \"Hall A\", \"Hall B\"",
+        FilterSelectionMessage.withExcludedDestinations(" Region \"North Linac\"", excluded));
+    assertEquals(
+        " All Components excluding Beam Destination \"Hall A\", \"Hall B\"",
+        FilterSelectionMessage.withExcludedDestinations("", excluded));
+    assertEquals(
+        " All Components excluding Beam Destination \"Hall A\", \"Hall B\"",
+        FilterSelectionMessage.withExcludedDestinations(null, excluded));
+    assertEquals(
+        " Region \"North Linac\"",
+        FilterSelectionMessage.withExcludedDestinations(" Region \"North Linac\"", null));
+    assertEquals(
+        " Region \"North Linac\"",
+        FilterSelectionMessage.withExcludedDestinations(" Region \"North Linac\"", List.of()));
+  }
 }

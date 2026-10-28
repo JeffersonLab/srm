@@ -94,10 +94,25 @@ public class ComponentSignoffFacade {
     return records;
   }
 
+  @PermitAll
+  public List<StatusCount> getStatusCount(
+      BigInteger[] destinationIdArray,
+      BigInteger categoryId,
+      BigInteger systemId,
+      BigInteger regionId,
+      BigInteger groupId) {
+    return getStatusCount(destinationIdArray, null, categoryId, systemId, regionId, groupId);
+  }
+
+  /**
+   * Counts the unmasked signoffs by status among the components the filters select, less those with
+   * any of the excluded beam destinations.
+   */
   @SuppressWarnings("unchecked")
   @PermitAll
   public List<StatusCount> getStatusCount(
       BigInteger[] destinationIdArray,
+      BigInteger[] excludeDestinationIdArray,
       BigInteger categoryId,
       BigInteger systemId,
       BigInteger regionId,
@@ -120,6 +135,16 @@ public class ComponentSignoffFacade {
       w =
           "a.component_id in (select component_id from component_beam_destination where beam_destination_id in ("
               + destinationIdCsv
+              + "))";
+      whereList.add(w);
+    }
+
+    String excludeDestinationIdCsv = IOUtil.toNullOrCsv(excludeDestinationIdArray);
+
+    if (excludeDestinationIdCsv != null) {
+      w =
+          "a.component_id not in (select component_id from component_beam_destination where beam_destination_id in ("
+              + excludeDestinationIdCsv
               + "))";
       whereList.add(w);
     }
@@ -190,10 +215,24 @@ public class ComponentSignoffFacade {
     return records;
   }
 
+  @PermitAll
+  public List<GroupStatusCount> getGroupStatusCount(
+      BigInteger[] destinationIdArray,
+      BigInteger categoryId,
+      BigInteger systemId,
+      BigInteger regionId) {
+    return getGroupStatusCount(destinationIdArray, null, categoryId, systemId, regionId);
+  }
+
+  /**
+   * Counts the unmasked signoffs by group and status among the components the filters select, less
+   * those with any of the excluded beam destinations.
+   */
   @SuppressWarnings("unchecked")
   @PermitAll
   public List<GroupStatusCount> getGroupStatusCount(
       BigInteger[] destinationIdArray,
+      BigInteger[] excludeDestinationIdArray,
       BigInteger categoryId,
       BigInteger systemId,
       BigInteger regionId) {
@@ -209,6 +248,16 @@ public class ComponentSignoffFacade {
       w =
           "a.component_id in (select component_id from component_beam_destination where beam_destination_id in ("
               + destinationIdCsv
+              + "))";
+      whereList.add(w);
+    }
+
+    String excludeDestinationIdCsv = IOUtil.toNullOrCsv(excludeDestinationIdArray);
+
+    if (excludeDestinationIdCsv != null) {
+      w =
+          "a.component_id not in (select component_id from component_beam_destination where beam_destination_id in ("
+              + excludeDestinationIdCsv
               + "))";
       whereList.add(w);
     }

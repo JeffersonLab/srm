@@ -14,6 +14,8 @@ import org.jlab.srm.business.params.OverallStatusParams;
 public class OverallStatusUrlParamHandler implements UrlParamHandler<OverallStatusParams> {
 
   public static final String SESSION_STATUS_REPORT_DESTINATION_ID = "statusReportDestinationId[]";
+  public static final String SESSION_STATUS_REPORT_EXCLUDE_DESTINATION_ID =
+      "statusReportExcludeDestinationId[]";
   public static final String SESSION_STATUS_REPORT_CATEGORY_ID = "statusReportCategoryId[]";
   public static final String SESSION_STATUS_REPORT_SYSTEM_ID = "statusReportSystemId[]";
   public static final String SESSION_STATUS_REPORT_REGION_ID = "statusReportRegionId[]";
@@ -31,6 +33,8 @@ public class OverallStatusUrlParamHandler implements UrlParamHandler<OverallStat
   public OverallStatusParams convert() {
     BigInteger[] destinationIdArray =
         ParamConverter.convertBigIntegerArray(request, "destinationId");
+    BigInteger[] excludeDestinationIdArray =
+        ParamConverter.convertBigIntegerArray(request, "excludeDestinationId");
     BigInteger categoryId = ParamConverter.convertBigInteger(request, "categoryId");
     BigInteger systemId = ParamConverter.convertBigInteger(request, "systemId");
     BigInteger regionId = ParamConverter.convertBigInteger(request, "regionId");
@@ -39,6 +43,7 @@ public class OverallStatusUrlParamHandler implements UrlParamHandler<OverallStat
     OverallStatusParams params = new OverallStatusParams();
 
     params.setDestinationIdArray(destinationIdArray);
+    params.setExcludeDestinationIdArray(excludeDestinationIdArray);
     params.setCategoryId(categoryId);
     params.setSystemId(systemId);
     params.setRegionId(regionId);
@@ -65,6 +70,11 @@ public class OverallStatusUrlParamHandler implements UrlParamHandler<OverallStat
             ? new BigInteger[0]
             : params.getDestinationIdArray());
     session.setAttribute(
+        SESSION_STATUS_REPORT_EXCLUDE_DESTINATION_ID,
+        params.getExcludeDestinationIdArray() == null
+            ? new BigInteger[0]
+            : params.getExcludeDestinationIdArray());
+    session.setAttribute(
         SESSION_STATUS_REPORT_CATEGORY_ID, new BigInteger[] {params.getCategoryId()});
     session.setAttribute(SESSION_STATUS_REPORT_SYSTEM_ID, new BigInteger[] {params.getSystemId()});
     session.setAttribute(SESSION_STATUS_REPORT_REGION_ID, new BigInteger[] {params.getRegionId()});
@@ -87,6 +97,8 @@ public class OverallStatusUrlParamHandler implements UrlParamHandler<OverallStat
     HttpSession session = request.getSession(true);
     BigInteger[] destinationIdArray =
         (BigInteger[]) session.getAttribute(SESSION_STATUS_REPORT_DESTINATION_ID);
+    BigInteger[] excludeDestinationIdArray =
+        (BigInteger[]) session.getAttribute(SESSION_STATUS_REPORT_EXCLUDE_DESTINATION_ID);
     BigInteger[] categoryIdArray =
         (BigInteger[]) session.getAttribute(SESSION_STATUS_REPORT_CATEGORY_ID);
     BigInteger[] systemIdArray =
@@ -102,6 +114,10 @@ public class OverallStatusUrlParamHandler implements UrlParamHandler<OverallStat
 
     if (destinationIdArray == null) {
       destinationIdArray = defaultValues.getDestinationIdArray();
+    }
+
+    if (excludeDestinationIdArray == null) {
+      excludeDestinationIdArray = defaultValues.getExcludeDestinationIdArray();
     }
 
     if (categoryIdArray != null && categoryIdArray.length > 0) {
@@ -123,6 +139,7 @@ public class OverallStatusUrlParamHandler implements UrlParamHandler<OverallStat
     OverallStatusParams params = new OverallStatusParams();
 
     params.setDestinationIdArray(destinationIdArray);
+    params.setExcludeDestinationIdArray(excludeDestinationIdArray);
     params.setCategoryId(categoryId);
     params.setSystemId(systemId);
     params.setRegionId(regionId);
@@ -156,6 +173,7 @@ public class OverallStatusUrlParamHandler implements UrlParamHandler<OverallStat
     ParamBuilder builder = new ParamBuilder();
 
     builder.add("destinationId", params.getDestinationIdArray());
+    builder.add("excludeDestinationId", params.getExcludeDestinationIdArray());
     builder.add("categoryId", IOUtil.nullOrString(params.getCategoryId()));
     builder.add("systemId", IOUtil.nullOrString(params.getSystemId()));
     builder.add("regionId", IOUtil.nullOrString(params.getRegionId()));

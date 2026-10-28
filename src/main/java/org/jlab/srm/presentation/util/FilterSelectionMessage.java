@@ -32,6 +32,26 @@ public final class FilterSelectionMessage {
       SystemEntity selectedSystem,
       Region selectedRegion,
       ResponsibleGroup selectedGroup) {
+    return getOverallStatusFootnoteList(
+        selectedDestinationList,
+        null,
+        selectedCategory,
+        selectedSystem,
+        selectedRegion,
+        selectedGroup);
+  }
+
+  /**
+   * The status reports' footnotes: the include filters, then the excluded beam destinations, which
+   * apply after the include filters.
+   */
+  public static List<Map.Entry<String, Object>> getOverallStatusFootnoteList(
+      List<BeamDestination> selectedDestinationList,
+      List<BeamDestination> excludedDestinationList,
+      Category selectedCategory,
+      SystemEntity selectedSystem,
+      Region selectedRegion,
+      ResponsibleGroup selectedGroup) {
     ArrayList<Map.Entry<String, Object>> footnoteList = new ArrayList<>();
 
     if (selectedDestinationList != null && !selectedDestinationList.isEmpty()) {
@@ -76,7 +96,38 @@ public final class FilterSelectionMessage {
       footnoteList.add(entry);
     }
 
+    if (excludedDestinationList != null && !excludedDestinationList.isEmpty()) {
+      Map.Entry<String, Object> entry =
+          new AbstractMap.SimpleEntry<>("Excluding Beam Destination", excludedDestinationList);
+
+      footnoteList.add(entry);
+    }
+
     return footnoteList;
+  }
+
+  /**
+   * Appends the excluded beam destinations to a selection message, as "excluding Beam Destination
+   * ...": they apply after the include filters, which select from all components.
+   */
+  public static String withExcludedDestinations(
+      String message, List<BeamDestination> excludedDestinationList) {
+    if (excludedDestinationList == null || excludedDestinationList.isEmpty()) {
+      return message;
+    }
+
+    String sublist = "\"" + excludedDestinationList.get(0).getName() + "\"";
+
+    for (int i = 1; i < excludedDestinationList.size(); i++) {
+      BeamDestination destination = excludedDestinationList.get(i);
+      sublist = sublist + ", \"" + destination.getName() + "\"";
+    }
+
+    if (message == null || message.isBlank()) {
+      message = " All Components";
+    }
+
+    return message + " excluding Beam Destination " + sublist;
   }
 
   public static String getMessage(

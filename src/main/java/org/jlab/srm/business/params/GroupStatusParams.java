@@ -4,6 +4,7 @@ import java.math.BigInteger;
 
 public class GroupStatusParams {
   private BigInteger[] destinationIdArray;
+  private BigInteger[] excludeDestinationIdArray;
   private BigInteger categoryId;
   private BigInteger systemId;
   private BigInteger regionId;
@@ -15,6 +16,14 @@ public class GroupStatusParams {
 
   public void setDestinationIdArray(BigInteger[] destinationIdArray) {
     this.destinationIdArray = destinationIdArray;
+  }
+
+  public BigInteger[] getExcludeDestinationIdArray() {
+    return excludeDestinationIdArray;
+  }
+
+  public void setExcludeDestinationIdArray(BigInteger[] excludeDestinationIdArray) {
+    this.excludeDestinationIdArray = excludeDestinationIdArray;
   }
 
   public BigInteger getCategoryId() {
