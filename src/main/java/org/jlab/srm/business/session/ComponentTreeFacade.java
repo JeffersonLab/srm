@@ -73,6 +73,7 @@ public class ComponentTreeFacade {
   @PermitAll
   public TreeNode<HcoNodeData> findRoot(
       BigInteger[] destinationIdArray,
+      BigInteger[] excludeDestinationIdArray,
       BigInteger categoryId,
       BigInteger systemId,
       BigInteger regionId,
@@ -83,6 +84,8 @@ public class ComponentTreeFacade {
     BigInteger[] systemIdArray = getSystemIdArray(categoryId, systemId);
 
     String destinationIdCsv = IOUtil.toNullOrCsvForStoredProcedure(destinationIdArray);
+    String excludeDestinationIdCsv =
+        IOUtil.toNullOrCsvForStoredProcedure(excludeDestinationIdArray);
     String systemIdCsv = IOUtil.toNullOrCsvForStoredProcedure(systemIdArray);
     String statusIdCsv = IOUtil.toNullOrCsvForStoredProcedure(statusIdArray);
 
@@ -90,6 +93,8 @@ public class ComponentTreeFacade {
         em.createNativeQuery(
             "select filter_category_status(0, "
                 + destinationIdCsv
+                + ", "
+                + excludeDestinationIdCsv
                 + ", "
                 + systemIdCsv
                 + ", "
@@ -121,6 +126,7 @@ public class ComponentTreeFacade {
       HcoNodeType type,
       BigInteger nodeId,
       BigInteger[] destinationIdArray,
+      BigInteger[] excludeDestinationIdArray,
       BigInteger categoryId,
       BigInteger systemId,
       BigInteger regionId,
@@ -133,12 +139,24 @@ public class ComponentTreeFacade {
     switch (type) {
       case SYSTEM:
         children =
-            findChildrenOfSystem(nodeId, destinationIdArray, regionId, groupId, statusIdArray);
+            findChildrenOfSystem(
+                nodeId,
+                destinationIdArray,
+                excludeDestinationIdArray,
+                regionId,
+                groupId,
+                statusIdArray);
         break;
       case CATEGORY:
         children =
             findChildrenOfCategory(
-                nodeId, destinationIdArray, systemIdArray, regionId, groupId, statusIdArray);
+                nodeId,
+                destinationIdArray,
+                excludeDestinationIdArray,
+                systemIdArray,
+                regionId,
+                groupId,
+                statusIdArray);
         break;
       case COMPONENT:
         children = findChildrenOfComponent(nodeId, groupId); // no need to filter by statusIdArray
@@ -153,6 +171,7 @@ public class ComponentTreeFacade {
   private List<Category> findCategoryChildrenList(
       BigInteger categoryId,
       BigInteger[] destinationIdArray,
+      BigInteger[] excludeDestinationIdArray,
       BigInteger[] systemIdArray,
       BigInteger regionId,
       BigInteger groupId,
@@ -161,13 +180,14 @@ public class ComponentTreeFacade {
     Connection con = null;
 
     String destinationIdCsv = IOUtil.toNullOrCsv(destinationIdArray);
+    String excludeDestinationIdCsv = IOUtil.toNullOrCsv(excludeDestinationIdArray);
     String systemIdCsv = IOUtil.toNullOrCsv(systemIdArray);
     String statusIdCsv = IOUtil.toNullOrCsv(statusIdArray);
 
     try {
       con = ds.getConnection();
 
-      String query = "{call filter_category_child_table(?, ?, ?, ?, ?, ?, ?)}";
+      String query = "{call filter_category_child_table(?, ?, ?, ?, ?, ?, ?, ?)}";
       CallableStatement cstmt = con.prepareCall(query);
       if (categoryId == null) {
         cstmt.setNull(1, Types.INTEGER);
@@ -179,29 +199,34 @@ public class ComponentTreeFacade {
       } else {
         cstmt.setString(2, destinationIdCsv);
       }
-      if (systemIdCsv == null) {
+      if (excludeDestinationIdCsv == null) {
         cstmt.setNull(3, Types.VARCHAR);
       } else {
-        cstmt.setString(3, systemIdCsv);
+        cstmt.setString(3, excludeDestinationIdCsv);
+      }
+      if (systemIdCsv == null) {
+        cstmt.setNull(4, Types.VARCHAR);
+      } else {
+        cstmt.setString(4, systemIdCsv);
       }
       if (regionId == null) {
-        cstmt.setNull(4, Types.INTEGER);
-      } else {
-        cstmt.setLong(4, regionId.longValue());
-      }
-      if (groupId == null) {
         cstmt.setNull(5, Types.INTEGER);
       } else {
-        cstmt.setLong(5, groupId.longValue());
+        cstmt.setLong(5, regionId.longValue());
+      }
+      if (groupId == null) {
+        cstmt.setNull(6, Types.INTEGER);
+      } else {
+        cstmt.setLong(6, groupId.longValue());
       }
       if (statusIdCsv == null) {
-        cstmt.setNull(6, Types.VARCHAR);
+        cstmt.setNull(7, Types.VARCHAR);
       } else {
-        cstmt.setString(6, statusIdCsv);
+        cstmt.setString(7, statusIdCsv);
       }
-      cstmt.registerOutParameter(7, OracleTypes.CURSOR);
+      cstmt.registerOutParameter(8, OracleTypes.CURSOR);
       cstmt.execute();
-      ResultSet rset = (ResultSet) cstmt.getObject(7);
+      ResultSet rset = (ResultSet) cstmt.getObject(8);
 
       while (rset.next()) {
         // System.out.println(rset.getString(1));
@@ -238,6 +263,7 @@ public class ComponentTreeFacade {
   private List<SystemEntity> findSystemChildrenList(
       BigInteger categoryId,
       BigInteger[] destinationIdArray,
+      BigInteger[] excludeDestinationIdArray,
       BigInteger[] systemIdArray,
       BigInteger regionId,
       BigInteger groupId,
@@ -269,6 +295,22 @@ public class ComponentTreeFacade {
           subqueryRoot.<BigInteger>get("beamDestinationId").in(Arrays.asList(destinationIdArray));
       subquery.where(p1);
       filters.add(cb.in(componentList.get("componentId")).value(subquery));
+    }
+
+    excludeDestinationIdArray =
+        IOUtil.removeNullValues(excludeDestinationIdArray, BigInteger.class);
+
+    if (excludeDestinationIdArray != null && excludeDestinationIdArray.length > 0) {
+      Subquery<BigInteger> subquery = cq.subquery(BigInteger.class);
+      Root<BeamDestination> subqueryRoot = subquery.from(BeamDestination.class);
+      Join<BeamDestination, Component> excludedComponentList = subqueryRoot.join("componentList");
+      subquery.select(excludedComponentList.get("componentId"));
+      Predicate p1 =
+          subqueryRoot
+              .<BigInteger>get("beamDestinationId")
+              .in(Arrays.asList(excludeDestinationIdArray));
+      subquery.where(p1);
+      filters.add(cb.not(cb.in(componentList.get("componentId")).value(subquery)));
     }
 
     systemIdArray = IOUtil.removeNullValues(systemIdArray, BigInteger.class);
@@ -318,6 +360,7 @@ public class ComponentTreeFacade {
   private List<Component> findComponentChildrenList(
       BigInteger systemId,
       BigInteger[] destinationIdArray,
+      BigInteger[] excludeDestinationIdArray,
       BigInteger regionId,
       BigInteger groupId,
       BigInteger[] statusIdArray) {
@@ -340,6 +383,23 @@ public class ComponentTreeFacade {
       subquery.where(p1);
       filters.add(cb.in(root.get("componentId")).value(subquery));
     }
+
+    excludeDestinationIdArray =
+        IOUtil.removeNullValues(excludeDestinationIdArray, BigInteger.class);
+
+    if (excludeDestinationIdArray != null && excludeDestinationIdArray.length > 0) {
+      Subquery<BigInteger> subquery = cq.subquery(BigInteger.class);
+      Root<BeamDestination> subqueryRoot = subquery.from(BeamDestination.class);
+      Join<BeamDestination, Component> excludedComponentList = subqueryRoot.join("componentList");
+      subquery.select(excludedComponentList.get("componentId"));
+      Predicate p1 =
+          subqueryRoot
+              .<BigInteger>get("beamDestinationId")
+              .in(Arrays.asList(excludeDestinationIdArray));
+      subquery.where(p1);
+      filters.add(cb.not(cb.in(root.get("componentId")).value(subquery)));
+    }
+
     if (regionId != null) {
       filters.add(root.get("region").get("regionId").in(regionId));
     }
@@ -381,6 +441,7 @@ public class ComponentTreeFacade {
   private Map<BigInteger, Status> findCategoryStatuses(
       BigInteger categoryId,
       BigInteger[] destinationIdArray,
+      BigInteger[] excludeDestinationIdArray,
       BigInteger[] systemIdArray,
       BigInteger regionId,
       BigInteger groupId,
@@ -388,6 +449,8 @@ public class ComponentTreeFacade {
     Map<BigInteger, Status> statusMap = new HashMap<>();
 
     String destinationIdCsv = IOUtil.toNullOrCsvForStoredProcedure(destinationIdArray);
+    String excludeDestinationIdCsv =
+        IOUtil.toNullOrCsvForStoredProcedure(excludeDestinationIdArray);
     String systemIdCsv = IOUtil.toNullOrCsvForStoredProcedure(systemIdArray);
     String statusIdCsv = IOUtil.toNullOrCsvForStoredProcedure(statusIdArray);
 
@@ -397,6 +460,8 @@ public class ComponentTreeFacade {
                 + categoryId
                 + ", "
                 + destinationIdCsv
+                + ", "
+                + excludeDestinationIdCsv
                 + ", "
                 + systemIdCsv
                 + ", "
@@ -426,6 +491,7 @@ public class ComponentTreeFacade {
   @SuppressWarnings("unchecked")
   private Map<BigInteger, Status> findSystemStatuses(
       BigInteger[] destinationIdArray,
+      BigInteger[] excludeDestinationIdArray,
       BigInteger[] systemIdArray,
       BigInteger regionId,
       BigInteger groupId,
@@ -433,6 +499,8 @@ public class ComponentTreeFacade {
     Map<BigInteger, Status> statusMap = new HashMap<>();
 
     String destinationIdCsv = IOUtil.toNullOrCsvForStoredProcedure(destinationIdArray);
+    String excludeDestinationIdCsv =
+        IOUtil.toNullOrCsvForStoredProcedure(excludeDestinationIdArray);
     String systemIdCsv = IOUtil.toNullOrCsvForStoredProcedure(systemIdArray);
     String statusIdCsv = IOUtil.toNullOrCsvForStoredProcedure(statusIdArray);
 
@@ -440,6 +508,8 @@ public class ComponentTreeFacade {
         em.createNativeQuery(
             "select * from table(filter_system_status_table("
                 + destinationIdCsv
+                + ", "
+                + excludeDestinationIdCsv
                 + ", "
                 + systemIdCsv
                 + ", "
@@ -516,6 +586,7 @@ public class ComponentTreeFacade {
   public List<TreeNode<HcoNodeData>> findChildrenOfCategory(
       BigInteger categoryId,
       BigInteger[] destinationIdArray,
+      BigInteger[] excludeDestinationIdArray,
       BigInteger[] systemIdArray,
       BigInteger regionId,
       BigInteger groupId,
@@ -525,17 +596,35 @@ public class ComponentTreeFacade {
     // Find category children
     List<Category> categoryChildren =
         findCategoryChildrenList(
-            categoryId, destinationIdArray, systemIdArray, regionId, groupId, statusIdArray);
+            categoryId,
+            destinationIdArray,
+            excludeDestinationIdArray,
+            systemIdArray,
+            regionId,
+            groupId,
+            statusIdArray);
 
     // Find category statuses
     Map<BigInteger, Status> categoryStatuses =
         findCategoryStatuses(
-            categoryId, destinationIdArray, systemIdArray, regionId, groupId, statusIdArray);
+            categoryId,
+            destinationIdArray,
+            excludeDestinationIdArray,
+            systemIdArray,
+            regionId,
+            groupId,
+            statusIdArray);
 
     // Find system children
     List<SystemEntity> systemChildren =
         findSystemChildrenList(
-            categoryId, destinationIdArray, systemIdArray, regionId, groupId, statusIdArray);
+            categoryId,
+            destinationIdArray,
+            excludeDestinationIdArray,
+            systemIdArray,
+            regionId,
+            groupId,
+            statusIdArray);
 
     /*for(SystemEntity entity: systemChildren)
     {
@@ -544,6 +633,7 @@ public class ComponentTreeFacade {
     Map<BigInteger, Status> systemStatuses =
         findSystemStatuses(
             destinationIdArray,
+            excludeDestinationIdArray,
             systemIdArray,
             regionId,
             null,
@@ -592,6 +682,7 @@ public class ComponentTreeFacade {
   public List<TreeNode<HcoNodeData>> findChildrenOfSystem(
       BigInteger systemId,
       BigInteger[] destinationIdArray,
+      BigInteger[] excludeDestinationIdArray,
       BigInteger regionId,
       BigInteger groupId,
       BigInteger[] statusIdArray) {
@@ -599,7 +690,13 @@ public class ComponentTreeFacade {
 
     // Find component children
     List<Component> componentChildren =
-        findComponentChildrenList(systemId, destinationIdArray, regionId, groupId, statusIdArray);
+        findComponentChildrenList(
+            systemId,
+            destinationIdArray,
+            excludeDestinationIdArray,
+            regionId,
+            groupId,
+            statusIdArray);
 
     // Find component statuses
     Map<BigInteger, Status> componentStatuses =

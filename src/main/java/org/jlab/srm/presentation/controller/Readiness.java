@@ -100,6 +100,7 @@ public class Readiness extends HttpServlet {
     Long maskedCount =
         componentFacade.countMasked(
             params.getDestinationIdArray(),
+            params.getExcludeDestinationIdArray(),
             params.getCategoryId(),
             params.getSystemId(),
             params.getRegionId(),
@@ -109,6 +110,7 @@ public class Readiness extends HttpServlet {
     Long componentCount =
         componentFacade.countFilterList(
             params.getDestinationIdArray(),
+            params.getExcludeDestinationIdArray(),
             params.getCategoryId(),
             params.getSystemId(),
             params.getRegionId(),
@@ -127,6 +129,8 @@ public class Readiness extends HttpServlet {
             params.getRegionId(),
             params.getGroupId(),
             params.getStatusIdArray());
+    recentParams.setExcludeDestinationIdArray(
+        IOUtil.removeNullValues(params.getExcludeDestinationIdArray(), BigInteger.class));
     RecentActivityService recentService = new RecentActivityService();
 
     List<SignoffActivityCompressedRecord> signoffActivityList;

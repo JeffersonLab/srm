@@ -180,6 +180,39 @@ public class ComponentFacade extends AbstractFacade<Component> {
       Boolean unpowered,
       String name,
       BigInteger[] statusIdArray) {
+    return countFilterList(
+        destinationIdArray,
+        null,
+        categoryId,
+        systemId,
+        regionId,
+        groupId,
+        applicationId,
+        source,
+        masked,
+        unpowered,
+        name,
+        statusIdArray);
+  }
+
+  /**
+   * Counts the components the filters select, less those with any of the excluded beam
+   * destinations.
+   */
+  @PermitAll
+  public long countFilterList(
+      BigInteger[] destinationIdArray,
+      BigInteger[] excludeDestinationIdArray,
+      BigInteger categoryId,
+      BigInteger systemId,
+      BigInteger regionId,
+      BigInteger groupId,
+      BigInteger applicationId,
+      DataSource source,
+      Boolean masked,
+      Boolean unpowered,
+      String name,
+      BigInteger[] statusIdArray) {
     CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
     CriteriaQuery<Long> cq = cb.createQuery(Long.class);
     Root<Component> root = cq.from(Component.class);
@@ -214,6 +247,23 @@ public class ComponentFacade extends AbstractFacade<Component> {
       subquery.where(p1);
       filters.add(cb.in(root.get("componentId")).value(subquery));
     }
+
+    excludeDestinationIdArray =
+        IOUtil.removeNullValues(excludeDestinationIdArray, BigInteger.class);
+
+    if (excludeDestinationIdArray != null && excludeDestinationIdArray.length > 0) {
+      Subquery<BigInteger> subquery = cq.subquery(BigInteger.class);
+      Root<BeamDestination> subqueryRoot = subquery.from(BeamDestination.class);
+      Join<BeamDestination, Component> excludedComponentList = subqueryRoot.join("componentList");
+      subquery.select(excludedComponentList.get("componentId"));
+      Predicate p1 =
+          subqueryRoot
+              .<BigInteger>get("beamDestinationId")
+              .in(Arrays.asList(excludeDestinationIdArray));
+      subquery.where(p1);
+      filters.add(cb.not(cb.in(root.get("componentId")).value(subquery)));
+    }
+
     if (categoryId != null) {
       List<SystemEntity> systemList = systemFacade.fetchHierarchy(categoryId, applicationId);
       filters.add(root.get("system").in(systemList));
@@ -590,6 +640,24 @@ public class ComponentFacade extends AbstractFacade<Component> {
       BigInteger groupId,
       String reason,
       BigInteger[] statusIdArray) {
+    return countMasked(
+        destinationIdArray, null, categoryId, systemId, regionId, groupId, reason, statusIdArray);
+  }
+
+  /**
+   * Counts the masked components the filters select, less those with any of the excluded beam
+   * destinations.
+   */
+  @PermitAll
+  public Long countMasked(
+      BigInteger[] destinationIdArray,
+      BigInteger[] excludeDestinationIdArray,
+      BigInteger categoryId,
+      BigInteger systemId,
+      BigInteger regionId,
+      BigInteger groupId,
+      String reason,
+      BigInteger[] statusIdArray) {
     CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
     CriteriaQuery<Long> cq = cb.createQuery(Long.class);
     Root<Component> root = cq.from(Component.class);
@@ -613,6 +681,23 @@ public class ComponentFacade extends AbstractFacade<Component> {
       subquery.where(p1);
       filters.add(cb.in(root.get("componentId")).value(subquery));
     }
+
+    excludeDestinationIdArray =
+        IOUtil.removeNullValues(excludeDestinationIdArray, BigInteger.class);
+
+    if (excludeDestinationIdArray != null && excludeDestinationIdArray.length > 0) {
+      Subquery<BigInteger> subquery = cq.subquery(BigInteger.class);
+      Root<BeamDestination> subqueryRoot = subquery.from(BeamDestination.class);
+      Join<BeamDestination, Component> excludedComponentList = subqueryRoot.join("componentList");
+      subquery.select(excludedComponentList.get("componentId"));
+      Predicate p1 =
+          subqueryRoot
+              .<BigInteger>get("beamDestinationId")
+              .in(Arrays.asList(excludeDestinationIdArray));
+      subquery.where(p1);
+      filters.add(cb.not(cb.in(root.get("componentId")).value(subquery)));
+    }
+
     if (categoryId != null) {
       List<SystemEntity> systemList = systemFacade.fetchHierarchy(categoryId, BigInteger.ONE);
       filters.add(root.get("system").in(systemList));

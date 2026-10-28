@@ -770,7 +770,7 @@ BEGIN
 END;
 /
 
-create or replace FUNCTION SRM_OWNER.FILTER_SYSTEM_STATUS (sys_id in INTEGER, dest_id_csv in VARCHAR2, sys_id_csv in VARCHAR2, reg_id in INTEGER, grp_id in INTEGER, stat_id_csv in VARCHAR2)
+create or replace FUNCTION SRM_OWNER.FILTER_SYSTEM_STATUS (sys_id in INTEGER, dest_id_csv in VARCHAR2, excl_dest_id_csv in VARCHAR2, sys_id_csv in VARCHAR2, reg_id in INTEGER, grp_id in INTEGER, stat_id_csv in VARCHAR2)
     RETURN INTEGER
     IS
     retval integer;
@@ -789,6 +789,10 @@ create or replace FUNCTION SRM_OWNER.FILTER_SYSTEM_STATUS (sys_id in INTEGER, de
           AND CASE
                   WHEN dest_id_csv IS NULL THEN 1
                   WHEN dest_id_csv IS NOT NULL AND c.beam_destination_id in (select * from table(csv_2_nums(dest_id_csv))) THEN 1
+                  ELSE 0 END = 1
+          AND CASE
+                  WHEN excl_dest_id_csv IS NULL THEN 1
+                  WHEN excl_dest_id_csv IS NOT NULL AND b.component_id not in (select component_id from component_beam_destination where beam_destination_id in (select * from table(csv_2_nums(excl_dest_id_csv)))) THEN 1
                   ELSE 0 END = 1
           AND CASE
                   WHEN sys_id_csv IS NULL THEN 1
@@ -823,13 +827,13 @@ EXCEPTION
 END;
 /
 
-create or replace FUNCTION SRM_OWNER.FILTER_CATEGORY_STATUS (cat_id in INTEGER, dest_id_csv in VARCHAR2, sys_id_csv in VARCHAR2, reg_id in INTEGER, grp_id in INTEGER, stat_id_csv in VARCHAR2)
+create or replace FUNCTION SRM_OWNER.FILTER_CATEGORY_STATUS (cat_id in INTEGER, dest_id_csv in VARCHAR2, excl_dest_id_csv in VARCHAR2, sys_id_csv in VARCHAR2, reg_id in INTEGER, grp_id in INTEGER, stat_id_csv in VARCHAR2)
     RETURN INTEGER
     IS
     retval integer;
 
     CURSOR c1 IS
-        SELECT MAX(filter_system_status(system_id, dest_id_csv, sys_id_csv, reg_id, grp_id, stat_id_csv)) FROM system WHERE category_id IN
+        SELECT MAX(filter_system_status(system_id, dest_id_csv, excl_dest_id_csv, sys_id_csv, reg_id, grp_id, stat_id_csv)) FROM system WHERE category_id IN
                                                                                                                             (SELECT category_id FROM category START WITH category_id = cat_id CONNECT BY PRIOR category_id = parent_id);
 BEGIN
     OPEN c1;
@@ -852,7 +856,7 @@ EXCEPTION
 END;
 /
 
-create or replace FUNCTION SRM_OWNER.FILTER_CATEGORY_STATUS_TABLE (cat_id in integer, dest_id_csv in varchar2, sys_id_csv in varchar2, reg_id in integer, grp_id in integer, stat_id_csv in varchar2) RETURN CATEGORY_STATUS_TABLE AS
+create or replace FUNCTION SRM_OWNER.FILTER_CATEGORY_STATUS_TABLE (cat_id in integer, dest_id_csv in varchar2, excl_dest_id_csv in varchar2, sys_id_csv in varchar2, reg_id in integer, grp_id in integer, stat_id_csv in varchar2) RETURN CATEGORY_STATUS_TABLE AS
     return_table CATEGORY_STATUS_TABLE := CATEGORY_STATUS_TABLE();
     n integer := 0;
 BEGIN
@@ -860,13 +864,13 @@ BEGIN
         loop
             return_table.extend;
             n := n + 1;
-            return_table(n) := CATEGORY_STATUS(r.category_id, filter_category_status(r.category_id, dest_id_csv, sys_id_csv, reg_id, grp_id, stat_id_csv));
+            return_table(n) := CATEGORY_STATUS(r.category_id, filter_category_status(r.category_id, dest_id_csv, excl_dest_id_csv, sys_id_csv, reg_id, grp_id, stat_id_csv));
         end loop;
     RETURN return_table;
 END;
 /
 
-create or replace FUNCTION SRM_OWNER.FILTER_SYSTEM_STATUS_TABLE (dest_id_csv in varchar2, sys_id_csv in varchar2, reg_id in integer, grp_id in integer, stat_id_csv in varchar2) RETURN SYSTEM_STATUS_TABLE AS
+create or replace FUNCTION SRM_OWNER.FILTER_SYSTEM_STATUS_TABLE (dest_id_csv in varchar2, excl_dest_id_csv in varchar2, sys_id_csv in varchar2, reg_id in integer, grp_id in integer, stat_id_csv in varchar2) RETURN SYSTEM_STATUS_TABLE AS
     return_table SYSTEM_STATUS_TABLE := SYSTEM_STATUS_TABLE();
     n integer := 0;
 BEGIN
@@ -874,7 +878,7 @@ BEGIN
         loop
             return_table.extend;
             n := n + 1;
-            return_table(n) := SYSTEM_STATUS(r.system_id, filter_system_status(r.system_id, dest_id_csv, sys_id_csv, reg_id, grp_id, stat_id_csv));
+            return_table(n) := SYSTEM_STATUS(r.system_id, filter_system_status(r.system_id, dest_id_csv, excl_dest_id_csv, sys_id_csv, reg_id, grp_id, stat_id_csv));
         end loop;
     RETURN return_table;
 END;
@@ -882,7 +886,7 @@ END;
 
 -- Procedures
 
-create or replace PROCEDURE SRM_OWNER.FILTER_CATEGORY_CHILD_TABLE (cat_id in integer, dest_id_csv in varchar2, sys_id_csv in varchar2, reg_id in integer, grp_id in integer, stat_id_csv in varchar2, rtn_cursor out SYS_REFCURSOR) AS
+create or replace PROCEDURE SRM_OWNER.FILTER_CATEGORY_CHILD_TABLE (cat_id in integer, dest_id_csv in varchar2, excl_dest_id_csv in varchar2, sys_id_csv in varchar2, reg_id in integer, grp_id in integer, stat_id_csv in varchar2, rtn_cursor out SYS_REFCURSOR) AS
 BEGIN
     delete from tmp_component_categories;
     FOR item IN
@@ -894,6 +898,7 @@ BEGIN
            and a.system_id in (select system_id from system_application where application_id = 1)
            and (reg_id is null or reg_id = a.region_id)
            and (dest_id_csv is null or c.beam_destination_id in (select * from table(csv_2_nums(dest_id_csv))))
+           and (excl_dest_id_csv is null or a.component_id not in (select component_id from component_beam_destination where beam_destination_id in (select * from table(csv_2_nums(excl_dest_id_csv)))))
            and (sys_id_csv is null or a.system_id in (select * from table(csv_2_nums(sys_id_csv))))
            and (grp_id is null or
                 a.component_id in (select component_id from component_signoff z where z.group_id = grp_id))

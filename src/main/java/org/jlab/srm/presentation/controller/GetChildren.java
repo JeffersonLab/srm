@@ -61,6 +61,8 @@ public class GetChildren extends HttpServlet {
 
     BigInteger[] destinationIdArray =
         ParamConverter.convertBigIntegerArray(request, "destinationId");
+    BigInteger[] excludeDestinationIdArray =
+        ParamConverter.convertBigIntegerArray(request, "excludeDestinationId");
     BigInteger categoryId = ParamConverter.convertBigInteger(request, "categoryId");
     BigInteger systemId = ParamConverter.convertBigInteger(request, "systemId");
     BigInteger regionId = ParamConverter.convertBigInteger(request, "regionId");
@@ -77,6 +79,7 @@ public class GetChildren extends HttpServlet {
               type,
               nodeId,
               destinationIdArray,
+              excludeDestinationIdArray,
               categoryId,
               systemId,
               regionId,
@@ -89,7 +92,13 @@ public class GetChildren extends HttpServlet {
 
       children.add(
           treeFacade.findRoot(
-              destinationIdArray, categoryId, systemId, regionId, groupId, statusIdArray));
+              destinationIdArray,
+              excludeDestinationIdArray,
+              categoryId,
+              systemId,
+              regionId,
+              groupId,
+              statusIdArray));
     }
 
     response.setContentType("application/json");
