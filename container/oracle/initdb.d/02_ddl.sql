@@ -792,7 +792,7 @@ create or replace FUNCTION SRM_OWNER.FILTER_SYSTEM_STATUS (sys_id in INTEGER, de
                   ELSE 0 END = 1
           AND CASE
                   WHEN excl_dest_id_csv IS NULL THEN 1
-                  WHEN excl_dest_id_csv IS NOT NULL AND b.component_id not in (select component_id from component_beam_destination where beam_destination_id in (select * from table(csv_2_nums(excl_dest_id_csv)))) THEN 1
+                  WHEN excl_dest_id_csv IS NOT NULL AND NOT EXISTS (select 1 from component_beam_destination x where x.component_id = b.component_id and x.beam_destination_id in (select * from table(csv_2_nums(excl_dest_id_csv)))) THEN 1
                   ELSE 0 END = 1
           AND CASE
                   WHEN sys_id_csv IS NULL THEN 1
@@ -898,7 +898,7 @@ BEGIN
            and a.system_id in (select system_id from system_application where application_id = 1)
            and (reg_id is null or reg_id = a.region_id)
            and (dest_id_csv is null or c.beam_destination_id in (select * from table(csv_2_nums(dest_id_csv))))
-           and (excl_dest_id_csv is null or a.component_id not in (select component_id from component_beam_destination where beam_destination_id in (select * from table(csv_2_nums(excl_dest_id_csv)))))
+           and (excl_dest_id_csv is null or not exists (select 1 from component_beam_destination x where x.component_id = a.component_id and x.beam_destination_id in (select * from table(csv_2_nums(excl_dest_id_csv)))))
            and (sys_id_csv is null or a.system_id in (select * from table(csv_2_nums(sys_id_csv))))
            and (grp_id is null or
                 a.component_id in (select component_id from component_signoff z where z.group_id = grp_id))
