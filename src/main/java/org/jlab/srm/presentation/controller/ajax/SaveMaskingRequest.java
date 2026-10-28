@@ -100,7 +100,12 @@ public class SaveMaskingRequest extends HttpServlet {
     }
   }
 
-  private void fillInLists(List<BigInteger> componentIdList, String[] componentIdArray) {
+  private void fillInLists(List<BigInteger> componentIdList, String[] componentIdArray)
+      throws UserFriendlyException {
+    // No componentId[] parameter means no component; the facade reports it
+    if (componentIdArray == null) {
+      return;
+    }
 
     for (String componentIdStr : componentIdArray) {
 
@@ -110,11 +115,15 @@ public class SaveMaskingRequest extends HttpServlet {
     }
   }
 
-  private BigInteger toBigInteger(String value) {
+  private BigInteger toBigInteger(String value) throws UserFriendlyException {
     if (value == null || value.isEmpty()) {
-      throw new IllegalArgumentException("ID cannot be null");
+      throw new UserFriendlyException("Component ID must not be empty");
     }
 
-    return new BigInteger(value);
+    try {
+      return new BigInteger(value);
+    } catch (NumberFormatException e) {
+      throw new UserFriendlyException("Component ID must be a number");
+    }
   }
 }

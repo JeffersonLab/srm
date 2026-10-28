@@ -117,6 +117,20 @@ class MaskingRequestIT {
   }
 
   @Test
+  void requestNeedsComponent() throws Exception {
+    assertEquals(
+        error("No component selected"),
+        requestComponents(Srm.token(Srm.USER), "none " + name, inAWeek(), List.of()));
+  }
+
+  @Test
+  void requestNeedsNumericComponentId() throws Exception {
+    assertEquals(
+        error("Component ID must be a number"),
+        requestComponents(Srm.token(Srm.USER), "bad id " + name, inAWeek(), List.of("abc")));
+  }
+
+  @Test
   void onlyOnePendingRequest() throws Exception {
     String token = Srm.token(Srm.USER);
 
@@ -196,14 +210,23 @@ class MaskingRequestIT {
 
   /** Requests a mask of the component; the reply is XML, not JSON. */
   private String request(String token, String reason, LocalDateTime expiration) throws Exception {
-    HttpResponse<String> response =
-        Srm.post(
-            "/ajax/save-masking-request",
-            token,
-            List.of(
-                Map.entry("reason", reason),
-                Map.entry("expiration-date", FRIENDLY.format(expiration)),
-                Map.entry("componentId[]", componentId)));
+    return requestComponents(token, reason, expiration, List.of(componentId));
+  }
+
+  /** Requests a mask of the components with the IDs, none to send no componentId[] parameter. */
+  private static String requestComponents(
+      String token, String reason, LocalDateTime expiration, List<String> componentIds)
+      throws Exception {
+    List<Map.Entry<String, String>> params = new ArrayList<>();
+
+    params.add(Map.entry("reason", reason));
+    params.add(Map.entry("expiration-date", FRIENDLY.format(expiration)));
+
+    for (String id : componentIds) {
+      params.add(Map.entry("componentId[]", id));
+    }
+
+    HttpResponse<String> response = Srm.post("/ajax/save-masking-request", token, params);
 
     assertEquals(200, response.statusCode(), response.body());
 
