@@ -189,10 +189,6 @@ class MaskingRequestIT {
 
     String requestId = requestId(reason, "PENDING");
 
-    // Masking adds signoff history, which is unique per component and second
-    // (GROUP_SIGNOFF_HISTORY_AK1 on a DATE column), as did adding the component
-    Thread.sleep(1_000);
-
     assertOk(
         Srm.post(
             "/ajax/accept-mask-request",
