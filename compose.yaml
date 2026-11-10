@@ -3,30 +3,29 @@ services:
     extends:
       file: deps.yaml
       service: oracle
-    container_name: srm-oracle
 
   keycloak:
     extends:
       file: deps.yaml
       service: keycloak
-    container_name: srm-keycloak
 
   puppet:
     extends:
       file: deps.yaml
       service: puppet
-    container_name: srm-puppet
 
   mailhog:
     extends:
       file: deps.yaml
       service: mailhog
-    container_name: srm-mailhog
 
   srm:
     hostname: srm
-    container_name: srm-dev
     ports:
-      - "8443:8443"
-      - "8080:8080"
-      - "9990:9990"
+      - "127.0.0.1:${SRM_HTTPS_PORT:-8443}:8443"
+      - "127.0.0.1:${SRM_HTTP_PORT:-8080}:8080"
+      - "127.0.0.1:${SRM_MANAGEMENT_PORT:-9990}:9990"
+    environment:
+      # The browser reaches Keycloak and the app on the host's ports
+      KEYCLOAK_FRONTEND_SERVER_URL: 'http://localhost:${SRM_KEYCLOAK_PORT:-8081}/auth'
+      FRONTEND_SERVER_URL: 'https://localhost:${SRM_HTTPS_PORT:-8443}'
