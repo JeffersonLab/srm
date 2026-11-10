@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.List;
+import org.jlab.srm.persistence.enumeration.Facility;
 
 /**
  * @author ryans
@@ -40,6 +41,10 @@ public class BeamDestination implements Serializable {
   @Size(min = 1, max = 1)
   @NotNull
   private String targetYn;
+
+  @Column(name = "FACILITY", length = 16)
+  @Enumerated(EnumType.STRING)
+  private Facility facility;
 
   @JoinTable(
       name = "COMPONENT_BEAM_DESTINATION",
@@ -91,6 +96,14 @@ public class BeamDestination implements Serializable {
 
   public void setTarget(boolean target) {
     this.targetYn = target ? "Y" : "N";
+  }
+
+  public Facility getFacility() {
+    return facility;
+  }
+
+  public void setFacility(Facility facility) {
+    this.facility = facility;
   }
 
   public List<Component> getComponentList() {
