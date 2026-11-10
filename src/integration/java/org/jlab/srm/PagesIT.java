@@ -74,6 +74,7 @@ class PagesIT {
         "/setup/group-list",
         "/setup/group-responsibility",
         "/setup/system-participation",
+        "/setup/destination-list",
         "/reports/inventory-activity/component-audit"
       })
   void onlyAdminReadsSetupPage(String path) throws Exception {

@@ -10,9 +10,9 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.util.List;
 import org.jlab.smoothness.presentation.util.ParamConverter;
-import org.jlab.srm.business.session.AbstractFacade.OrderDirective;
 import org.jlab.srm.business.session.BeamDestinationFacade;
 import org.jlab.srm.persistence.entity.BeamDestination;
+import org.jlab.srm.persistence.enumeration.Facility;
 
 /**
  * @author ryans
@@ -35,8 +35,19 @@ public class BeamDestinationList extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    List<BeamDestination> destinationList = destinationFacade.findAll(new OrderDirective("weight"));
+    Facility facility;
 
+    try {
+      facility = facility(request);
+    } catch (IllegalArgumentException e) {
+      response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+      return;
+    }
+
+    List<BeamDestination> destinationList = destinationFacade.findByFacility(facility);
+
+    request.setAttribute("facilityList", Facility.values());
+    request.setAttribute("selectedFacility", facility);
     request.setAttribute("destinationList", destinationList);
 
     getServletConfig()
@@ -57,10 +68,43 @@ public class BeamDestinationList extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
+    Facility facility;
+
+    try {
+      facility = facility(request);
+    } catch (IllegalArgumentException e) {
+      response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+      return;
+    }
+
     BigInteger[] targetArray = ParamConverter.convertBigIntegerArray(request, "target");
 
-    destinationFacade.setTarget(targetArray);
+    // The form lists only the filtered facility's destinations, so leave the others' targets
+    destinationFacade.setTarget(facility, targetArray);
 
-    response.sendRedirect(response.encodeRedirectURL("destination-list"));
+    String url = "destination-list";
+
+    if (facility != null) {
+      url = url + "?facility=" + facility.name();
+    }
+
+    response.sendRedirect(response.encodeRedirectURL(url));
+  }
+
+  /**
+   * Reads the facility parameter.
+   *
+   * @param request servlet request
+   * @return the facility, or null if the parameter is missing or empty
+   * @throws IllegalArgumentException if the parameter names no facility
+   */
+  private static Facility facility(HttpServletRequest request) {
+    String value = request.getParameter("facility");
+
+    if (value == null || value.isBlank()) {
+      return null;
+    }
+
+    return Facility.valueOf(value);
   }
 }

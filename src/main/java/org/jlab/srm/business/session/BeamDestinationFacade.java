@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.jlab.srm.persistence.entity.BeamDestination;
+import org.jlab.srm.persistence.enumeration.Facility;
 
 /**
  * @author ryans
@@ -31,18 +32,66 @@ public class BeamDestinationFacade extends AbstractFacade<BeamDestination> {
     return em;
   }
 
+  /**
+   * Makes the destinations in targetArray the targets, and the others not.
+   *
+   * @param facility only change the targets in this facility, leaving the others as they are, or
+   *     null for all
+   * @param targetArray the destinations to make targets, or null for none
+   */
   @RolesAllowed("srm-admin")
-  public void setTarget(BigInteger[] targetArray) {
-    Query q = em.createQuery("update BeamDestination a set a.targetYn = 'N'");
+  public void setTarget(Facility facility, BigInteger[] targetArray) {
+    Query q;
+
+    if (facility == null) {
+      q = em.createQuery("update BeamDestination a set a.targetYn = 'N'");
+    } else {
+      q =
+          em.createQuery(
+              "update BeamDestination a set a.targetYn = 'N' where a.facility = :facility");
+      q.setParameter("facility", facility);
+    }
+
     q.executeUpdate();
 
     if (targetArray != null && targetArray.length > 0) {
-      q =
-          em.createQuery(
-              "update BeamDestination a set a.targetYn = 'Y' where a.beamDestinationId in :destinationIdArray");
+      String jpql =
+          "update BeamDestination a set a.targetYn = 'Y' where a.beamDestinationId in :destinationIdArray";
+
+      if (facility != null) {
+        jpql = jpql + " and a.facility = :facility";
+      }
+
+      q = em.createQuery(jpql);
       q.setParameter("destinationIdArray", Arrays.asList(targetArray));
+
+      if (facility != null) {
+        q.setParameter("facility", facility);
+      }
+
       q.executeUpdate();
     }
+  }
+
+  /**
+   * Finds the destinations in a facility, in weight order.
+   *
+   * @param facility the facility, or null for all destinations
+   * @return the destinations
+   */
+  @PermitAll
+  public List<BeamDestination> findByFacility(Facility facility) {
+    if (facility == null) {
+      return findAll(new OrderDirective("weight"));
+    }
+
+    TypedQuery<BeamDestination> q =
+        em.createQuery(
+            "select b from BeamDestination b where b.facility = :facility order by b.weight asc",
+            BeamDestination.class);
+    q.setParameter("facility", facility);
+
+    return q.getResultList();
   }
 
   @PermitAll
