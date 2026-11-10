@@ -32,13 +32,18 @@ import javax.net.ssl.TrustManagerFactory;
 /**
  * The running app and its services, as started by {@code docker compose -f build.yaml up}.
  *
- * <p>SRM_URL, KEYCLOAK_URL and MAILHOG_URL override the URLs, such as when a port is taken.
+ * <p>The URLs use the stack's host ports, SRM_HTTPS_PORT, SRM_KEYCLOAK_PORT and SRM_MAILHOG_PORT
+ * (README, "Ports"), which the integrationTest task also reads from the .env file. SRM_URL,
+ * KEYCLOAK_URL and MAILHOG_URL override the URLs, such as for an app elsewhere.
  */
 final class Srm {
 
-  static final String SRM_URL = env("SRM_URL", "https://localhost:8443/srm");
-  static final String KEYCLOAK_URL = env("KEYCLOAK_URL", "http://localhost:8081/auth");
-  static final String MAILHOG_URL = env("MAILHOG_URL", "http://localhost:8025");
+  static final String SRM_URL =
+      env("SRM_URL", "https://localhost:" + env("SRM_HTTPS_PORT", "8443") + "/srm");
+  static final String KEYCLOAK_URL =
+      env("KEYCLOAK_URL", "http://localhost:" + env("SRM_KEYCLOAK_PORT", "8081") + "/auth");
+  static final String MAILHOG_URL =
+      env("MAILHOG_URL", "http://localhost:" + env("SRM_MAILHOG_PORT", "8025"));
 
   /** Has the srm-admin role (container/keycloak) */
   static final String ADMIN = "jdoe";

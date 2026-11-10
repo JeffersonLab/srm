@@ -5,13 +5,16 @@ project is, its settings, and how to set it up.
 
 ## Development
 
-- Set up: JDK 21 and Docker; use `./gradlew`, which pins Gradle. Services: Oracle (ports 1521
-  and 5500), Keycloak (8081 and 9991), Puppet Show (3000), MailHog (1025 and 8025), and srm built
-  from the working tree (8080, 8443 and 9990), all by `build.yaml`:
-  `docker compose -f build.yaml up -d --build`. The ports and container names (`srm-oracle`,
-  `srm-dev`, ...) are fixed, so only one stack runs per VM, and other projects use some of the
-  same ports: check `ss -ltnp` and `docker ps` first, and if a port is taken, ask the person
-  you work with rather than stopping what holds it.
+- Set up: JDK 21 and Docker; use `./gradlew`, which pins Gradle. Services: Oracle (default ports
+  1521 and 5500), Keycloak (8081 and 9991), Puppet Show (3000), MailHog (1025 and 8025), and srm
+  built from the working tree (8080, 8443 and 9990), all by `build.yaml`:
+  `docker compose -f build.yaml up -d --build`. Other projects use the same default ports, so
+  check `ss -ltnp` and `docker ps` first, and give each worktree free ports in its own `.env`
+  (ignored by git), with the `SRM_*_PORT` settings in `README.md`, "Ports"; never stop what
+  holds a port. Compose names the containers after the worktree's directory
+  (`<worktree>-oracle-1`, ...), and the app's and Keycloak's login URLs follow
+  `SRM_HTTPS_PORT` and `SRM_KEYCLOAK_PORT`. Use the same directory, files and `.env` for
+  tests and cleanup.
 - On every change, run `./gradlew build` (about 20 s cold, a second warm). It compiles for Java
   17, runs `spotlessCheck` (google-java-format; `./gradlew spotlessApply` formats), and runs the
   unit tests in `src/test/java`, which need no services. CI runs the same build.
@@ -19,12 +22,13 @@ project is, its settings, and how to set it up.
   services: `./gradlew integrationTest`. Neither `build` nor CI runs them, so run them yourself
   for a change to behavior or pages, and add a case for what you change; for a bug fix, show it
   failing against the app without the fix. The masking request tests add and delete their own
-  components and read MailHog. `SRM_URL`, `KEYCLOAK_URL` and `MAILHOG_URL` point the tests at
-  other ports (`README.md`, "Develop").
+  components and read MailHog. They use the ports in `.env` or the environment;
+  `SRM_URL`, `KEYCLOAK_URL` and `MAILHOG_URL` point them at an app elsewhere (`README.md`,
+  "Develop").
 - Before opening a pull request, for a change to behavior or pages, rebuild and restart the app,
   since the container runs the image and not your working tree:
   `docker compose -f build.yaml up -d --build srm`. Then run the integration tests, check the
-  change in a browser at `http://localhost:8080/srm`, and look for errors in
+  change in a browser at `https://localhost:<SRM_HTTPS_PORT>/srm`, and look for errors in
   `docker compose -f build.yaml logs srm`.
 - Test data: `container/oracle/initdb.d` builds the schema, defaults, settings and test data
   when the Oracle container is created. `docker compose -f build.yaml down -v` deletes it; the
@@ -34,11 +38,11 @@ project is, its settings, and how to set it up.
   `user3` leads group 3 and has `vtaadm`.
 - Outside systems: Keycloak (login and the user directory), Oracle, Puppet Show (PDF and image
   export) and SMTP email run as containers; MailHog catches the email
-  (`http://localhost:8025`). The JLab logbook has no stand-in: the image sets
-  `LOGBOOK_SERVER_URL` to the real `https://logbooks.jlab.org`, and a signoff marked as needing
-  attention posts an OPS-PR entry to it (`SRM_BOOKS_CSV`, default `TLOG`), so don't make one.
-  `CED_SERVER_URL` is only used for links. Never point the app at JLab's servers or production
-  databases.
+  (`http://localhost:<SRM_MAILHOG_PORT>`, default 8025). The JLab logbook has no stand-in: the
+  image sets `LOGBOOK_SERVER_URL` to the real `https://logbooks.jlab.org`, and a signoff marked
+  as needing attention posts an OPS-PR entry to it (`SRM_BOOKS_CSV`, default `TLOG`), so don't
+  make one. `CED_SERVER_URL` is only used for links. Never point the app at JLab's servers or
+  production databases.
 - UI changes: there are no browser tests or screenshot script; look at the page in a browser
   (forward the ports from the VM, or drive one) and say in the pull request what you checked.
 - Compile for Java 17 (`options.release = 17`). Wildfly 37 provides the `providedCompile`

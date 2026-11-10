@@ -69,6 +69,17 @@ tasks.register('integrationTest', Test) {
     // The services may still be starting, and they are not up to date with the source files
     outputs.upToDateWhen { false }
 
+    // The stack's host ports, as Compose reads them: the environment, else the .env file (README, "Ports")
+    def dotEnv = file('.env')
+    if (dotEnv.exists()) {
+        dotEnv.readLines().each { String line ->
+            def setting = line =~ /^\s*(SRM_\w+_PORT)\s*=\s*["']?(\d+)["']?\s*$/
+            if (setting.matches() && !System.getenv(setting.group(1))) {
+                environment setting.group(1), setting.group(2)
+            }
+        }
+    }
+
     testLogging {
         events "passed", "skipped", "failed"
         exceptionFormat = "full"
