@@ -13,9 +13,11 @@ import java.math.BigInteger;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.jlab.smoothness.business.exception.UserFriendlyException;
 import org.jlab.smoothness.business.util.ExceptionUtil;
 import org.jlab.smoothness.presentation.util.ParamConverter;
 import org.jlab.srm.business.session.CategoryFacade;
+import org.jlab.srm.presentation.util.HcoParamConverter;
 
 /**
  * @author ryans
@@ -45,10 +47,14 @@ public class AddCategory extends HttpServlet {
     try {
       BigInteger parentId = ParamConverter.convertBigInteger(request, "parentId");
       String name = request.getParameter("name");
-      categoryFacade.addNew(parentId, name);
+      BigInteger weight = HcoParamConverter.convertWeight(request, "weight");
+      categoryFacade.addNew(parentId, name, weight);
     } catch (EJBAccessException e) {
       logger.log(Level.WARNING, "Not authorized", e);
       errorReason = "Not authorized";
+    } catch (UserFriendlyException e) {
+      logger.log(Level.WARNING, "Unable to add category", e);
+      errorReason = e.getUserMessage();
     } catch (Exception e) {
       logger.log(Level.SEVERE, "Unable to add category", e);
       Throwable rootCause = ExceptionUtil.getRootCause(e);

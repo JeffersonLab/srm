@@ -17,6 +17,7 @@ import org.jlab.smoothness.business.exception.UserFriendlyException;
 import org.jlab.smoothness.business.util.ExceptionUtil;
 import org.jlab.smoothness.presentation.util.ParamConverter;
 import org.jlab.srm.business.session.CategoryFacade;
+import org.jlab.srm.presentation.util.HcoParamConverter;
 
 /**
  * @author ryans
@@ -47,12 +48,13 @@ public class EditCategory extends HttpServlet {
       BigInteger categoryId = ParamConverter.convertBigInteger(request, "categoryId");
       BigInteger parentId = ParamConverter.convertBigInteger(request, "parentId");
       String name = request.getParameter("name");
-      categoryFacade.edit(categoryId, parentId, name);
+      BigInteger weight = HcoParamConverter.convertWeight(request, "weight");
+      categoryFacade.edit(categoryId, parentId, name, weight);
     } catch (EJBAccessException e) {
       logger.log(Level.WARNING, "Not authorized", e);
       errorReason = "Not authorized";
     } catch (UserFriendlyException e) {
-      logger.log(Level.SEVERE, "Unable to edit category", e);
+      logger.log(Level.WARNING, "Unable to edit category", e);
       errorReason = e.getUserMessage();
     } catch (Exception e) {
       logger.log(Level.SEVERE, "Unable to edit category", e);

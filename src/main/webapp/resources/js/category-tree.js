@@ -12,6 +12,11 @@ jlab.srm.validateNodeForm = function () {
         return false;
     }
 
+    if (!/^\s*(-?\d+)?\s*$/.test($("#node-weight").val())) {
+        alert('Weight must be a whole number, or blank');
+        return false;
+    }
+
     return true;
 };
 
@@ -32,7 +37,8 @@ jlab.srm.addCategory = function () {
     $("#SaveButton").attr("disabled", "disabled");
 
     var parentId = $("#category-parent").val(),
-        name = $("#node-name").val();
+        name = $("#node-name").val(),
+        weight = $("#node-weight").val();
 
     var leaveSpinning = false;
 
@@ -41,7 +47,8 @@ jlab.srm.addCategory = function () {
         type: "POST",
         data: {
             parentId: parentId,
-            name: name
+            name: name,
+            weight: weight
         },
         dataType: "html"
     });
@@ -95,7 +102,8 @@ jlab.srm.editCategory = function () {
     $("#SaveButton").attr("disabled", "disabled");
 
     var parentId = $("#category-parent").val(),
-        name = $("#node-name").val();
+        name = $("#node-name").val(),
+        weight = $("#node-weight").val();
 
     var leaveSpinning = false;
 
@@ -105,7 +113,8 @@ jlab.srm.editCategory = function () {
         data: {
             categoryId: categoryId,
             parentId: parentId,
-            name: name
+            name: name,
+            weight: weight
         },
         dataType: "html"
     });
@@ -212,7 +221,8 @@ jlab.srm.addSystem = function () {
 
     var parentId = $("#category-parent").val(),
         name = $("#node-name").val(),
-        description = $("#node-description").val();
+        description = $("#node-description").val(),
+        weight = $("#node-weight").val();
 
     var leaveSpinning = false;
 
@@ -222,7 +232,8 @@ jlab.srm.addSystem = function () {
         data: {
             parentId: parentId,
             name: name,
-            description: description
+            description: description,
+            weight: weight
         },
         dataType: "html"
     });
@@ -277,7 +288,8 @@ jlab.srm.editSystem = function () {
 
     var parentId = $("#category-parent").val(),
         name = $("#node-name").val(),
-        description = $("#node-description").val();
+        description = $("#node-description").val(),
+        weight = $("#node-weight").val();
 
     var leaveSpinning = false;
 
@@ -288,7 +300,8 @@ jlab.srm.editSystem = function () {
             systemId: systemId,
             parentId: parentId,
             name: name,
-            description: description
+            description: description,
+            weight: weight
         },
         dataType: "html"
     });
@@ -432,8 +445,15 @@ jlab.srm.renameRoot = function () {
     });
 };
 
-jlab.srm.clearAndOpenNodeDialog = function () {
+/* The weight a new category or system gets unless the user changes it */
+jlab.srm.defaultWeight = 1000;
+
+jlab.srm.clearAndOpenNodeDialog = function (weight) {
+    var categoryDialog = $("#node-dialog").dialog("option", "title").indexOf("Category") !== -1;
     $("#node-dialog form").get(0).reset();
+    /* Only a category can be at the top level */
+    $("#category-parent .root-option").prop("disabled", !categoryDialog).toggle(categoryDialog);
+    $("#node-weight").val(weight === undefined ? '' : weight);
     $("#node-dialog").dialog("open");
 };
 
@@ -459,7 +479,7 @@ $(document).on("click", "#open-add-category-dialog-button", function () {
     $("#select-node-fieldset").hide();
     $("#new-value-fieldset").show();
     $("#node-description").prop("disabled", true);
-    jlab.srm.clearAndOpenNodeDialog();
+    jlab.srm.clearAndOpenNodeDialog(jlab.srm.defaultWeight);
 });
 
 $(document).on("click", "#open-edit-category-dialog-button", function () {
@@ -486,7 +506,7 @@ $(document).on("click", "#open-add-system-dialog-button", function () {
     $("#select-node-fieldset").hide();
     $("#new-value-fieldset").show();
     $("#node-description").prop("disabled", false);
-    jlab.srm.clearAndOpenNodeDialog();
+    jlab.srm.clearAndOpenNodeDialog(jlab.srm.defaultWeight);
 });
 
 $(document).on("click", "#open-edit-system-dialog-button", function () {
@@ -509,18 +529,14 @@ $(document).on("click", "#open-remove-system-dialog-button", function () {
 });
 
 $(document).on("change", "#category", function () {
-    var currentCategoryName = $("#category option:selected").text().trim();
+    /* From the tree's model, as a collapsed node's children are not in the page */
+    var tree = $("#tree").jstree(true),
+        node = tree.get_node("node-CATEGORY-" + $("#category").val()),
+        parentId = node ? tree.get_parent(node).replace("node-CATEGORY-", "") : '';
 
-    var currentParentCategoryName = $("#tree li").filter(function () {
-        return $(this).find("> a").text().trim() === currentCategoryName;
-    }).parent().closest("li").find("> a").text().trim();
-
-    $("#category-parent option:selected").prop("selected", false);
-
-    $("#category-parent option").filter(function () {
-        return $(this).text().trim() === currentParentCategoryName;
-    }).prop("selected", true);
+    $("#category-parent").val(parentId);
     $("#node-name").val($("#category option:selected").text().trim());
+    $("#node-weight").val((node && node.li_attr["data-weight"]) || '');
 });
 
 $(document).on("change", "#system", function () {
@@ -530,6 +546,7 @@ $(document).on("change", "#system", function () {
     }).prop("selected", true);
     $("#node-name").val($("#system option:selected").text().trim());
     $("#node-description").val($("#system option:selected").attr("data-description"));
+    $("#node-weight").val($("#system option:selected").attr("data-weight") || '');
 });
 
 $(document).on("click", "#open-edit-root-dialog-button", function () {

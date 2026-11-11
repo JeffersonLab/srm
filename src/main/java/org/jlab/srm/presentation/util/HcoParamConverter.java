@@ -1,11 +1,13 @@
 package org.jlab.srm.presentation.util;
 
 import jakarta.servlet.http.HttpServletRequest;
+import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.jlab.smoothness.business.exception.UserFriendlyException;
 import org.jlab.srm.persistence.enumeration.*;
 
 /**
@@ -121,5 +123,30 @@ public final class HcoParamConverter {
     }
 
     return value;
+  }
+
+  /**
+   * Converts a category or system weight, which orders it among its siblings: lower first, and
+   * those with no weight last, by name.
+   *
+   * @param request the request
+   * @param name the parameter name
+   * @return the weight, or null if the parameter is missing or blank
+   * @throws UserFriendlyException if the value is not a whole number in the int range
+   */
+  public static BigInteger convertWeight(HttpServletRequest request, String name)
+      throws UserFriendlyException {
+    String valueStr = request.getParameter(name);
+
+    if (valueStr == null || valueStr.isBlank()) {
+      return null;
+    }
+
+    try {
+      return BigInteger.valueOf(Integer.parseInt(valueStr.trim()));
+    } catch (NumberFormatException e) {
+      throw new UserFriendlyException(
+          "Weight must be a whole number from " + Integer.MIN_VALUE + " to " + Integer.MAX_VALUE);
+    }
   }
 }
