@@ -4,10 +4,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import jakarta.servlet.http.HttpServletRequest;
 import java.lang.reflect.Proxy;
+import java.math.BigInteger;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
+import org.jlab.smoothness.business.exception.UserFriendlyException;
 import org.jlab.srm.persistence.enumeration.AllChangeType;
 import org.jlab.srm.persistence.enumeration.DataSource;
 import org.jlab.srm.persistence.enumeration.HcoNodeType;
@@ -111,5 +113,27 @@ class HcoParamConverterTest {
     assertThrows(
         ParseException.class,
         () -> HcoParamConverter.convertJLabDate(request("p", "2025-03-07"), "p"));
+  }
+
+  @Test
+  void convertsWeight() throws UserFriendlyException {
+    assertEquals(BigInteger.valueOf(5), HcoParamConverter.convertWeight(request("w", "5"), "w"));
+    assertEquals(
+        BigInteger.valueOf(-20), HcoParamConverter.convertWeight(request("w", " -20 "), "w"));
+    assertNull(HcoParamConverter.convertWeight(request(Map.of()), "w"));
+    assertNull(HcoParamConverter.convertWeight(request("w", ""), "w"));
+    assertNull(HcoParamConverter.convertWeight(request("w", "  "), "w"));
+  }
+
+  @Test
+  void malformedWeightIsRejected() {
+    for (String value : new String[] {"1.5", "ten", "1e3", "99999999999"}) {
+      UserFriendlyException e =
+          assertThrows(
+              UserFriendlyException.class,
+              () -> HcoParamConverter.convertWeight(request("w", value), "w"),
+              value);
+      assertTrue(e.getUserMessage().startsWith("Weight must be a whole number"), value);
+    }
   }
 }

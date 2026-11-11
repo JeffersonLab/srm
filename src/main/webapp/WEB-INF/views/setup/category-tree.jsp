@@ -42,6 +42,13 @@
             #open-edit-root-dialog-button {
                 float: right;
             }
+            #node-weight {
+                width: 8em;
+            }
+            #node-dialog .note {
+                font-size: 0.9em;
+                color: #555;
+            }
             #node-description {
                 resize: none;
                 height: 100px;
@@ -143,7 +150,8 @@
                                         <option value="">&nbsp;</option>
                                         <c:forEach items="${systemList}" var="system">
                                             <option value="${system.systemId}"${param.systemId eq system.systemId ? ' selected="selected"' : ''}
-                                                    data-category="${system.category.name}" data-description="${system.description}"><c:out
+                                                    data-category="${system.category.name}" data-description="${system.description}"
+                                                    data-weight="${system.weight}"><c:out
                                                     value="${system.name}"/></option>
                                         </c:forEach>
                                     </select>
@@ -161,6 +169,7 @@
                                 <div class="li-value">
                                     <select id="category-parent" name="category-parent">
                                         <option value="">&nbsp;</option>
+                                        <option value="${root.categoryId}" class="root-option"><c:out value="${root.name}"/> (top level)</option>
                                         <c:forEach items="${root.children}" var="child">
                                             <t:hierarchical-select-option node="${child}" level="0"
                                                                           parameterName="categoryId"/>
@@ -174,6 +183,15 @@
                                 </div>
                                 <div class="li-value">
                                     <input type="text" maxlength="128" id="node-name" name="node-name"/>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="li-key">
+                                    <label for="node-weight">Weight</label>
+                                </div>
+                                <div class="li-value">
+                                    <input type="number" step="1" id="node-weight" name="node-weight"/>
+                                    <div class="note">Orders it among its siblings: lower first; blank last, by name</div>
                                 </div>
                             </li>
                             <li>

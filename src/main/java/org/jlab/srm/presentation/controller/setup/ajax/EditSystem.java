@@ -13,9 +13,11 @@ import java.math.BigInteger;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.jlab.smoothness.business.exception.UserFriendlyException;
 import org.jlab.smoothness.business.util.ExceptionUtil;
 import org.jlab.smoothness.presentation.util.ParamConverter;
 import org.jlab.srm.business.session.SystemFacade;
+import org.jlab.srm.presentation.util.HcoParamConverter;
 
 /**
  * @author ryans
@@ -47,10 +49,14 @@ public class EditSystem extends HttpServlet {
       BigInteger parentId = ParamConverter.convertBigInteger(request, "parentId");
       String name = request.getParameter("name");
       String description = request.getParameter("description");
-      systemFacade.edit(systemId, parentId, name, description);
+      BigInteger weight = HcoParamConverter.convertWeight(request, "weight");
+      systemFacade.edit(systemId, parentId, name, description, weight);
     } catch (EJBAccessException e) {
       logger.log(Level.WARNING, "Not authorized", e);
       errorReason = "Not authorized";
+    } catch (UserFriendlyException e) {
+      logger.log(Level.WARNING, "Unable to edit system", e);
+      errorReason = e.getUserMessage();
     } catch (Exception e) {
       logger.log(Level.SEVERE, "Unable to edit system", e);
       Throwable rootCause = ExceptionUtil.getRootCause(e);

@@ -208,7 +208,8 @@ public class CategoryFacade extends AbstractFacade<Category> {
   }
 
   @PermitAll
-  public void addNew(BigInteger parentId, String name) throws UserFriendlyException {
+  public void addNew(BigInteger parentId, String name, BigInteger weight)
+      throws UserFriendlyException {
     String username = checkAuthenticated();
 
     if (parentId == null) {
@@ -232,7 +233,7 @@ public class CategoryFacade extends AbstractFacade<Category> {
     Category c = new Category();
     c.setParentId(parent);
     c.setName(name);
-    c.setWeight(BigInteger.valueOf(1000));
+    c.setWeight(weight);
 
     create(c);
   }
@@ -259,7 +260,7 @@ public class CategoryFacade extends AbstractFacade<Category> {
   }
 
   @PermitAll
-  public void edit(BigInteger categoryId, BigInteger parentId, String name)
+  public void edit(BigInteger categoryId, BigInteger parentId, String name, BigInteger weight)
       throws UserFriendlyException {
     String username = checkAuthenticated();
 
@@ -295,8 +296,18 @@ public class CategoryFacade extends AbstractFacade<Category> {
 
     checkAdminOrBranchAdmin(username, branchRoot);
 
+    boolean toTopLevel = ROOT_CATEGORY_ID.equals(parent.getCategoryId());
+    boolean atTopLevel =
+        c.getParentId() != null && ROOT_CATEGORY_ID.equals(c.getParentId().getCategoryId());
+
+    // A top-level category is a branch, which only an admin may add
+    if (toTopLevel && !atTopLevel && !context.isCallerInRole("srm-admin")) {
+      throw new UserFriendlyException("Only an admin can move a category to the top level");
+    }
+
     c.setParentId(parent);
     c.setName(name);
+    c.setWeight(weight);
   }
 
   @RolesAllowed("srm-admin")
