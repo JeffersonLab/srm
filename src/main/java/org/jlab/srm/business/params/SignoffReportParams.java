@@ -8,7 +8,7 @@ public class SignoffReportParams {
   private BigInteger systemId;
   private BigInteger regionId;
   private BigInteger groupId;
-  private BigInteger statusId;
+  private BigInteger[] statusIdArray;
   private Boolean readyTurn;
   private Boolean masked;
   private String componentName;
@@ -53,12 +53,12 @@ public class SignoffReportParams {
     this.groupId = groupId;
   }
 
-  public BigInteger getStatusId() {
-    return statusId;
+  public BigInteger[] getStatusIdArray() {
+    return statusIdArray;
   }
 
-  public void setStatusId(BigInteger statusId) {
-    this.statusId = statusId;
+  public void setStatusIdArray(BigInteger[] statusIdArray) {
+    this.statusIdArray = statusIdArray;
   }
 
   public Boolean isReadyTurn() {

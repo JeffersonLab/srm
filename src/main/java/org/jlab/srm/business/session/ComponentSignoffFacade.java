@@ -354,7 +354,7 @@ public class ComponentSignoffFacade {
       BigInteger systemId,
       BigInteger regionId,
       BigInteger groupId,
-      BigInteger statusId,
+      BigInteger[] statusIdArray,
       Boolean readyTurn,
       Boolean masked,
       String name,
@@ -411,8 +411,11 @@ public class ComponentSignoffFacade {
       whereList.add(w);
     }
 
-    if (statusId != null) {
-      w = "a.status_id = " + statusId;
+    String statusIdCsv =
+        IOUtil.toNullOrCsv(IOUtil.removeNullValues(statusIdArray, BigInteger.class));
+
+    if (statusIdCsv != null) {
+      w = "a.status_id in (" + statusIdCsv + ")";
       whereList.add(w);
     }
 
@@ -508,7 +511,7 @@ public class ComponentSignoffFacade {
       BigInteger systemId,
       BigInteger regionId,
       BigInteger groupId,
-      BigInteger statusId,
+      BigInteger[] statusIdArray,
       Boolean readyTurn,
       Boolean masked,
       String name) {
@@ -561,8 +564,11 @@ public class ComponentSignoffFacade {
       whereList.add(w);
     }
 
-    if (statusId != null) {
-      w = "a.status_id = " + statusId;
+    String statusIdCsv =
+        IOUtil.toNullOrCsv(IOUtil.removeNullValues(statusIdArray, BigInteger.class));
+
+    if (statusIdCsv != null) {
+      w = "a.status_id in (" + statusIdCsv + ")";
       whereList.add(w);
     }
 

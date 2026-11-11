@@ -21,7 +21,7 @@
                 $("#system-select").val('');
                 $("#region-select").val('');
                 $("#group-select").val('');
-                $("#status-select").val('');
+                $("#status-select").val(null).trigger('change');
                 $("#ready-turn-select").val('');
                 $("#masked-select").val('');
                 $("#component").val('');
@@ -33,7 +33,13 @@
                     width: 390
                 });
 
+                $("#status-select").select2({
+                    width: 390
+                });
+
                 $("#destination-select").closest(".li-value").css("visibility", "visible");
+
+                $("#status-select").closest(".li-value").css("visibility", "visible");
             });
         </script>        
     </jsp:attribute>
@@ -139,11 +145,11 @@
                                     <div class="li-key">
                                         <label for="status-select">Status</label>
                                     </div>
-                                    <div class="li-value">
-                                        <select id="status-select" name="statusId">
-                                            <option value="">&nbsp;</option>
+                                    <div class="li-value" style="visibility: hidden;">
+                                        <select id="status-select" multiple="multiple" name="statusId"
+                                                style="min-height: 34px;">
                                             <c:forEach items="${statusList}" var="status">
-                                                <option value="${status.statusId}"${param.statusId eq status.statusId.toString() ? ' selected="selected"' : ''}>
+                                                <option value="${status.statusId}"${s:inArray(paramValues.statusId, status.statusId.toString()) ? ' selected="selected"' : ''}>
                                                     <c:out value="${status.name}"/></option>
                                             </c:forEach>
                                         </select>
@@ -303,7 +309,9 @@
             <input type="hidden" name="systemId" value="${fn:escapeXml(param.systemId)}"/>
             <input type="hidden" name="regionId" value="${fn:escapeXml(param.regionId)}"/>
             <input type="hidden" name="groupId" value="${fn:escapeXml(param.groupId)}"/>
-            <input type="hidden" name="statusId" value="${fn:escapeXml(param.statusId)}"/>
+            <c:forEach items="${paramValues.statusId}" var="statusId">
+                <input type="hidden" name="statusId" value="${fn:escapeXml(statusId)}"/>
+            </c:forEach>
             <input type="hidden" name="readyTurn" value="${fn:escapeXml(param.readyTurn)}"/>
             <input type="hidden" name="masked" value="${fn:escapeXml(param.masked)}"/>
             <input type="hidden" name="componentName" value="${fn:escapeXml(param.componentName)}"/>
