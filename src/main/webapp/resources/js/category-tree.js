@@ -568,6 +568,9 @@ $(function () {
         modal: true
     });
 
+    /* Taller, so the Edit dialogs' fields, with the weight, clear the buttons */
+    $("#node-dialog").dialog("option", {height: 560, minHeight: 560});
+
 
     $("#tree").jstree({
         core: {
