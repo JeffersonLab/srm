@@ -50,7 +50,7 @@ public class SignoffReportUrlParamHandler implements UrlParamHandler<SignoffRepo
     BigInteger systemId = ParamConverter.convertBigInteger(request, "systemId");
     BigInteger regionId = ParamConverter.convertBigInteger(request, "regionId");
     BigInteger groupId = ParamConverter.convertBigInteger(request, "groupId");
-    BigInteger statusId = ParamConverter.convertBigInteger(request, "statusId");
+    BigInteger[] statusIdArray = ParamConverter.convertBigIntegerArray(request, "statusId");
 
     Boolean readyTurn, masked;
 
@@ -70,7 +70,7 @@ public class SignoffReportUrlParamHandler implements UrlParamHandler<SignoffRepo
     params.setSystemId(systemId);
     params.setRegionId(regionId);
     params.setGroupId(groupId);
-    params.setStatusId(statusId);
+    params.setStatusIdArray(statusIdArray);
     params.setReadyTurn(readyTurn);
     params.setMasked(masked);
     params.setComponentName(componentName);
@@ -99,7 +99,9 @@ public class SignoffReportUrlParamHandler implements UrlParamHandler<SignoffRepo
     session.setAttribute("signoffReportSystemId[]", new BigInteger[] {params.getSystemId()});
     session.setAttribute("signoffReportRegionId[]", new BigInteger[] {params.getRegionId()});
     session.setAttribute("signoffReportGroupId[]", new BigInteger[] {params.getGroupId()});
-    session.setAttribute("signoffReportStatusId[]", new BigInteger[] {params.getStatusId()});
+    session.setAttribute(
+        "signoffReportStatusId[]",
+        params.getStatusIdArray() == null ? new BigInteger[0] : params.getStatusIdArray());
     session.setAttribute("signoffReportReadyTurn[]", new Boolean[] {params.isReadyTurn()});
     session.setAttribute("signoffReportMasked[]", new Boolean[] {params.isMasked()});
     session.setAttribute("signoffReportComponentName[]", new String[] {params.getComponentName()});
@@ -138,7 +140,6 @@ public class SignoffReportUrlParamHandler implements UrlParamHandler<SignoffRepo
     BigInteger systemId = defaultValues.getSystemId();
     BigInteger regionId = defaultValues.getRegionId();
     BigInteger groupId = defaultValues.getGroupId();
-    BigInteger statusId = defaultValues.getStatusId();
     Boolean readyTurn = defaultValues.isReadyTurn();
     Boolean masked = defaultValues.isMasked();
     String componentName = defaultValues.getComponentName();
@@ -163,8 +164,8 @@ public class SignoffReportUrlParamHandler implements UrlParamHandler<SignoffRepo
       groupId = groupIdArray[0];
     }
 
-    if (statusIdArray != null && statusIdArray.length > 0) {
-      statusId = statusIdArray[0];
+    if (statusIdArray == null) {
+      statusIdArray = defaultValues.getStatusIdArray();
     }
 
     if (readyTurnArray != null && readyTurnArray.length > 0) {
@@ -186,7 +187,7 @@ public class SignoffReportUrlParamHandler implements UrlParamHandler<SignoffRepo
     params.setSystemId(systemId);
     params.setRegionId(regionId);
     params.setGroupId(groupId);
-    params.setStatusId(statusId);
+    params.setStatusIdArray(statusIdArray);
     params.setReadyTurn(readyTurn);
     params.setMasked(masked);
     params.setComponentName(componentName);
@@ -208,7 +209,7 @@ public class SignoffReportUrlParamHandler implements UrlParamHandler<SignoffRepo
     SystemEntity system = null;
     Region region = null;
     ResponsibleGroup group = null;
-    Status status = null;
+    List<Status> statusList = new ArrayList<>();
 
     if (params.getDestinationIdArray() != null) {
       destinationList = destinationFacade.findMultiple(params.getDestinationIdArray());
@@ -230,8 +231,12 @@ public class SignoffReportUrlParamHandler implements UrlParamHandler<SignoffRepo
       group = groupFacade.find(params.getGroupId());
     }
 
-    if (params.getStatusId() != null) {
-      status = Status.FROM_ID(params.getStatusId());
+    if (params.getStatusIdArray() != null) {
+      for (BigInteger statusId : params.getStatusIdArray()) {
+        if (statusId != null) {
+          statusList.add(Status.FROM_ID(statusId));
+        }
+      }
     }
 
     if (destinationList != null && !destinationList.isEmpty()) {
@@ -261,8 +266,15 @@ public class SignoffReportUrlParamHandler implements UrlParamHandler<SignoffRepo
       filters.add("Group \"" + group.getName() + "\"");
     }
 
-    if (status != null) {
-      filters.add("Status \"" + status.getName() + "\"");
+    if (!statusList.isEmpty()) {
+      String sublist = "\"" + statusList.get(0).getName() + "\"";
+
+      for (int i = 1; i < statusList.size(); i++) {
+        Status status = statusList.get(i);
+        sublist = sublist + ", \"" + status.getName() + "\"";
+      }
+
+      filters.add("Status " + sublist);
     }
 
     if (params.isReadyTurn() != null) {
@@ -310,7 +322,7 @@ public class SignoffReportUrlParamHandler implements UrlParamHandler<SignoffRepo
     builder.add("systemId", IOUtil.nullOrString(params.getSystemId()));
     builder.add("regionId", IOUtil.nullOrString(params.getRegionId()));
     builder.add("groupId", IOUtil.nullOrString(params.getGroupId()));
-    builder.add("statusId", IOUtil.nullOrString(params.getStatusId()));
+    builder.add("statusId", params.getStatusIdArray());
     builder.add("readyTurn", IOUtil.nullOrBoolean(params.isReadyTurn()));
     builder.add("masked", IOUtil.nullOrBoolean(params.isMasked()));
     builder.add("componentName", params.getComponentName());

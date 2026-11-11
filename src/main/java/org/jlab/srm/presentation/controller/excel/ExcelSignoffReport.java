@@ -84,7 +84,7 @@ public class ExcelSignoffReport extends HttpServlet {
             params.getSystemId(),
             params.getRegionId(),
             params.getGroupId(),
-            params.getStatusId(),
+            params.getStatusIdArray(),
             params.isReadyTurn(),
             params.isMasked(),
             params.getComponentName(),
@@ -97,7 +97,7 @@ public class ExcelSignoffReport extends HttpServlet {
             params.getSystemId(),
             params.getRegionId(),
             params.getGroupId(),
-            params.getStatusId(),
+            params.getStatusIdArray(),
             params.isReadyTurn(),
             params.isMasked(),
             params.getComponentName());
