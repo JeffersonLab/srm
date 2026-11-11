@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -51,10 +53,19 @@ public class ComponentDetail extends HttpServlet {
     Component component = null;
     boolean editable = false;
 
+    if (name != null) {
+      name = name.trim();
+    }
+
     if (componentId != null) {
       component = componentFacade.findDetail(componentId);
-    } else if (name != null && !name.trim().isEmpty()) {
+    } else if (name != null && !name.isEmpty()) {
       component = componentFacade.findDetail(name);
+
+      if (component == null) {
+        response.sendRedirect(response.encodeRedirectURL(componentSearchUrl(request, name)));
+        return;
+      }
     }
 
     if (component != null) {
@@ -95,5 +106,17 @@ public class ComponentDetail extends HttpServlet {
         .getServletContext()
         .getRequestDispatcher("/WEB-INF/views/reports/component/detail.jsp")
         .forward(request, response);
+  }
+
+  /**
+   * The component search for a name that names no component, such as the start of one typed in the
+   * quick search: the name may match anywhere in a component's name, as the quick search's
+   * suggestions do, and any other filters are cleared.
+   */
+  private static String componentSearchUrl(HttpServletRequest request, String name) {
+    return request.getContextPath()
+        + "/reports/component?componentName="
+        + URLEncoder.encode("%" + name + "%", StandardCharsets.UTF_8)
+        + "&qualified=";
   }
 }
