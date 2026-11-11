@@ -76,7 +76,7 @@ This application requires a Java 17+ JVM and standard library to run, plus a Jak
 ## Configure
 
 ### Configtime
-Wildfly must be pre-configured before the first deployment of the app. The [wildfly bash scripts](https://github.com/JeffersonLab/wildfly#configure) can be used to accomplish this. See the [Dockerfile](https://github.com/JeffersonLab/srm/blob/main/Dockerfile) for an example.
+Wildfly must be pre-configured before the first deployment of the app. The [wildfly setup functions](https://github.com/JeffersonLab/wildfly#configure) can be used to accomplish this. See the [Dockerfile](https://github.com/JeffersonLab/srm/blob/main/Dockerfile) for an example.
 
 ### Runtime
 Uses the [Smoothness Environment Variables](https://github.com/JeffersonLab/smoothness#environment-variables) plus the following application specific:
@@ -117,7 +117,7 @@ FRONTEND_SERVER_URL=https://localhost:8443
 ```
 Further, the local DataSource must also leverage localhost port forwarding so the `standalone.xml` connection-url field should be: `jdbc:oracle:thin:@//localhost:1521/xepdb1`.  These are the default [ports](#ports); use yours if you set others.
 
-The [server](https://github.com/JeffersonLab/wildfly/blob/main/scripts/server-setup.sh) and [app](https://github.com/JeffersonLab/wildfly/blob/main/scripts/app-setup.sh) setup scripts can be used to set up a local instance of Wildfly. 
+The [wildfly-lib.sh](https://github.com/JeffersonLab/wildfly/blob/main/scripts/wildfly-lib.sh) setup functions can be used to set up a local instance of Wildfly, as the [Dockerfile](https://github.com/JeffersonLab/srm/blob/main/Dockerfile) does.
 
 The unit tests run with `gradlew build`, or alone with `gradlew test`, and need no database, Wildfly, or containers.
 

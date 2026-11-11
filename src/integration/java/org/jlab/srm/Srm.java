@@ -206,10 +206,9 @@ final class Srm {
   }
 
   /**
-   * Trusts the usual CAs, plus the self-signed certificate of the jeffersonlab/wildfly image that
-   * the app runs in. If that image changes its certificate, save the new one with: {@code openssl
-   * s_client -connect localhost:8443 </dev/null | openssl x509 >
-   * src/integration/resources/wildfly-localhost.crt}
+   * Trusts the usual CAs, plus the public demo localhost certificate that every build of the
+   * jeffersonlab/wildfly image (4.0.0 and later) serves: a copy of its config/localhost-demo.crt,
+   * SHA-256 fingerprint 41:01:9E:C4:...:11:19:31.
    */
   private static SSLContext sslContext() {
     Path cacerts = Path.of(System.getProperty("java.home"), "lib", "security", "cacerts");
