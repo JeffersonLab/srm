@@ -268,10 +268,14 @@ public class GroupSignoffFacade extends AbstractFacade<GroupSignoff> {
 
     BigInteger groupId = groupIdList.get(0);
 
+    // A component listed twice is signed off once. Signing off the same signoff a second time in
+    // this transaction re-queries the managed GroupSignoff, which Hibernate 6.6 cannot resolve
+    // through its non-primary-key groupResponsibility join (#62).
+    List<BigInteger> uniqueComponentIdList = new ArrayList<>(new LinkedHashSet<>(componentIdList));
+
     Date signoffDate = new Date(); // We use same date for all items in list
 
-    for (BigInteger componentId : componentIdList) {
-      // BigInteger groupId = groupIdList.get(i++);
+    for (BigInteger componentId : uniqueComponentIdList) {
       updateSignoff(
           componentId, groupId, status, comment, cascadeRule, validateRule, signoffDate, username);
     }
@@ -279,7 +283,7 @@ public class GroupSignoffFacade extends AbstractFacade<GroupSignoff> {
     Long prId = null;
 
     if (needsAttention) {
-      prId = createOpsPr(componentIdList, groupId, comment, username);
+      prId = createOpsPr(uniqueComponentIdList, groupId, comment, username);
     }
 
     return prId;
