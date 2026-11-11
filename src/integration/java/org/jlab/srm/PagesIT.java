@@ -67,6 +67,33 @@ class PagesIT {
   }
 
   @ParameterizedTest
+  @ValueSource(strings = {"0L03", "0L03%20", "%200L03%09"})
+  void quickSearchOpensComponentNamedExactly(String name) throws Exception {
+    HttpResponse<String> response = Srm.get("/reports/component/detail?name=" + name, null);
+
+    assertRendered(response);
+    assertTrue(
+        response.body().contains("<title>SRM - Reports - Component Information: 0L03</title>"),
+        "not 0L03's page: " + tail(response.body()));
+  }
+
+  @Test
+  void quickSearchContinuesOnComponentSearch() throws Exception {
+    HttpResponse<String> response = Srm.get("/reports/component/detail?name=0l0%20", null);
+
+    assertEquals(302, response.statusCode(), response.body());
+    assertEquals(
+        Srm.SRM_URL + "/reports/component?componentName=%250l0%25&qualified=",
+        response.headers().firstValue("Location").orElseThrow());
+
+    HttpResponse<String> search = Srm.getPage("/reports/component/detail?name=0l0%20", null);
+
+    assertRendered(search);
+    assertTrue(search.body().contains(">0L03</a>"), "0L03 not listed");
+    assertTrue(search.body().contains(">0L04</a>"), "0L04 not listed");
+  }
+
+  @ParameterizedTest
   @ValueSource(
       strings = {
         "/setup/component-list",

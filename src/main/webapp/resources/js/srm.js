@@ -107,7 +107,7 @@ $(function () {
             source: function (request, response) {
                 $.ajax({
                     data: {
-                        q: request.term,
+                        q: request.term.trim(),
                         max: 10,
                         application_id: $input.attr("data-application-id").trim() || ''
                     },
