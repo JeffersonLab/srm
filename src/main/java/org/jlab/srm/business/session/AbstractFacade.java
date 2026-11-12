@@ -211,48 +211,18 @@ public abstract class AbstractFacade<T> {
     return isAdminOrBranchAdmin(username, branchRoot);
   }
 
+  /**
+   * A branch is a top-level category, and its admin role (Category.adminRole) names its branch
+   * admins, so giving a branch an admin needs no code change.
+   */
   protected boolean isAdminOrBranchAdmin(String username, Category branchRoot) {
-    boolean isAdminOrBranchAdmin = false;
-
-    boolean isAdmin = context.isCallerInRole("srm-admin");
-    if (isAdmin) {
-      isAdminOrBranchAdmin = true;
-    } else {
-      boolean isBranchAdmin = false;
-      if (branchRoot != null) {
-        switch (branchRoot.getName()) {
-          case "Hall A":
-            isBranchAdmin = context.isCallerInRole("halead");
-            break;
-          case "Hall B":
-            isBranchAdmin = context.isCallerInRole("hblead");
-            break;
-          case "Hall C":
-            isBranchAdmin = context.isCallerInRole("hclead");
-            break;
-          case "Hall D":
-            isBranchAdmin = context.isCallerInRole("hdlead");
-            break;
-          case "LERF":
-            isBranchAdmin = context.isCallerInRole("lerfadm");
-            break;
-          case "Cryo":
-            isBranchAdmin = context.isCallerInRole("cryoadm");
-            break;
-          case "CMTF":
-            isBranchAdmin = context.isCallerInRole("cmtfadm");
-            break;
-          case "VTA":
-            isBranchAdmin = context.isCallerInRole("vtaadm");
-            break;
-        }
-      }
-      if (isBranchAdmin) {
-        isAdminOrBranchAdmin = true;
-      }
+    if (context.isCallerInRole("srm-admin")) {
+      return true;
     }
 
-    return isAdminOrBranchAdmin;
+    String adminRole = branchRoot == null ? null : branchRoot.getAdminRole();
+
+    return adminRole != null && !adminRole.isEmpty() && context.isCallerInRole(adminRole);
   }
 
   public static class OrderDirective {

@@ -81,6 +81,11 @@ https://jakarta.ee/xml/ns/jakartaee/web-jsptaglibrary_3_0.xsd"
         <function-signature>java.lang.String truncateAndUrlEncodeCedName(java.lang.String)</function-signature>
     </function>
     <function>
+        <name>isAdminOrAnyBranchAdmin</name>
+        <function-class>org.jlab.srm.presentation.util.HcoFunctions</function-class>
+        <function-signature>boolean isAdminOrAnyBranchAdmin()</function-signature>
+    </function>
+    <function>
         <name>getHostnameFromIp</name>
         <function-class>org.jlab.srm.presentation.util.HcoFunctions</function-class>
         <function-signature>java.lang.String getHostnameFromIp(java.lang.String)</function-signature>

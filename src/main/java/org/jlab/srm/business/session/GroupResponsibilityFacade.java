@@ -22,7 +22,7 @@ import org.jlab.srm.persistence.enumeration.SignoffChangeType;
  * @author ryans
  */
 @Stateless
-@DeclareRoles({"srm-admin", "halead", "hblead", "hclead", "hdlead", "lerfadm", "cryoadm"})
+@DeclareRoles({"srm-admin"})
 public class GroupResponsibilityFacade extends AbstractFacade<GroupResponsibility> {
 
   @EJB SystemFacade systemFacade;

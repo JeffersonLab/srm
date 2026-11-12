@@ -194,6 +194,17 @@
                                     <div class="note">Orders it among its siblings: lower first; blank last, by name</div>
                                 </div>
                             </li>
+                            <c:if test="${pageContext.request.isUserInRole('srm-admin')}">
+                                <li id="node-admin-role-item">
+                                    <div class="li-key">
+                                        <label for="node-admin-role">Admin Role</label>
+                                    </div>
+                                    <div class="li-value">
+                                        <input type="text" maxlength="64" id="node-admin-role" name="node-admin-role"/>
+                                        <div class="note">Top level only: users with this role are branch admins</div>
+                                    </div>
+                                </li>
+                            </c:if>
                             <li>
                                 <div class="li-key">
                                     <label for="node-description">Description</label>

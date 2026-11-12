@@ -1,7 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
 <%@taglib prefix="fn" uri="jakarta.tags.functions" %>
-<li id="node-CATEGORY-${parent.categoryId}" data-node-type="CATEGORY" data-weight="${parent.weight}" data-jstree='{"type":"CATEGORY"}'>
+<li id="node-CATEGORY-${parent.categoryId}" data-node-type="CATEGORY" data-weight="${parent.weight}" data-admin-role="${fn:escapeXml(parent.adminRole)}" data-jstree='{"type":"CATEGORY"}'>
     <a href="#"><c:out value="${parent.name}"/></a>
     <c:set var="parentForSystemUse" value="${parent}"/>
     <c:if test="${(fn:length(parent.categoryList) > 0)}">

@@ -29,7 +29,7 @@ add_user() {
 echo "----------------"
 echo "| Create Roles |"
 echo "----------------"
-for KC_ROLE_NAME in group1Leaders group2Leaders group3Leaders vtaadm; do
+for KC_ROLE_NAME in group1Leaders group2Leaders group3Leaders vtaadm uitfadm; do
   create_role || rc=1
 done
 
@@ -38,7 +38,8 @@ echo "| Create Users |"
 echo "----------------"
 KC_PASSWORD=password
 add_user user1 James Johnson "${KC_RESOURCE}-user"
-add_user user2 Robert Williams "${KC_RESOURCE}-user"
+# No branch has uitfadm as its admin role until an admin, or an integration test, gives it one
+add_user user2 Robert Williams "${KC_RESOURCE}-user" uitfadm
 add_user user3 Michael Miller "${KC_RESOURCE}-user" group3Leaders vtaadm
 
 echo "------------------------------------"

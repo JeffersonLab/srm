@@ -3,6 +3,7 @@
 <%@taglib prefix="fn" uri="jakarta.tags.functions"%>
 <%@taglib prefix="fmt" uri="jakarta.tags.fmt"%>
 <%@taglib prefix="s" uri="jlab.tags.smoothness"%>
+<%@taglib prefix="srm" uri="http://jlab.org/srm/functions"%>
 <ul>
     <li${'/readiness' eq currentPath ? ' class="current-primary"' : ''}><a
             href="${pageContext.request.contextPath}/readiness">Readiness</a></li>
@@ -16,7 +17,7 @@
             href="${pageContext.request.contextPath}/links">Links</a></li>
     <li${fn:startsWith(currentPath, '/reports') ? ' class="current-primary"' : ''}><a
             href="${pageContext.request.contextPath}/reports/overall-status">Reports</a></li>
-    <c:if test="${pageContext.request.isUserInRole('srm-admin') || pageContext.request.isUserInRole('halead') || pageContext.request.isUserInRole('hblead') || pageContext.request.isUserInRole('hclead') || pageContext.request.isUserInRole('hdlead') || pageContext.request.isUserInRole('lerfadm') || pageContext.request.isUserInRole('cryoadm') || pageContext.request.isUserInRole('cmtfadm') || pageContext.request.isUserInRole('vtaadm')}">
+    <c:if test="${srm:isAdminOrAnyBranchAdmin()}">
         <li${fn:startsWith(currentPath, '/setup') ? ' class="current-primary"' : ''}><a
                 href="${pageContext.request.contextPath}/setup/settings">Setup</a></li>
     </c:if>

@@ -6,6 +6,11 @@ import java.net.URLEncoder;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import org.jlab.srm.business.session.CategoryFacade;
 import org.jlab.srm.persistence.entity.Component;
 import org.jlab.srm.persistence.entity.Status;
 import org.jlab.srm.persistence.enumeration.*;
@@ -16,8 +21,27 @@ import org.jlab.srm.persistence.model.HcoNodeData;
  */
 public final class HcoFunctions {
 
+  private static final Logger LOGGER = Logger.getLogger(HcoFunctions.class.getName());
+
   private HcoFunctions() {
     // cannot instantiate publicly
+  }
+
+  /**
+   * Whether the user may use the setup pages, for showing the Setup tab: an admin, or the branch
+   * admin of any branch.
+   *
+   * @return true if so; false if it cannot be determined, so that every page still renders
+   */
+  public static boolean isAdminOrAnyBranchAdmin() {
+    try {
+      CategoryFacade categoryFacade = InitialContext.doLookup("java:module/CategoryFacade");
+
+      return categoryFacade.isAdminOrAnyBranchAdmin();
+    } catch (NamingException | RuntimeException e) {
+      LOGGER.log(Level.WARNING, "Unable to check for an admin or branch admin", e);
+      return false;
+    }
   }
 
   public static String formatComponent(Component component) {

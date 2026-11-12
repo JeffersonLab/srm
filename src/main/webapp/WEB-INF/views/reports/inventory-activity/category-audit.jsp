@@ -132,6 +132,14 @@
                                 </td>
                             </c:forEach>
                         </tr>
+                        <tr>
+                            <th>Admin Role:</th>
+                            <c:forEach items="${revisionList}" var="entity">
+                                <td>
+                                    <c:out value="${entity.adminRole}"/>
+                                </td>
+                            </c:forEach>
+                        </tr>
                         </tbody>
                     </table>
                     <div class="revision-controls">
