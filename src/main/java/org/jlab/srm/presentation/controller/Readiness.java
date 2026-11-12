@@ -31,6 +31,9 @@ import org.jlab.srm.presentation.params.ReadinessUrlParamHandler;
     urlPatterns = {"/readiness"})
 public class Readiness extends HttpServlet {
 
+  /** Recent Activity entries the page starts with; /ajax/recent-activity gives the next */
+  private static final int RECENT_ACTIVITY_MAX = 5;
+
   @EJB ComponentTreeFacade treeFacade;
   @EJB BeamDestinationFacade destinationFacade;
   @EJB RegionFacade regionFacade;
@@ -136,9 +139,17 @@ public class Readiness extends HttpServlet {
     List<SignoffActivityCompressedRecord> signoffActivityList;
 
     try {
-      signoffActivityList = recentService.filterListCompressedFast(recentParams, 0, 5);
+      // One more than shown, to tell whether there are more
+      signoffActivityList =
+          recentService.filterListCompressedFast(recentParams, 0, RECENT_ACTIVITY_MAX + 1);
     } catch (SQLException e) {
       throw new ServletException("Unable to query for recent activity", e);
+    }
+
+    boolean signoffActivityMore = signoffActivityList.size() > RECENT_ACTIVITY_MAX;
+
+    if (signoffActivityMore) {
+      signoffActivityList = signoffActivityList.subList(0, RECENT_ACTIVITY_MAX);
     }
 
     // Signoff is different than filter list (N/A is okay for signoff).
@@ -165,6 +176,7 @@ public class Readiness extends HttpServlet {
     selectionMessage = selectionMessage + " {" + formatter.format(componentCount) + "}";
 
     request.setAttribute("signoffActivityList", signoffActivityList);
+    request.setAttribute("signoffActivityMore", signoffActivityMore);
     request.setAttribute("targetCsv", targetCsv);
     request.setAttribute("selectionMessage", selectionMessage);
     request.setAttribute("componentCount", componentCount);
