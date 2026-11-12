@@ -3,3 +3,8 @@
 build/
 run/
 .env
+# The user guide's website and its tools (zensical.toml); the image needs neither
+site/
+pages/
+.venv/
+.cache/

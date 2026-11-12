@@ -5,6 +5,7 @@ A [Jakarta EE 10](https://en.wikipedia.org/wiki/Jakarta_EE) web application for 
 
 ---
 - [Overview](https://github.com/JeffersonLab/srm#overview)
+- [User Guide](https://github.com/JeffersonLab/srm/blob/main/docs/user-guide/README.md)
 - [Quick Start with Compose](https://github.com/JeffersonLab/srm#quick-start-with-compose)
 - [Install](https://github.com/JeffersonLab/srm#install)
 - [Configure](https://github.com/JeffersonLab/srm#configure)
@@ -17,6 +18,8 @@ A [Jakarta EE 10](https://en.wikipedia.org/wiki/Jakarta_EE) web application for 
 
 ## Overview
 The System Readiness application allows machine operators and management to determine machine readiness.  The app inventories all systems of the machine and organizes systems into a hierarchy of categories.  Further, systems are assigned individual components to increase readiness specificity.  To aid in answering the more common question of where can beam be sent, each component is associated with zero or more beam destinations.  Component readiness is determined by System Responsible Groups, and each component has an ordered set assigned.   Each Responsible Group is associated with a set of group leaders, who are authorized to mark final readiness.
+
+See the [User Guide](https://jeffersonlab.github.io/srm/latest/) for how to use it.
 
 ## Quick Start with Compose
 1. Grab project
@@ -86,7 +89,7 @@ Uses the [Smoothness Environment Variables](https://github.com/JeffersonLab/smoo
 | SRM_BOOKS_CSV  | Comma Separated Logbooks to post OPS-PR entries to.  Defaults to TLOG.  Generally should be set to ELOG in production.          |
 | CED_SERVER_URL | The scheme, host name and port of the CEBAF Element Database (CED)                                                              |
 
-There are some [Settings](https://github.com/JeffersonLab/srm/blob/87cb8b7d1a9b0e2e36cc68b34eaefe02478bb89a/docker/oracle/setup/02_ddl.sql#L256-L264) in the database as well.
+There are some [Settings](https://github.com/JeffersonLab/srm/blob/main/container/oracle/initdb.d/04_settings.sql) in the database as well, which an admin edits on the Setup tab; see the User Guide's [Administration](https://github.com/JeffersonLab/srm/blob/main/docs/user-guide/administration.md#settings-and-directory-cache) page.
 
 ### Roles
 Users with the `srm-admin` role are admins, who set up everything.  A branch admin sets up one branch: a top-level category, such as Hall A, with the categories, systems and components below it.  A branch's admins are the users with its admin role, which an admin sets with the Admin Role field when adding or editing the top-level category on the Setup > Category Tree page.  Any role of the identity provider can be used, so a new branch admin role needs no code change.  In their branch, a branch admin can also sign off a component as Ready or N/A for any responsible group, which otherwise takes an admin or a leader of the group.
@@ -107,6 +110,13 @@ gradlew build
 **Note for JLab On-Site Users**: Jefferson Lab has an intercepting [proxy](https://gist.github.com/slominskir/92c25a033db93a90184a5994e71d0b78)
 
 See: [Docker Development Quick Reference](https://gist.github.com/slominskir/a7da801e8259f5974c978f9c3091d52c#development-quick-reference)
+
+### User Guide website
+The [user guide](https://github.com/JeffersonLab/srm/tree/main/docs/user-guide) is Markdown, readable on GitHub, and also built into a website with [Zensical](https://zensical.org) ([zensical.toml](zensical.toml)). With [uv](https://docs.astral.sh/uv/getting-started/installation/) installed:
+```
+uv run --locked zensical build --strict
+```
+builds it into `site/`, as CI does; `--strict` fails on a link to a missing page or heading. `uv run --locked zensical serve` previews it at http://localhost:8000.
 
 ## Develop
 In order to iterate rapidly when making changes it's often useful to run the app directly on the local workstation, perhaps leveraging an IDE.  In this scenario run the service dependencies with:
@@ -137,6 +147,7 @@ They wait up to 10 minutes for the services to start (set `SRM_READY_TIMEOUT_SEC
     - The [Create release](https://github.com/JeffersonLab/java-workflows/blob/main/.github/workflows/gh-release.yaml) GitHub Action to tag the source and create release notes summarizing any pull requests.   Edit the release notes to add any missing details.  A war file artifact is attached to the release.
     - The [Publish docker image](https://github.com/JeffersonLab/container-workflows/blob/main/.github/workflows/docker-publish.yaml) GitHub Action to create a new demo Docker image.
     - The [Deploy to JLab](https://github.com/JeffersonLab/general-workflows/blob/main/.github/workflows/jlab-deploy-app.yaml) GitHub Action to deploy to the JLab test environment.
+    - A job that publishes the [User Guide](https://jeffersonlab.github.io/srm/) to GitHub Pages, in a folder for the release and in `latest/`.
 
 ## Deploy
 The deploy to JLab's acctest is handled automatically via the release workflow.
