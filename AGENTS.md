@@ -44,6 +44,11 @@ project is, its settings, and how to set it up.
   as needing attention posts an OPS-PR entry to it (`SRM_BOOKS_CSV`, default `TLOG`), so don't
   make one. `CED_SERVER_URL` is only used for links. Never point the app at JLab's servers or
   production databases.
+- User guide (`docs/user-guide`): it is also a Zensical website (`zensical.toml`, tools pinned by
+  `uv.lock`). On a change to it, run `uv run --locked zensical build --strict`, as CI's
+  `user-guide` job does; link within the guide by relative path, and outside it by full URL.
+  Releases publish it to GitHub Pages (`cd.yaml`). It describes what the app does: update it in
+  the same pull request as a change to behavior or pages.
 - UI changes: there are no browser tests or screenshot script; look at the page in a browser
   (forward the ports from the VM, or drive one) and say in the pull request what you checked.
 - Compile for Java 17 (`options.release = 17`). Wildfly 37 provides the `providedCompile`
@@ -191,7 +196,8 @@ the pull request's required checks.
 
 ## Project rules
 
-- PR checks: `build` from CI, and CodeQL. Wait for both before reporting a pull request ready.
+- PR checks: `build` and `user-guide` from CI, and CodeQL. Wait for all three before reporting a
+  pull request ready.
 - Changelog eligibility: unused. Types: unused.
 - Breaking trailers: unused.
 - Milestones and issue status: unused.
