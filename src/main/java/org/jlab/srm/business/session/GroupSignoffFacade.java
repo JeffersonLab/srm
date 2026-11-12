@@ -2,6 +2,7 @@ package org.jlab.srm.business.session;
 
 import jakarta.annotation.security.PermitAll;
 import jakarta.ejb.EJB;
+import jakarta.ejb.EJBAccessException;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -27,6 +28,7 @@ import org.jlab.srm.persistence.model.SignoffStandIn;
 public class GroupSignoffFacade extends AbstractFacade<GroupSignoff> {
 
   private static final Logger LOGGER = Logger.getLogger(GroupSignoffFacade.class.getName());
+  @EJB CategoryFacade categoryFacade;
   @EJB ComponentFacade componentFacade;
   @EJB ResponsibleGroupFacade groupFacade;
   @EJB GroupResponsibilityFacade groupResponsibilityFacade;
@@ -159,12 +161,13 @@ public class GroupSignoffFacade extends AbstractFacade<GroupSignoff> {
       /*We are actually changing the status*/
 
       /*If setting N/A make sure at least one responsible group is not N/A*/
-      /*Also, you best be an Admin or Group Leader*/
+      /*Also, you best be an Admin, Group Leader or Branch Admin*/
       if (status.equals(Status.NOT_APPLICABLE)) {
-        checkAdminOrGroupLeader(
+        checkAdminOrGroupLeaderOrBranchAdmin(
             username,
             responsibility.getGroup(),
-            "You must be a group leader or admin to change a signoff status to N/A");
+            component,
+            "You must be a group leader, branch admin or admin to change a signoff status to N/A");
 
         if (validateRule.atLeastOneNonNa) {
           List<ComponentSignoff> signoffList = componentFacade.findByComponent(componentId);
@@ -185,12 +188,13 @@ public class GroupSignoffFacade extends AbstractFacade<GroupSignoff> {
           }
         }
 
-        /*If setting to Ready you best be an Admin or the group leader*/
+        /*If setting to Ready you best be an Admin, the group leader or the Branch Admin*/
       } else if (status.equals(Status.READY)) {
-        checkAdminOrGroupLeader(
+        checkAdminOrGroupLeaderOrBranchAdmin(
             username,
             responsibility.getGroup(),
-            "You must be a group leader or admin to change a signoff status to Ready");
+            component,
+            "You must be a group leader, branch admin or admin to change a signoff status to Ready");
 
         if (validateRule.twoStepSignoff) {
           if (signoff.getStatus() == null || signoff.getStatus().equals(Status.NOT_READY)) {
@@ -241,6 +245,29 @@ public class GroupSignoffFacade extends AbstractFacade<GroupSignoff> {
     }
 
     groupSignoffHistoryFacade.newHistory(signoff);
+  }
+
+  /**
+   * Checks that the caller may sign off for a group on a component as Ready or N/A: an admin, a
+   * leader of the group, or a branch admin of the component's branch, who administers everything in
+   * the branch.
+   *
+   * @param username the caller
+   * @param group the responsible group
+   * @param component the component
+   * @param message the reason given to a caller who may not
+   */
+  private void checkAdminOrGroupLeaderOrBranchAdmin(
+      String username, ResponsibleGroup group, Component component, String message) {
+    if (isAdminOrGroupLeader(username, group)) {
+      return;
+    }
+
+    Category branchRoot = categoryFacade.findBranchRoot(component.getSystem().getCategory());
+
+    if (!isAdminOrBranchAdmin(username, branchRoot)) {
+      throw new EJBAccessException(message);
+    }
   }
 
   @PermitAll
