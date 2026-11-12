@@ -211,6 +211,44 @@ jlab.srm.updateSignoff = function () {
     });
 };
 
+/* Appends the next Recent Activity entries, for the page's filters, after those shown */
+jlab.srm.showMoreActivity = function () {
+    var $button = $("#show-more-button"),
+        query = window.location.search,
+        offset = $("#activity-table .top-row").length;
+
+    $button.attr("disabled", "disabled");
+
+    var request = jQuery.ajax({
+        url: jlab.contextPath + "/ajax/recent-activity" + (query ? query + "&" : "?") + "offset=" + offset,
+        type: "GET",
+        dataType: "html"
+    });
+
+    request.done(function (data) {
+        var $tbody = $($.parseHTML($.trim(data))).filter("tbody");
+
+        $("#activity-table").append($tbody);
+
+        if ($tbody.attr("data-more") !== "true") {
+            $button.remove();
+        }
+    });
+
+    request.fail(function (xhr, textStatus) {
+        window.console && console.log('Unable to show more activity: Text Status: ' + textStatus + ', Ready State: ' + xhr.readyState + ', HTTP Status Code: ' + xhr.status);
+        alert('Unable to show more activity; server did not handle request');
+    });
+
+    request.always(function () {
+        $button.removeAttr("disabled");
+    });
+};
+
+$(document).on("click", "#show-more-button", function () {
+    jlab.srm.showMoreActivity();
+});
+
 $(document).on("click", "#updateButton", function () {
     jlab.srm.updateSignoff();
 });

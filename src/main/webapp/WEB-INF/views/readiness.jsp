@@ -323,36 +323,7 @@
                     <c:choose>
                         <c:when test="${signoffActivityList.size() > 0}">
                             <table id="activity-table">
-                                <tbody>
-                                <c:forEach items="${signoffActivityList}" var="signoff">
-                                    <tr class="top-row">
-                                        <fmt:formatDate pattern="dd-MMM-yyyy HH:mm" value="${signoff.modifiedDate}"
-                                                        var="fullDate"/>
-                                        <td>
-                                            <span class="date-header" title="${fn:escapeXml(fullDate)}"><fmt:formatDate
-                                                    pattern="dd MMM HH:mm" value="${signoff.modifiedDate}"/></span>
-                                            - <span class="activity-user"
-                                                    title="${s:formatUsername(signoff.modifiedBy)}"><c:out
-                                                value="${signoff.modifiedBy}"/></span>
-                                            - <c:out value="${srm:formatChangeType(signoff.changeType)}"/> - <c:out
-                                                value="${signoff.systemName}"/>
-                                            - <c:out
-                                                value="${srm:formatFakeComponent(signoff.firstComponentName, signoff.firstUnpowered)}"/>
-                                            <c:if test="${signoff.componentCount > 1}">
-                                                + ${signoff.componentCount - 1} more
-                                            </c:if>
-                                        </td>
-                                    </tr>
-                                    <tr class="middle-row">
-                                        <td><c:out value="${signoff.comments}"/></td>
-
-                                    </tr>
-                                    <tr class="bottom-row">
-                                        <td><c:out value="${signoff.groupName}"/> - <c:out
-                                                value="${signoff.statusName}"/></td>
-                                    </tr>
-                                </c:forEach>
-                                </tbody>
+                                <jsp:include page="/WEB-INF/views/readiness-activity.jsp"/>
                             </table>
                             <c:url var="url" value="/reports/signoff-activity">
                                 <c:forEach items="${paramValues.destinationId}" var="destinationId">
@@ -370,7 +341,12 @@
                                 </c:forEach>
                                 <c:param name="qualified" value=""/>
                             </c:url>
-                            <a id="more-link" href="${url}">More -&gt;</a>
+                            <div id="activity-more">
+                                <c:if test="${signoffActivityMore}">
+                                    <button id="show-more-button" type="button">Show more</button>
+                                </c:if>
+                                <a id="more-link" href="${url}">Signoff Activity -&gt;</a>
+                            </div>
                         </c:when>
                         <c:otherwise>
                             <div class="message-box">None</div>

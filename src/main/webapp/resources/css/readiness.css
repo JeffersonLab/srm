@@ -108,6 +108,10 @@ li[data-node-type='GROUP'] > a:hover {
     font-weight: bold;
 }
 
+#activity-more {
+    overflow: hidden;
+}
+
 #more-link {
     float: right;
 }
