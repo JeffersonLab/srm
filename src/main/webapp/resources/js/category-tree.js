@@ -20,6 +20,26 @@ jlab.srm.validateNodeForm = function () {
     return true;
 };
 
+/* Only a top-level category, a branch, has an admin role, and only an admin has the field */
+jlab.srm.updateAdminRoleField = function () {
+    var topLevel = $("#category-parent option:selected").hasClass("root-option");
+
+    $("#node-admin-role").prop("disabled", !topLevel);
+
+    if (!topLevel) {
+        $("#node-admin-role").val('');
+    }
+};
+
+/* Adds the admin role to a category's data, if the user has the field: without it the role stays as it is */
+jlab.srm.withAdminRole = function (data) {
+    if ($("#node-admin-role").length) {
+        data.adminRole = $("#node-admin-role").val();
+    }
+
+    return data;
+};
+
 jlab.srm.addCategory = function () {
 
     if (jlab.isRequest()) {
@@ -45,11 +65,11 @@ jlab.srm.addCategory = function () {
     var request = jQuery.ajax({
         url: jlab.contextPath + "/setup/ajax/add-category",
         type: "POST",
-        data: {
+        data: jlab.srm.withAdminRole({
             parentId: parentId,
             name: name,
             weight: weight
-        },
+        }),
         dataType: "html"
     });
 
@@ -110,12 +130,12 @@ jlab.srm.editCategory = function () {
     var request = jQuery.ajax({
         url: jlab.contextPath + "/setup/ajax/edit-category",
         type: "POST",
-        data: {
+        data: jlab.srm.withAdminRole({
             categoryId: categoryId,
             parentId: parentId,
             name: name,
             weight: weight
-        },
+        }),
         dataType: "html"
     });
 
@@ -453,6 +473,8 @@ jlab.srm.clearAndOpenNodeDialog = function (weight) {
     $("#node-dialog form").get(0).reset();
     /* Only a category can be at the top level */
     $("#category-parent .root-option").prop("disabled", !categoryDialog).toggle(categoryDialog);
+    $("#node-admin-role-item").toggle(categoryDialog);
+    jlab.srm.updateAdminRoleField();
     $("#node-weight").val(weight === undefined ? '' : weight);
     $("#node-dialog").dialog("open");
 };
@@ -537,6 +559,12 @@ $(document).on("change", "#category", function () {
     $("#category-parent").val(parentId);
     $("#node-name").val($("#category option:selected").text().trim());
     $("#node-weight").val((node && node.li_attr["data-weight"]) || '');
+    jlab.srm.updateAdminRoleField();
+    $("#node-admin-role:enabled").val((node && node.li_attr["data-admin-role"]) || '');
+});
+
+$(document).on("change", "#category-parent", function () {
+    jlab.srm.updateAdminRoleField();
 });
 
 $(document).on("change", "#system", function () {
@@ -568,8 +596,8 @@ $(function () {
         modal: true
     });
 
-    /* Taller, so the Edit dialogs' fields, with the weight, clear the buttons */
-    $("#node-dialog").dialog("option", {height: 560, minHeight: 560});
+    /* Taller, so the Edit dialogs' fields, with the weight and an admin's admin role, clear the buttons */
+    $("#node-dialog").dialog("option", {height: 610, minHeight: 610});
 
 
     $("#tree").jstree({

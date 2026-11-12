@@ -67,22 +67,17 @@
         </user-data-constraint>
     </security-constraint>
     <security-constraint>
-        <display-name>Enforce Admin on setup pages</display-name>
+        <display-name>Enforce Authenticated on setup pages</display-name>
         <web-resource-collection>
             <web-resource-name>Setup Pages</web-resource-name>
+            <description>Requires a login only: SetupAccessFilter, on the same URL patterns, then lets in only an
+                admin or a branch admin, as the branch admin roles are data (each branch's admin role)
+            </description>
             <url-pattern>/setup/*</url-pattern>
             <url-pattern>/reports/inventory-activity/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
-            <role-name>srm-admin</role-name>
-            <role-name>halead</role-name>
-            <role-name>hblead</role-name>
-            <role-name>hclead</role-name>
-            <role-name>hdlead</role-name>
-            <role-name>lerfadm</role-name>
-            <role-name>cryoadm</role-name>
-            <role-name>vtaadm</role-name>
-            <role-name>cmtfadm</role-name>
+            <role-name>**</role-name>
         </auth-constraint>
     </security-constraint>
     <login-config>
@@ -90,30 +85,6 @@
     </login-config>
     <security-role>
         <role-name>srm-admin</role-name>
-    </security-role>
-    <security-role>
-        <role-name>halead</role-name>
-    </security-role>
-    <security-role>
-        <role-name>hblead</role-name>
-    </security-role>
-    <security-role>
-        <role-name>hclead</role-name>
-    </security-role>
-    <security-role>
-        <role-name>hdlead</role-name>
-    </security-role>
-    <security-role>
-        <role-name>lerfadm</role-name>
-    </security-role>
-    <security-role>
-        <role-name>cryoadm</role-name>
-    </security-role>
-    <security-role>
-        <role-name>vtaadm</role-name>
-    </security-role>
-    <security-role>
-        <role-name>cmtfadm</role-name>
     </security-role>
     <security-role>
         <role-name>cc</role-name>

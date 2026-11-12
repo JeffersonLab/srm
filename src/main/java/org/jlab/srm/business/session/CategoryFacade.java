@@ -14,6 +14,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import javax.sql.DataSource;
 import org.jlab.smoothness.business.exception.UserFriendlyException;
 import org.jlab.smoothness.persistence.util.JPAUtil;
@@ -24,10 +25,13 @@ import org.jlab.srm.persistence.entity.SystemEntity;
  * @author ryans
  */
 @Stateless
-@DeclareRoles({"srm-admin", "halead", "hblead", "hclead", "hdlead", "lerfadm", "cryoadm"})
+@DeclareRoles({"srm-admin"})
 public class CategoryFacade extends AbstractFacade<Category> {
 
   public static final BigInteger ROOT_CATEGORY_ID = BigInteger.valueOf(0L);
+
+  /** The length of the CATEGORY.ADMIN_ROLE column */
+  static final int ADMIN_ROLE_MAX_LENGTH = 64;
 
   @Resource(mappedName = "jdbc/srm")
   DataSource ds;
@@ -207,8 +211,92 @@ public class CategoryFacade extends AbstractFacade<Category> {
     return categoryIdList;
   }
 
+  /**
+   * The admin roles of the branches, the top-level categories.
+   *
+   * @return the roles, without duplicates
+   */
   @PermitAll
-  public void addNew(BigInteger parentId, String name, BigInteger weight)
+  public List<String> findBranchAdminRoles() {
+    TypedQuery<String> q =
+        em.createQuery(
+            "select distinct c.adminRole from Category c "
+                + "where c.parentId.categoryId = :rootId and c.adminRole is not null",
+            String.class);
+
+    q.setParameter("rootId", ROOT_CATEGORY_ID);
+
+    return q.getResultList();
+  }
+
+  /**
+   * Whether the caller may use the setup pages: an admin, or the branch admin of any branch.
+   *
+   * @return true if so
+   */
+  @PermitAll
+  public boolean isAdminOrAnyBranchAdmin() {
+    if (context.isCallerInRole("srm-admin")) {
+      return true;
+    }
+
+    String username = context.getCallerPrincipal().getName();
+
+    // Most requests are anonymous, and need no query to refuse
+    if (username == null || username.isEmpty() || username.equalsIgnoreCase("ANONYMOUS")) {
+      return false;
+    }
+
+    for (String adminRole : findBranchAdminRoles()) {
+      if (context.isCallerInRole(adminRole)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  /**
+   * Decides the admin role to save with a category.
+   *
+   * @param requested the role asked for: null to keep the current one, and blank for none
+   * @param current the category's role now, or null
+   * @param topLevel whether the category will be a top-level one, a branch
+   * @param admin whether the caller is an admin
+   * @return the role to save, or null for none
+   * @throws UserFriendlyException if the role cannot be saved
+   */
+  static String adminRoleToSave(String requested, String current, boolean topLevel, boolean admin)
+      throws UserFriendlyException {
+    String role = requested == null || requested.isBlank() ? null : requested.trim();
+
+    if (!topLevel) {
+      if (role != null) {
+        throw new UserFriendlyException("Only a top-level category can have an admin role");
+      }
+
+      // A branch moved under another category is no longer a branch
+      return null;
+    }
+
+    if (requested == null) {
+      return current;
+    }
+
+    if (!Objects.equals(role, current) && !admin) {
+      throw new UserFriendlyException("Only an admin can change a category's admin role");
+    }
+
+    if (role != null && role.length() > ADMIN_ROLE_MAX_LENGTH) {
+      throw new UserFriendlyException(
+          "Admin role must be no more than " + ADMIN_ROLE_MAX_LENGTH + " characters");
+    }
+
+    return role;
+  }
+
+  @PermitAll
+  public void addNew(BigInteger parentId, String name, BigInteger weight, String adminRole)
       throws UserFriendlyException {
     String username = checkAuthenticated();
 
@@ -230,10 +318,13 @@ public class CategoryFacade extends AbstractFacade<Category> {
 
     checkAdminOrBranchAdmin(username, branchRoot);
 
+    boolean topLevel = ROOT_CATEGORY_ID.equals(parent.getCategoryId());
+
     Category c = new Category();
     c.setParentId(parent);
     c.setName(name);
     c.setWeight(weight);
+    c.setAdminRole(adminRoleToSave(adminRole, null, topLevel, context.isCallerInRole("srm-admin")));
 
     create(c);
   }
@@ -260,7 +351,8 @@ public class CategoryFacade extends AbstractFacade<Category> {
   }
 
   @PermitAll
-  public void edit(BigInteger categoryId, BigInteger parentId, String name, BigInteger weight)
+  public void edit(
+      BigInteger categoryId, BigInteger parentId, String name, BigInteger weight, String adminRole)
       throws UserFriendlyException {
     String username = checkAuthenticated();
 
@@ -301,13 +393,19 @@ public class CategoryFacade extends AbstractFacade<Category> {
         c.getParentId() != null && ROOT_CATEGORY_ID.equals(c.getParentId().getCategoryId());
 
     // A top-level category is a branch, which only an admin may add
-    if (toTopLevel && !atTopLevel && !context.isCallerInRole("srm-admin")) {
+    boolean admin = context.isCallerInRole("srm-admin");
+
+    if (toTopLevel && !atTopLevel && !admin) {
       throw new UserFriendlyException("Only an admin can move a category to the top level");
     }
+
+    String newAdminRole =
+        adminRoleToSave(adminRole, atTopLevel ? c.getAdminRole() : null, toTopLevel, admin);
 
     c.setParentId(parent);
     c.setName(name);
     c.setWeight(weight);
+    c.setAdminRole(newAdminRole);
   }
 
   @RolesAllowed("srm-admin")

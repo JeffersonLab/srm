@@ -21,7 +21,7 @@ import org.jlab.srm.persistence.entity.SystemEntity;
  * @author ryans
  */
 @Stateless
-@DeclareRoles({"srm-admin", "halead", "hblead", "hclead", "hdlead", "lerfadm", "cryoadm"})
+@DeclareRoles({"srm-admin"})
 public class SystemFacade extends AbstractFacade<SystemEntity> {
 
   @EJB CategoryFacade categoryFacade;

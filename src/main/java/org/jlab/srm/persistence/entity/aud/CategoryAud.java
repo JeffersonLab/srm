@@ -44,6 +44,10 @@ public class CategoryAud implements Serializable {
   @ManyToOne(optional = true, fetch = FetchType.EAGER)
   private AllCategory parent;
 
+  @Size(max = 64)
+  @Column(name = "ADMIN_ROLE", length = 64)
+  private String adminRole;
+
   public RevisionType getType() {
     return type;
   }
@@ -70,6 +74,10 @@ public class CategoryAud implements Serializable {
 
   public AllCategory getParent() {
     return parent;
+  }
+
+  public String getAdminRole() {
+    return adminRole;
   }
 
   @Override

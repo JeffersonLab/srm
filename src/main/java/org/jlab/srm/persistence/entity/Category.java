@@ -39,6 +39,14 @@ public class Category implements Serializable, Comparable<Category>, Node {
 
   private BigInteger weight;
 
+  /**
+   * The role whose members administer this category's branch, as a branch admin. Only a top-level
+   * category, a branch, has one.
+   */
+  @Size(max = 64)
+  @Column(name = "ADMIN_ROLE", length = 64)
+  private String adminRole;
+
   @OneToMany(mappedBy = "parentId")
   @OrderBy("weight ASC, name ASC")
   private List<Category> categoryList;
@@ -85,6 +93,14 @@ public class Category implements Serializable, Comparable<Category>, Node {
 
   public void setWeight(BigInteger weight) {
     this.weight = weight;
+  }
+
+  public String getAdminRole() {
+    return adminRole;
+  }
+
+  public void setAdminRole(String adminRole) {
+    this.adminRole = adminRole;
   }
 
   public List<Category> getCategoryList() {

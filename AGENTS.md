@@ -35,7 +35,8 @@ project is, its settings, and how to set it up.
   next `up` rebuilds it. Schema and settings changes go there; there are no migrations, so give
   the SQL that existing databases need in the pull request.
 - Accounts (Keycloak `test-realm`, password `password`): `jdoe`, and `user1` to `user3`;
-  `user3` leads group 3 and has `vtaadm`.
+  `user3` leads group 3 and has `vtaadm`, the VTA branch's admin role; `user2` has `uitfadm`,
+  which is no branch's admin role until a test makes it one.
 - Outside systems: Keycloak (login and the user directory), Oracle, Puppet Show (PDF and image
   export) and SMTP email run as containers; MailHog catches the email
   (`http://localhost:<SRM_MAILHOG_PORT>`, default 8025). The JLab logbook has no stand-in: the

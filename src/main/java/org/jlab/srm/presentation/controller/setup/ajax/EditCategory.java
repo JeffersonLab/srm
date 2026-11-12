@@ -49,7 +49,9 @@ public class EditCategory extends HttpServlet {
       BigInteger parentId = ParamConverter.convertBigInteger(request, "parentId");
       String name = request.getParameter("name");
       BigInteger weight = HcoParamConverter.convertWeight(request, "weight");
-      categoryFacade.edit(categoryId, parentId, name, weight);
+      // Absent leaves the admin role as it is, and blank removes it
+      String adminRole = request.getParameter("adminRole");
+      categoryFacade.edit(categoryId, parentId, name, weight, adminRole);
     } catch (EJBAccessException e) {
       logger.log(Level.WARNING, "Not authorized", e);
       errorReason = "Not authorized";

@@ -20,7 +20,7 @@ import org.jlab.srm.persistence.entity.Component;
  * @author ryans
  */
 @Stateless
-@DeclareRoles({"srm-admin", "halead", "hblead", "hclead", "hdlead", "lerfadm", "cryoadm"})
+@DeclareRoles({"srm-admin"})
 public class ComponentBeamDestinationFacade extends AbstractFacade<BeamDestination> {
 
   @EJB ComponentFacade componentFacade;
