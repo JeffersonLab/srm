@@ -62,7 +62,7 @@ of systems that don't take part in Readiness; see [System participation](#system
 | **Bulk Add** | Adds several components to one system and region, one name to a line. If any name is refused, none are added. |
 | **Rename** | Changes the name. The signoffs and their history stay with the component. |
 | **Remove** | Deletes the component with its signoffs. It no longer appears in the reports, including the activity reports. |
-| **(Un)mask** | Sets or removes a **Masked (Administrator)** mask, with a reason and an expiration. Removing the mask sets the component's signoffs to Checked. See [Masks](masks.md). |
+| **(Un)mask** | Sets or removes a **Masked (Administrator)** mask, with a reason and an expiration. Removing the mask sets the component's signoffs to Not Ready, as the dialog warns, with the **Masked Reason**, if any, as the comment. See [Masks](masks.md). |
 | **(Un)power** | Marks the component [unpowered](concepts.md#unpowered-components), or powered again. Changing it sets the component's signoffs to Not Ready. |
 | **Edit System** | Moves the component to another system. Groups responsible for both systems keep their signoffs; the others' signoffs are deleted, and groups new to the component start at Not Ready. |
 | **Edit Region** | Changes the [region](concepts.md#regions). |

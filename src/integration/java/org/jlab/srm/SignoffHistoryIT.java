@@ -94,7 +94,7 @@ class SignoffHistoryIT {
     assertEquals(
         List.of(
             "Comment; Masked (Administrator)",
-            "Downgrade; Checked",
+            "Downgrade; Not Ready",
             "Comment; Masked (Administrator)"),
         rows.stream().map(row -> row.select("td").get(2).text()).toList());
   }
