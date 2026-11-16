@@ -1,4 +1,5 @@
 alter session set container = XEPDB1;
+SET DEFINE OFF;
 
 -- SETTING CONFIG
 -- Update with your schema name
@@ -38,3 +39,7 @@ insert into SRM_OWNER.SETTING (KEY, VALUE, TYPE, DESCRIPTION, TAG, WEIGHT, CHANG
 insert into SRM_OWNER.SETTING (KEY, VALUE, TYPE, DESCRIPTION, TAG, WEIGHT, CHANGE_ACTION_JNDI) values ('EMAIL_ACTIVITY_ENABLED', 'N', 'BOOLEAN', 'Admin Activity Emails Enabled', 'EMAIL', 6, 'java:global/srm/ScheduledEmailer');
 insert into SRM_OWNER.SETTING (KEY, VALUE, TYPE, DESCRIPTION, TAG, WEIGHT) values ('EMAIL_MASK_REQUEST_LIST', 'tester@example.com', 'CSV', 'List of email addresses to notify about masking requests', 'EMAIL', 7);
 insert into SRM_OWNER.SETTING (KEY, VALUE, TYPE, DESCRIPTION, TAG, WEIGHT) values ('EMAIL_ACTIVITY_LIST', 'tester@example.com', 'CSV', 'List of email addresses to notify of activity', 'EMAIL', 8);
+
+-- SRM Links tab
+insert into SRM_OWNER.SETTING (KEY, VALUE, TYPE, DESCRIPTION, TAG, WEIGHT) values ('LINKS_GENERAL_CSV', 'https://logbooks.jlab.org/|Logbooks,https://tasklists.jlab.org/|Task Lists,https://ace.jlab.org/cdn/doc/srm/Beamline.pdf|Beamline Map,https://www.jlab.org/MEgroup/12GeVacc.html|Songsheets,https://ace.jlab.org/cdn/doc/srm/ACResponsibilities.pdf|Hall A & C Responsibilities,https://ace.jlab.org/cdn/doc/srm/ACDumpResponsibilities.pdf|Hall A & C Beam Dump Responsibilities,https://ace.jlab.org/cdn/doc/srm/BResponsibilities.pdf|Hall B Responsibilities,https://ace.jlab.org/cdn/doc/srm/DDumpResponsibilities.pdf|Hall D Beam Dump Responsibilities,http://opsweb.acc.jlab.org/abil/pro/|Accelerator Bypassed-Interlocks Log (ABIL) - onsite only', 'CSV', 'CSV of the links in the General section of the Links tab, where each item is a URL and a Label separated with the pipe symbol. Labels cannot contain commas.', 'LINKS', 1);
+insert into SRM_OWNER.SETTING (KEY, VALUE, TYPE, DESCRIPTION, TAG, WEIGHT) values ('LINKS_SKETCH_CSV', '{CED_SERVER_URL}/zones/INJECTOR_ZONES/sketch|Injector,{CED_SERVER_URL}/zones/LINAC1/sketch|North LINAC,{CED_SERVER_URL}/zones/LINAC2/sketch|South LINAC,{CED_SERVER_URL}/zones/EAST_ARC/sketch|East Arc,{CED_SERVER_URL}/zones/WEST_ARC/sketch|West Arc,{CED_SERVER_URL}/zones/BSYS/sketch|BSY,{CED_SERVER_URL}/zones/HALLA_ENDSTATION/sketch|Hall A,{CED_SERVER_URL}/zones/HALLB_ENDSTATION/sketch|Hall B,{CED_SERVER_URL}/zones/HALLC_ENDSTATION/sketch|Hall C,{CED_SERVER_URL}/zones/HALLD_ENDSTATION/sketch|Hall D,https://ledweb.acc.jlab.org/zones/LERF/sketch|LERF (onsite only)', 'CSV', 'CSV of the links in the Beamline Sketches section of the Links tab, where each item is a URL and a Label separated with the pipe symbol. Labels cannot contain commas. A URL may start with {CED_SERVER_URL}, which is replaced with the CED_SERVER_URL environment variable.', 'LINKS', 2);

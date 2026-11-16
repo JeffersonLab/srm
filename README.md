@@ -87,7 +87,7 @@ Uses the [Smoothness Environment Variables](https://github.com/JeffersonLab/smoo
 | Name           | Description                                                                                                                     |
 |----------------|---------------------------------------------------------------------------------------------------------------------------------|
 | SRM_BOOKS_CSV  | Comma Separated Logbooks to post OPS-PR entries to.  Defaults to TLOG.  Generally should be set to ELOG in production.          |
-| CED_SERVER_URL | The scheme, host name and port of the CEBAF Element Database (CED)                                                              |
+| CED_SERVER_URL | The scheme, host name and port of the CEBAF Element Database (CED); replaces `{CED_SERVER_URL}` in the Links tab's settings.    |
 
 There are some [Settings](https://github.com/JeffersonLab/srm/blob/main/container/oracle/initdb.d/04_settings.sql) in the database as well, which an admin edits on the Setup tab; see the User Guide's [Administration](https://github.com/JeffersonLab/srm/blob/main/docs/user-guide/administration.md#settings-and-directory-cache) page.
 
