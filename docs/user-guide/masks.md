@@ -97,7 +97,7 @@ request.
 |---|---|
 | The expiration passes | Not Ready, with the comment "Auto-downgrade due to unmasking by expiration". |
 | **Remove Mask** on Masks › Current | Checked or Not Ready, as chosen. |
-| **(Un)mask** on Setup › Component List | Checked. |
+| **(Un)mask** on Setup › Component List | Not Ready, with the **Masked Reason** as the comment, or "Auto-downgrade due to unmasking" if it is empty. |
 
 Either way, every responsible group then has to look at the component again and sign off.
 Expired masks are removed at midnight, and whenever someone opens the Readiness tab, so a mask

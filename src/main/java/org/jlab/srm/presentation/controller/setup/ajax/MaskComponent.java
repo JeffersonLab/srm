@@ -32,6 +32,9 @@ public class MaskComponent extends HttpServlet {
 
   private static final Logger LOGGER = Logger.getLogger(MaskComponent.class.getName());
 
+  /** The signoff history comment for an unmask without a reason. */
+  private static final String UNMASK_COMMENT = "Auto-downgrade due to unmasking";
+
   @EJB ComponentFacade componentFacade;
 
   /**
@@ -52,12 +55,21 @@ public class MaskComponent extends HttpServlet {
       Boolean masked = ParamConverter.convertYNBoolean(request, "masked");
       String maskedReason = request.getParameter("maskedReason");
       Date expiration = ParamConverter.convertFriendlyDateTime(request, "expiration");
+
+      // Masking sets the signoffs to Masked (Administrator); unmasking resets them to Not Ready,
+      // as the dialog warns and as an expired mask does
+      Status status = Status.MASKED_ADMIN;
+
+      if (Boolean.FALSE.equals(masked)) {
+        status = Status.NOT_READY;
+
+        if (maskedReason == null || maskedReason.isBlank()) {
+          maskedReason = UNMASK_COMMENT;
+        }
+      }
+
       componentFacade.editMasked(
-          componentId,
-          masked,
-          maskedReason,
-          expiration,
-          Status.MASKED_ADMIN.getStatusId().intValue());
+          componentId, masked, maskedReason, expiration, status.getStatusId().intValue());
     } catch (EJBException e) {
       Throwable root = ExceptionUtil.getRootCause(e);
       if (e instanceof EJBAccessException || root instanceof EJBAccessException) {
