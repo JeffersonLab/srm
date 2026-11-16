@@ -35,7 +35,7 @@ insert into SETTING (KEY, VALUE, TYPE, DESCRIPTION, TAG, WEIGHT) values ('EMAIL_
 insert into SETTING (KEY, VALUE, TYPE, DESCRIPTION, TAG, WEIGHT) values ('EMAIL_SENDER_ADDRESS', 'srm@jlab.org', 'STRING', 'Email address to use as sender from emails generated in this app.  Note: this is not the same as "from".', 'EMAIL', 4);
 
 -- SRM Specific
-insert into SRM_OWNER.SETTING (KEY, VALUE, TYPE, DESCRIPTION, TAG, WEIGHT, CHANGE_ACTION_JNDI) values ('EMAIL_LEADERS_ENABLED', 'N', 'BOOLEAN', 'Group Leader Emails Enabled', 'EMAIL', 5, 'java:global/srn/ScheduledEmailer');
+insert into SRM_OWNER.SETTING (KEY, VALUE, TYPE, DESCRIPTION, TAG, WEIGHT, CHANGE_ACTION_JNDI) values ('EMAIL_LEADERS_ENABLED', 'N', 'BOOLEAN', 'Group Leader Emails Enabled', 'EMAIL', 5, 'java:global/srm/ScheduledEmailer');
 insert into SRM_OWNER.SETTING (KEY, VALUE, TYPE, DESCRIPTION, TAG, WEIGHT, CHANGE_ACTION_JNDI) values ('EMAIL_ACTIVITY_ENABLED', 'N', 'BOOLEAN', 'Admin Activity Emails Enabled', 'EMAIL', 6, 'java:global/srm/ScheduledEmailer');
 insert into SRM_OWNER.SETTING (KEY, VALUE, TYPE, DESCRIPTION, TAG, WEIGHT) values ('EMAIL_MASK_REQUEST_LIST', 'tester@example.com', 'CSV', 'List of email addresses to notify about masking requests', 'EMAIL', 7);
 insert into SRM_OWNER.SETTING (KEY, VALUE, TYPE, DESCRIPTION, TAG, WEIGHT) values ('EMAIL_ACTIVITY_LIST', 'tester@example.com', 'CSV', 'List of email addresses to notify of activity', 'EMAIL', 8);
