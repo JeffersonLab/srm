@@ -229,7 +229,8 @@ takes effect at once unless the setting's description says the app must be redep
 | `EMAIL_ACTIVITY_ENABLED`, `EMAIL_ACTIVITY_LIST` | Whether the daily activity report is sent, and to whom. |
 | `EMAIL_LEADERS_ENABLED` | Whether the daily group action reports are sent to group leaders. |
 | `EMAIL_ENABLED`, `EMAIL_TESTING_ENABLED`, `EMAIL_SENDER_ADDRESS` | For the Help tab's feedback form: whether it sends email, whether it sends to the test group instead of the admins, and the sender's address. |
-| `HELP_CONTENT_CONTACT`, `HELP_TECHNICAL_CONTACT`, `HELP_DOC_CSV` | The contacts and the documentation links on the Help tab. Each documentation link is `URL|Label`. |
+| `HELP_CONTENT_CONTACT`, `HELP_TECHNICAL_CONTACT`, `HELP_DOC_CSV` | The contacts and the documentation links on the Help tab. Each documentation link is `URL\|Label`. |
+| `LINKS_GENERAL_CSV`, `LINKS_SKETCH_CSV` | The links in the General and Beamline Sketches sections of the [Links](checklists.md#links) tab, in order, separated by commas: each is `URL\|Label`, and a label cannot contain a comma. A URL can start with `{CED_SERVER_URL}`, which stands for the CEBAF Element Database's address. Only `http`, `https` and relative URLs are shown, and a section with no links is hidden. |
 | `NOTIFICATION_ENABLED`, `NOTIFICATION_MESSAGE`, `NOTIFICATION_LINK_NAME`, `NOTIFICATION_LINK_URL` | A banner across the top of every page, such as a notice of maintenance, with an optional link. |
 | `IP_READ_FILTER_ENABLED`, `IP_READ_ALLOWLIST_PATTERN`, `IP_READ_URL_PATTERN` | Whether viewing without a login is limited to some network addresses, and which. |
 | `ADMIN_ROLE_NAME` | The role that can edit settings, is listed on the Help tab and receives feedback. |

@@ -76,3 +76,7 @@ The **Links** tab collects references that are useful during a checkout:
   dump responsibility documents, and the Accelerator Bypassed-Interlocks Log (on site only).
 - **Beamline Sketches**: the CEBAF Element Database's sketch of each part of the machine, from
   the injector to the halls and the LERF.
+
+Admins change the links in the `LINKS_GENERAL_CSV` and `LINKS_SKETCH_CSV`
+[settings](administration.md#settings-and-directory-cache), on the Setup tab, and the tab shows
+them at once.

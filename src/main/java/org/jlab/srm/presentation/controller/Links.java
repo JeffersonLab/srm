@@ -6,8 +6,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import org.jlab.smoothness.business.service.SettingsService;
+import org.jlab.smoothness.persistence.view.ImmutableSettings;
+import org.jlab.srm.presentation.util.Link;
 
 /**
+ * The Links tab, whose links admins edit in the LINKS_GENERAL_CSV and LINKS_SKETCH_CSV settings.
+ *
  * @author ryans
  */
 @WebServlet(
@@ -26,6 +31,12 @@ public class Links extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+    ImmutableSettings settings = SettingsService.cachedSettings;
+    String cedServerUrl = System.getenv("CED_SERVER_URL");
+
+    request.setAttribute(
+        "generalLinks", Link.parse(settings.csv("LINKS_GENERAL_CSV"), cedServerUrl));
+    request.setAttribute("sketchLinks", Link.parse(settings.csv("LINKS_SKETCH_CSV"), cedServerUrl));
 
     getServletConfig()
         .getServletContext()
