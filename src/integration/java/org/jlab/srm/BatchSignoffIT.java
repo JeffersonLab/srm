@@ -28,6 +28,7 @@ class BatchSignoffIT {
   private static final String GROUP_NAME = "Alignment";
   private static final String CHECKED = "50";
   private static final String READY = "1";
+  private static final String MASKED_ADMIN = "250";
 
   /** The history row that adding a component writes for each responsible group. */
   private static final String ADDED = "Comment; Not Ready";
@@ -114,6 +115,50 @@ class BatchSignoffIT {
     assertEquals("Not Ready", currentStatus(notReady));
     assertEquals(List.of("Upgrade; Checked", ADDED), history(0));
     assertEquals(List.of(ADDED), history(1));
+  }
+
+  /** An admin's mask, from Setup › Component List, blocks signoffs like the other kinds. */
+  @Test
+  void adminMaskedComponentIsRefused() throws Exception {
+    String token = Srm.token(Srm.ADMIN);
+    String id = addComponent(token);
+
+    mask(token, id);
+
+    assertEquals("Masked (Administrator)", currentStatus(id));
+
+    String body = batchSignoff(token, List.of(id), CHECKED, "masked " + id);
+
+    assertEquals("Cannot signoff a masked component", reason(body), body);
+    assertEquals("Masked (Administrator)", currentStatus(id));
+    assertEquals(List.of("Comment; Masked (Administrator)", ADDED), history(0));
+  }
+
+  @Test
+  void maskStatusIsRefused() throws Exception {
+    String token = Srm.token(Srm.ADMIN);
+    String id = addComponent(token);
+
+    String body = batchSignoff(token, List.of(id), MASKED_ADMIN, "mask " + id);
+
+    assertEquals("Mask signoff not allowed via regular user submission", reason(body), body);
+    assertEquals("Not Ready", currentStatus(id));
+    assertEquals(List.of(ADDED), history(0));
+  }
+
+  private static void mask(String token, String componentId) throws Exception {
+    HttpResponse<String> response =
+        Srm.post(
+            "/setup/ajax/mask-component",
+            token,
+            List.of(
+                Map.entry("componentId", componentId),
+                Map.entry("masked", "Y"),
+                Map.entry("maskedReason", "masked by BatchSignoffIT"),
+                Map.entry("expiration", "")));
+
+    assertEquals(200, response.statusCode(), response.body());
+    assertEquals("ok", Srm.json(response).getString("stat"), response.body());
   }
 
   private String addComponent(String token) throws Exception {

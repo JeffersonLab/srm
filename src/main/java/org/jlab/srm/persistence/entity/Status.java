@@ -172,6 +172,15 @@ public class Status implements Serializable {
     return maskType;
   }
 
+  /**
+   * Whether this is one of the mask statuses: Director, Crew Chief or Administrator.
+   *
+   * @return true if a mask set this status
+   */
+  public boolean isMask() {
+    return getMaskType() != null;
+  }
+
   public List<GroupSignoff> getGroupSignoffList() {
     return groupSignoffList;
   }

@@ -104,8 +104,8 @@ Expired masks are removed at midnight, and whenever someone opens the Readiness 
 can outlast its expiration time by up to a day in the other pages. A mask with no expiration
 stays until someone removes it.
 
-While a component has a Director or Crew Chief mask, its signoffs can't be changed: remove the
-mask first.
+While a component is masked, by any kind of mask, its signoffs can't be changed: remove the mask
+first.
 
 ## Unpowered or masked?
 

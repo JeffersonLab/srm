@@ -83,6 +83,20 @@ class StatusTest {
     assertNull(Status.NOT_READY.getMaskType());
   }
 
+  @ParameterizedTest(name = "{0} is a mask: {1}")
+  @CsvSource({
+    "0, false",
+    "1, false",
+    "50, false",
+    "100, false",
+    "150, true",
+    "200, true",
+    "250, true"
+  })
+  void isMask(int id, boolean expected) {
+    assertEquals(expected, status(id).isMask());
+  }
+
   @Test
   void equalityIsById() {
     Status copy = new Status(BigInteger.valueOf(1), "Different name");
