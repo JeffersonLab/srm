@@ -127,10 +127,20 @@ jlab.srm.removeComponentException = function () {
         }
     });
 };
+jlab.srm.valuesDiffer = function (values) {
+    for (var i = 1; i < values.length; i++) {
+        if (values[0] !== values[i]) {
+            return true;
+        }
+    }
+
+    return false;
+};
 jlab.srm.openExceptionDialog = function () {
     var componentNameArray = [],
         componentIdArray = [],
-        componentReasonArray = [];
+        componentReasonArray = [],
+        componentExpirationArray = [];
 
     if ($("#component-table .inner-table .selected-row").length < 1) {
         window.console && console.log('No rows selected');
@@ -140,11 +150,13 @@ jlab.srm.openExceptionDialog = function () {
     $("#component-table .inner-table .selected-row").each(function () {
         var componentName = $(this).closest("tr").find(":nth-child(3) a").text(),
             componentId = $(this).closest("tr").attr("data-component-id"),
-            reason = $(this).closest("tr").find(":nth-child(5)").text();
+            reason = $(this).closest("tr").find(":nth-child(5)").text(),
+            expiration = $(this).closest("tr").attr("data-mask-expiration");
 
         componentNameArray.push(componentName);
         componentIdArray.push(componentId);
         componentReasonArray.push(reason);
+        componentExpirationArray.push(expiration);
     });
 
     var $selectedList = $(".selected-row-list");
@@ -163,21 +175,10 @@ jlab.srm.openExceptionDialog = function () {
 
 
     $("#mask-component-masked-reason").val(componentReasonArray[0]);
+    $("#mask-expiration").val(componentExpirationArray[0]);
 
-    var reasonsDiffer = false;
-
-    for (var i = 1; i < componentReasonArray.length; i++) {
-        if (componentReasonArray[0] !== componentReasonArray[i]) {
-            reasonsDiffer = true;
-            break;
-        }
-    }
-
-    if (reasonsDiffer) {
-        $(".rows-differ-message").show();
-    } else {
-        $(".rows-differ-message").hide();
-    }
+    $("#reasons-differ-message").toggle(jlab.srm.valuesDiffer(componentReasonArray));
+    $("#expirations-differ-message").toggle(jlab.srm.valuesDiffer(componentExpirationArray));
 
     $("#exception-dialog").dialog("open");
 };

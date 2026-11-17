@@ -21,7 +21,7 @@ The kind records how the mask was made, and is shown as the component's status:
 | Kind | How it is made | Who can make it |
 |---|---|---|
 | **Masked (Director)** | An admin accepts a [mask request](#requesting-a-mask). | Any logged-in user can ask; an admin accepts. |
-| **Masked (Crew Chief)** | **Mask** on [Candidates](#candidates), or **Edit Mask** on [Current](#current-masks). | A crew chief or an admin. |
+| **Masked (Crew Chief)** | **Mask** on [Candidates](#candidates). | A crew chief or an admin. |
 | **Masked (Administrator)** | **(Un)mask** on [Setup › Component List](administration.md#component-list). | An admin, or a branch admin in their branch. |
 
 Whichever way a component is masked, each of its group signoffs is set to the mask too, with the
@@ -73,9 +73,12 @@ as a wildcard).
 A crew chief or an admin can select one or more rows (hold **Ctrl** or **Shift**, **⌘** on a
 Mac) and then:
 
-- **Edit Mask**: change the reason and expiration. Saving replaces both, so enter the expiration
-  again even if only the reason changes. The reason is required: to unmask, use **Remove Mask**.
-  The mask becomes a Crew Chief mask, with you as the person who masked it.
+- **Edit Mask**: change the reason and expiration. The dialog starts with the first selected
+  component's reason and expiration, and warns when the other selected components' differ:
+  saving gives every selected component the dialog's values. The reason is required: to unmask,
+  use **Remove Mask**. Clear the expiration for a mask that doesn't expire. The mask keeps its
+  kind, its masked date and who masked it; the signoff history records the edit as "Mask
+  edited", with you and the time.
 - **Remove Mask**: unmask the components. Choose the **Status** their signoffs go to, **Checked**
   (the default) or **Not Ready**, and optionally a **Comment** for the signoff history.
 

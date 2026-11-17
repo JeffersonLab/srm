@@ -193,6 +193,7 @@
                                         <c:forEach items="${componentList}" var="component">
                                             <tr data-component-id="${component.componentId}"
                                                 data-masked="${component.masked}"
+                                                data-mask-expiration="<fmt:formatDate value="${component.maskExpirationDate}" pattern="${s:getFriendlyDateTimePattern()}"/>"
                                                 data-system-id="${component.system.systemId}"
                                                 data-source="${component.dataSource}">
                                                 <td><fmt:formatDate value="${component.maskedDate}"
@@ -259,7 +260,7 @@
                             </div>
                             <div class="li-value">
                                 <textarea id="mask-component-masked-reason" name="maskedReason"></textarea>
-                                <span class="rows-differ-message">WARNING: One or more selected components have an existing reason that differs from the above</span>
+                                <span id="reasons-differ-message" class="rows-differ-message">WARNING: One or more selected components have an existing reason that differs from the above</span>
                             </div>
                         </li>
                         <li>
@@ -270,6 +271,7 @@
                             <div class="li-value">
                                 <input type="text" id="mask-expiration" class="date-time-field"
                                        placeholder="DD-MMM-YYYY hh:mm"/>
+                                <span id="expirations-differ-message" class="rows-differ-message">WARNING: One or more selected components have an existing expiration that differs from the above</span>
                             </div>
                         </li>
                     </ul>

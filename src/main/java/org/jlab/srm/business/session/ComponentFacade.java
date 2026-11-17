@@ -1172,9 +1172,37 @@ public class ComponentFacade extends AbstractFacade<Component> {
         throw new UserFriendlyException("component ID must not be empty");
       }
 
-      this.editMasked(
-          componentId, true, reason, expirationDate, Status.MASKED_CC.getStatusId().intValue());
+      Component component = find(componentId);
+
+      if (component != null && component.isMasked() && component.getMaskTypeId() != null) {
+        editMask(component, reason, expirationDate, username);
+      } else {
+        // Masks › Candidates: a component that isn't masked gets a new Crew Chief mask
+        this.editMasked(
+            componentId, true, reason, expirationDate, Status.MASKED_CC.getStatusId().intValue());
+      }
     }
+  }
+
+  /**
+   * Changes an existing mask's reason and expiration (Masks › Current › Edit Mask). The mask keeps
+   * its kind, masked date and who masked it; the signoff history records who edited it and when.
+   */
+  private void editMask(Component component, String reason, Date expiration, String username)
+      throws UserFriendlyException {
+    // If Crew Chief then keep going, otherwise check if Admin or Branch Admin
+    if (!isCrewChief()) {
+      Category branchRoot = categoryFacade.findBranchRoot(component.getSystem().getCategory());
+      checkAdminOrBranchAdmin(username, branchRoot);
+    }
+
+    if (expiration != null && expiration.before(new Date())) {
+      throw new UserFriendlyException("Please provide a future expiration date");
+    }
+
+    component.setMaskedComment(reason);
+    component.setMaskExpirationDate(expiration);
+    resetSignoffsToMasked(component, "Mask edited", username, component.getMaskTypeId());
   }
 
   @PermitAll
