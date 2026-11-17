@@ -712,7 +712,8 @@ from combined c left join srm_owner.responsible_group r on c.group_id = r.group_
 
 -- Functions
 
-/*Check all prior signoff statuses to see who is in the hot seat / at bat */
+/*Check all prior signoff statuses to see who is in the hot seat / at bat: 1 (Ready) when every
+  prior group is Ready or Not Applicable (0), or there is none; otherwise the highest prior status */
 create or replace function srm_owner.previous_signoff_status(v_component_id in integer, v_weight in integer)
     return integer
     is
@@ -727,7 +728,7 @@ begin
         retval := 1;
     END IF;
 
-    IF retval IS NULL THEN
+    IF retval IS NULL OR retval = 0 THEN
         retval := 1;
     END IF;
 
