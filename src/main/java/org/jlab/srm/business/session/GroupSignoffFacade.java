@@ -136,12 +136,11 @@ public class GroupSignoffFacade extends AbstractFacade<GroupSignoff> {
       before = Status.NOT_READY;
     }
 
-    if (validateRule.disallowModifyMask
-        && (before.equals(Status.MASKED) || before.equals(Status.MASKED_CC))) {
+    if (validateRule.disallowModifyMask && before.isMask()) {
       throw new UserFriendlyException("Cannot signoff a masked component");
     }
 
-    if (Status.MASKED.equals(status) || Status.MASKED_CC.equals(status)) {
+    if (status.isMask()) {
       throw new UserFriendlyException("Mask signoff not allowed via regular user submission");
     }
 

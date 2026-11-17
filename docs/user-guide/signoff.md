@@ -76,7 +76,7 @@ finds a problem can downgrade a component. Sign off only for your own group othe
 
 SRM also refuses:
 
-- a signoff on a component with a Director or Crew Chief [mask](masks.md). The mask has to be
+- a signoff on a [masked](masks.md) component, whatever the kind of mask. The mask has to be
   removed first;
 - a signoff for a group whose required [checklist](checklists.md) isn't published, unless you are
   an admin;
