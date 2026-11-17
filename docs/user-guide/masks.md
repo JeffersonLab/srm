@@ -73,9 +73,9 @@ as a wildcard).
 A crew chief or an admin can select one or more rows (hold **Ctrl** or **Shift**, **⌘** on a
 Mac) and then:
 
-- **Edit Mask**: change the reason and expiration. Saving replaces both, so keep a reason in the
-  box and enter the expiration again even if only one of them changes. The mask becomes a Crew
-  Chief mask, with you as the person who masked it.
+- **Edit Mask**: change the reason and expiration. Saving replaces both, so enter the expiration
+  again even if only the reason changes. The reason is required: to unmask, use **Remove Mask**.
+  The mask becomes a Crew Chief mask, with you as the person who masked it.
 - **Remove Mask**: unmask the components. Choose the **Status** their signoffs go to, **Checked**
   (the default) or **Not Ready**, and optionally a **Comment** for the signoff history.
 

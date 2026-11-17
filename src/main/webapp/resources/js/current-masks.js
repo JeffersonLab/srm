@@ -16,6 +16,11 @@ jlab.srm.editComponentException = function () {
         return;
     }
 
+    if ($.trim($("#mask-component-masked-reason").val()) === '') {
+        alert('Please provide a reason');
+        return;
+    }
+
     jlab.requestStart();
 
     $(".dialog-submit-button")
