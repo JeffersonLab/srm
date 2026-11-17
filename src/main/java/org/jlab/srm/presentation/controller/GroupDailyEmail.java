@@ -9,17 +9,21 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import org.jlab.smoothness.business.exception.UserFriendlyException;
 import org.jlab.smoothness.business.util.TimeUtil;
 import org.jlab.smoothness.presentation.util.ParamConverter;
 import org.jlab.srm.business.params.AllActivityParams;
 import org.jlab.srm.business.service.AllActivityService;
+import org.jlab.srm.business.session.AbstractFacade.OrderDirective;
 import org.jlab.srm.business.session.BeamDestinationFacade;
 import org.jlab.srm.business.session.ComponentSignoffFacade;
 import org.jlab.srm.business.session.ResponsibleGroupFacade;
 import org.jlab.srm.business.session.SignoffActivityFacade;
+import org.jlab.srm.persistence.entity.BeamDestination;
 import org.jlab.srm.persistence.entity.ResponsibleGroup;
 import org.jlab.srm.persistence.enumeration.AllChangeType;
 import org.jlab.srm.persistence.model.AllActivityRecord;
@@ -58,21 +62,34 @@ public class GroupDailyEmail extends HttpServlet {
     ResponsibleGroup group = groupFacade.find(groupId);
 
     Calendar c = Calendar.getInstance();
-    // Date now = new Date();
     c.set(Calendar.MILLISECOND, 0);
     c.set(Calendar.SECOND, 0);
     c.set(Calendar.MINUTE, 0);
     c.set(Calendar.HOUR_OF_DAY, 7);
     Date today = c.getTime();
-    c.add(Calendar.DATE, -7);
-    Date sevenDaysAgo = c.getTime();
-    c.add(Calendar.DATE, 4);
-    Date threeDaysAgo = c.getTime();
-    c.add(Calendar.DATE, 2);
+    c.add(Calendar.DATE, -1);
     Date oneDayAgo = c.getTime();
 
-    Date start = oneDayAgo;
-    Date end = today;
+    Date start;
+    Date end;
+
+    try {
+      start = ParamConverter.convertFriendlyDateTime(request, "start");
+      end = ParamConverter.convertFriendlyDateTime(request, "end");
+    } catch (UserFriendlyException e) {
+      throw new ServletException("Unable to parse date", e);
+    }
+
+    if (start == null) {
+      start = oneDayAgo;
+    }
+
+    if (end == null) {
+      end = today;
+    }
+
+    List<BeamDestination> currentRunList =
+        destinationFacade.filterTargetList(destinationFacade.findAll(new OrderDirective("weight")));
 
     AllActivityService activityService = new AllActivityService();
 
@@ -85,6 +102,8 @@ public class GroupDailyEmail extends HttpServlet {
     params.setEnd(end);
 
     params.setGroupId(groupId);
+
+    params.setDestinationIdArray(destinationFacade.toIdArray(currentRunList));
 
     params.setStatusIdArray(new BigInteger[] {BigInteger.valueOf(50), BigInteger.valueOf(100)});
     params.setCurrentSignoffStatusIdArray(
@@ -101,25 +120,33 @@ public class GroupDailyEmail extends HttpServlet {
     int offset = 0;
     int maxPerPage = 50;
 
-    try {
-      activityList = activityService.filterList(params, offset, maxPerPage);
-      totalRecords = activityService.count(params);
-    } catch (SQLException e) {
-      throw new ServletException("Unable to query for recent activity", e);
+    String willNotBeSentMessage = null;
+
+    if (currentRunList.isEmpty()) {
+      // An empty destination filter would match every component, so check for no current run
+      activityList = new ArrayList<>();
+      totalRecords = 0L;
+      willNotBeSentMessage = "No beam destination is in the current run";
+    } else {
+      try {
+        activityList = activityService.filterList(params, offset, maxPerPage);
+        totalRecords = activityService.count(params);
+      } catch (SQLException e) {
+        throw new ServletException("Unable to query for recent activity", e);
+      }
+
+      if (activityList.isEmpty()) {
+        willNotBeSentMessage = "There are no new action items";
+      }
     }
 
     boolean hasMoreActivity = totalRecords > activityList.size();
-
-    String willNotBeSentMessage = null;
-
-    if (activityList.isEmpty()) {
-      willNotBeSentMessage = "There are no new action items";
-    }
 
     request.setAttribute("start", params.getStart());
     request.setAttribute("end", params.getEnd());
     request.setAttribute("willNotBeSentMessage", willNotBeSentMessage);
     request.setAttribute("group", group);
+    request.setAttribute("currentRunList", currentRunList);
     request.setAttribute(
         "dateRange", TimeUtil.formatSmartRangeSeparateTime(params.getStart(), params.getEnd()));
     request.setAttribute("totalCount", totalRecords);

@@ -81,6 +81,11 @@
 <div style="margin-left: 16px;" id="email-content" class="content-section dialog-content">
     <h3>New Outstanding Signoffs</h3>
     <h4>${fn:escapeXml(dateRange)} for group ${fn:escapeXml(group.name)}</h4>
+    <c:if test="${fn:length(currentRunList) > 0}">
+        <p id="current-run">Current run: <c:forEach items="${currentRunList}" var="destination"
+                varStatus="status"><c:out value="${destination.name}"/><c:if
+                test="${not status.last}">, </c:if></c:forEach></p>
+    </c:if>
     <c:if test="${fn:length(activityList) > 0}">
         <table id="activity-table" class="data-table stripped-table constrained-table">
             <thead style="display: none;">
@@ -157,15 +162,18 @@
                 <c:url var="url" context="/" value="/reports/all-activity">
                     <c:param name="start" value="${startStr}"/>
                     <c:param name="end" value="${endStr}"/>
-                    <c:param name="componentStatusId" value="50"/>
-                    <c:param name="componentStatusId" value="100"/>
+                    <c:param name="groupId" value="${group.groupId}"/>
+                    <c:forEach items="${currentRunList}" var="destination">
+                        <c:param name="destinationId" value="${destination.beamDestinationId}"/>
+                    </c:forEach>
+                    <c:param name="currentSignoffStatusId" value="50"/>
+                    <c:param name="currentSignoffStatusId" value="100"/>
                     <c:param name="statusId" value="50"/>
                     <c:param name="statusId" value="100"/>
                     <c:param name="change" value="UPGRADE"/>
                     <c:param name="change" value="DOWNGRADE"/>
                     <c:param name="change" value="CASCADE"/>
                     <c:param name="change" value="COMMENT"/>
-                    <c:param name="change" value="COMPONENT_SYSTEM"/>
                     <c:param name="qualified" value=""/>
                 </c:url>
                 Not all results shown. See <a href="${pathPrefix}${url}">full report</a>.

@@ -210,8 +210,11 @@ SRM sends three kinds of email:
 
 The two daily reports cover the day before, from 7:00 to 7:00. The activity report lists the
 signoff changes that left a component Checked or Not Ready: the new outstanding work. The group
-report lists the same for one group, each with a link to the Signoff tab for that group and
-system. A report with nothing in it isn't sent.
+report lists the same for one group, such as a downgrade of that group's signoff or a cascade to
+it, each with a link to the Signoff tab for that group and system. The group report lists only
+the components in the [Current Run](#beam-destination-list) destinations, so a group isn't
+emailed about destinations that aren't running; with no Current Run destination, it lists
+nothing. A report with nothing in it isn't sent.
 
 Feedback from the Help tab's form is emailed to the admins.
 
