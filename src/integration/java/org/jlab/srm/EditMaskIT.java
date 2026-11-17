@@ -15,6 +15,8 @@ import java.util.Map;
 import java.util.UUID;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,6 +39,7 @@ class EditMaskIT {
       DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm", Locale.US);
 
   private String token;
+  private String name;
   private String componentId;
 
   @BeforeAll
@@ -47,7 +50,7 @@ class EditMaskIT {
   @BeforeEach
   void addComponent() throws Exception {
     token = Srm.token(Srm.ADMIN);
-    String name = "it-" + UUID.randomUUID().toString().substring(0, 8);
+    name = "it-" + UUID.randomUUID().toString().substring(0, 8);
 
     JsonObject added =
         Srm.json(
@@ -110,6 +113,101 @@ class EditMaskIT {
     assertEquals(new Result("Error", "Please provide a reason"), save("", null));
 
     assertSignoffs("Masked (Crew Chief)");
+  }
+
+  /** Edit Mask used to turn every mask into a Crew Chief mask (#81). */
+  @Test
+  void editKeepsTheKindOfMask() throws Exception {
+    LocalDateTime expiration = LocalDateTime.now().plusWeeks(1);
+
+    maskAsAdministrator("masked by EditMaskIT", expiration);
+
+    Element before = currentMaskRow();
+
+    assertEquals("Success", save("edited by EditMaskIT", expiration).status());
+
+    assertSignoffs("Masked (Administrator)");
+
+    Element after = currentMaskRow();
+
+    assertEquals("edited by EditMaskIT", after.select("td.masked-reason").text());
+    assertEquals(before.select("td").get(0).text(), after.select("td").get(0).text());
+    assertEquals(before.select("td").get(3).text(), after.select("td").get(3).text());
+    assertEquals(friendly(expiration), after.select("td").get(1).text());
+
+    // Group 4 (Alignment) is one of the system's groups
+    assertEquals(
+        List.of(
+            "Comment; Masked (Administrator); Mask edited",
+            "Comment; Masked (Administrator); Masked",
+            "Comment; Not Ready; New component added"),
+        history("4"));
+  }
+
+  /**
+   * The Edit Mask dialog fills its Expiration from the row's data-mask-expiration, in the date
+   * picker's format, so that saving keeps the expiration unless the user changes it (#81).
+   */
+  @Test
+  void currentMaskRowCarriesItsExpiration() throws Exception {
+    LocalDateTime expiration = LocalDateTime.now().plusWeeks(1);
+
+    maskAsAdministrator("masked by EditMaskIT", expiration);
+
+    assertEquals(friendly(expiration), currentMaskRow().attr("data-mask-expiration"));
+  }
+
+  private void maskAsAdministrator(String reason, LocalDateTime expiration) throws Exception {
+    HttpResponse<String> response =
+        Srm.post(
+            "/setup/ajax/mask-component",
+            token,
+            List.of(
+                Map.entry("componentId", componentId),
+                Map.entry("masked", "Y"),
+                Map.entry("maskedReason", reason),
+                Map.entry("expiration", friendly(expiration))));
+
+    assertEquals(200, response.statusCode(), response.body());
+    assertEquals("ok", Srm.json(response).getString("stat"), response.body());
+
+    assertSignoffs("Masked (Administrator)");
+  }
+
+  /** The component's row on Masks › Current, as an admin sees it, with every kind of mask. */
+  private Element currentMaskRow() throws Exception {
+    HttpResponse<String> response =
+        Srm.get(
+            "/masks/current?qualified=&statusId=150&statusId=200&statusId=250&componentName="
+                + name,
+            token);
+
+    assertEquals(200, response.statusCode(), response.body());
+
+    Elements rows =
+        Jsoup.parse(response.body()).select("tr[data-component-id=" + componentId + "]");
+
+    assertEquals(1, rows.size(), response.body());
+
+    return rows.first();
+  }
+
+  /** The group's signoff history for the component, as "Change; Status; Comment", newest first. */
+  private List<String> history(String groupId) throws Exception {
+    HttpResponse<String> response =
+        Srm.get(
+            "/reports/signoff-activity?qualified=&componentName=" + name + "&groupId=" + groupId,
+            null);
+
+    assertEquals(200, response.statusCode(), response.body());
+
+    return Jsoup.parse(response.body()).select("table.data-table tbody tr").stream()
+        .map(row -> row.select("td").get(2).text() + "; " + row.select("td").last().text())
+        .toList();
+  }
+
+  private static String friendly(LocalDateTime dateTime) {
+    return FRIENDLY.format(dateTime.truncatedTo(ChronoUnit.MINUTES));
   }
 
   private record Result(String status, String reason) {}
