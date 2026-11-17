@@ -1162,7 +1162,10 @@ public class ComponentFacade extends AbstractFacade<Component> {
       throw new UserFriendlyException("component ID array must not be empty");
     }
 
-    boolean masked = reason != null && !reason.trim().isEmpty();
+    // A blank reason used to unmask, which set the signoffs to Checked; Remove Mask does that
+    if (reason == null || reason.isBlank()) {
+      throw new UserFriendlyException("Please provide a reason");
+    }
 
     for (BigInteger componentId : componentIdArray) {
       if (componentId == null) {
@@ -1170,7 +1173,7 @@ public class ComponentFacade extends AbstractFacade<Component> {
       }
 
       this.editMasked(
-          componentId, masked, reason, expirationDate, Status.MASKED_CC.getStatusId().intValue());
+          componentId, true, reason, expirationDate, Status.MASKED_CC.getStatusId().intValue());
     }
   }
 

@@ -13,6 +13,7 @@ import java.math.BigInteger;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.jlab.smoothness.business.exception.UserFriendlyException;
 import org.jlab.smoothness.presentation.util.ParamConverter;
 import org.jlab.srm.business.session.ComponentFacade;
 
@@ -50,6 +51,9 @@ public class EditComponentException extends HttpServlet {
     } catch (EJBAccessException e) {
       logger.log(Level.WARNING, "Not authorized", e);
       errorReason = "Not authorized";
+    } catch (UserFriendlyException e) {
+      logger.log(Level.WARNING, "Application Exception", e);
+      errorReason = e.getUserMessage();
     } catch (Exception e) {
       logger.log(Level.SEVERE, "Unable to edit component exception", e);
       errorReason = e.getClass().getSimpleName();
