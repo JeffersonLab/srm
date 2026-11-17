@@ -362,6 +362,11 @@ public class SavedSignoffFacade extends AbstractFacade<SavedSignoff> {
         groupIdList.add(saved.getGroup().getGroupId());
       }
 
+      // Nothing to change, for example when every match was modified after maxLastModified.
+      if (componentIdList.isEmpty()) {
+        continue;
+      }
+
       doSignoff(
           saved.getSignoffStatus().getStatusId(),
           saved.getSignoffComments(),

@@ -47,7 +47,7 @@ public class SubmitMultipleSavedSignoffs extends HttpServlet {
       BigInteger[] savedSignoffIdArray =
           ParamConverter.convertBigIntegerArray(request, "saved-signoff-id-array[]");
 
-      Date maxLastModified = ParamConverter.convertFriendlyDateTime(request, "max-modified");
+      Date maxLastModified = ParamConverter.convertFriendlyDateTime(request, "maxModified");
 
       savedSignoffFacade.multipleSignoffs(savedSignoffIdArray, maxLastModified);
     } catch (EJBAccessException e) {

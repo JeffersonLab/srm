@@ -189,9 +189,11 @@ To use them:
   [signoff rules](signoff.md#signoff-rules) apply, and a downgrade cascades: later groups' Ready
   signoffs become Checked.
 - Or select the **🔗** button on a row to open the Signoff tab with that saved signoff's filter,
-  status and comment filled in, to review the components before saving. The **Max Last Modified
-  Date** set on this page is applied too: set it to the start of the maintenance period, so
-  that signoffs made since then aren't downgraded.
+  status and comment filled in, to review the components before saving.
+
+Both ways apply the **Max Last Modified Date** set on this page: signoffs changed after it are
+left alone. Set it to the start of the maintenance period, so that signoffs made since then
+aren't downgraded.
 
 To downgrade Ready signoffs to Checked without upgrading the ones that are Not Ready, set the
 filter's **Status** to Ready; **Downgrade Only** does that for you.

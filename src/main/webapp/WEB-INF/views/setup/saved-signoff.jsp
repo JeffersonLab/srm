@@ -158,8 +158,9 @@
             <p><b>Tip:</b> If you want to downgrade only those signoffs which are "Ready" to "Checked" use the "Status"
                 filter of "Ready" to avoid inadvertently upgrading those that are "Not Ready".</p>
             <p><b>Tip:</b> Set the Max Last Modified Date to the beginning of the SAD. This will prevent downgrading
-                signoffs which were made after the start of the SAD. This is a load-time filter and is applied with all
-                saved signoffs when using the "Load Selected" feature.</p>
+                signoffs which were made after the start of the SAD. This is a load-time filter: it applies to every
+                selected saved signoff when using the "Signoff" button, and to the Signoff tab opened with the "🔗"
+                button.</p>
             <p><b>Tip:</b> Be conscientious of cascade rules when downgrading.</p>
             <p><b>Note:</b> The filter options that can be saved are simplified (subset of signoff screen).</p>
             <div id="add-dialog" class="dialog" title="Add Saved Signoff">
