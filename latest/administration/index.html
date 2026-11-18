@@ -1,0 +1,1445 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="How to track and sign off accelerator system readiness with System Readiness Manager (SRM)">
+      
+      
+      
+      
+        <link rel="prev" href="../reports/">
+      
+      
+        <link rel="next" href="../faq/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.69">
+    
+    
+      
+        <title>Administration - System Readiness Manager User Guide</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.e15858d4.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.b27955a4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
+    <div data-md-component="skip">
+      <a href="#__skip" class="md-skip">
+        Skip to content
+      </a>
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="System Readiness Manager User Guide" class="md-header__button md-logo" aria-label="System Readiness Manager User Guide" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            System Readiness Manager User Guide
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Administration
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun-moon" viewBox="0 0 24 24"><path d="M12 2v2M14.837 16.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4M19 5l-1.256 1.256M20 12h2"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/JeffersonLab/srm" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JeffersonLab/srm
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="System Readiness Manager User Guide" class="md-nav__button md-logo" aria-label="System Readiness Manager User Guide" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    System Readiness Manager User Guide
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/JeffersonLab/srm" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JeffersonLab/srm
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Concepts
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../readiness/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Readiness
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../signoff/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Signing off
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../masks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Masks
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../checklists/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Checklists and links
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reports/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Reports
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Administration
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Administration
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#who-can-do-what" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Who can do what
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#category-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Category Tree
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#component-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Component List
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#component-participation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Component participation
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-participation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        System participation
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#group-responsibilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Group responsibilities
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bulk-signoff" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Bulk Signoff
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#region-list-group-list-beam-destination-list-and-status-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Region List, Group List, Beam Destination List and Status List
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Region List, Group List, Beam Destination List and Status List">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#region-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Region List
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Group List
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#beam-destination-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Beam Destination List
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#status-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Status List
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#saved-signoffs" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Saved Signoffs
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#email" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Email
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#settings-and-directory-cache" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Settings and Directory Cache
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#help-tab" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Help tab
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  FAQ
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hall-responsibilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Hall responsibilities
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#who-can-do-what" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Who can do what
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#category-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Category Tree
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#component-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Component List
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#component-participation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Component participation
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-participation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        System participation
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#group-responsibilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Group responsibilities
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bulk-signoff" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Bulk Signoff
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#region-list-group-list-beam-destination-list-and-status-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Region List, Group List, Beam Destination List and Status List
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Region List, Group List, Beam Destination List and Status List">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#region-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Region List
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Group List
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#beam-destination-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Beam Destination List
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#status-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Status List
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#saved-signoffs" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Saved Signoffs
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#email" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Email
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#settings-and-directory-cache" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Settings and Directory Cache
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#help-tab" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Help tab
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                <a id="__skip" tabindex="-1"></a>
+                
+                  
+
+  
+    <a href="https://github.com/JeffersonLab/srm/edit/main/docs/user-guide/administration.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-file-pen" viewBox="0 0 24 24"><path d="M12.659 22H18a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v9.34"/><path d="M14 2v5a1 1 0 0 0 1 1h5M10.378 12.622a1 1 0 0 1 3 3.003L8.36 20.637a2 2 0 0 1-.854.506l-2.867.837a.5.5 0 0 1-.62-.62l.836-2.869a2 2 0 0 1 .506-.853z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="administration">Administration<a class="headerlink" href="#administration" title="Permanent link">&para;</a></h1>
+<p><a href="../">User Guide</a> › Administration</p>
+<p>The <strong>Setup</strong> tab is where the inventory, the groups and the settings are maintained. It is
+shown to <strong>admins</strong> and <strong>branch admins</strong> only.</p>
+<h2 id="who-can-do-what">Who can do what<a class="headerlink" href="#who-can-do-what" title="Permanent link">&para;</a></h2>
+<ul>
+<li>An <strong>admin</strong> has the <code>srm-admin</code> role and can do everything in SRM.</li>
+<li>A <strong>branch admin</strong> administers one branch: a top-level category, such as a hall, with
+  everything below it. A branch's admins are the users with the branch's <strong>Admin Role</strong>, which
+  an admin sets on the <a href="#category-tree">Category Tree</a>. Any role of the user directory can be
+  used, so a new branch needs no change to SRM.</li>
+<li>A <strong>group leader</strong> is a member of the role named as the group's <strong>Leader Workgroup</strong> on the
+  <a href="#group-list">Group List</a>.</li>
+<li>A <strong>crew chief</strong> has the <code>cc</code> role.</li>
+</ul>
+<p>Roles are managed in the lab's user directory, not in SRM. A change to who is an admin or a
+branch admin takes effect the next time the person logs in. A change to who leads a group takes
+effect when SRM's copy of the directory is refreshed: every night, or at once with <strong>Clear</strong> on
+the <a href="#settings-and-directory-cache">Directory Cache</a> page.</p>
+<p>Branch admins see the whole inventory on the Setup pages, and SRM refuses with "Not authorized"
+when they try to change something outside their branch. The pages they can use are Category
+Tree, Component List, Component Part., System Part., Group Resp. and Bulk Signoff; the rest are
+for admins.</p>
+<p>Every change to a category, system or component is recorded, with who made it and when, in the
+<a href="../reports/#inventory-activity">Inventory Activity report</a>.</p>
+<h2 id="category-tree">Category Tree<a class="headerlink" href="#category-tree" title="Permanent link">&para;</a></h2>
+<p><strong>Setup › Category Tree</strong> shows the categories and systems, and adds, edits and removes them.
+Components are on the <a href="#component-list">Component List</a>.</p>
+<p>Under <strong>Category</strong> and <strong>System</strong>, <strong>Add...</strong>, <strong>Edit...</strong> and <strong>Remove...</strong> open a dialog. For
+Edit and Remove, first choose the category or system; for Add and Edit, fill in:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Parent</strong></td>
+<td>The category it goes under. A category can also go at the top level, which makes it a branch; only an admin can do that.</td>
+</tr>
+<tr>
+<td><strong>Name</strong></td>
+<td>Unique among all categories, or among all systems.</td>
+</tr>
+<tr>
+<td><strong>Weight</strong></td>
+<td>A whole number that orders it among its siblings: lower first; blank last, by name.</td>
+</tr>
+<tr>
+<td><strong>Admin Role</strong></td>
+<td>Top-level categories only, and admins only: the role whose members are the branch's admins.</td>
+</tr>
+<tr>
+<td><strong>Description</strong></td>
+<td>Systems only. Shown in the <strong>System Information</strong> dialog.</td>
+</tr>
+</tbody>
+</table>
+<p>Removing a system removes its components and its group responsibilities with it, and removing a
+category removes its systems the same way, so SRM asks you to confirm. An admin can rename the
+top of the tree with <strong>Root...</strong>.</p>
+<h2 id="component-list">Component List<a class="headerlink" href="#component-list" title="Permanent link">&para;</a></h2>
+<p><strong>Setup › Component List</strong> adds and maintains components. Use the filter to find them, by <strong>Beam
+Destination</strong>, <strong>Category</strong>, <strong>System</strong>, <strong>Region</strong>, <strong>Group</strong>, <strong>Source</strong>, <strong>Masked</strong>,
+<strong>Unpowered</strong> or <strong>Component</strong> name (with <code>%</code> as a wildcard). The list can include components
+of systems that don't take part in Readiness; see <a href="#system-participation">System participation</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Button</th>
+<th>Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Add</strong></td>
+<td>Adds a component: its <strong>Name</strong>, <strong>System</strong> and <strong>Region</strong>. Each of the system's responsible groups gets a Not Ready signoff for it.</td>
+</tr>
+<tr>
+<td><strong>Bulk Add</strong></td>
+<td>Adds several components to one system and region, one name to a line. If any name is refused, none are added.</td>
+</tr>
+<tr>
+<td><strong>Rename</strong></td>
+<td>Changes the name. The signoffs and their history stay with the component.</td>
+</tr>
+<tr>
+<td><strong>Remove</strong></td>
+<td>Deletes the component with its signoffs. It no longer appears in the reports, including the activity reports.</td>
+</tr>
+<tr>
+<td><strong>(Un)mask</strong></td>
+<td>Sets or removes a <strong>Masked (Administrator)</strong> mask, with a reason and an expiration. Removing the mask sets the component's signoffs to Not Ready, as the dialog warns, with the <strong>Masked Reason</strong>, if any, as the comment. See <a href="../masks/">Masks</a>.</td>
+</tr>
+<tr>
+<td><strong>(Un)power</strong></td>
+<td>Marks the component <a href="../concepts/#unpowered-components">unpowered</a>, or powered again. Changing it sets the component's signoffs to Not Ready.</td>
+</tr>
+<tr>
+<td><strong>Edit System</strong></td>
+<td>Moves the component to another system. Groups responsible for both systems keep their signoffs; the others' signoffs are deleted, and groups new to the component start at Not Ready.</td>
+</tr>
+<tr>
+<td><strong>Edit Region</strong></td>
+<td>Changes the <a href="../concepts/#regions">region</a>.</td>
+</tr>
+<tr>
+<td><strong>Edit Source</strong></td>
+<td>Says where the component's record comes from: <strong>INTERNAL</strong>, or an element database (<strong>CED</strong>, <strong>LED</strong>, <strong>UED</strong>) with the element's ID there. The component's detail then links to that element.</td>
+</tr>
+<tr>
+<td><strong>Edit Alias</strong></td>
+<td>Sets another name the component is known by. The search box finds it, and the component's detail shows it.</td>
+</tr>
+</tbody>
+</table>
+<p>A name can't contain an asterisk, and must be unique within its system. For a component whose
+source is an element database, SRM warns before a rename or a move, since the name and system
+should follow the database.</p>
+<h2 id="component-participation">Component participation<a class="headerlink" href="#component-participation" title="Permanent link">&para;</a></h2>
+<p><strong>Setup › Component Part.</strong> sets which <a href="../concepts/#beam-destinations">beam destinations</a> each
+component takes part in. It is a grid of components (rows) by destinations (columns), where a ✔
+means the component is needed to send beam there.</p>
+<p>Select a cell to switch it; it is saved at once. The grid shows five destinations and ten
+components at a time: use the filters to choose the components and the destination columns, the
+<strong>Previous</strong> and <strong>Next</strong> links to move through them, and <strong>10 | 100 | 1000</strong> to show more rows.</p>
+<p>A component that takes part in no destination only shows on the other pages when their Beam
+Destination filter is empty.</p>
+<h2 id="system-participation">System participation<a class="headerlink" href="#system-participation" title="Permanent link">&para;</a></h2>
+<p><strong>Setup › System Part.</strong> sets which applications each system takes part in. SRM's inventory of
+systems and components is shared with other applications, such as Downtime and Problem Report,
+and a ✔ under <strong>Readiness</strong> is what makes a system part of SRM's readiness and signoffs. Select
+a cell to switch it.</p>
+<p>A system without the Readiness ✔, and its components, doesn't appear on the Readiness or Signoff
+tabs or in the reports.</p>
+<h2 id="group-responsibilities">Group responsibilities<a class="headerlink" href="#group-responsibilities" title="Permanent link">&para;</a></h2>
+<p><strong>Setup › Group Resp.</strong> sets, for one system, the ordered list of
+<a href="../concepts/#responsible-groups">groups</a> that sign off its components. Choose the system first.</p>
+<ul>
+<li><strong>Add</strong> a group and say whether a <strong>Checklist Required</strong>. The group goes at the end of the
+  order, and every component of the system gets a Not Ready signoff for it.</li>
+<li><strong>Edit</strong> changes <strong>Checklist Required</strong>. When it is Yes, the group can't sign off the system
+  until its <a href="../checklists/#required-checklists">checklist</a> is published.</li>
+<li><strong>Remove</strong> deletes the group's signoffs for the system's components. Their history stays in
+  the activity reports.</li>
+<li>Drag a row by its handle to change the <strong>Order</strong>; it is saved at once. Existing signoffs don't
+  change. The order decides <a href="../signoff/#whose-turn-it-is">whose turn it is</a> and which groups a
+  <a href="../signoff/#downgrades-and-cascades">downgrade cascades to</a>.</li>
+</ul>
+<h2 id="bulk-signoff">Bulk Signoff<a class="headerlink" href="#bulk-signoff" title="Permanent link">&para;</a></h2>
+<p><strong>Setup › Bulk Signoff</strong> sets every signoff of one or more systems, for every responsible group
+and every component that isn't masked, to the same status with the same comment. It is for
+starting or resetting a checkout, for example setting a whole system to Not Ready at the start
+of a maintenance period.</p>
+<p>Choose the <strong>System</strong> or systems, the <strong>Status</strong> (Ready, Checked or Not Ready) and a
+<strong>Comment</strong>, and select <strong>Signoff</strong>. SRM works through the systems one at a time and shows each
+as Queued, Working, Done or Failed.</p>
+<p>Bulk signoff skips the usual <a href="../signoff/#signoff-rules">signoff rules</a>: a signoff can go
+straight from Not Ready to Ready, required checklists aren't checked, and downgrades don't
+cascade. Setting Ready still needs an admin, a leader of each group, or an admin of the system's
+branch. There is no undo, short of another bulk signoff.</p>
+<h2 id="region-list-group-list-beam-destination-list-and-status-list">Region List, Group List, Beam Destination List and Status List<a class="headerlink" href="#region-list-group-list-beam-destination-list-and-status-list" title="Permanent link">&para;</a></h2>
+<p>These are for admins.</p>
+<h3 id="region-list">Region List<a class="headerlink" href="#region-list" title="Permanent link">&para;</a></h3>
+<p>The <a href="../concepts/#regions">regions</a> in order, with their aliases. The list is read-only: regions
+are added and changed in the database.</p>
+<h3 id="group-list">Group List<a class="headerlink" href="#group-list" title="Permanent link">&para;</a></h3>
+<p>The responsible groups, including archived ones. <strong>Add</strong> or <strong>Edit</strong> a group's:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Name</strong></td>
+<td>Unique.</td>
+</tr>
+<tr>
+<td><strong>Description</strong></td>
+<td>Shown in the <strong>Group Information</strong> dialog.</td>
+</tr>
+<tr>
+<td><strong>Leader Workgroup</strong></td>
+<td>The role in the user directory whose members are the group's leaders.</td>
+</tr>
+<tr>
+<td><strong>Archived</strong></td>
+<td>Hides the group from the lists where a group is chosen, such as the Signoff tab and the Checklists tab.</td>
+</tr>
+</tbody>
+</table>
+<p>A group can't be removed here; archive it instead.</p>
+<h3 id="beam-destination-list">Beam Destination List<a class="headerlink" href="#beam-destination-list" title="Permanent link">&para;</a></h3>
+<p>The <a href="../concepts/#beam-destinations">beam destinations</a> in order, with a <strong>Target</strong> checkbox for
+each. The targets are the <strong>Current Run</strong> destinations: what most pages start with, and what
+the <strong>Current Run</strong> link beside a Beam Destination filter chooses. Tick or untick a checkbox to
+change them, at the start of each run; it is saved at once. The <strong>Facility</strong> filter shows one
+facility's destinations, and <strong>No Target</strong> clears the targets shown.</p>
+<p>Destinations themselves are added and changed in the database.</p>
+<h3 id="status-list">Status List<a class="headerlink" href="#status-list" title="Permanent link">&para;</a></h3>
+<p>The <a href="../concepts/#statuses">statuses</a>, in order from best to worst. Read-only.</p>
+<h2 id="saved-signoffs">Saved Signoffs<a class="headerlink" href="#saved-signoffs" title="Permanent link">&para;</a></h2>
+<p><strong>Setup › Saved Signoffs</strong>, for admins, keeps signoffs that are made again and again, so they
+can be repeated with a few clicks. The main use is the forced re-check at the end of a run:
+downgrading each group's Ready signoffs to Checked, system by system, so that the groups look at
+their components again.</p>
+<p>A saved signoff is a filter, as on the Signoff tab, with the status and comment to apply:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Signoff Type</strong></td>
+<td>A label for grouping them: CEBAF or LERF. With <strong>Autofill name and comments</strong>, the name and comment are made from the group, system and type.</td>
+</tr>
+<tr>
+<td><strong>Signoff Name</strong></td>
+<td>Unique.</td>
+</tr>
+<tr>
+<td><strong>Status</strong>, <strong>Comments</strong></td>
+<td>What to set. With <strong>Downgrade Only</strong>, the choices are Checked and Not Ready.</td>
+</tr>
+<tr>
+<td><strong>Group</strong>, <strong>System</strong></td>
+<td>Whose signoffs, on which system.</td>
+</tr>
+<tr>
+<td><strong>Region</strong>, <strong>Status</strong>, <strong>Component Name</strong></td>
+<td>Optional: only the components in a region, only the signoffs with a given status now, or only the names that match.</td>
+</tr>
+</tbody>
+</table>
+<p>To make one, select <strong>Add</strong>; or set up the filter on the <a href="../signoff/">Signoff</a> tab and select
+<strong>Save Named Signoff</strong> there. A saved signoff can't be edited: remove it and add it again.</p>
+<p>To use them:</p>
+<ul>
+<li>Select one or more rows and select <strong>Signoff</strong> to make them all at once. The normal
+  <a href="../signoff/#signoff-rules">signoff rules</a> apply, and a downgrade cascades: later groups' Ready
+  signoffs become Checked. Select at most one saved signoff per system: since a downgrade
+  cascades, two on one system can change the same signoffs, so SRM refuses the whole selection
+  and names the systems selected more than once.</li>
+<li>Or select the <strong>🔗</strong> button on a row to open the Signoff tab with that saved signoff's filter,
+  status and comment filled in, to review the components before saving.</li>
+</ul>
+<p>Both ways apply the <strong>Max Last Modified Date</strong> set on this page: signoffs changed after it are
+left alone. Set it to the start of the maintenance period, so that signoffs made since then
+aren't downgraded.</p>
+<p>To downgrade Ready signoffs to Checked without upgrading the ones that are Not Ready, set the
+filter's <strong>Status</strong> to Ready; <strong>Downgrade Only</strong> does that for you.</p>
+<h2 id="email">Email<a class="headerlink" href="#email" title="Permanent link">&para;</a></h2>
+<p>SRM sends three kinds of email:</p>
+<table>
+<thead>
+<tr>
+<th>Email</th>
+<th>Sent</th>
+<th>To</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Mask request</strong></td>
+<td>When someone <a href="../masks/#requesting-a-mask">requests a mask</a>.</td>
+<td>The addresses in the <code>EMAIL_MASK_REQUEST_LIST</code> setting.</td>
+</tr>
+<tr>
+<td><strong>Activity report</strong></td>
+<td>Daily at 7:00, when <code>EMAIL_ACTIVITY_ENABLED</code> is on.</td>
+<td>The addresses in the <code>EMAIL_ACTIVITY_LIST</code> setting.</td>
+</tr>
+<tr>
+<td><strong>Group action report</strong></td>
+<td>Daily at 7:00, when <code>EMAIL_LEADERS_ENABLED</code> is on.</td>
+<td>The leaders of each group.</td>
+</tr>
+</tbody>
+</table>
+<p>The two daily reports cover the day before, from 7:00 to 7:00. The activity report lists the
+signoff changes that left a component Checked or Not Ready: the new outstanding work. The group
+report lists the same for one group, such as a downgrade of that group's signoff or a cascade to
+it, each with a link to the Signoff tab for that group and system. The group report lists only
+the components in the <a href="#beam-destination-list">Current Run</a> destinations, so a group isn't
+emailed about destinations that aren't running; with no Current Run destination, it lists
+nothing. A report with nothing in it isn't sent.</p>
+<p>Feedback from the Help tab's form is emailed to the admins.</p>
+<p><strong>Setup › Email</strong>, for admins, shows who receives each email, shows whether the daily emails are
+on, and has a <strong>Preview</strong> of each report. <strong>Send Now</strong> sends a report at once, and <strong>Send To
+All</strong> sends every group its report. The recipients and the on/off switches are
+<a href="#settings-and-directory-cache">settings</a>.</p>
+<h2 id="settings-and-directory-cache">Settings and Directory Cache<a class="headerlink" href="#settings-and-directory-cache" title="Permanent link">&para;</a></h2>
+<p><strong>Setup › Settings</strong> lists the settings, by tag, and an admin can <strong>Edit</strong> a value. A change
+takes effect at once unless the setting's description says the app must be redeployed.</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>EMAIL_MASK_REQUEST_LIST</code></td>
+<td>Who is emailed about mask requests: addresses, separated by commas.</td>
+</tr>
+<tr>
+<td><code>EMAIL_ACTIVITY_ENABLED</code>, <code>EMAIL_ACTIVITY_LIST</code></td>
+<td>Whether the daily activity report is sent, and to whom.</td>
+</tr>
+<tr>
+<td><code>EMAIL_LEADERS_ENABLED</code></td>
+<td>Whether the daily group action reports are sent to group leaders.</td>
+</tr>
+<tr>
+<td><code>EMAIL_ENABLED</code>, <code>EMAIL_TESTING_ENABLED</code>, <code>EMAIL_SENDER_ADDRESS</code></td>
+<td>For the Help tab's feedback form: whether it sends email, whether it sends to the test group instead of the admins, and the sender's address.</td>
+</tr>
+<tr>
+<td><code>HELP_CONTENT_CONTACT</code>, <code>HELP_TECHNICAL_CONTACT</code>, <code>HELP_DOC_CSV</code></td>
+<td>The contacts and the documentation links on the Help tab. Each documentation link is <code>URL\|Label</code>.</td>
+</tr>
+<tr>
+<td><code>LINKS_GENERAL_CSV</code>, <code>LINKS_SKETCH_CSV</code></td>
+<td>The links in the General and Beamline Sketches sections of the <a href="../checklists/#links">Links</a> tab, in order, separated by commas: each is <code>URL\|Label</code>, and a label cannot contain a comma. A URL can start with <code>{CED_SERVER_URL}</code>, which stands for the CEBAF Element Database's address. Only <code>http</code>, <code>https</code> and relative URLs are shown, and a section with no links is hidden.</td>
+</tr>
+<tr>
+<td><code>NOTIFICATION_ENABLED</code>, <code>NOTIFICATION_MESSAGE</code>, <code>NOTIFICATION_LINK_NAME</code>, <code>NOTIFICATION_LINK_URL</code></td>
+<td>A banner across the top of every page, such as a notice of maintenance, with an optional link.</td>
+</tr>
+<tr>
+<td><code>IP_READ_FILTER_ENABLED</code>, <code>IP_READ_ALLOWLIST_PATTERN</code>, <code>IP_READ_URL_PATTERN</code></td>
+<td>Whether viewing without a login is limited to some network addresses, and which.</td>
+</tr>
+<tr>
+<td><code>ADMIN_ROLE_NAME</code></td>
+<td>The role that can edit settings, is listed on the Help tab and receives feedback.</td>
+</tr>
+<tr>
+<td><code>SMOOTHNESS_CDN_ENABLED</code>, <code>SMOOTHNESS_SERVER</code></td>
+<td>Where shared page resources are served from.</td>
+</tr>
+</tbody>
+</table>
+<p>Values changed directly in the database take effect after <strong>Refresh Cache</strong>.</p>
+<p><strong>Setup › Directory Cache</strong> shows the users and roles SRM has looked up in the user directory,
+which it keeps until midnight. Select <strong>Clear</strong> after someone is added to or removed from a
+group's leaders, so that it takes effect without waiting for the night.</p>
+<p>Server settings, such as the logbook server and which logbooks receive problem reports, are
+environment variables; see the <a href="https://github.com/JeffersonLab/srm#configure">README</a>.</p>
+<h2 id="help-tab">Help tab<a class="headerlink" href="#help-tab" title="Permanent link">&para;</a></h2>
+<p>The <strong>Help</strong> tab shows the release version and date, the content and technical contacts, the
+admins (when you are logged in), links to documentation, including this guide, and a feedback
+form that emails the admins.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../reports/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Reports">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Reports
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../faq/" class="md-footer__link md-footer__link--next" aria-label="Next: FAQ">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                FAQ
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["content.action.edit","navigation.footer","navigation.top","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.8b1c90bd.min.js"></script>
+      
+    
+  </body>
+</html>
