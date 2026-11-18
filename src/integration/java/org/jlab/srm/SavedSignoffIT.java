@@ -22,13 +22,18 @@ import org.junit.jupiter.api.Test;
 /**
  * The Signoff button on Setup › Saved Signoffs, which applies the selected saved signoffs with the
  * page's Max Last Modified Date. Each saved signoff filters on the name of a component the test
- * adds, so that it changes nothing else. Group 4 (Alignment) is responsible for system 141 and
- * needs no published checklist. Saved signoffs never mark a signoff as needing attention, which
- * would post to the real JLab logbook.
+ * adds, so that it changes nothing else. Group 4 (Alignment) is responsible for systems 141 and 42
+ * and needs no published checklist on either. Saved signoffs never mark a signoff as needing
+ * attention, which would post to the real JLab logbook.
  */
 class SavedSignoffIT {
 
   private static final String SYSTEM_ID = "141";
+  private static final String SYSTEM_NAME = "Cryomodules";
+
+  /** BPM (SEE), where group 4 is also the first group and needs no published checklist. */
+  private static final String OTHER_SYSTEM_ID = "42";
+
   private static final String GROUP_ID = "4";
   private static final String GROUP_NAME = "Alignment";
   private static final String READY = "1";
@@ -94,15 +99,15 @@ class SavedSignoffIT {
   @Test
   void signoffSkipsSavedSignoffsThatMatchNothing() throws Exception {
     String token = Srm.token(Srm.ADMIN);
-    String unmatchedName = addComponent(token);
-    String matchedName = addComponent(token);
+    String unmatchedName = addComponent(token, SYSTEM_ID);
+    String matchedName = addComponent(token, OTHER_SYSTEM_ID);
 
     assertSuccess(batchSignoff(token, componentIds.get(0), CHECKED, "checked by SavedSignoffIT"));
     assertSuccess(batchSignoff(token, componentIds.get(1), CHECKED, "checked by SavedSignoffIT"));
 
     // Only Ready signoffs, and this component's is Checked.
-    String unmatchedId = addSavedSignoff(token, unmatchedName, NOT_READY, READY);
-    String matchedId = addSavedSignoff(token, matchedName, NOT_READY, "");
+    String unmatchedId = addSavedSignoff(token, unmatchedName, SYSTEM_ID, NOT_READY, READY);
+    String matchedId = addSavedSignoff(token, matchedName, OTHER_SYSTEM_ID, NOT_READY, "");
 
     assertSuccess(signoffSaved(token, List.of(unmatchedId, matchedId), null));
 
@@ -125,7 +130,41 @@ class SavedSignoffIT {
     assertEquals("Not Ready", currentStatus(componentId));
   }
 
+  /**
+   * Saved signoffs on the same system may change the same signoffs, since a downgrade cascades to
+   * later groups, so a run that selects more than one per system is refused before any change.
+   */
+  @Test
+  void signoffRefusesMoreThanOneSavedSignoffPerSystem() throws Exception {
+    String token = Srm.token(Srm.ADMIN);
+    String firstName = addComponent(token);
+    String secondName = addComponent(token);
+
+    assertSuccess(batchSignoff(token, componentIds.get(0), CHECKED, "checked by SavedSignoffIT"));
+    assertSuccess(batchSignoff(token, componentIds.get(1), CHECKED, "checked by SavedSignoffIT"));
+
+    String firstId = addSavedSignoff(token, firstName, NOT_READY, "");
+    String secondId = addSavedSignoff(token, secondName, NOT_READY, "");
+
+    Document body = Jsoup.parse(signoffSaved(token, List.of(firstId, secondId), null));
+
+    assertEquals("Error", body.select(".status").text(), body.toString());
+    assertEquals(
+        "Only one saved signoff rule per System per bulk execution. Systems selected more than"
+            + " once: "
+            + SYSTEM_NAME
+            + " (2)",
+        body.select(".reason").text());
+
+    assertEquals("Checked", currentStatus(componentIds.get(0)));
+    assertEquals("Checked", currentStatus(componentIds.get(1)));
+  }
+
   private String addComponent(String token) throws Exception {
+    return addComponent(token, SYSTEM_ID);
+  }
+
+  private String addComponent(String token, String systemId) throws Exception {
     String name = "it-" + UUID.randomUUID().toString().substring(0, 8);
     JsonObject added =
         Srm.json(
@@ -134,7 +173,7 @@ class SavedSignoffIT {
                 token,
                 List.of(
                     Map.entry("name", name),
-                    Map.entry("system-id", SYSTEM_ID),
+                    Map.entry("system-id", systemId),
                     Map.entry("region-id", "1"),
                     Map.entry("masked", "N"))));
 
@@ -148,9 +187,15 @@ class SavedSignoffIT {
     return name;
   }
 
-  /** A saved signoff for one component; filterStatusId is "" for any status. */
   private String addSavedSignoff(
       String token, String componentName, String statusId, String filterStatusId) throws Exception {
+    return addSavedSignoff(token, componentName, SYSTEM_ID, statusId, filterStatusId);
+  }
+
+  /** A saved signoff for one component; filterStatusId is "" for any status. */
+  private String addSavedSignoff(
+      String token, String componentName, String systemId, String statusId, String filterStatusId)
+      throws Exception {
     HttpResponse<String> response =
         Srm.post(
             "/setup/ajax/add-saved-signoff",
@@ -160,7 +205,7 @@ class SavedSignoffIT {
                 Map.entry("signoffName", "SavedSignoffIT " + componentName),
                 Map.entry("signoffStatusId", statusId),
                 Map.entry("comments", "saved signoff by SavedSignoffIT"),
-                Map.entry("systemId", SYSTEM_ID),
+                Map.entry("systemId", systemId),
                 Map.entry("groupId", GROUP_ID),
                 Map.entry("regionId", ""),
                 Map.entry("filterStatusId", filterStatusId),

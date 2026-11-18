@@ -14,6 +14,8 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import org.jlab.smoothness.business.exception.UserFriendlyException;
 import org.jlab.srm.persistence.entity.*;
 
@@ -312,6 +314,8 @@ public class SavedSignoffFacade extends AbstractFacade<SavedSignoff> {
       throw new UserFriendlyException("Saved Signoff IDs cannot be empty.");
     }
 
+    List<SavedSignoff> savedList = new ArrayList<>();
+
     for (BigInteger savedSignoffId : savedSignoffIdArray) {
 
       SavedSignoff saved = find(savedSignoffId);
@@ -319,9 +323,6 @@ public class SavedSignoffFacade extends AbstractFacade<SavedSignoff> {
       if (saved == null) {
         throw new UserFriendlyException("Saved Signoff with ID " + savedSignoffId + " not found.");
       }
-
-      // TODO: here is where the magic goes!!!
-      System.err.println("magic happening with id: " + savedSignoffId);
 
       if (saved.getSystem() == null) {
         throw new UserFriendlyException("System cannot be empty");
@@ -331,6 +332,16 @@ public class SavedSignoffFacade extends AbstractFacade<SavedSignoff> {
         throw new UserFriendlyException("Group cannot be empty");
       }
 
+      savedList.add(saved);
+    }
+
+    String duplicateSystems = duplicateSystemsMessage(savedList);
+
+    if (duplicateSystems != null) {
+      throw new UserFriendlyException(duplicateSystems);
+    }
+
+    for (SavedSignoff saved : savedList) {
       BigInteger[] regionIdArray = null;
       BigInteger[] statusIdArray = null;
 
@@ -373,6 +384,39 @@ public class SavedSignoffFacade extends AbstractFacade<SavedSignoff> {
           componentIdList,
           groupIdList);
     }
+  }
+
+  /**
+   * Saved signoffs on the same system may change the same signoff twice: a downgrade cascades to
+   * later groups, which another saved signoff may also change. The signoff history keeps one row
+   * per signoff per second (GROUP_SIGNOFF_HISTORY_AK1), so the second change would fail with a
+   * database error and roll back the whole run. Refuse the selection instead.
+   *
+   * @param savedList the selected saved signoffs
+   * @return the message naming each system selected more than once, with its count, or null
+   */
+  static String duplicateSystemsMessage(List<SavedSignoff> savedList) {
+    Map<String, Integer> countBySystem = new TreeMap<>();
+
+    for (SavedSignoff saved : savedList) {
+      countBySystem.merge(saved.getSystem().getName(), 1, Integer::sum);
+    }
+
+    List<String> duplicates = new ArrayList<>();
+
+    for (Map.Entry<String, Integer> entry : countBySystem.entrySet()) {
+      if (entry.getValue() > 1) {
+        duplicates.add(entry.getKey() + " (" + entry.getValue() + ")");
+      }
+    }
+
+    if (duplicates.isEmpty()) {
+      return null;
+    }
+
+    return "Only one saved signoff rule per System per bulk execution. Systems selected more than"
+        + " once: "
+        + String.join(", ", duplicates);
   }
 
   private void doSignoff(

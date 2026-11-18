@@ -187,7 +187,9 @@ To use them:
 
 - Select one or more rows and select **Signoff** to make them all at once. The normal
   [signoff rules](signoff.md#signoff-rules) apply, and a downgrade cascades: later groups' Ready
-  signoffs become Checked.
+  signoffs become Checked. Select at most one saved signoff per system: since a downgrade
+  cascades, two on one system can change the same signoffs, so SRM refuses the whole selection
+  and names the systems selected more than once.
 - Or select the **🔗** button on a row to open the Signoff tab with that saved signoff's filter,
   status and comment filled in, to review the components before saving.
 
